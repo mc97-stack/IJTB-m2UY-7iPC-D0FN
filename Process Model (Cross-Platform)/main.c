@@ -78,7 +78,7 @@ void NiceThings()
 
 int main()
 {
-    printf("_Process Model v 0.0.1 (Private Beta)_\n");
+    printf("_Process Model - alpha build_\n");
     printf("Made by Matthew Cheung\n");
     printf("With thanks to the Chemical Engineering department at Heriot-Watt University\n\n");
     
