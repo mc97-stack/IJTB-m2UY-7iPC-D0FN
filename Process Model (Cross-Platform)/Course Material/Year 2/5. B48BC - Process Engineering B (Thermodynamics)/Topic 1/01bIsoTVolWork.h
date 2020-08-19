@@ -18,6 +18,7 @@ void IsoTVolWorkVar(double *n, double *T, double *P1, double *P2, double *V1, do
  V1 = Initial system volume (m3)
  V2 = Final system volume (m3)
  method = choice variable of volume work calculation (Volume -> method = 1 || Pressure -> method = 0)
+ The function returns the user inputted values of the variables required for this program and only operates within this file.
  */
 
 #endif /* IsoTVolWorkVar_h */
@@ -26,10 +27,10 @@ void IsoTVolWorkVar(double *n, double *T, double *P1, double *P2, double *V1, do
 #define IsoTVolWorkV_h
 
 double IsoTVolWorkV(double n, double T, double V1, double V2);
-/* Subroutine for calculating the volume work for a quasi-static process from volumetric changes. 
- Variables used:
+/* Subroutine for calculating the Isothermal volume work for a quasi-static process from volumetric changes. The variables being used are:
  frac = Volume ratio
  work = Volume work calculated through volume ratio
+ The function returns the isothermal volume work associated with a volumetric change.
  */
 
 #endif /* IsoTVolWorkV_h */
@@ -38,29 +39,14 @@ double IsoTVolWorkV(double n, double T, double V1, double V2);
 #define IsoTVolWorkP_h
 
 double IsoTVolWorkP(double n, double T, double P1, double P2);
-/* Subroutine for calculating the volume work for a quasi-static process from barometric changes. This function is later used to estimate the volume work 
+/* Subroutine for calculating the volume work for a quasi-static process from barometric changes.
  Variables used:
  frac = Pressure ratio
  work = Volume work calculated through pressure ratio
+ The function returns the isothermal volume work associated with a barometric change. This subroutine is later used in "IsoTVolWorkPlot(...)" to estimate the volume work. 
  */
 
 #endif /* IsoTVolWorkP_h */
-
-#ifndef IdealVolCalc_h
-#define IdealVolCalc_h
-
-double IdealVolCalc(double n, double T, double P);
-/*  Subroutine to calculate the volume from rearrangment of the ideal gas law*/
-
-#endif /* IdealVolCalc_h */
-
-#ifndef IdealPreCalc_h
-#define IdealPreCalc_h
-
-double IdealPreCalc(double n, double T, double V);
-/*  Subroutine to calculate the pressure from rearrangment of the ideal gas law*/
-
-#endif /* IdealPreCalc_h */
 
 #ifndef IsoTVolWorkPlot_h
 #define IsoTVolWorkPlot_h
@@ -76,6 +62,7 @@ void IsoTVolWorkPlot(double n, double T, double P1, double P2);
  - Column 2 = System volume (m3)
  - Column 3 = Section volume work (kW)
  - Column 4 = Cumulative volume work (kW)
+ The function does not currently return a value back to the parent routine, future developments may change this however.
  */
 
 #endif /* IsoTVolWorkPlot_h */

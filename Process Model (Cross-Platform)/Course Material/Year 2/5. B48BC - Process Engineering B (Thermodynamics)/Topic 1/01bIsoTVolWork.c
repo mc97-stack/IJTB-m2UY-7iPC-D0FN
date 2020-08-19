@@ -20,14 +20,6 @@
 #define maxstrlen 128
 #define R 8.31455
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
-
 void IsoTVolWorkVar(double *n, double *T, double *P1, double *P2, double *V1, double *V2, int method)
 {
     //Declaring input variables

@@ -20,13 +20,6 @@
 #define maxstrlen 128
 #define R 8.31455
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
 void IsoBVolWorkVar(double *n, double *P, double *V1, double *V2, double *T1, double *T2, int method)
 {
     //Declaring input variables
@@ -95,6 +88,7 @@ double IsoBVolWorkCalcT(double n, double T1, double T2)
     
     work = T2 - T1;
     work = n*R*(work);
+    
     return work;
 }
 

@@ -20,14 +20,6 @@
 #define maxstrlen 128
 #define R 8.31455
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
-
 void GenVolWorkVar(double *n, double *T1, double *T2, double *V1, double *V2)
 {
     //Declaring input variables
@@ -57,10 +49,10 @@ void GenVolWorkVar(double *n, double *T1, double *T2, double *V1, double *V2)
     fflush(stdout);
 }
 
-double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2, double *VolWork)
+double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2)
 {
-    double term1;
-    double term2;
+    double term1 = 0.0;
+    double term2 = 0.0;
     
     term1 = pow(T2, 2);
     term1 = (1.0)/(2.0)*term1;
@@ -69,19 +61,20 @@ double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2, doub
     term2 = V2/ V1;
     term2 = log(term2);
     
-    *VolWork = term1*term2;
-    *VolWork = (*VolWork)*n*R;
-    *VolWork = -1 * (*VolWork);
+    double VolWork = 0.0;
     
-    return *VolWork;
+    VolWork = term1*term2;
+    VolWork = (VolWork)*n*R;
+    VolWork = -1 * (VolWork);
+    
+    return VolWork;
 }
 
 void GenVolWorkPlot(double n, double T1, double T2, double V1, double V2)
 {
     //Profile is the results array containing the results matrix
-    double incr1;
-    double incr2;
-    double work;
+    double incr1 = 0.0;
+    double incr2 = 0.0;
     
     int reso = 50;
     
@@ -107,7 +100,7 @@ void GenVolWorkPlot(double n, double T1, double T2, double V1, double V2)
         profile[i][0] = profile[i - 1][0] + incr1;
         profile[i][1] = profile[i - 1][1] + incr2;
         profile[i][2] = IdealPressure(n, profile[i][0], profile[i][1]);
-        profile[i][3] = GenVolWorkCalc(n, profile[i - 1][0], profile[i][0], profile[i - 1][1], profile[i][1], &work);
+        profile[i][3] = GenVolWorkCalc(n, profile[i - 1][0], profile[i][0], profile[i - 1][1], profile[i][1]);
         profile[i][4] = profile[i - 1][4] + profile[i][3];
     }
     printf("%i rows generated.\n", i);
@@ -235,19 +228,19 @@ void GenVolWork()
     while(whilmain == 1)
     {
         //Variable declaration
-        double n;
-        double T1;
-        double T2;
-        double V1;
-        double V2;
+        double n = 0.0;
+        double T1 = 0.0;
+        double T2 = 0.0;
+        double V1 = 0.0;
+        double V2 = 0.0;
         
-        double VolWork;
+        double VolWork = 0.0;
         
         //Data collection
         GenVolWorkVar(&n, &T1, &T2, &V1, &V2);
         //Data manipulation
-        GenVolWorkCalc(n, T1, T2, V1, V2, &VolWork);
-        printf("W_V = %.3f kW\n\n", VolWork*0.001);
+        VolWork = GenVolWorkCalc(n, T1, T2, V1, V2);
+        printf("Work estimate: W_V = %.3f kW\n\n", VolWork*0.001);
         
         GenVolWorkPlot(n, T1, T2, V1, V2);
         

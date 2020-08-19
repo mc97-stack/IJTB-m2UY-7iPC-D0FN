@@ -15,7 +15,8 @@ void GenVolWorkVar(double *n, double *T1, double *T2, double *V1, double *V2);
  T1 = Initial system temperature (K)
  T2 = Final system temperature (K)
  V1 = Initial system volume (m3)
- V2 = Final system volume (m3)
+ V2 = Final system volume (m3).
+ The function returns the user inputted values of the variables required for this program.
  */
 
 #endif /* GenVolWorkVar_h */
@@ -23,10 +24,11 @@ void GenVolWorkVar(double *n, double *T1, double *T2, double *V1, double *V2);
 #ifndef GenVolWorkCalc_h
 #define GenVolWorkCalc_h
 
-double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2, double *VolWork);
-/* Subroutine for calculating the volume work for a quasi-static process. This is used by "GenVolWorkPlot(...)" to plot the process line. 
- Variables used:
- term 1 && term 2 = calculation variables
+double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2);
+/* Subroutine for calculating the volume work for a quasi-static process. The variables being used are:
+ term 1 && term 2 = calculation variables,
+    in addition to those stated earlier in data collection.
+ The function returns the volume work associated with an ideal gas. This is used by "GenVolWorkPlot(...)" to plot the process line.
  */
 
 #endif /* GenVolWorkVar_h */
@@ -35,8 +37,7 @@ double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2, doub
 #define GenVolWorkPlot_h
 
 void GenVolWorkPlot(double n, double T1, double T2, double V1, double V2);
-/* Subroutine for drawing the process line through a series of quasi static changes through using "GenVolWorkCalc".
- Variables used:
+/* Subroutine for drawing the process line through a series of quasi static changes using "GenVolWorkCalc". The variables being used are:
  reso = resolution/ number of iterations being used for calculation
  incr1 = Temperature increment between iterations across the set resolution
  incr2 = Volume increment between iterations across the set resolution
@@ -46,6 +47,7 @@ void GenVolWorkPlot(double n, double T1, double T2, double V1, double V2);
  - Column 3 = System pressure
  - Column 4 = Section volume work
  - Column 5 = Cumulative volume work
+ The function does not currently return a value back to the parent routine, future developments may change this however. The function is also not used outside of this file.
  */
 
 #endif /* GenVolWorkPlot_h */

@@ -20,13 +20,6 @@
 #define maxstrlen 128
 #define R 8.31455
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
 void IsoChHeatVar(double *n, double *c_v, double *V, double *P1, double *P2, double *T1, double *T2, int method)
 {
     //Declaring input variables
