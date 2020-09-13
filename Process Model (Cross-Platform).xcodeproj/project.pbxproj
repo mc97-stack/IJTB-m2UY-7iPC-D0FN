@@ -275,8 +275,6 @@
 				E8FEA63624ECDBE0003F9D5E /* 3. B48BB - Process Engineering A (Fluid Statics and Dynamics) */,
 				E8FEA61E24ECDBE0003F9D5E /* 4. F18XC - Mathematics for Engineers and Scientists 3 */,
 				E8FEA62324ECDBE0003F9D5E /* 5. B48BC - Process Engineering B (Thermodynamics) */,
-				E8FEA62824ECDBE0003F9D5E /* B48BCMenu.h */,
-				E8FEA62924ECDBE0003F9D5E /* B48BC.c */,
 				E8FEA62024ECDBE0003F9D5E /* 6. B48BD - Process Engineering C (Heat Transfer) */,
 				E8FEA62224ECDBE0003F9D5E /* 7. F18XD - Mathematics for Engineers and Scientists 4 */,
 				E8FEA62124ECDBE0003F9D5E /* Year2.c */,
@@ -321,6 +319,8 @@
 				E8FEA62524ECDBE0003F9D5E /* Topic 4 */,
 				E8FEA62624ECDBE0003F9D5E /* Topic 5 */,
 				E8FEA63424ECDBE0003F9D5E /* Topic 6 */,
+				E8FEA62924ECDBE0003F9D5E /* B48BC.c */,
+				E8FEA62824ECDBE0003F9D5E /* B48BCMenu.h */,
 			);
 			path = "5. B48BC - Process Engineering B (Thermodynamics)";
 			sourceTree = "<group>";
