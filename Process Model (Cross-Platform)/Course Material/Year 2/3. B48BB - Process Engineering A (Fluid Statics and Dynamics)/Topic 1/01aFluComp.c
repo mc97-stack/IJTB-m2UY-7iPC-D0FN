@@ -1,6 +1,6 @@
 //
 //  01aFluComp .c
-//  Process Model (MacOS Version)
+//  Process Model (Cross-Platform)
 //
 //  Created by Matthew Cheung on 23/06/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
