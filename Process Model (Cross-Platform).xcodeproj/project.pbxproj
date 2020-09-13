@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E81002A724F553DE00E68A00 /* 01aFluComp.c in Sources */ = {isa = PBXBuildFile; fileRef = E81002A624F553DE00E68A00 /* 01aFluComp.c */; };
+		E8304A1424FBB1F800D2B93B /* 01bFluidVHyd.c in Sources */ = {isa = PBXBuildFile; fileRef = E8304A1324FBB1F800D2B93B /* 01bFluidVHyd.c */; };
+		E8304A1724FBB6AC00D2B93B /* 01cMano.c in Sources */ = {isa = PBXBuildFile; fileRef = E8304A1624FBB6AC00D2B93B /* 01cMano.c */; };
+		E8B8519F250E418500B72538 /* 01dSurfTens.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B8519E250E418500B72538 /* 01dSurfTens.c */; };
+		E8B851A2250E4C7100B72538 /* 01eBubPres.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851A1250E4C7100B72538 /* 01eBubPres.c */; };
+		E8B851A5250E51CC00B72538 /* 01fCapp.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851A4250E51CC00B72538 /* 01fCapp.c */; };
 		E8FEA64924ECDBE2003F9D5E /* IdealGasLaw.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */; };
 		E8FEA64A24ECDBE2003F9D5E /* Year4.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA60E24ECDBE0003F9D5E /* Year4.c */; };
 		E8FEA64B24ECDBE2003F9D5E /* Year3.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA61624ECDBE0003F9D5E /* Year3.c */; };
@@ -34,6 +40,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E81002A524F553DD00E68A00 /* 01aFluComp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01aFluComp.h; sourceTree = "<group>"; };
+		E81002A624F553DE00E68A00 /* 01aFluComp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01aFluComp.c; sourceTree = "<group>"; };
+		E8304A1224FBB1F800D2B93B /* 01bFluidVHyd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01bFluidVHyd.h; sourceTree = "<group>"; };
+		E8304A1324FBB1F800D2B93B /* 01bFluidVHyd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01bFluidVHyd.c; sourceTree = "<group>"; };
+		E8304A1524FBB6AC00D2B93B /* 01cMano.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01cMano.h; sourceTree = "<group>"; };
+		E8304A1624FBB6AC00D2B93B /* 01cMano.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01cMano.c; sourceTree = "<group>"; };
+		E8B8519D250E418500B72538 /* 01dSurfTens.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01dSurfTens.h; sourceTree = "<group>"; };
+		E8B8519E250E418500B72538 /* 01dSurfTens.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01dSurfTens.c; sourceTree = "<group>"; };
+		E8B851A0250E4C7100B72538 /* 01eBubPres.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eBubPres.h; sourceTree = "<group>"; };
+		E8B851A1250E4C7100B72538 /* 01eBubPres.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eBubPres.c; sourceTree = "<group>"; };
+		E8B851A3250E51CC00B72538 /* 01fCapp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01fCapp.h; sourceTree = "<group>"; };
+		E8B851A4250E51CC00B72538 /* 01fCapp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01fCapp.c; sourceTree = "<group>"; };
 		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
@@ -515,6 +533,18 @@
 			isa = PBXGroup;
 			children = (
 				E8FEA65C24ED6A86003F9D5E /* B48BB_T1.h */,
+				E81002A524F553DD00E68A00 /* 01aFluComp.h */,
+				E81002A624F553DE00E68A00 /* 01aFluComp.c */,
+				E8304A1224FBB1F800D2B93B /* 01bFluidVHyd.h */,
+				E8304A1324FBB1F800D2B93B /* 01bFluidVHyd.c */,
+				E8304A1524FBB6AC00D2B93B /* 01cMano.h */,
+				E8304A1624FBB6AC00D2B93B /* 01cMano.c */,
+				E8B8519D250E418500B72538 /* 01dSurfTens.h */,
+				E8B8519E250E418500B72538 /* 01dSurfTens.c */,
+				E8B851A0250E4C7100B72538 /* 01eBubPres.h */,
+				E8B851A1250E4C7100B72538 /* 01eBubPres.c */,
+				E8B851A3250E51CC00B72538 /* 01fCapp.h */,
+				E8B851A4250E51CC00B72538 /* 01fCapp.c */,
 			);
 			path = "Topic 1";
 			sourceTree = "<group>";
@@ -577,15 +607,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8FEA65024ECDBE2003F9D5E /* 01aGenVolWork.c in Sources */,
+				E8304A1424FBB1F800D2B93B /* 01bFluidVHyd.c in Sources */,
+				E81002A724F553DE00E68A00 /* 01aFluComp.c in Sources */,
 				E8FEA64F24ECDBE2003F9D5E /* 01bIsoTVolWork.c in Sources */,
 				E8FEA64B24ECDBE2003F9D5E /* Year3.c in Sources */,
 				E8FEA65624ED6802003F9D5E /* B48BB.c in Sources */,
 				E8FEA65124ECDBE2003F9D5E /* 01cIsoBVolWork.c in Sources */,
 				E8FEA64924ECDBE2003F9D5E /* IdealGasLaw.c in Sources */,
 				E8FEA64E24ECDBE2003F9D5E /* 01dIsoChHeat.c in Sources */,
+				E8B851A2250E4C7100B72538 /* 01eBubPres.c in Sources */,
+				E8304A1724FBB6AC00D2B93B /* 01cMano.c in Sources */,
 				E8FEA65224ECDBE2003F9D5E /* Year1.c in Sources */,
 				E8FEA64A24ECDBE2003F9D5E /* Year4.c in Sources */,
 				E8FEA65324ECDBE2003F9D5E /* main.c in Sources */,
+				E8B8519F250E418500B72538 /* 01dSurfTens.c in Sources */,
+				E8B851A5250E51CC00B72538 /* 01fCapp.c in Sources */,
 				E8FEA64C24ECDBE2003F9D5E /* Year2.c in Sources */,
 				E8FEA64D24ECDBE2003F9D5E /* B48BC.c in Sources */,
 			);

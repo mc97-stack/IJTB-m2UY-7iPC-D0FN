@@ -37,7 +37,9 @@ void Mano(void);
 #define SurfTens_h
 
 void SurfTens(void);
-/*  Subroutine that calculates the force required to break a fluid's surface through the Du Nouy ring method. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
+/*  Subroutine that calculates the force required to break a fluid's surface through the Du Nouy ring method. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations. This subroutine has codependencies on the following functions:
+ - "BubPresCalc" located in "01eBubPres.c" to calculate the internal pressure of some bubble containing the fluid under analysis.
+ - "CappCalch" and "CappCalcP" located in "01fCapp.c" to calculate the cappillary rise and pressure respectively.
  */
 
 #endif /* SurfTens_h */
