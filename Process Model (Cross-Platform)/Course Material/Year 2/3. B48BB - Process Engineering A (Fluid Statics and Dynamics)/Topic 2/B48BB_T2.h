@@ -10,7 +10,7 @@
 #define MassCon_h
 
 void MassCon(void);
-/*  Subroutine that calculates an endstates volumetric and mass flowrates. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
+/*  Subroutine that calculates an endstates volumetric and mass flowrates. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations (See the function header file for more in depth description).
  */
 
 #endif /* MassCon_h */

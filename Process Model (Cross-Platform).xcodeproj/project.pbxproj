@@ -7,12 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E806F9E22518E14C003F3E78 /* 02g0VelProfileMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = E806F9E12518E14C003F3E78 /* 02g0VelProfileMenu.c */; };
+		E806F9E62518E39B003F3E78 /* 02g1LamVelPro.c in Sources */ = {isa = PBXBuildFile; fileRef = E806F9E52518E39B003F3E78 /* 02g1LamVelPro.c */; };
+		E806F9EC251902C7003F3E78 /* 02g2TurVelPro.c in Sources */ = {isa = PBXBuildFile; fileRef = E806F9EB251902C7003F3E78 /* 02g2TurVelPro.c */; };
+		E806F9F0251914A4003F3E78 /* 02hHagPois.c in Sources */ = {isa = PBXBuildFile; fileRef = E806F9EF251914A4003F3E78 /* 02hHagPois.c */; };
 		E81002A724F553DE00E68A00 /* 01aFluComp.c in Sources */ = {isa = PBXBuildFile; fileRef = E81002A624F553DE00E68A00 /* 01aFluComp.c */; };
 		E8304A1424FBB1F800D2B93B /* 01bFluidVHyd.c in Sources */ = {isa = PBXBuildFile; fileRef = E8304A1324FBB1F800D2B93B /* 01bFluidVHyd.c */; };
 		E8304A1724FBB6AC00D2B93B /* 01cMano.c in Sources */ = {isa = PBXBuildFile; fileRef = E8304A1624FBB6AC00D2B93B /* 01cMano.c */; };
 		E8B8519F250E418500B72538 /* 01dSurfTens.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B8519E250E418500B72538 /* 01dSurfTens.c */; };
 		E8B851A2250E4C7100B72538 /* 01eBubPres.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851A1250E4C7100B72538 /* 01eBubPres.c */; };
 		E8B851A5250E51CC00B72538 /* 01fCapp.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851A4250E51CC00B72538 /* 01fCapp.c */; };
+		E8B851A8250E609B00B72538 /* 02aMassCon.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851A7250E609B00B72538 /* 02aMassCon.c */; };
+		E8B851AB250FA11C00B72538 /* 02bEnerCon.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851AA250FA11C00B72538 /* 02bEnerCon.c */; };
+		E8B851AE250FAA8000B72538 /* 02cBernEqn.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851AD250FAA8000B72538 /* 02cBernEqn.c */; };
+		E8B851B1250FB53400B72538 /* 02dReyNo.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851B0250FB53400B72538 /* 02dReyNo.c */; };
+		E8B851B4250FBC0900B72538 /* 02fViscCorr.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B851B3250FBC0900B72538 /* 02fViscCorr.c */; };
 		E8FEA64924ECDBE2003F9D5E /* IdealGasLaw.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */; };
 		E8FEA64A24ECDBE2003F9D5E /* Year4.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA60E24ECDBE0003F9D5E /* Year4.c */; };
 		E8FEA64B24ECDBE2003F9D5E /* Year3.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA61624ECDBE0003F9D5E /* Year3.c */; };
@@ -40,6 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E806F9E12518E14C003F3E78 /* 02g0VelProfileMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02g0VelProfileMenu.c; sourceTree = "<group>"; };
+		E806F9E42518E39B003F3E78 /* 02g1LamVelPro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02g1LamVelPro.h; sourceTree = "<group>"; };
+		E806F9E52518E39B003F3E78 /* 02g1LamVelPro.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02g1LamVelPro.c; sourceTree = "<group>"; };
+		E806F9EA251902C7003F3E78 /* 02g2TurVelPro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02g2TurVelPro.h; sourceTree = "<group>"; };
+		E806F9EB251902C7003F3E78 /* 02g2TurVelPro.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02g2TurVelPro.c; sourceTree = "<group>"; };
+		E806F9EE251914A4003F3E78 /* 02hHagPois.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02hHagPois.h; sourceTree = "<group>"; };
+		E806F9EF251914A4003F3E78 /* 02hHagPois.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02hHagPois.c; sourceTree = "<group>"; };
 		E81002A524F553DD00E68A00 /* 01aFluComp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01aFluComp.h; sourceTree = "<group>"; };
 		E81002A624F553DE00E68A00 /* 01aFluComp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01aFluComp.c; sourceTree = "<group>"; };
 		E8304A1224FBB1F800D2B93B /* 01bFluidVHyd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01bFluidVHyd.h; sourceTree = "<group>"; };
@@ -52,6 +68,16 @@
 		E8B851A1250E4C7100B72538 /* 01eBubPres.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eBubPres.c; sourceTree = "<group>"; };
 		E8B851A3250E51CC00B72538 /* 01fCapp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01fCapp.h; sourceTree = "<group>"; };
 		E8B851A4250E51CC00B72538 /* 01fCapp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01fCapp.c; sourceTree = "<group>"; };
+		E8B851A6250E609B00B72538 /* 02aMassCon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02aMassCon.h; sourceTree = "<group>"; };
+		E8B851A7250E609B00B72538 /* 02aMassCon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02aMassCon.c; sourceTree = "<group>"; };
+		E8B851A9250FA11C00B72538 /* 02bEnerCon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02bEnerCon.h; sourceTree = "<group>"; };
+		E8B851AA250FA11C00B72538 /* 02bEnerCon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02bEnerCon.c; sourceTree = "<group>"; };
+		E8B851AC250FAA8000B72538 /* 02cBernEqn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02cBernEqn.h; sourceTree = "<group>"; };
+		E8B851AD250FAA8000B72538 /* 02cBernEqn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02cBernEqn.c; sourceTree = "<group>"; };
+		E8B851AF250FB53400B72538 /* 02dReyNo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02dReyNo.h; sourceTree = "<group>"; };
+		E8B851B0250FB53400B72538 /* 02dReyNo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02dReyNo.c; sourceTree = "<group>"; };
+		E8B851B2250FBC0900B72538 /* 02fViscCorr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02fViscCorr.h; sourceTree = "<group>"; };
+		E8B851B3250FBC0900B72538 /* 02fViscCorr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02fViscCorr.c; sourceTree = "<group>"; };
 		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
@@ -525,6 +551,23 @@
 			isa = PBXGroup;
 			children = (
 				E8FEA65D24ED8D8F003F9D5E /* B48BB_T2.h */,
+				E8B851A6250E609B00B72538 /* 02aMassCon.h */,
+				E8B851A7250E609B00B72538 /* 02aMassCon.c */,
+				E8B851A9250FA11C00B72538 /* 02bEnerCon.h */,
+				E8B851AA250FA11C00B72538 /* 02bEnerCon.c */,
+				E8B851AC250FAA8000B72538 /* 02cBernEqn.h */,
+				E8B851AD250FAA8000B72538 /* 02cBernEqn.c */,
+				E8B851AF250FB53400B72538 /* 02dReyNo.h */,
+				E8B851B0250FB53400B72538 /* 02dReyNo.c */,
+				E8B851B2250FBC0900B72538 /* 02fViscCorr.h */,
+				E8B851B3250FBC0900B72538 /* 02fViscCorr.c */,
+				E806F9E12518E14C003F3E78 /* 02g0VelProfileMenu.c */,
+				E806F9E42518E39B003F3E78 /* 02g1LamVelPro.h */,
+				E806F9E52518E39B003F3E78 /* 02g1LamVelPro.c */,
+				E806F9EA251902C7003F3E78 /* 02g2TurVelPro.h */,
+				E806F9EB251902C7003F3E78 /* 02g2TurVelPro.c */,
+				E806F9EE251914A4003F3E78 /* 02hHagPois.h */,
+				E806F9EF251914A4003F3E78 /* 02hHagPois.c */,
 			);
 			path = "Topic 2";
 			sourceTree = "<group>";
@@ -575,7 +618,7 @@
 		E8FEA5F524ECDAE9003F9D5E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Matthew Cheung";
 				TargetAttributes = {
 					E8FEA5FC24ECDAE9003F9D5E = {
@@ -612,18 +655,27 @@
 				E8FEA64F24ECDBE2003F9D5E /* 01bIsoTVolWork.c in Sources */,
 				E8FEA64B24ECDBE2003F9D5E /* Year3.c in Sources */,
 				E8FEA65624ED6802003F9D5E /* B48BB.c in Sources */,
+				E8B851B4250FBC0900B72538 /* 02fViscCorr.c in Sources */,
 				E8FEA65124ECDBE2003F9D5E /* 01cIsoBVolWork.c in Sources */,
 				E8FEA64924ECDBE2003F9D5E /* IdealGasLaw.c in Sources */,
+				E806F9E62518E39B003F3E78 /* 02g1LamVelPro.c in Sources */,
 				E8FEA64E24ECDBE2003F9D5E /* 01dIsoChHeat.c in Sources */,
 				E8B851A2250E4C7100B72538 /* 01eBubPres.c in Sources */,
+				E806F9E22518E14C003F3E78 /* 02g0VelProfileMenu.c in Sources */,
 				E8304A1724FBB6AC00D2B93B /* 01cMano.c in Sources */,
+				E8B851AE250FAA8000B72538 /* 02cBernEqn.c in Sources */,
+				E8B851AB250FA11C00B72538 /* 02bEnerCon.c in Sources */,
 				E8FEA65224ECDBE2003F9D5E /* Year1.c in Sources */,
+				E8B851B1250FB53400B72538 /* 02dReyNo.c in Sources */,
 				E8FEA64A24ECDBE2003F9D5E /* Year4.c in Sources */,
 				E8FEA65324ECDBE2003F9D5E /* main.c in Sources */,
 				E8B8519F250E418500B72538 /* 01dSurfTens.c in Sources */,
+				E806F9F0251914A4003F3E78 /* 02hHagPois.c in Sources */,
 				E8B851A5250E51CC00B72538 /* 01fCapp.c in Sources */,
+				E806F9EC251902C7003F3E78 /* 02g2TurVelPro.c in Sources */,
 				E8FEA64C24ECDBE2003F9D5E /* Year2.c in Sources */,
 				E8FEA64D24ECDBE2003F9D5E /* B48BC.c in Sources */,
+				E8B851A8250E609B00B72538 /* 02aMassCon.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +708,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -714,6 +767,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -742,6 +796,7 @@
 		E8FEA60524ECDAE9003F9D5E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2R77NGC7T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -752,6 +807,7 @@
 		E8FEA60624ECDAE9003F9D5E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2R77NGC7T;
 				ENABLE_HARDENED_RUNTIME = YES;
