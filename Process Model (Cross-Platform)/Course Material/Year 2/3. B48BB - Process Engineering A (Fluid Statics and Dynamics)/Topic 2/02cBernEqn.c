@@ -21,16 +21,7 @@
 #define g 9.80665
 
 //Declaring global variables
-    //Function Output
-double P2 = 0.0;
-    //Calculation Variables
-double P1 = 0.0;
-double rho = 0.0; //Remains constant as process is assumed to be isothermal
-double u1 = 0.0;
-double u2 = 0.0;
-double Z1 = 0.0;
-double Z2 = 0.0;
-double hf = 0.0;
+
     //Miscellaneous Variables
 
 
@@ -244,8 +235,20 @@ void BernEqn()
     while(whilmain == 1)
     {
         //Variable declaration
-        double LHS;
-        double RHS;
+            //Function Output
+        double P2 = 0.0;
+            //Calculation Variables
+        double P1 = 0.0;
+        double rho = 0.0; //Remains constant as process is assumed to be isothermal
+        double u1 = 0.0;
+        double u2 = 0.0;
+        double Z1 = 0.0;
+        double Z2 = 0.0;
+        double hf = 0.0;
+        
+        double LHS = 0.0;
+        double RHS = 0.0;
+        
         //Data collection
         BernEqnVar(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);
         printf("Function assignments:\n");

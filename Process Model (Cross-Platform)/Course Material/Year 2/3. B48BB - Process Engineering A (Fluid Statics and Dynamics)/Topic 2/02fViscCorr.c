@@ -20,14 +20,7 @@
 #define exp 2.718281828459045
 
 //Declaring global variables and allocating memory
-    //Function Output
-double mu = 0.0; //Fluid viscosity
-double upsi = 0.0; //Fluid kinematic viscosity
-    //Calculation Variables
-double a = 0.0;
-double b = 0.0;
-double T = 0.0;
-double rho = 0.0;
+
     //Miscellaneous Variables
 
 
@@ -92,6 +85,7 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho)
 double LiqViscCalc(double a, double b, double T)
 {
     double frac = 0.0;
+    double mu = 0.0;
     
     frac = b/T;
     mu = pow(exp, (frac));
@@ -107,6 +101,8 @@ double VapViscCalc(double a, double b, double T)
     double top = 0.0;
     double bot = 0.0;
     
+    double mu = 0.0;
+    
     top = pow(T, (1.5));
     top = a * (top);
     
@@ -120,6 +116,8 @@ double VapViscCalc(double a, double b, double T)
 
 double KinVisc(double mu, double rho)
 {
+    double upsi = 0.0;
+    
     upsi = (mu)/(rho);
     printf("Kinematic viscosity = %.3f [Units]\n", upsi);
     return upsi;
@@ -223,15 +221,16 @@ void ViscCorr()
         //Variable declaration
         char method[maxstrlen];
         
-        double a;
-        double b;
-        double T;
-        double rho;
+            //Function Output
+        double mu = 0.0; //Fluid viscosity
+        double upsi = 0.0; //Fluid kinematic viscosity
+            //Calculation Variables
+        double a = 0.0;
+        double b = 0.0;
+        double T = 0.0;
+        double rho = 0.0;
         
-        double mu;
-        double upsi;
-        
-        int whilmethod;
+        int whilmethod = 0;
         whilmethod = 1;
         
         //Data collection

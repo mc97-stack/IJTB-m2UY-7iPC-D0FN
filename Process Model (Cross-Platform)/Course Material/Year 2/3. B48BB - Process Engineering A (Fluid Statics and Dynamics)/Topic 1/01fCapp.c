@@ -21,18 +21,6 @@
 #define PI 3.141592653
 #define g 9.80665
 
-//Declaring global variables and allocating memory
-    //Function Output
-double h; //Capillary rise
-double Pc; //Capillary pressure
-    //Calculation Variables
-double sigma; //Surface tension
-double cang; //Contact angle
-double rho; //Fluid density
-double d; //Tube diameter
-    //Miscellaneous Variables
-
-
 void CappVar(double *sigma, double *cang, double *rho, double *d)
 {
     //Declaring input variables
@@ -60,8 +48,9 @@ void CappVar(double *sigma, double *cang, double *rho, double *d)
 
 double CappCalch(double sigma, double cang, double rho, double d)
 {
-    double top;
-    double bot;
+    double top = 0.0;
+    double bot = 0.0;
+    double h = 0.0;
     
     top = 2*sigma;
     top = (top)*cos(cang);
@@ -77,7 +66,8 @@ double CappCalch(double sigma, double cang, double rho, double d)
 
 double CappCalcP(double sigma, double cang, double d)
 {
-    double top;
+    double top = 0.0;
+    double Pc = 0.0;
     
     top = 2*sigma;
     top = (top)*cos(cang);
@@ -141,7 +131,7 @@ void Capp()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain;
+    int whilmain = 0;
     
     printf("Capillarity Calculator\n");
     whilmain = 1;
@@ -149,12 +139,16 @@ void Capp()
     while(whilmain == 1)
     {
         //Declaring function variables
-        double h; //Capillary rise
-        double Pc; //Capillary pressure
-        double sigma; //Surface tension
-        double cang; //Contact angle
-        double rho; //Fluid density
-        double d; //Tube diameter
+            //Function Output
+        double h = 0.0; //Capillary rise
+        double Pc = 0.0; //Capillary pressure
+            //Calculation Variables
+        double sigma = 0.0; //Surface tension
+        double cang = 0.0; //Contact angle
+        double rho = 0.0; //Fluid density
+        double d = 0.0; //Tube diameter
+        
+        int whilcont = 0;
         
         //Collecting & Manipulating data
         CappVar(&sigma, &cang, &rho, &d);
@@ -171,7 +165,7 @@ void Capp()
         //...
         
         //Continue function
-        int whilcont;
+        
         whilcont = 1;
         while(whilcont == 1)
         {

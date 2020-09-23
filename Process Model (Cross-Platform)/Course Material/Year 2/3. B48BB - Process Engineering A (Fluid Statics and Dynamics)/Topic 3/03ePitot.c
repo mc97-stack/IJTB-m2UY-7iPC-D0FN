@@ -21,17 +21,7 @@
 #define PI 3.14159265
 
 //Declaring global variables and allocating memory
-    //Function Output
-double P1 = 0.0;
-double v = 0.0;
-double Q = 0.0;
-    //Calculation Variables
-double P2 = 0.0;
-double rho1 = 0.0;
-double rho2 = 0.0;
-double h1 = 0.0;
-double h2 = 0.0;
-double d = 0.0;
+
     //Miscellaneous Variables
 
 
@@ -189,6 +179,18 @@ void Pitot()
     
     while(whilmain == 1)
     {
+            //Function Output
+        double P1 = 0.0;
+        double v = 0.0;
+        double Q = 0.0;
+            //Calculation Variables
+        double P2 = 0.0;
+        double rho1 = 0.0;
+        double rho2 = 0.0;
+        double h1 = 0.0;
+        double h2 = 0.0;
+        double d = 0.0;
+        
         //Data collection
         PitotVar(&P2, &rho1, &rho2, &h1, &h2, &d);
         

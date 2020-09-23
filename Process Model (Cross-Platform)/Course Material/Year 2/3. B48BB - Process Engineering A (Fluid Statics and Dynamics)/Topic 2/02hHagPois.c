@@ -19,14 +19,6 @@
 
 #define maxstrlen 128
 
-// Global variables
-double u = 0.0; //Average fluid velocity
-double mu = 0.0; //Fluid viscosity
-double L = 0.0; //Horizontal pipe length
-double d = 0.0; //Pipe diameter
-
-double dP = 0.0; //Frictional pressure loss
-
 void HagPoisVar(double *u, double *mu, double *L, double *d)
 {
     //Declaring input
@@ -163,6 +155,13 @@ void HagPois()
     {
         //Variable declaration
         char velprof[maxstrlen];
+        
+        double u = 0.0; //Average fluid velocity
+        double mu = 0.0; //Fluid viscosity
+        double L = 0.0; //Horizontal pipe length
+        double d = 0.0; //Pipe diameter
+
+        double dP = 0.0; //Frictional pressure loss
         
         //Data collection
         HagPoisVar(&u, &mu, &L, &d);

@@ -18,12 +18,6 @@
 
 #define maxstrlen 128
 
-//Variable declaration
-double A_F = 0.0; //Cross-sectional flow area
-double P_W = 0.0; //Wetted perimeter
-
-double d_H = 0.0; //Hydraulic diameter
-
 void HydrDiamVar(double *A_F, double *P_W)
 {
     //Input variables
@@ -64,13 +58,19 @@ void HydrDiam()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Hydraulic diameter calculation\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
+        double A_F = 0.0; //Cross-sectional flow area
+        double P_W = 0.0; //Wetted perimeter
+        
+        double d_H = 0.0; //Hydraulic diameter
         //Data collection
         HydrDiamVar(&A_F, &P_W);
+        
         //Data manipulation
         d_H = HydrDiamCalc(A_F, P_W);
         

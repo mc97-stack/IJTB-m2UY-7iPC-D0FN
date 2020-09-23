@@ -20,17 +20,6 @@
 #define maxstrlen 128 //Max string length
 #define g 9.80665 // Acceleration due to gravity
 
-//Declaring global variables and allocating memory
-    //Function Output
-double P; //Pressure of fluid
-
-    //Calculation Variables
-double rho; //Fluid Density
-double h; //Fluid height
-
-    //Miscellaneous Variables
-
-
 void FluidVHydVar(double *rho, double *h)
 {
     //Declaring input variables

@@ -25,13 +25,6 @@
 
 #define maxstrlen 128
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
 void VelProfile()
 {
     //Main Function

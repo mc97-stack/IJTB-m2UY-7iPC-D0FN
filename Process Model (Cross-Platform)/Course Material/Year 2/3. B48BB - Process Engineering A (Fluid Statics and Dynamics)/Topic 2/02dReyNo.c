@@ -19,13 +19,7 @@
 #define maxstrlen 128
 
 //Declaring global variables and allocating memory
-    //Function Output
-double ReyNum = 0.0;
-    //Calculation Variables
-double rho = 0.0;
-double u = 0.0;
-double d = 0.0;
-double mu = 0.0;
+
     //Miscellaneous Variables
 
 
@@ -169,12 +163,20 @@ void ReyNo()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain;
+    int whilmain = 0;
     printf("Program Title\n");
     whilmain = 1;
     
     while(whilmain == 1)
     {
+            //Function Output
+        double ReyNum = 0.0;
+            //Calculation Variables
+        double rho = 0.0;
+        double u = 0.0;
+        double d = 0.0;
+        double mu = 0.0;
+        
         //Data collection
         ReyNoVar(&rho, &u, &d, &mu);
         printf("Function returns:\n");

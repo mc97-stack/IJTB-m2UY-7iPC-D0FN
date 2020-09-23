@@ -21,19 +21,7 @@
 #define PI 3.14159265
 
 //Declaring global variables and allocating memory
-    //Function Output
-double dP;
-double m;
-double Q;
-double u;
-    //Calculation Variables
-double C_d;
-double V_f;
-double rho_f;
-double rho;
-double A_f;
-double are1;
-double are2;
+
 
     //Miscellaneous Variables
 
@@ -191,6 +179,19 @@ void Rotameter()
     while(whilmain == 1)
     {
         //Variable declaration
+            //Function Output
+        double dP = 0.0;
+        double m = 0.0;
+        double Q = 0.0;
+        double u = 0.0;
+            //Calculation Variables
+        double C_d = 0.0;
+        double V_f = 0.0;
+        double rho_f = 0.0;
+        double rho = 0.0;
+        double A_f = 0.0;
+        double are1 = 0.0;
+        double are2 = 0.0;
         
         //Data collection
         RotameterVar(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);

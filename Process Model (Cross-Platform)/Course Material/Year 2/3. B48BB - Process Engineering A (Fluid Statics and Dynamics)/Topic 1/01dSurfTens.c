@@ -22,13 +22,7 @@
 #define PI 3.141592653
 
 //Declaring global variables and allocating memory
-    //Main Function Output
-double sigma;
-    //Calculation Variables
-double F;
-double L;
-double C_F;
-double cang;
+
     //Miscellaneous Variables
 
 void wettfacts(double cang)
@@ -191,8 +185,10 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang)
 
 double duNouyCalc(double F, double L, double C_F, double cang)
 {
-    double top;
-    double bot;
+    double top = 0.0;
+    double bot = 0.0;
+    
+    double sigma = 0.0;
     
     top = C_F*F;
     bot = 2*L;
@@ -254,8 +250,9 @@ void SurfTens()
     //Main Function
     char ContCond[maxstrlen];
     char DropCond[maxstrlen];
+    char input[maxstrlen];
     
-    int whilmain;
+    int whilmain = 0;
     
     whilmain = 1;
     
@@ -269,23 +266,23 @@ void SurfTens()
         printf("Q: How do you model this fluid behaviour?\n\n");
          */
         //Declaring calculation variables
-        double F;
-        double L;
-        double C_F;
-        double cang;
+        double F = 0.0;
+        double L = 0.0;
+        double C_F = 0.0;
+        double cang = 0.0;
+        double rad = 0.0;
+        double rho = 0.0; //Fluid density
+        double d = 0.0; //Tube diameter
+        
         //Declaring output variables
-        double sigma;
+        double sigma = 0.0;
+        double ch = 0.0; // Capillary rise
+        double cp = 0.0; // Capillary pressure
         
         //Optional function variables
-        char input[maxstrlen];
         
-        double rad;
-        double rho; //Fluid density
-        double d; //Tube diameter
-        double ch;
-        double cp;
         
-        int DropCal;
+        int DropCal = 0;
         
         duNouyVar(&F, &L, &C_F, &cang);
         printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);

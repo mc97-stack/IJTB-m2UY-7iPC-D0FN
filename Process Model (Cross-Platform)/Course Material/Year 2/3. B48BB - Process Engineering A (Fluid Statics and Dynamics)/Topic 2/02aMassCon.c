@@ -14,25 +14,13 @@
 
 //  Custom header files
 #include "B48BB_T2.h"
-#include "02aMassCon.h"
+//#include "02aMassCon.h"
 
 #define maxstrlen 128
 #define PI 3.141592653
 
 //Declaring global variables
-    //Function Output
-double u2;
-    //Calculation Variables
-double rho1;
-double rho2;
-double d1;
-double d2;
-double u1;
 
-double m1;
-double m2;
-double q1;
-double q2;
     //Miscellaneous Variables
 
 
@@ -65,7 +53,8 @@ void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 
 double VelCalc(double u1, double d1, double d2)
 {
-    double frac;
+    double frac = 0.0;
+    double u2 = 0.0;
     
     frac = d1/d2;
     frac = pow((frac), 2);
@@ -210,17 +199,18 @@ void MassCon()
     while(whilmain == 1)
     {
         //Variable declaration & Allocation
-        double rho1;
-        double rho2;
-        double d1;
-        double d2;
-        double u1;
-        double u2;
+        double rho1 = 0.0;
+        double rho2 = 0.0;
+        double d1 = 0.0;
+        double d2 = 0.0;
+        double u1 = 0.0;
+        double u2 = 0.0;
         
-        double m1;
-        double m2;
-        double q1;
-        double q2;
+        double m1 = 0.0;
+        double m2 = 0.0;
+        double q1 = 0.0;
+        double q2 = 0.0;
+        
         //Data collection
         MassConVar(&rho1, &rho2, &d1, &d2, &u1);
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);

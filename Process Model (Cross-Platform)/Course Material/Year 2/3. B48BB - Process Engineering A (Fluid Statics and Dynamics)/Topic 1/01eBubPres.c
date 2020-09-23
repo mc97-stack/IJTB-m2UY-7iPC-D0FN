@@ -18,15 +18,6 @@
 
 #define maxstrlen 128
 
-//Declaring global variables and allocating memory
-    //Function Output
-double P;
-    //Calculation Variables
-double sigma; //Surface tension
-double r; //Bubble radius
-    //Miscellaneous Variables
-
-
 void BubPresVar(double *sigma, double *r)
 {
     //Declaring input variable
@@ -45,7 +36,8 @@ void BubPresVar(double *sigma, double *r)
 
 double BubPresCalc(double sigma, double r) 
 {
-    double top;
+    double top = 0.0;
+    double P = 0.0;
     
     top = 0.0; //Initialising variable
     
@@ -113,9 +105,9 @@ void BubPres()
     while(whilmain == 1)
     {
         //Declaring & Allocating main variables
-        double sigma;
-        double r;
-        double P;
+        double sigma = 0.0;
+        double r = 0.0;
+        double P = 0.0;
         
         BubPresVar(&sigma, &r);
         printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
@@ -152,7 +144,6 @@ void BubPres()
                     printf("Input not recognised\n");
                 break;
             }
-            void free(void *ContCond);
         }
     }
     fflush(stdout);

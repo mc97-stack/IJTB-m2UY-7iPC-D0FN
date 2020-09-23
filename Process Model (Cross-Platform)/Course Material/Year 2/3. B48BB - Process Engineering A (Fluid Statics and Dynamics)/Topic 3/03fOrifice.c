@@ -21,18 +21,7 @@
 #define PI 3.14159265
 
 //Declaring global variables and allocating memory
-    //Function Output
-double u = 0.0;
-double Q = 0.0;
-double m = 0.0;
-    //Calculation Variables
-double C_d = 0.0;
-double d1 = 0.0;
-double d2 = 0.0;
-double rho = 0.0;
-double P1 = 0.0;
-double P2 = 0.0;
-double h_f = 0.0;
+
 
     //Miscellaneous Variables
 
@@ -220,7 +209,18 @@ void Orifice()
     while(whilmain == 1)
     {
         //Variable declaration
-        
+            //Function Output
+        double u = 0.0;
+        double Q = 0.0;
+        double m = 0.0;
+            //Calculation Variables
+        double C_d = 0.0;
+        double d1 = 0.0;
+        double d2 = 0.0;
+        double rho = 0.0;
+        double P1 = 0.0;
+        double P2 = 0.0;
+        double h_f = 0.0;
         
         //Data collection
         OrificeVar(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);

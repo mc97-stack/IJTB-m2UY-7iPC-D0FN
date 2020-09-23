@@ -17,18 +17,6 @@
 
 #define maxstrlen 128
 
-//Declaring global variables and allocating memory
-    //Function Output
-double profile; //Array of doubles
-    //Calculation Variables
-double dP;
-double L;
-double d;
-double mu;
-double r;
-    //Miscellaneous Variables
-
-
 void LamVelProVar(double *dP, double *L, double *d, double *mu)
 {
     //Declaring input variables
@@ -262,10 +250,12 @@ void LamVelPro()
     while(whilmain == 1)
     {
         //Variable declaration
-        double dP;
-        double L;
-        double d;
-        double mu;
+            //Calculation Variables
+        double dP = 0.0;
+        double L = 0.0;
+        double d = 0.0;
+        double mu = 0.0;
+        
         //Data collection
         LamVelProVar(&dP, &L, &d, &mu);
         //Data manipulation

@@ -19,13 +19,6 @@
 #define maxstrlen 128
 #define g 9.80665
 
-//Declaring global variables and allocating memory
-    //Function Output
-//No function outputs as it is checking that the first law is not being violated
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
 double EnthalpyConv(double u, double P, double rho)
 {
     double h = 0.0; //Declaring and initialising

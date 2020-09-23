@@ -21,17 +21,6 @@
 #define R 8.31455
 #define BST (+1)
 
-//Declaring global variables and allocating memory
-    //Function Output
-double FCompCoeff; //Fluid Coefficient of Compressibility
-    //Calculation Variables
-double P;
-double V;
-double n;
-double T;
-    //Miscellaneous Variables
-
-
 void FluCompVar(double *P, double *V, double *n, double *T)
 {
     //Input variables
