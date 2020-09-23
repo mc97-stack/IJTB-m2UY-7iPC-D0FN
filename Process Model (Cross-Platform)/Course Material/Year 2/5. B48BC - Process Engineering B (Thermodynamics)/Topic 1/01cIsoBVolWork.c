@@ -94,9 +94,11 @@ double IsoBVolWorkCalcT(double n, double T1, double T2)
 
 void IsoBVolWorkPlot(double n, double P, double V1, double V2)
 {
-    double incr;
+    double incr = 0.0;
     
-    int reso = 50;
+    int reso = 0;
+    
+    reso = 50;
     
     incr = V2 - V1;
     incr = (incr)/reso;
@@ -122,8 +124,8 @@ void IsoBVolWorkPlot(double n, double P, double V1, double V2)
     printf("System conditions:\n");
     //Print System conditions
     printf("P (kPa)\tV (m3)\tT (deg C)\tW_V (kW)\tW_V (kW)\n");
-    int j = 0; //Number of columns
     
+    int j = 0; //Number of columns
     for(i = 0; i < (reso + 1); ++i){
         for(j = 0; j < 5; ++j)
         {
@@ -237,23 +239,28 @@ void IsoBVolWork()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Isobaric Process\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
         char input[maxstrlen];
         
-        double n;
-        double P;
-        double V1;
-        double V2;
-        double T1;
-        double T2;
+        double n = 0.0;
+        double P = 0.0;
+        double V1 = 0.0;
+        double V2 = 0.0;
+        double T1 = 0.0;
+        double T2 = 0.0;
         
-        int selec = 1;
-        int method = 2;
+        int selec = 0;
+        int method = 0; //Variable initialised as 2 to avoid triggering an unwanted behaviour
+        int whilcont = 0;
+        
+        selec = 1;
+        method = 2;
         //Data collection
         while(selec == 1)
         {
@@ -305,8 +312,9 @@ void IsoBVolWork()
         IsoBVolWorkPlot(n, P, V1, V2);
         //Ask for file write (Remember while loop)
         //...
+        
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

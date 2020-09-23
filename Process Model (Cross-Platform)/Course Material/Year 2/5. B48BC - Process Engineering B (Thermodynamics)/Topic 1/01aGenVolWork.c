@@ -54,14 +54,14 @@ double GenVolWorkCalc(double n, double T1, double T2, double V1, double V2)
     double term1 = 0.0;
     double term2 = 0.0;
     
+    double VolWork = 0.0;
+    
     term1 = pow(T2, 2);
     term1 = (1.0)/(2.0)*term1;
     term1 = term1 - ((1.0)/(2.0))*pow(T1, 2);
     
     term2 = V2/ V1;
     term2 = log(term2);
-    
-    double VolWork = 0.0;
     
     VolWork = term1*term2;
     VolWork = (VolWork)*n*R;
@@ -76,7 +76,9 @@ void GenVolWorkPlot(double n, double T1, double T2, double V1, double V2)
     double incr1 = 0.0;
     double incr2 = 0.0;
     
-    int reso = 50;
+    int reso = 0;
+    
+    reso = 50;
     
     incr1 = T2 - T1;
     incr1 = (incr1)/(double)reso;
@@ -222,9 +224,9 @@ void GenVolWork()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("General Volume Work\n");
-    
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
@@ -235,6 +237,8 @@ void GenVolWork()
         double V2 = 0.0;
         
         double VolWork = 0.0;
+        
+        int whilcont = 0;
         
         //Data collection
         GenVolWorkVar(&n, &T1, &T2, &V1, &V2);
@@ -247,7 +251,7 @@ void GenVolWork()
         //Ask for file write (Remember while loop)
         //...
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

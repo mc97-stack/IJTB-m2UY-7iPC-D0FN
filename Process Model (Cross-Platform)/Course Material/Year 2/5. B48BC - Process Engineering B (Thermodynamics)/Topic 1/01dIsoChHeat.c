@@ -79,7 +79,8 @@ void IsoChHeatVar(double *n, double *c_v, double *V, double *P1, double *P2, dou
 double IsoChHeatCalcT(double n, double c_v, double T1, double T2)
 {
     double Q = 0.0; //Process heat
-    double brack = 0.0; 
+    double brack = 0.0;
+    
     brack = T2 - T1;
     
     Q = n*c_v;
@@ -106,9 +107,11 @@ double IsoChHeatCalcP(double n, double c_v, double V, double P1, double P2)
 
 void IsoChHeatPlot(double n, double c_v, double V, double P1, double P2)
 {
-    double incr;
+    double incr = 0.0;
     
-    int reso = 50;
+    int reso = 0;
+    
+    reso = 50;
     
     incr = P2 - P1;
     incr = (incr)/reso;
@@ -257,18 +260,20 @@ void IsoChHeat()
         //Variable declaration
         char input[maxstrlen];
         
-        double n;
-        double c_v;
-        double V;
-        double P1;
-        double P2;
-        double T1;
-        double T2;
+        double n = 0.0;
+        double c_v = 0.0;
+        double V = 0.0;
+        double P1 = 0.0;
+        double P2 = 0.0;
+        double T1 = 0.0;
+        double T2 = 0.0;
         
-        double heat = 0;
+        double heat = 0.0;
         
         int whilinput = 1;
         int method = 2;
+        int whilcont = 1;
+        
         //Data collection
         while(whilinput == 1)
         {
@@ -312,8 +317,9 @@ void IsoChHeat()
         IsoChHeatPlot(n, c_v, V, P1, P2);
         //Ask for file write (Remember while loop)
         //...
+        
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

@@ -61,8 +61,8 @@ void IsoTVolWorkVar(double *n, double *T, double *P1, double *P2, double *V1, do
 
 double IsoTVolWorkV(double n, double T, double V1, double V2)
 {
-    double frac;
-    double work;
+    double frac = 0.0;
+    double work = 0.0;
     
     frac = V2/V1;
     
@@ -76,8 +76,8 @@ double IsoTVolWorkV(double n, double T, double V1, double V2)
 
 double IsoTVolWorkP(double n, double T, double P1, double P2) //No Memory allocation required - Remember to do it within your main function
 {
-    double frac;
-    double work;
+    double frac = 0.0;
+    double work = 0.0;
     
     frac = P2/P1;
     
@@ -90,9 +90,11 @@ double IsoTVolWorkP(double n, double T, double P1, double P2) //No Memory alloca
 
 void IsoTVolWorkPlot(double n, double T, double P1, double P2)
 {
-    double incr;
+    double incr = 0.0;
     
-    int reso = 50;
+    int reso = 0;
+    
+    reso = 50;
     
     incr = P2 - P1;
     incr = (incr)/reso;
@@ -232,10 +234,11 @@ void IsoTVolWork()
     //Main Function
     char input[maxstrlen];
     
-    int whilmain = 1;
-    int whilmethod;
+    int whilmain = 0;
+    int whilmethod = 0;
     printf("Isothermal Volume Work\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
@@ -247,6 +250,7 @@ void IsoTVolWork()
         double V2 = 0.0;
         
         int method = 0;
+        int whilcont = 1;
         
         //Data collection
         whilmethod = 1;
@@ -298,7 +302,7 @@ void IsoTVolWork()
         //Ask for file write (Remember while loop)
         //...
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");
