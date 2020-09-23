@@ -276,19 +276,19 @@ void ViscCorr()
             case '1':
             case 'L':
             case 'l':
-                LiqViscCalc(a, b, T, &mu);
+                mu = LiqViscCalc(a, b, T);
                 printf("Function returns: mu = %f [Units]\n", mu);
             break;
             case '2':
             case 'V':
             case 'v':
-                VapViscCalc(a, b, T, &mu);
+                mu = VapViscCalc(a, b, T);
                 printf("Function returns: mu = %f [Units]\n", mu);
             break;
             //Default case is not needed as input is checked earlier in function
         }
         printf("\n");
-        KinVisc(mu, rho, &upsi);
+        upsi = KinVisc(mu, rho);
         printf("Function returns: upsi = %f [Units]\n", upsi);
         //Ask for file write (Remember while loop)
         //...
