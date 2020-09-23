@@ -172,8 +172,8 @@ void B48BBtopic3()
                 HagPois();
             break;
             case '2':
-                //printf("Currently under construction\n");
-                GenPressLoss();
+                printf("Currently under construction\n");
+                //GenPressLoss();
             break;
             case '3':
                 HydrDiam();
