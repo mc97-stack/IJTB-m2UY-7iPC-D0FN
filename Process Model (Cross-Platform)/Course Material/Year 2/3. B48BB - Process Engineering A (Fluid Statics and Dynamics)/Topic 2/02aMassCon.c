@@ -19,7 +19,7 @@
 #define maxstrlen 128
 #define PI 3.141592653
 
-//Declaring global variables        
+//Declaring global variables
     //Function Output
 double u2;
     //Calculation Variables
