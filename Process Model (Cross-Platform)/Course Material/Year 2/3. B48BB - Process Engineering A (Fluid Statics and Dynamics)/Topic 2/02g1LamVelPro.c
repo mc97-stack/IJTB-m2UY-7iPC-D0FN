@@ -82,19 +82,23 @@ void LamVelProfCalc(double dP, double L, double d, double mu)
 {
     char display[maxstrlen];
     
-    double interval = 0.001;
-    double prad = d/2;
+    double interval = 0.0;
+    double prad = 0.0;
+    double r = 0.0;
     
     int rows = 0;
-    int whildisp = 1;
+    int i = 0;
+    int whildisp = 0;
     
+    interval = 0.001;
+    
+    prad = d/2;
     rows = ((prad)/ (interval)) + 1; //Calculating number of rows for the profile results matrix
     
     printf("%i rows required\n", rows); 
     double profile[rows][3];
     
-    int i = 0;
-    for(double r = 0.0; r < (prad + (interval/2)); r += interval)
+    for(r = 0.0; r < (prad + (interval/2)); r += interval)
     {
         profile[i][0] = r; //Displaying point radius
         profile[i][1] = LamVelCalc(dP, L, d, mu, r); //Calculating point velocity
@@ -104,6 +108,7 @@ void LamVelProfCalc(double dP, double L, double d, double mu)
     }
     printf("%i rows successfully generated\n\n", i);
     
+    whildisp = 1;
     while(whildisp == 1)
     {
         printf("Do you want to display the generated data? ");
@@ -149,8 +154,6 @@ void LamVelProfCalc(double dP, double L, double d, double mu)
             break;
         }
     }
-    
-    //return profile;
 }
 
 /*

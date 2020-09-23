@@ -260,8 +260,8 @@ void EnerCon()
     
     int whilmain = 0;
     printf("Energy Conservation Check\n");
-    whilmain = 1;
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
@@ -277,6 +277,10 @@ void EnerCon()
         double state1 = 0.0;
         double state2 = 0.0;
         double process = 0.0;
+        
+        double check = 0.0;
+        
+        int whilcont = 0;
         
         //Data collection
         EnerConVar(&h1, &h2, &u1, &u2, &z1, &z2, &q, &w);
@@ -301,8 +305,6 @@ void EnerCon()
         printf("Function returns: Process = %f\n\n", process);
         
         //Checking for a violation of the first law
-        double check;
-        
         check = state2 - state1;
         check = process - check;
         if(check <= 0.001)
@@ -314,8 +316,6 @@ void EnerCon()
         //Ask for file write (Remember while loop)
         //...
         
-        //Continue function
-        int whilcont;
         whilcont = 1;
         while(whilcont == 1)
         {

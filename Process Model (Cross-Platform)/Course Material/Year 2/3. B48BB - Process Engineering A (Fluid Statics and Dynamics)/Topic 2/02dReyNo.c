@@ -164,9 +164,10 @@ void ReyNo()
     char ContCond[maxstrlen];
     
     int whilmain = 0;
-    printf("Program Title\n");
-    whilmain = 1;
     
+    printf("Reynold's Number Calculator\n");
+    
+    whilmain = 1;
     while(whilmain == 1)
     {
             //Function Output
@@ -176,6 +177,8 @@ void ReyNo()
         double u = 0.0;
         double d = 0.0;
         double mu = 0.0;
+        
+        int whilcont = 0;
         
         //Data collection
         ReyNoVar(&rho, &u, &d, &mu);
@@ -191,8 +194,6 @@ void ReyNo()
         //Ask for file write (Remember while loop)
         //...
         
-        //Continue function
-        int whilcont;
         whilcont = 1;
         while(whilcont == 1)
         {

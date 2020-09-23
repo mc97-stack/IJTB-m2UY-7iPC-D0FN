@@ -30,19 +30,12 @@ void ManoMeasVar(double *P2, double *rho1, double *h1, double *rho2, double *h2)
     char abspres[maxstrlen];
     char inclcon[maxstrlen];
     
-    int PresCheck = 0;
-    int InclCheck = 0;
-    
     double L = 0.0;
     double incl = 0.0;
     
-    //Data collection
-    /*
-     Print statement
-     allocate memory for input variable
-     fgets input
-     free input variable
-     */
+    int PresCheck = 0;
+    int InclCheck = 0;
+    
     PresCheck = 1;
     while(PresCheck == 1)
     {
@@ -150,14 +143,6 @@ void ManoEstiVar(double *P1, double *P2, double *rho1, double *rho2, double *h1)
     char abspres[maxstrlen];
     
     int PresCheck = 0;
-    
-    //Data collection
-    /*
-     Print statement
-     allocate memory for input variable
-     fgets input
-     free input variable
-     */
     
     printf("P_1 (kPa_{abs}) = ");
     *P1 = atof(fgets(input, sizeof(input), stdin));
@@ -352,14 +337,16 @@ void Mano()
     printf("Manometer calculations\n");
     while(whilmain == 1)
     {
-        double P1;
-        double P2;
-        double rho1;
-        double rho2;
-        double h1;
-        double h2;
+        double P1 = 0.0;
+        double P2 = 0.0;
+        double rho1 = 0.0;
+        double rho2 = 0.0;
+        double h1 = 0.0;
+        double h2 = 0.0;
         
-        int whilside;
+        int whilcont = 0;
+        int whilside = 0;
+        
         whilside = 1;
         while(whilside == 1)
         {
@@ -395,15 +382,8 @@ void Mano()
                     printf("Input not recognised. \n");
                 break;
             }
-            void free(void *CalcSelec);
         }
-        void free(void *whilside);
         
-        //Ask for file write (Remember while loop)
-        //...
-        
-        
-        int whilcont;
         whilcont = 1;
         while(whilcont == 1)
         {

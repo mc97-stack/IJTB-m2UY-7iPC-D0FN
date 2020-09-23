@@ -29,7 +29,7 @@ void wettfacts(double cang)
 {
     //cang in degrees
     char selec[maxstrlen];
-    int condc;
+    int condc = 0;
     
     condc = 1;
     while(condc == 1)
@@ -94,7 +94,7 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang)
     
     double r = 0.0;
     
-    int whilvar;
+    int whilvar = 0;
     
     //Collect F
     printf("Force required to break fluid surface (N) = ");

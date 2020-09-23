@@ -19,11 +19,6 @@
 #define maxstrlen 128
 #define PI 3.141592653
 
-//Declaring global variables
-
-    //Miscellaneous Variables
-
-
 void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 {
     //Declaring input variables
@@ -67,8 +62,8 @@ double VelCalc(double u1, double d1, double d2)
 
 double VolFloCalc(double u, double d)
 {
-    double A; //Area of cross-section
-    double q; //Volumetric flow rate
+    double A = 0.0; //Area of cross-section
+    double q = 0.0; //Volumetric flow rate
     
     A = d/2;
     A = pow((A), 2);
@@ -82,8 +77,8 @@ double VolFloCalc(double u, double d)
 
 double MassFloCalc(double rho, double d, double u)
 {
-    double A; //Area of cross-section
-    double m; //Mass flowrate
+    double A = 0.0; //Area of cross-section
+    double m = 0.0; //Mass flowrate
     
     A = d/2;
     A = pow((A), 2);
@@ -211,6 +206,8 @@ void MassCon()
         double q1 = 0.0;
         double q2 = 0.0;
         
+        int whilcont = 0;
+        
         //Data collection
         MassConVar(&rho1, &rho2, &d1, &d2, &u1);
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
@@ -242,9 +239,6 @@ void MassCon()
         }
         //Ask for file write (Remember while loop)
         //...
-        
-        //Continue function
-        int whilcont;
         whilcont = 1;
         while(whilcont == 1)
         {

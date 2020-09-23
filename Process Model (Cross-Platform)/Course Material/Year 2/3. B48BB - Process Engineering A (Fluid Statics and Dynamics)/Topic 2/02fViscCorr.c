@@ -212,10 +212,10 @@ void ViscCorr()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain;
-    printf("Program Title\n");
-    whilmain = 1;
+    int whilmain = 0;
+    printf("Viscosity Correlation Calculator\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration

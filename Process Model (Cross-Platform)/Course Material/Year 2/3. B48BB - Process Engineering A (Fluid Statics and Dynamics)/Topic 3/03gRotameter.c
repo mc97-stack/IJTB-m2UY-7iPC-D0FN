@@ -173,9 +173,10 @@ void Rotameter()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
-    printf("Program Title\n");
+    int whilmain = 0;
+    printf("Rotameter Calculator\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration

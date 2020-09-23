@@ -64,10 +64,13 @@ void HydrDiam()
     whilmain = 1;
     while(whilmain == 1)
     {
+        //Declaring variables
         double A_F = 0.0; //Cross-sectional flow area
         double P_W = 0.0; //Wetted perimeter
         
         double d_H = 0.0; //Hydraulic diameter
+        
+        int whilcont = 0;
         //Data collection
         HydrDiamVar(&A_F, &P_W);
         
@@ -77,7 +80,7 @@ void HydrDiam()
         printf("d_H = %.3f mm\n\n", d_H*1000);
         
         //Continue function
-        int whilcont = 1;
+        whilcont = 0;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

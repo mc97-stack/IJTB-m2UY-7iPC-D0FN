@@ -97,7 +97,7 @@ void BubPres()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain;
+    int whilmain = 0;
     
     printf("Bubble Pressure Calculator\n");
     whilmain = 1;
@@ -109,14 +109,14 @@ void BubPres()
         double r = 0.0;
         double P = 0.0;
         
+        int whilcont = 0;
+        
         BubPresVar(&sigma, &r);
         printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         P = BubPresCalc(sigma, r);
         printf("Function returns: P = %f\n", P);
         //Ask for file write (Remember while loop)
         //...
-        //Continue function
-        int whilcont;
         
         whilcont = 1;
         while(whilcont == 1)

@@ -24,29 +24,26 @@
 void FluCompVar(double *P, double *V, double *n, double *T)
 {
     //Input variables
-    char pres[maxstrlen];
-    char vol[maxstrlen];
-    char mol[maxstrlen];
-    char temp[maxstrlen];
+    char input[maxstrlen];
     
     //Pressure
     printf("Absolute system pressure (kPa) = ");
-    *P = atof(fgets(pres, sizeof(pres), stdin));
+    *P = atof(fgets(input, sizeof(input), stdin));
     
     *P = *P * 1000.0;
     //Volume
     printf("System volume (m3) = ");
-    *V = atof(fgets(vol, sizeof(vol), stdin));
+    *V = atof(fgets(input, sizeof(input), stdin));
     
     //moles
     printf("Amount of Substance in System (kmol) = ");
-    *n = atof(fgets(mol, sizeof(mol), stdin));
+    *n = atof(fgets(input, sizeof(input), stdin));
     
     *n = *n * 1000.0; //Conversion to mol
     
     //Temperature
     printf("System Temperature (deg C) = ");
-    *T = atof(fgets(temp, sizeof(temp), stdin));
+    *T = atof(fgets(input, sizeof(input), stdin));
     
     *T = *T + 273.15; //Conversion to K
     
@@ -56,11 +53,11 @@ void FluCompVar(double *P, double *V, double *n, double *T)
 
 double FluCompCalc(double P, double V, double n, double T)
 {
-    double top;
-    double bot;
-    double frac;
+    double top = 0.0;
+    double bot = 0.0;
+    double frac = 0.0;
     
-    double c; // Fluid compressibility factor
+    double c = 0.0; // Fluid compressibility factor
     
     frac = (1.0)/V;
     frac = (-1.0)*(frac);
@@ -153,7 +150,7 @@ void FluComp()
     char SaveQ[maxstrlen];
     char ContIn[maxstrlen];
     
-    int WhilFlu;
+    int WhilFlu = 0;
     
     printf("Fluid Coefficient of Compressibility\n");
     
@@ -161,11 +158,11 @@ void FluComp()
     while(WhilFlu == 1)
     {
         //Declaring variables used
-        double FCompCoeff;
-        double P;
-        double V;
-        double n;
-        double T;
+        double FCompCoeff = 0.0;
+        double P = 0.0;
+        double V = 0.0;
+        double n = 0.0;
+        double T = 0.0;
         
         FluCompVar(&P, &V, &n, &T);
         printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);

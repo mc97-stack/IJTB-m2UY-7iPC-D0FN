@@ -15,12 +15,6 @@
 #define maxstrlen 128
 #define g 9.80665
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
 
 /*
 void [Data Plot & Write](...)

@@ -228,7 +228,7 @@ void BernEqn()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain;
+    int whilmain = 0;
     printf("Bernoulli's Equation\n");
     whilmain = 1;
     

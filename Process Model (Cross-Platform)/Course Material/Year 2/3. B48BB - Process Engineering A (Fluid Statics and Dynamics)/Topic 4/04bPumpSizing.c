@@ -20,14 +20,6 @@
 #define maxstrlen 128
 #define g 9.80665
 
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
-
 void PumpVar(double *Q, double *rho, double *Psat, double *SucVesselP, double *hs1, double *hs2, double *dPsuction, double *DisVesselP, double *hd1, double *hd2, double *dPdischarge, double *eta)
 {
     //Declaring input variables
@@ -226,9 +218,10 @@ void PumpSizing()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Pump Sizing Calculator\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
@@ -250,6 +243,8 @@ void PumpSizing()
         double AvailNPSH = 0.0; //Available NPSH
         double pumphead = 0.0;
         double pumppower = 0.0;
+        
+        int whilcont = 0;
         
         //Data collection
         PumpVar(&Q, &rho, &Psat, &SuctionVessP, &hs1, &hs2, &dPsuction, &DischargeVessP, &hd1, &hd2, &dPdischarge, &eta);
@@ -296,7 +291,7 @@ void PumpSizing()
         //Ask for file write (Remember while loop)
         //...
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

@@ -48,7 +48,7 @@ double HagPoisCalc(double u, double mu, double L, double d)
     double top = 0.0;
     double bot = 0.0;
     
-    double dP;
+    double dP = 0.0;
     
     top = 32*u;
     top = (top)*mu;
@@ -148,9 +148,10 @@ void HagPois()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Hagen-Poiseuille Equation\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration

@@ -98,24 +98,26 @@ void FluidVHyd()
     //Main Function
     char ContCond[maxstrlen];
     
-    double rho;
-    double h;
-    double P;
-    
-    int whilmain;
-    int whilcont;
+    int whilmain = 0;
     
     printf("Vertical Hydrostatic Pressure Gradient\n");
     whilmain = 1;
     
     while(whilmain == 1)
     {
+        double rho = 0.0;
+        double h = 0.0;
+        double P = 0.0;
+        
+        int whilcont = 0;
+        
         FluidVHydVar(&rho, &h);
         printf("rho = %f kg/m3\n", rho);
         printf("h = %f m\n", h);
         
         FluidVHydCalc(rho, h, &P);
         printf("Function returns %f\n", P);
+        
         //Ask for file write (Remember while loop)
         //printf("Do you want to plot the pressure variations up to this height? ");
         //FluidVHydProfile(*rho, *h);

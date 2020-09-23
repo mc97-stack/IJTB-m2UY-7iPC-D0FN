@@ -204,8 +204,9 @@ void Orifice()
     char ContCond[maxstrlen];
     
     int whilmain = 1;
-    printf("Program Title\n");
+    printf("Orifice Plate Meter Calculator\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
@@ -222,6 +223,8 @@ void Orifice()
         double P2 = 0.0;
         double h_f = 0.0;
         
+        int whilcont = 0;
+        
         //Data collection
         OrificeVar(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
         //Data manipulation
@@ -233,7 +236,7 @@ void Orifice()
         //Ask for file write (Remember while loop)
         //...
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

@@ -20,11 +20,6 @@
 #define maxstrlen 128
 #define PI 3.14159265
 
-//Declaring global variables and allocating memory
-
-    //Miscellaneous Variables
-
-
 void PitotVar(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
     char input[maxstrlen];
@@ -61,23 +56,21 @@ void PitotVar(double *P2, double *rho1, double *rho2, double *h1, double *h2, do
 void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double d, double *P1, double *v, double *Q)
 {
     //P1 = Process fluid pressure
-    double dP = 0;
+    double dP = 0.0;
+    double frac = 0.0;
+    double pare = 0.0;
     
     //Manometer calculations - Get dP
     *P1 = ManoMeasCal(P2, rho1, h1, rho2, h2);
     dP = P2 - (*P1);
     
     //Velocity calculation
-    double frac;
-    
     frac = 2*dP;
     frac = (frac)/(rho1);
     printf("frac = %f\n", frac);
     *v = pow((frac), 0.5);
     //Volumetric flowrate calculation
         //Calculating pipe area
-    double pare;
-    
     pare = d/(2.0); //Getting pipe radius
     pare = pow(pare, 2);
     pare = PI*(pare);
@@ -174,9 +167,10 @@ void Pitot()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Pitot static tube calculation\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
             //Function Output
@@ -190,6 +184,8 @@ void Pitot()
         double h1 = 0.0;
         double h2 = 0.0;
         double d = 0.0;
+        
+        int whilcont = 0;
         
         //Data collection
         PitotVar(&P2, &rho1, &rho2, &h1, &h2, &d);
@@ -205,7 +201,7 @@ void Pitot()
         //Ask for file write (Remember while loop)
         //...
         //Continue function
-        int whilcont = 1;
+        whilcont = 1;
         while(whilcont == 1)
         {
             printf("Do you want to continue? ");

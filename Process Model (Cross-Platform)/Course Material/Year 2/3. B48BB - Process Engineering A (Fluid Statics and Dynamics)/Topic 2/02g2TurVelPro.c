@@ -223,14 +223,15 @@ void TurVelPro()
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 1;
-    printf("Program Title\n");
+    int whilmain = 0;
+    printf("Prandtl's One-Seventh Law Velocity Profile\n");
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
-        double vmax;
-        double d;
+        double vmax = 0;
+        double d = 0;
         
         //Data collection
         TurVelProVar(&vmax, &d);
