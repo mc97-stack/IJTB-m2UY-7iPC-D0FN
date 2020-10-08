@@ -28,31 +28,34 @@ void B48BCtopic1(){
     whilt = 1;
     while(whilt == 1){
         B48BCTopComm();
-        printf("1. General Volume Work\n2. Isothermal Volume Work\n3. Isobaric Volume Work\n4. Isochoric Heat\n");
+        printf("1. General Volume Work (Polytropic Process)\n2. Isothermal Volume Work\n3. Isobaric Volume Work\n4. Isochoric Heat\n5. Adiabatic Volume Work\n");
         printf("q. Exit topic\n\n");
-        printf("Selection [1-4]: ");
+        printf("Selection [1-5]: ");
         
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
         switch(B48BCTopMenu[0]){
             case '1':
-                GenVolWork();
-            break;
+                Polytropic();
+                break;
             case '2':
-                IsoTVolWork();
-            break;
+                Isothermal();
+                break;
             case '3':
-                IsoBVolWork();
-            break;
+                Isobaric();
+                break;
             case '4':
-                IsoChHeat();
-            break;
+                Isochoric();
+                break;
+            case '5':
+                Adiabatic();
+                break;
             case 'Q':
             case 'q':
                 whilt = 0;
-            break;
+                break;
             default:
                 printf("Input not recognised.\n");
-            break;
+                break;
         }
     }
 }

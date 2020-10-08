@@ -30,7 +30,7 @@ void Year2()
         printf("2. B48BA - Process Industries C\n");
         printf("3. B48BB - Process Engineering A (Fluid Statics and Dynamics)\n");
         printf("4. F18XC - Mathematics for Engineers and Scientists 3\n");
-        printf("5. B48BC - Process Engineering B (Introduction to Thermodynamics)\n");
+        printf("5. B48BC - Process Engineering B (Thermodynamic Processes)\n");
         printf("6. B48BD - Process Engineering C (Heat Transfer)\n");
         printf("7. F18XD - Mathematics for Engineers and Scientists 4\n");
         printf("q. Exit menu\n");
