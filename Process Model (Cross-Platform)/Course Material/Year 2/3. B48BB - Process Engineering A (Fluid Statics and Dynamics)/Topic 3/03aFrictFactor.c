@@ -33,7 +33,7 @@ double Turbulent1(double rho, double u, double d, double mu)
     FrictFactor = pow(FrictFactor, (-0.25));
     FrictFactor = 0.0396*(FrictFactor);
     
-    printf("phi1 = %f \n\n", FrictFactor);
+    //printf("phi1 = %f \n\n", FrictFactor);
     
     return FrictFactor;
 }
@@ -82,7 +82,7 @@ double Turbulent2(double rho, double u, double d, double mu)
     }
     //printf("Minimum value has been found at i = %d\n", i);
     FrictFactor = 0.001 + (i-1)*(incr);
-    printf("phi2 = %f \n\n", FrictFactor);
+    //printf("phi2 = %f \n\n", FrictFactor);
     
     return FrictFactor;
 }
@@ -139,7 +139,7 @@ double Turbulent3(double rho, double u, double d, double mu, double vareps)
     }
     //printf("Minimum value has been found at i = %d\n", i-1);
     FrictFactor = 0.001 + (i-1)*(incr);
-    printf("phi3 = %f \n\n", FrictFactor);
+    //printf("phi3 = %f \n\n", FrictFactor);
     
     return FrictFactor;
 }
