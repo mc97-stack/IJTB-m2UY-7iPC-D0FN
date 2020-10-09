@@ -9,7 +9,7 @@
 #ifndef GenPressLoss_h
 #define GenPressLoss_h
 
-void GenPressLoss(void);
+void GenPressureLoss(void);
 /*  Subroutine used to calculate the pressure losses incurred by any moving fluid. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
  */
 

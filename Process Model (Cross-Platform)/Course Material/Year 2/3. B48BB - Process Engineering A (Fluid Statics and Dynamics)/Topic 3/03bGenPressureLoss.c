@@ -1,67 +1,137 @@
 //
-//  02dReyNo.c
+//  03bGenPressureLoss.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 28/06/2020.
+//  Created by Matthew Cheung on 09/10/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//  Standard header files
+//Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-//  Custom header files
-#include "B48BB_T2.h"
+//Custom Header Files
+#include "B48BB_T3.h"
+#include "03bGenPressureLoss.h"
 #include "02dReyNo.h"
+#include "03aFrictFactor.h"
 
 #define maxstrlen 128
 
-//Declaring global variables and allocating memory
-
-    //Miscellaneous Variables
-
-
-void ReyNoVar(double *rho, double *u, double *d, double *mu)
+void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L, double *vareps)
 {
-    //Declaring input variables
     char input[maxstrlen];
     
-    printf("Fluid Density (kg/m3) = ");
+    printf("Fluid density (kg/m3) = ");
     *rho = atof(fgets(input, sizeof(input), stdin));
     
-    printf("Average fluid velocity (m/s) = ");
+    printf("Fluid velocity (m/s) = ");
     *u = atof(fgets(input, sizeof(input), stdin));
+    
+    printf("Fluid viscosity (cP) = ");
+    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = (*mu) * 0.001;
     
     printf("Pipe diameter (mm) = ");
     *d = atof(fgets(input, sizeof(input), stdin));
+    *d = (*d) * 0.001;
     
-    *d = (*d)*0.001; //Conversion (mm to m)
+    printf("Pipe length (m) = ");
+    *L = atof(fgets(input, sizeof(input), stdin));
     
-    printf("Fluid Viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
-    
-    *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
-    
-    printf("Function assignments:\n");
-    printf("rho = %.3f kg/m3\n", *rho);
-    printf("u = %.3f m/s\n", *u);
-    printf("d = %.3f m\n", *d);
-    printf("mu = %.3f Pa.s\n\n", *mu);
+    if(ReyNoCalc(*rho, *u, *d, *mu) > 2500){
+        printf("Pipe absolute roughness (mm) = ");
+        *vareps = atof(fgets(input, sizeof(input), stdin));
+        *vareps = (*vareps) * 0.001;
+    }else{ 
+        *vareps = 0.0;
+    }
     fflush(stdout);
 }
 
-double ReyNoCalc(double rho, double u, double d, double mu)
+double phicalc(double rho, double u, double d, double mu, double vareps)
 {
-    double ReyNum = 0.0;
+    char rough[maxstrlen];
     
-    ReyNum = rho * u;
-    ReyNum = (ReyNum)*d;
-    ReyNum = (ReyNum)/mu;
+    double phi = 0.0;
     
-    return ReyNum;
+    int roughcheck = 0;
+    
+    if(ReyNoCalc(rho, u, d, mu) < 2000){
+        phi = Laminar(rho, u, d, mu);
+    }else{
+        if(ReyNoCalc(rho, u, d, mu) < 2500){
+            printf("2000 < Re < 2500: Correlations are unavailable. Assuming laminar friction factor.\n");
+            phi = Laminar(rho, u, d, mu);
+        }else{
+            roughcheck = 1;
+            while(roughcheck == 1){
+                printf("Is the friction factor independent of Reynolds number? [Y/N] ");
+                fgets(rough, sizeof(rough), stdin);
+                switch(rough[0]){
+                    case '1':
+                    case 'T':
+                    case 'Y':
+                    case 't':
+                    case 'y':
+                        d = d*1000;
+                        vareps = vareps*1000;
+                        phi = Turbulent4(d, vareps);
+                        roughcheck = 0;
+                        break;
+                    case '0':
+                    case 'F':
+                    case 'N':
+                    case 'f':
+                    case 'n':
+                        if(Turbulent1(rho, u, d, mu) > Turbulent2(rho, u, d, mu) && Turbulent1(rho, u, d, mu) > Turbulent3(rho, u, d, mu, vareps))
+                        {
+                            printf("Turbulent1(...) provides the highest friction factor\n");
+                            phi = Turbulent1(rho, u, d, mu);
+                        }else{
+                            if(Turbulent2(rho, u, d, mu) > Turbulent3(rho, u, d, mu, vareps)){
+                                printf("Turbulent2(...) provides the highest friction factor\n");
+                                phi = Turbulent2(rho, u, d, mu);
+                            }else{
+                                printf("Turbulent3(...) provides the highest friction factor\n");
+                                phi = Turbulent3(rho, u, d, mu, vareps);
+                            }
+                        }
+                        roughcheck = 0;
+                        break;
+                    default:
+                        printf("Invalid input, please try again\n");
+                        break;
+                }
+            }
+        }
+    }
+    fflush(stdout);
+    return phi;
 }
+
+double LossCalculation(double phi, double L, double d, double rho, double u)
+{
+    double frac1 = 0.0;
+    double frac2 = 0.0;
+    double dP = 0.0;
+    
+    frac1 = L/d;
+    
+    frac2 = pow(u, 2);
+    frac2 = rho*(frac2);
+    frac2 = (frac2)/(2.0);
+    
+    dP = 8*phi;
+    dP = (dP)*frac1;
+    dP = (dP)*frac2;
+    
+    return dP;
+}
+
 /*
 void [Data Plot & Write](...)
 {
@@ -146,55 +216,40 @@ void [Data Plot & Write](...)
     fflush(stdout);
 }
 */
-void ReyNo()
+void GenPressureLoss()
 {
     //Main Function
     char ContCond[maxstrlen];
     
-    int whilmain = 0;
+    int whilmain = 1;
+    printf("General Pressure Loss\n");
     
-    printf("Reynold's Number Calculator\n");
-    
-    whilmain = 1;
     while(whilmain == 1)
     {
-            //Function Output
-        double ReyNum = 0.0;
-            //Calculation Variables
+        //Variable declaration
         double rho = 0.0;
         double u = 0.0;
         double d = 0.0;
         double mu = 0.0;
+        double L = 0.0;
+        double vareps = 0.0;
+        
+        double phi = 0.0;
+        double dP = 0.0;
         
         int whilcont = 0;
         
         //Data collection
-        ReyNoVar(&rho, &u, &d, &mu);
-        printf("Function returns:\n");
-        printf("rho = %f \n", rho);
-        printf("u = %f \n", u);
-        printf("d = %f \n", d);
-        printf("mu = %f \n\n", mu);
-        
+        PressLossVariable(&rho, &u, &d, &mu, &L, &vareps);
         //Data manipulation
-        ReyNum = ReyNoCalc(rho, u, d, mu);
+        phi = phicalc(rho, u, d, mu, vareps);
+        printf("phi = %.5f [ ]\n", phi);
+        dP = LossCalculation(phi, L, d, rho, u);
+        printf("dP = %.3f kPa\n", dP*0.001);
         
-        printf("Reynolds Number = %.3f []\n", ReyNum);
-        if(ReyNum < 2000)
-        {
-            printf("Flow regime is laminar \n");
-        }else{
-            if(ReyNum <3000){
-                printf("Flow regime lies within the transition region. Consider using experimental data going forward.\n");
-            }else{
-                printf("Flow regime is turbulent. \n");
-            }
-        }
-        
-        printf("Function returns: ReyNum = %f \n", ReyNum);
         //Ask for file write (Remember while loop)
         //...
-        
+        //Continue function
         whilcont = 1;
         while(whilcont == 1)
         {

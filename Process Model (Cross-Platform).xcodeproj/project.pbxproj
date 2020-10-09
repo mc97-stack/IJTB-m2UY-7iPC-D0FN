@@ -39,6 +39,9 @@
 		E8B15579251BEB6700808CE9 /* 04bPumpSizing.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B15539251BE02800808CE9 /* 04bPumpSizing.c */; };
 		E8B15583251BEBA000808CE9 /* B48BC.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA62924ECDBE0003F9D5E /* B48BC.c */; };
 		E8B15585251BEBA900808CE9 /* B48BB.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA65524ED6802003F9D5E /* B48BB.c */; };
+		E8B2ED82253084AB00AA3C54 /* 03aFrictFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */; };
+		E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */; };
+		E8B6675A2530D29000D1ADB8 /* 03daoneK.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667592530D29000D1ADB8 /* 03daoneK.c */; };
 		E8C4342D252F713C00662F7C /* 01aPolytropic.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C4342C252F713C00662F7C /* 01aPolytropic.c */; };
 		E8C43432252F926700662F7C /* 01bIsothermal.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C43431252F926700662F7C /* 01bIsothermal.c */; };
 		E8C43437252FA10900662F7C /* 01cIsobaric.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C43436252FA10900662F7C /* 01cIsobaric.c */; };
@@ -89,6 +92,12 @@
 		E8B15538251BE02800808CE9 /* 04bPumpSizing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04bPumpSizing.h; sourceTree = "<group>"; };
 		E8B15539251BE02800808CE9 /* 04bPumpSizing.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04bPumpSizing.c; sourceTree = "<group>"; };
 		E8B1553D251BE6BF00808CE9 /* 02aMassCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02aMassCon.h; sourceTree = "<group>"; };
+		E8B2ED80253084AB00AA3C54 /* 03aFrictFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03aFrictFactor.h; sourceTree = "<group>"; };
+		E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03aFrictFactor.c; sourceTree = "<group>"; };
+		E8B667532530C1E200D1ADB8 /* 03bGenPressureLoss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03bGenPressureLoss.h; sourceTree = "<group>"; };
+		E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03bGenPressureLoss.c; sourceTree = "<group>"; };
+		E8B667582530D29000D1ADB8 /* 03daoneK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03daoneK.h; sourceTree = "<group>"; };
+		E8B667592530D29000D1ADB8 /* 03daoneK.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03daoneK.c; sourceTree = "<group>"; };
 		E8B8519D250E418500B72538 /* 01dSurfTens.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01dSurfTens.h; sourceTree = "<group>"; };
 		E8B8519E250E418500B72538 /* 01dSurfTens.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01dSurfTens.c; sourceTree = "<group>"; };
 		E8B851A0250E4C7100B72538 /* 01eBubPres.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eBubPres.h; sourceTree = "<group>"; };
@@ -572,20 +581,26 @@
 		E8FEA65924ED686F003F9D5E /* Topic 3 */ = {
 			isa = PBXGroup;
 			children = (
-				E8FEA65E24ED8DA4003F9D5E /* B48BB_T3.h */,
-				E8B15516251BB71400808CE9 /* 03cHydrDiam.h */,
+				E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */,
+				E8B2ED80253084AB00AA3C54 /* 03aFrictFactor.h */,
+				E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */,
+				E8B667532530C1E200D1ADB8 /* 03bGenPressureLoss.h */,
 				E8B15517251BB71400808CE9 /* 03cHydrDiam.c */,
+				E8B15516251BB71400808CE9 /* 03cHydrDiam.h */,
 				E8B1551B251BBC5600808CE9 /* 03d1Fittings.c */,
-				E8B15524251BC0CE00808CE9 /* 03dbthreeK.h */,
+				E8B667592530D29000D1ADB8 /* 03daoneK.c */,
+				E8B667582530D29000D1ADB8 /* 03daoneK.h */,
 				E8B15525251BC0CE00808CE9 /* 03dbthreeK.c */,
-				E8B15528251BC7E400808CE9 /* 03dcEquivLeng.h */,
+				E8B15524251BC0CE00808CE9 /* 03dbthreeK.h */,
 				E8B15529251BC7E400808CE9 /* 03dcEquivLeng.c */,
-				E8B1552C251BCD3000808CE9 /* 03ePitot.h */,
+				E8B15528251BC7E400808CE9 /* 03dcEquivLeng.h */,
 				E8B1552D251BCD3000808CE9 /* 03ePitot.c */,
-				E8B15530251BD35600808CE9 /* 03fOrifice.h */,
+				E8B1552C251BCD3000808CE9 /* 03ePitot.h */,
 				E8B15531251BD35600808CE9 /* 03fOrifice.c */,
-				E8B15534251BDB0400808CE9 /* 03gRotameter.h */,
+				E8B15530251BD35600808CE9 /* 03fOrifice.h */,
 				E8B15535251BDB0400808CE9 /* 03gRotameter.c */,
+				E8B15534251BDB0400808CE9 /* 03gRotameter.h */,
+				E8FEA65E24ED8DA4003F9D5E /* B48BB_T3.h */,
 			);
 			path = "Topic 3";
 			sourceTree = "<group>";
@@ -697,12 +712,14 @@
 				E8B15579251BEB6700808CE9 /* 04bPumpSizing.c in Sources */,
 				E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */,
 				E8B15577251BEB5D00808CE9 /* 03gRotameter.c in Sources */,
+				E8B2ED82253084AB00AA3C54 /* 03aFrictFactor.c in Sources */,
 				E8B15575251BEB5700808CE9 /* 03fOrifice.c in Sources */,
 				E8C4343C252FAE1500662F7C /* 01dIsochoric.c in Sources */,
 				E8B15573251BEB5100808CE9 /* 03ePitot.c in Sources */,
 				E8B15571251BEB4B00808CE9 /* 03dcEquivLeng.c in Sources */,
 				E8B1556F251BEB4400808CE9 /* 03dbthreeK.c in Sources */,
 				E8B1556D251BEB3E00808CE9 /* 03d1Fittings.c in Sources */,
+				E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */,
 				E8B1556B251BEB3800808CE9 /* 03cHydrDiam.c in Sources */,
 				E8B15569251BEB2E00808CE9 /* 02hHagPois.c in Sources */,
 				E8B15567251BEB2900808CE9 /* 02g2TurVelPro.c in Sources */,
@@ -714,6 +731,7 @@
 				E8B1555D251BEB0300808CE9 /* 02cBernEqn.c in Sources */,
 				E8B1555B251BEAFB00808CE9 /* 02bEnerCon.c in Sources */,
 				E8B15559251BEAF500808CE9 /* 02aMassCon.c in Sources */,
+				E8B6675A2530D29000D1ADB8 /* 03daoneK.c in Sources */,
 				E8B15557251BEAF000808CE9 /* 01fCapp.c in Sources */,
 				E8B15555251BEAEC00808CE9 /* 01eBubPres.c in Sources */,
 				E8B15553251BEAE700808CE9 /* 01dSurfTens.c in Sources */,

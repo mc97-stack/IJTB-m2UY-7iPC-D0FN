@@ -17,6 +17,7 @@
 #include "B48BB_T2.h"
 #include "B48BB_T3.h"
 #include "B48BB_T4.h"
+#include "03aFrictFactor.h"
 //#include "B48BB_T5.h"
 
 #define maxstrlen 16
@@ -172,8 +173,9 @@ void B48BBtopic3()
                 HagPois();
             break;
             case '2':
-                printf("Currently under construction\n");
-                //GenPressLoss();
+                //printf("Currently under construction\n");
+                //Turbulent3(1000, 0.041, 16.2, 0.01, 0.0015);
+                GenPressureLoss();
             break;
             case '3':
                 HydrDiam();

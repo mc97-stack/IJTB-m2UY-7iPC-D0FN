@@ -2,12 +2,6 @@
 //  04bPumpSizing.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 23/09/2020.
-//  Copyright © 2020 Matthew Cheung. All rights reserved.
-//
-
-#include "04bPumpSizing.h"
-
 //  Created by Matthew Cheung on 07/07/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
@@ -16,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "04bPumpSizing.h"
 
 #define maxstrlen 128
 #define g 9.80665
