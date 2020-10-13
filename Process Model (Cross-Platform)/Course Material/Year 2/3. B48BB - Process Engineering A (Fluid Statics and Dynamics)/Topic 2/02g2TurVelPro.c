@@ -52,6 +52,7 @@ double TurVelProCalc(double vmax, double r, double d, double *gen)
     frac1 = y/(bot);
     v_x = pow(frac1, frac2);
     *gen = v_x;
+    
     v_x = vmax*(v_x);
     
     return v_x;

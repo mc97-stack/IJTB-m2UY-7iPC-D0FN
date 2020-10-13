@@ -98,13 +98,13 @@ double PumpNPSHCalc(double P, double Phat, double rho, double hs1, double hs2, d
     return NPSH;
 }
 
-double PumpHeadCalc(double hs, double hd) //No Memory allocation required - Remember to do it within your main function
+double PumpHeadCalc(double hs, double hd)
 {
     //Returns the pump head in metres
     return hd - hs;
 }
 
-double PumpPressureCalc(double rho, double dHp) //No Memory allocation required - Remember to do it within your main function
+double PumpPressureCalc(double rho, double dHp)
 {
     double pressure = 0.0; //Pump pressure
     
@@ -114,7 +114,7 @@ double PumpPressureCalc(double rho, double dHp) //No Memory allocation required 
     return pressure;
 }
 
-double PumpPowerCalc(double dPp, double Q, double eta) //No Memory allocation required - Remember to do it within your main function
+double PumpPowerCalc(double dPp, double Q, double eta)
 {
     //Returns the power power required to achieve the specified pressure drop
     //eta is the efficiency of the pump (Value between 0 and 1)

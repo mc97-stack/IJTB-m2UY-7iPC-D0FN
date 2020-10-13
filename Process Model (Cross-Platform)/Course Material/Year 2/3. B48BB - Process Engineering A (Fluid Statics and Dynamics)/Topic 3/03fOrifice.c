@@ -20,12 +20,6 @@
 #define g 9.80665
 #define PI 3.14159265
 
-//Declaring global variables and allocating memory
-
-
-    //Miscellaneous Variables
-
-
 void OrificeVar(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
     char input[maxstrlen];

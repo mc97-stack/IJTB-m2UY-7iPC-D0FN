@@ -149,18 +149,18 @@ double Turbulent4(double d, double vareps)
     double FrictFactor = 0.0;
     
     FrictFactor = vareps/d;
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = log(FrictFactor);
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = 2.5*(FrictFactor);
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = 3.2 - (FrictFactor);
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     
     FrictFactor = 1/(FrictFactor);
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = pow(FrictFactor, 2);
-    printf("FrictFactor = %.8f\n", FrictFactor);
+    //printf("FrictFactor = %.8f\n", FrictFactor);
     
     return FrictFactor;
 }

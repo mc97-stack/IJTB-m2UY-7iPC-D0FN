@@ -15,6 +15,7 @@
 //  Custom header files
 #include "B48BB_T2.h"
 #include "02cBernEqn.h"
+#include "02aMassCon.h"
 
 #define maxstrlen 128
 #define PI 3.141592653
@@ -33,8 +34,6 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
     //Declaring and initialising local variables
     double d1 = 0.0;
     double d2 = 0.0;
-    double are1 = 0.0;
-    double are2 = 0.0;
     
     printf("Initial pressure (kPa) = ");
     *P1 = atof(fgets(input, sizeof(input), stdin));
@@ -62,21 +61,7 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
     
     d2 = d2*0.001; //Conversion (mm to m)
     
-    //Calculating pipe areas
-    are1 = d1/2;
-    
-    are1 = pow(are1, 2);
-    are1 = PI * (are1);
-    
-    are2 = d2/2;
-    
-    are2 = pow(are2, 2);
-    are2 = PI * (are2);
-    
-    //Calculating final velocity
-    *u2 = (are1)*(*u1);
-    
-    *u2 = (*u2)/(are2);
+    *u2 = VelCalc(*u1, d1, d2);
     
     printf("Initial fluid height from reference point (m) = ");
     *Z1 = atof(fgets(input, sizeof(input), stdin));

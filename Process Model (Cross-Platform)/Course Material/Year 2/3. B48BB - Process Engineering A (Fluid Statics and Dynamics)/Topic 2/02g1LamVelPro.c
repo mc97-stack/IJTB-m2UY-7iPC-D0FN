@@ -82,9 +82,9 @@ void LamVelProfCalc(double dP, double L, double d, double mu)
 {
     char display[maxstrlen];
     
-    double interval = 0.0;
-    double prad = 0.0;
-    double r = 0.0;
+    double interval = 0.0; // Interval between radius data entries used to calculate the point velocities.
+    double prad = 0.0; // Absolute pipe radius. (N.B. This is different to the variable 'r'.)
+    double r = 0.0; // Point radius.
     
     int rows = 0;
     int i = 0;
