@@ -9,27 +9,38 @@
 #ifndef IsotVariable_h
 #define IsotVariable_h
 
+/// This subroutine is used to collect the data to required to calculate the volume work for an isothermal process.
+/// @param method Integer variable used to determine what equation should be used. (1) = Volume equation. (2) = Pressure equation.
+/// @param P1 Initial system pressure (kPa)
+/// @param P2 Final system pressure (kPa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T System temperature (deg C)
+/// @param n Moles of component in system (kmol/ s)
 void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T, double *n);
-/*  This subroutine is used to collect the data to required to calculate the volume work for an isothermal process. As stated in the pseudomain's description in "B48BC_T1.h", there are two methods for calculation. These are:
- int method == 1: Volume definition
- int method == 2: Pressure definition
- Both methods require similar variables (n and T) but the dependent variable is dependent on the equation being used.
- */
 
 #endif /* IsotVariable_h */
 
 #ifndef IsotVolume_h
 #define IsotVolume_h
 
+/// This subroutine used to calculate the volume work associated with an isothermal process from a volume change. This subroutine then returns the volume work associated with the volume change.
+/// @param n Moles of component in system (mol/ s)
+/// @param T System temperature (K)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
 double IsotVolume(double n, double T, double V1, double V2);
-/*  This subroutine used to calculate the volume work associated with an isothermal process from a volume change. This subroutine then returns the volume work associated with the volume change.
- */
 
 #endif /* IsotVolume_h */
 
 #ifndef IsotPressure_h
 #define IsotPressure_h
 
+/// This subroutine used to calculate the volume work associated with an isothermal process from a pressure change. This subroutine then returns the volume work associated with the pressure change.
+/// @param n Moles of component in system (mol/ s)
+/// @param T System temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
 double IsotPressure(double n, double T, double P1, double P2);
 /*  This subroutine used to calculate the volume work associated with an isothermal process from a pressure change. This subroutine then returns the volume work associated with the pressure change.
  */
@@ -39,6 +50,13 @@ double IsotPressure(double n, double T, double P1, double P2);
 #ifndef IsotProfile_h
 #define IsotProfile_h
 
+/// This subroutine is used to estimate the process profile for an isothermal process. This subroutine requires "IdealPressure(...)" and "IdealVolume(...)" from "IdealGasLaw.h" to function as intended.
+/// @param n Moles of component in system (mol/ s)
+/// @param T System temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
 void IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2);
 /*  Pressure|Volume|Temperature|Work|Work_cum.|
  */

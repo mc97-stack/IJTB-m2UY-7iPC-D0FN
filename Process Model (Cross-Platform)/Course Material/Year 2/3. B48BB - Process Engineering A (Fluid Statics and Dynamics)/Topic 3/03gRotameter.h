@@ -23,17 +23,33 @@
 #ifndef RotameterVar_h
 #define RotameterVar_h
 
+/// This subroutine is used to collect data such that the mass flowrate can be predicted from a theoretical rotameter.
+/// @param C_d Discharge coefficient
+/// @param V_f Float volume (m3)
+/// @param rho_f Float density (kg/m3)
+/// @param rho Fluid density (kg/m3)
+/// @param A_f Maximum cross-sectional area of the float (m2)
+/// @param are1 Cross-sectional area of tube at point of float (m2)
+/// @param are2 Annular area between float and tube at the point (m2)
 void RotameterVar(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2);
-/*  This subroutine is used to collect data such that the mass flowrate can be predicted from a theoretical rotameter. In addition to the global variables being collected in the arguments, an additional character array is used to receive data input from the user. This subroutine then returns values back to the calling function and has no external dependencies.
- */
 
 #endif /* RotameterVar_h */
 
 #ifndef RotameterCalc_h
 #define RotameterCalc_h
 
+/// This subroutine is used to calculate the pressure drop, mass flowrate, volumetric flowrate and fluid velocity through a rotameter.
+/// @param C_d Discharge coefficient
+/// @param V_f Float volume (m3)
+/// @param rho_f Float density (kg/m3)
+/// @param rho Fluid density (kg/m3)
+/// @param A_f Maximum cross-sectional area of the float (m2)
+/// @param are1 Cross-sectional area of tube at point of float (m2)
+/// @param are2 Annular area between float and tube at the point (m2)
+/// @param dP Pressure loss (Pa)
+/// @param m Mass flowrate (kg/ s)
+/// @param Q Volumetric flowrate (m3/ s)
+/// @param u Fluid velocity (m/ s)
 void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u);
-/*  This subroutine is used to calculate the pressure drop, mass flowrate, volumetric flowrate and fluid velocity through a rotameter. This subroutine has no external dependencies and is not used outside of this file.
- */
 
 #endif /* RotameterCalc_h */

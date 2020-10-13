@@ -9,43 +9,53 @@
 #ifndef AdiaVariable_h
 #define AdiaVariable_h
 
+/// This subroutine is used for collecting data for calculating the volume work for a adiabatic process.
+/// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Pressure-Temperature equation.
+/// @param P1 Initial system pressure (kPa)
+/// @param P2 Final system pressure (kPa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (deg C)
+/// @param T2 Final system temperature (deg C)
+/// @param n Moles of component in system (kmol/s)
+/// @param gamma Heat capacity ratio ([ ])
 void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *T2, double *n, double *gamma);
-/* As detailed in "Adiabatic(void)", there are two methods that can be used to calculate the volume work for an adiabatic process involving an ideal gas. As such, the variable "method" was defined to dictate the behaviour of the data collection function. To review:
- - If method == 1, then the Pressure-Volume definition of volume work is used. The equation requires, the initial pressure and starting and end volume states to be known.
- - If method == 2, then the Pressure-Temperature method is used. The equation requires, the moles present in the system, starting temperature and starting and end pressures to be known.
- Across both methods, only the heat capacity ratio is required.
- */
+
 #endif /* AdiaVariable_h */
 
 #ifndef AdiaVolume_h
 #define AdiaVolume_h
 
+/// This subroutine is used to calculate the adiabatic volume work from the system pressure and volume.
+/// @param P1 Initial system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param gamma Heat capacity ratio ([ ])
 double AdiaVolume(double P1, double V1, double V2, double gamma);
-/*  This subroutine is used to calculate the adiabatic volume work from the system pressure and volume. This subroutine has a dependency on the "math.h" header being available for the "pow(double ..., double ...)" function. In addition to requiring the stated variables, the subroutine makes the following local calculation variables:
- frac1num && frac1den = Fraction at start of the volume work equation concerning  pressure and volume.
- frac2 = Volume ratio
- "power" and "brack" are variables used to hold values before "work" is calculated.
- After calculation, this subroutine then returns the volume work associated with the volume change V1 -> V2.
- */
 
 #endif /* AdiaVolume_h */
 
 #ifndef AdiaTemperature_h
 #define AdiaTemperature_h
 
+/// This subroutine is used to calculate the adiabatic volume work from the system pressure and temperature.
+/// @param T1 Initial system temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param n Moles of component in system (mol/s)
+/// @param gamma Heat capacity ratio ([ ])
 double AdiaTemperature(double T1, double P1, double P2, double n, double gamma);
-/*  This subroutine is used to calculate the adiabatic volume work from the system pressure and temperature. This subroutine has a dependency on the "math.h" header being available for the "pow(double ..., double ...)" function. In addition to requiring the stated variables, the subroutine makes the following local calculation variables:
- frac1num && frac1den = Fraction at start of the volume work equation concerning  pressure and volume.
- frac2 = Pressure ratio
- "power" and "brack" are variables used to hold values before "work" is calculated.
- After calculation, this subroutine then returns the volume work associated with the volume change P1 -> P2.
- */
 
 #endif /* AdiaTemperature_h */
 
 #ifndef AdiaFinalPress_h
 #define AdiaFinalPress_h
 
+/// This subroutine is used to calculate the final pressure using the Pressure-Volume relationship for an adiabat.
+/// @param P1 Initial system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param gamma Heat capacity ratio ([ ])
 double AdiaFinalPress(double P1, double V1, double V2, double gamma);
 
 #endif /* AdiaFinalPress_h */
@@ -53,6 +63,11 @@ double AdiaFinalPress(double P1, double V1, double V2, double gamma);
 #ifndef AdiaFinalTemp_h
 #define AdiaFinalTemp_h
 
+/// This subroutine is used to calculate the final temperature using the Pressure-Temperature relationship for an adiabat.
+/// @param T1 Initial system temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param gamma Heat capacity ratio ([ ])
 double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 
 #endif /* AdiaFinalTemp_h */
@@ -61,11 +76,19 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 #ifndef AdiaProfile_h
 #define AdiaProfile_h
 
+/// This subroutine is used to determine the process profile given the input parameters. This subroutine requires "IdealTemperature(...)" and "IdealVolume(...)" from "IdealGasLaw.h" to function as intended.
+/// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Pressure-Temperature equation.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param gamma Heat capacity ratio ([ ])
 void AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma);
 /* 
  Pressure|Volume|Temperature|Work|Work_Cum.
  */
 
 #endif /* AdiaProfile_h */
-
-

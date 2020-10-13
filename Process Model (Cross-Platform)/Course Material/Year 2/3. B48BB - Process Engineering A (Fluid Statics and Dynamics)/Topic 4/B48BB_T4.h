@@ -9,8 +9,7 @@
 #ifndef PumpSizing_h
 #define PumpSizing_h
 
+/// This subroutine guides the user through gathering the data and sizing of a centrifugal pump.
 void PumpSizing(void);
-/*  Subroutine used to size pumping equipment. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* B48BB_T4_h */

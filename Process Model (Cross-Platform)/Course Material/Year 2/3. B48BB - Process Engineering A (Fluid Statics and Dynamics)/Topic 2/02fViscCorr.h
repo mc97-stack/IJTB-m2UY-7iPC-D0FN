@@ -4,54 +4,48 @@
 //
 //  Created by Matthew Cheung on 14/09/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
-//
-
-//  Global variables
-/*  
- mu = Fluid viscosity
- upsi = Fluid kinematic viscosity
- a = First constant
- b = Second constant
- T = Temperature
- rho = Fluid density
- */
+//  
 
 #ifndef ViscCorrVar_h
 #define ViscCorrVar_h
 
+/// This subroutine is used to collect the data required for standard fluid viscosity correlations.
+/// @param a Parameter 1 for correlation
+/// @param b Parameter 2 for correlation
+/// @param T System temperature (Units dependent on correlation  being used)
+/// @param rho Fluid density (kg/ m3)
 void ViscCorrVar(double *a, double *b, double *T, double *rho);
-/*  This subroutine used to collect the data required for a standard fluid viscosity correlation. The main variables utilised in this subroutine have been previously declared as global variables. Other local variables utilised are:
- - input = character input used for data entry
- - tempconv = character array used for choice selection for conversion into degrees Kelvin.
- - TempCheck = Integer value used to control the while loop for temperature conversion choice.
- The subroutine then returns the entered data back to the parent subroutine ("ViscCorr(void)").
- */
 
 #endif /* ViscCorrVar_h */
 
 #ifndef LiqViscCalc_h
 #define LiqViscCalc_h
 
+/// This subroutine is used to calculate the liquid viscosity given the required arguments. After calculation, the subroutine displays the value of viscosity before returning the value to the calling function. 
+/// @param a Parameter 1 for correlation
+/// @param b Parameter 2 for correlation
+/// @param T System temperature (Units dependent on correlation  being used)
 double LiqViscCalc(double a, double b, double T);
-/*  This subroutine is used to calculate the liquid viscosity given the required variables in the function. This subroutine, after calculation, returns the value of "mu" back to the parent subroutine ("ViscCorr(void)").
- */
 
 #endif /* LiqViscCalc_h */
 
 #ifndef VapViscCalc_h
 #define VapViscCalc_h
 
+/// This subroutine is used to calculate the vapour viscosity given the required arguments. After calculation, the subroutine displays the value of viscosity before returning the value to the calling function. 
+/// @param a Parameter 1 for correlation
+/// @param b Parameter 2 for correlation
+/// @param T System temperature (Units dependent on correlation  being used)
 double VapViscCalc(double a, double b, double T);
-/*  This subroutine is used to calculate the vapour viscosity given the required variables in the function. This subroutine, after calculation, returns the value of "mu" back to the parent subroutine ("ViscCorr(void)").
-*/
 
 #endif /* VapViscCalc_h */
 
 #ifndef KinVisc_h
 #define KinVisc_h
 
+/// This subroutine is used to calculate the kinematic viscosity given the declared arguments. This subroutine then returns the value of kinematic viscosity to the calling function prior to displaying the calculated value on the console..
+/// @param mu Dynamic viscosity (Pa. s) 
+/// @param rho Fluid density (kg/ m3)
 double KinVisc(double mu, double rho);
-/*  This subroutine is used to calculate the fluid dynamic viscosity given the required variables in the function. This subroutine, after calculation, returns the value of "upsi" back to the parent subroutine ("ViscCorr(void)").
-*/
 
 #endif /* KinVisc_h */

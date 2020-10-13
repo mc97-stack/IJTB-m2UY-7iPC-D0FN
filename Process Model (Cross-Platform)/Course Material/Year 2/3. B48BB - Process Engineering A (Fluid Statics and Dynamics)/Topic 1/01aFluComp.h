@@ -9,32 +9,36 @@
 #ifndef FluCompVar_h
 #define FluCompVar_h
 
+/// Subroutine used for collecting data to calculate the fluid coefficient of compressibility
+/// @param P Absolute system pressure (Pa)
+/// @param V System volume (m3)
+/// @param n Moles of component (mol)
+/// @param T Absolute system temperatre (K)
 void FluCompVar(double *P, double *V, double *n, double *T);
-/*  Subroutine used for data collection, where:
- P = Absolute system pressure (Pa)
- V = System volume (m3)
- n = moles of component (mol)
- T = Absolute system temperature (K)
- */
 
 #endif /* FluCompVar_h */
 
 #ifndef FluCompCalc_h
 #define FluCompCalc_h
 
+/// Subroutine used to calculate the fluid compressibility factor from the ideal gas law.
+/// @param P Absolute system pressure (Pa)
+/// @param V System volume (m3)
+/// @param n Moles of component (mol)
+/// @param T Absolute system temperatre (K)
 double FluCompCalc(double P, double V, double n, double T);
-/*  Subroutine used to calculate the fluid compressibility factor using the definition from the ideal gas law. Areas for developing this program are deriving the definition for compressibility factor from the ideal gas law. Where:
- top = numerator
- bot =  denominator
- frac = Inverse volume
- */
 
 #endif /* FluCompCalc_h */
 
 #ifndef FluCompWrite_h
 #define FluCompWrite_h
 
+/// Subroutine used to write results of this program to a text file.
+/// @param P Absolute system pressure (Pa)
+/// @param V System volume (m3)
+/// @param n Moles of component (mol)
+/// @param T Absolute system temperatre (K)
+/// @param c Fluid coefficient of compressibility
 void FluCompWrite(double P, double V, double n, double T, double c);
-/*  Subroutine used to write the results of this program to a file. The results */
 
 #endif /* FluCompWrite_h */

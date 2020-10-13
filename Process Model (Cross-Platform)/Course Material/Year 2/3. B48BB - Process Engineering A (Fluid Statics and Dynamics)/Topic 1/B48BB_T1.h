@@ -9,64 +9,47 @@
 #ifndef FluComp_h
 #define FluComp_h
 
+/// This subroutine guides the user through gathering the data and calculation of the fluid coefficient of compressibility derived from the ideal gas law..
 void FluComp(void);
-/*  Subroutine that calculates the fluid compressibility using the ideal gas law. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* FluComp_h */
 
 #ifndef FluidVHyd_h
 #define FluidVHyd_h
 
+/// This subroutine guides the user through gathering the data and calculation of the hydrostatic pressure gradient for a stationary fluid.
 void FluidVHyd(void);
-/*  Subroutine that calculates the hydrostatic pressure gradient for a stationary fluid. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* FluidVHyd_h */
 
 #ifndef Mano_h
 #define Mano_h
 
+/// This subroutine guides the user through gathering the data and calculation of the pressure that a fluid exerts of a system wall through either a vertical or inclined manometer.
 void Mano(void);
-/*  Subroutine that calculates the pressure that a fluid exerts of a system wall through either a vertical or inclined manometer. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* Mano_h */
 
 #ifndef SurfTens_h
 #define SurfTens_h
 
+/// This subroutine guides the user through gathering the data and calculation of  the force required to break a fluid's surface through the Du Nouy ring method. This function calls "BubPresCalc" from "01eBubPres.c" to calculate the internal pressure of some bubble containing the fluid under analysis and "CappCalch" and "CappCalcP" located in "01fCapp.c" to calculate the cappillary rise and pressure respectively.
 void SurfTens(void);
-/*  Subroutine that calculates the force required to break a fluid's surface through the Du Nouy ring method. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations. This subroutine has codependencies on the following functions:
- - "BubPresCalc" located in "01eBubPres.c" to calculate the internal pressure of some bubble containing the fluid under analysis.
- - "CappCalch" and "CappCalcP" located in "01fCapp.c" to calculate the cappillary rise and pressure respectively.
- */
 
 #endif /* SurfTens_h */
 
 #ifndef BubPres_h
 #define BubPres_h
 
+/// This subroutine guides the user through gathering the data and calculation of  the pressure of a bubble using the fluid surface tension.
 void BubPres(void);
-/*  Subroutine that calculates the force required to form a bubble utilising . This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* BubPres_h */
-
-#ifndef SurfTens_h
-#define SurfTens_h
-
-void SurfTens(void);
-/*  Subroutine that calculates the force required to break a fluid's surface through the Du Nouy ring method. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
-
-#endif /* SurfTens_h */
 
 #ifndef Capp_h
 #define Capp_h
 
+/// This subroutine guides the user through gathering the data and calculation of  capillarity effects from surface tension data.
 void Capp(void);
-/*  Subroutine that calculates capillarity effects from surface tension data. This parent subroutine does not return a value as child subroutines are used to collect data and perform manipulations.
- */
 
 #endif /* Capp_h */

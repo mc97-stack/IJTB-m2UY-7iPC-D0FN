@@ -9,6 +9,7 @@
 #ifndef _2g0VelProfileMenu_h
 #define _2g0VelProfileMenu_h
 
-#include <stdio.h>
+/// This subroutine is used to ask the user which velocity profile calculate they would like to access.
+void VelProfile(void);
 
 #endif /* _2g0VelProfileMenu_h */

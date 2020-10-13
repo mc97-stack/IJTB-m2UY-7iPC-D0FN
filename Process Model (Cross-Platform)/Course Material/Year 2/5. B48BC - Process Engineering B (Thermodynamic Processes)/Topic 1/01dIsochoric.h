@@ -9,36 +9,56 @@
 #ifndef IsocVariable_h
 #define IsocVariable_h
 
+/// This subroutine is used for collecting data for calculating the heat for a isochoric process.
+/// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
+/// @param P1 Initial system pressure (kPa)
+/// @param P2 Final system pressure (kPa)
+/// @param V System volume (m3)
+/// @param T1 Initial system temperature (deg C)
+/// @param T2 Final system temperature (deg C)
+/// @param n Moles of component in system (kmol/s)
+/// @param cv Heat capacity at constant volume (kJ/kmol.K)
 void IsocVariable(int method, double *P1, double *P2, double *V, double *T1, double *T2, double *n, double *cv);
-/*  This subroutine is used for collecting data for calculating the heat for a isochoric process. As stated in the pseudomain's description in "B48BC_T1.h", there are two methods for calculation. These are:
- int method == 1: Pressure-Volume equation. This equation requires: P1, P2 and V.
- int method == 2: Temperature equation. This equation requires: T1 and T2 to be declared.
- Additionally, both methods will require n and cv to be stated.
- */
 
 #endif /* IsocVariable_h */
 
 #ifndef IsocPressure_h
 #define IsocPressure_h
 
+/// This subroutine is used to calculate the heat associated with a pressure change for an isochoric process.
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V System volume (m3)
+/// @param n Moles of component in system (mol/ s)
+/// @param cv Heat capacity at constant volume (kJ/kmol.K)
 double IsocPressure(double P1, double P2, double V, double n, double cv);
-/*  This subroutine is used to calculate the heat associated with a pressure change for an isochoric process.
- */
 
 #endif /* IsocPressure_h */
 
 #ifndef IsocTemperature_h
 #define IsocTemperature_h
 
+/// This subroutine is used to calculate the heat associated with a temperature change for an isochoric process.
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/ s)
+/// @param cv Heat capacity at constant volume (kJ/kmol.K)
 double IsocTemperature(double T1, double T2, double n, double cv);
-/*  This subroutine is used to calculate the heat associated with a temperature change for an isochoric process.
- */
 
 #endif /* IsocTemperature_h */
 
 #ifndef IsocProfile_h
 #define IsocProfile_h
 
+/// This subroutine is used for calculating the process profile for an isochoric process. This subroutine requires "IdealTemperature(...)" from "IdealGasLaw.h" to function as intended.
+/// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V System volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/ s)
+/// @param cv Heat capacity at constant volume (kJ/kmol.K)
 void IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv);
 /*  Pressure|Volume|Temperature|Work|Q|Q_cum.|
  */
