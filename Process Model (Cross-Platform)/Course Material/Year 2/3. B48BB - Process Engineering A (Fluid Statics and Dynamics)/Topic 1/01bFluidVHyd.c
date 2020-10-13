@@ -39,12 +39,14 @@ void FluidVHydVar(double *rho, double *h)
     fflush(stdout);
 }
 
-double FluidVHydCalc(double rho, double h, double *P) 
+double FluidVHydCalc(double rho, double h) 
 {
-    *P = rho * g;
-    *P = *P * h;
-    printf("P|_{h = %.1f m} = %.3f kPa\n", h, *P * 0.001);
-    return *P;
+    double P = 0.0;
+    
+    P = rho * g;
+    P = P * h;
+    
+    return P;
 }
 
 /*
@@ -115,8 +117,8 @@ void FluidVHyd()
         printf("rho = %f kg/m3\n", rho);
         printf("h = %f m\n", h);
         
-        FluidVHydCalc(rho, h, &P);
-        printf("Function returns %f\n", P);
+        P = FluidVHydCalc(rho, h);
+        printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
         
         //Ask for file write (Remember while loop)
         //printf("Do you want to plot the pressure variations up to this height? ");
