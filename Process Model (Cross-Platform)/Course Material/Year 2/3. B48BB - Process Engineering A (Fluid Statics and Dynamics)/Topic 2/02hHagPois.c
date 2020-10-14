@@ -161,8 +161,12 @@ void HagPois()
         double mu = 0.0; //Fluid viscosity
         double L = 0.0; //Horizontal pipe length
         double d = 0.0; //Pipe diameter
-
+        
         double dP = 0.0; //Frictional pressure loss
+        
+        int rows = 0;
+        
+        LamVelProf profile;
         
         //Data collection
         HagPoisVar(&u, &mu, &L, &d);
@@ -183,7 +187,13 @@ void HagPois()
                 case 't':
                 case 'y':
                     printf("Calculating velocity profile from data...\n");
-                    LamVelProfCalc(dP, L, d, mu);
+                    profile = LamVelProfCalc(dP, L, d, mu, &rows);
+                    //  Displaying generated array
+                    printf("r (mm)\tv_x (m/s)\tv/v_max\n");
+                    for(int i = 0; i < rows; ++i){
+                        printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
+                    }
+                    
                     whilprof = 0;
                 break;
                 case '0':

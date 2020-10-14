@@ -58,82 +58,31 @@ double TurVelProCalc(double vmax, double r, double d, double *gen)
     return v_x;
 }
 
-void TurVelProfCalc(double vmax, double d) 
+TurVelProf TurVelProfCalc(double vmax, double d, int *rows) 
 {
-    char display[maxstrlen];
-    
     double interval = 0.0;
     double prad = 0.0;
     
-    int whildisp = 0;
-    
-    int rows = 0;
+    TurVelProf profile;
     
     interval = 0.001;
     prad = d/2;
     
-    rows = ((prad)/ (interval)) + 1;
+    *rows = ((prad)/ (interval)) + 1;
     
-    printf("%i rows required\n", rows); 
-    double profile[rows][3];
+    printf("%i rows required\n", *rows);
     
     int i = 0;
     for(double r = 0.0; r < (prad + (interval/2)); r += interval)
     {
-        profile[i][0] = r; //Displaying point radius
-        profile[i][1] = TurVelProCalc(vmax, r, d, &profile[i][2]);
+        profile.r[i] = r; //Displaying point radius
+        profile.v_x[i] = TurVelProCalc(vmax, r, d, &profile.ratio[i]);
         //profile[i][3] = i + 1;
         ++i;
     }
     printf("%i rows successfully generated\n\n", i);
     
-    whildisp = 1;
-    while(whildisp == 1)
-    {
-        printf("Do you want to display the generated data? ");
-        fgets(display, sizeof(display), stdin);
-        switch(display[0])
-        {
-            case '1':
-            case 'T':
-            case 'Y':
-            case 't':
-            case 'y':
-                printf("Displaying data\n");
-                printf("Inputted variables:\n");
-                printf("d =\t%.1f\tmm\n", d*1000);
-                printf("v_max =\t%.3f\tm/s\n\n", vmax);
-                
-                printf("r (m)\tv_x (m/s)\tv/v_max\n");
-                int row = 0;
-                int col = 0;
-                for(row = 0; row < i; ++row)
-                {
-                    for(col = 0; col < 3; ++col)
-                    {
-                        printf("%.5f", profile[row][col]);
-                        if(col == 2)
-                        {
-                            printf("\n");
-                        }else{
-                            printf("\t");
-                        }
-                    }
-                }
-                whildisp = 0;
-            break;
-            case '0':
-            case 'F':
-            case 'N':
-            case 'f':
-            case 'n':
-                whildisp = 0;
-            break;
-            default:
-                printf("Input not recognised.\n");
-            break;
-        }
-    }
+    return profile;
 }
 /*
 void [Data Plot & Write](...)
@@ -233,11 +182,19 @@ void TurVelPro()
         //Variable declaration
         double vmax = 0;
         double d = 0;
+        TurVelProf profile;
+        
+        int rows = 0;
         
         //Data collection
         TurVelProVar(&vmax, &d);
         //Data manipulation
-        TurVelProfCalc(vmax, d);
+        profile = TurVelProfCalc(vmax, d, &rows);
+        
+        printf("r (mm)\tv_x (m/s)\tv/v_max\n");
+        for(int i = 0; i < rows; ++i){
+            printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
+        }
         
         //Ask for file write (Remember while loop)
         //...

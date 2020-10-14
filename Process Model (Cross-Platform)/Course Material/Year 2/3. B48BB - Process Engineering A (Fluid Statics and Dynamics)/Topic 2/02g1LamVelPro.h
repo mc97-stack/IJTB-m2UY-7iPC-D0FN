@@ -44,12 +44,18 @@ double LamGenCalc(double r, double d);
 #ifndef LamVelProfCalc_h
 #define LamVelProfCalc_h
 
+typedef struct LamVelProfile{
+    double r[1000]; //  Point radius
+    double v_x[1000]; //  Point velocity
+    double ratio[1000]; //  Velocity ratio
+} LamVelProf;
+
 /// This subroutine is used to calculate and display the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine does not return the generated array to the calling function.
 /// @param dP Fluid pressure loss (Pa)
 /// @param L Pipe length (m)
 /// @param d Pipe diameter (mm)
 /// @param mu Fluid viscosity (cP)
-void LamVelProfCalc(double dP, double L, double d, double mu);
+LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rowcount);
 
 #endif /* LamVelProfCalc_h */
 

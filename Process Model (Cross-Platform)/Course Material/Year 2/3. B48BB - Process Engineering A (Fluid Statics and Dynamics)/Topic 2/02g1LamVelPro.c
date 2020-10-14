@@ -78,82 +78,32 @@ double LamGenCalc(double r, double d)
     return func; //Returns v/v_max
 }
 
-void LamVelProfCalc(double dP, double L, double d, double mu) 
+LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows) 
 {
-    char display[maxstrlen];
-    
     double interval = 0.0; // Interval between radius data entries used to calculate the point velocities.
-    double prad = 0.0; // Absolute pipe radius. (N.B. This is different to the variable 'r'.)
+    double frad = 0.0; // Absolute pipe radius. (N.B. This is different to the variable 'r'.)
     double r = 0.0; // Point radius.
     
-    int rows = 0;
     int i = 0;
-    int whildisp = 0;
     
-    interval = 0.001;
+    LamVelProf profile;
     
-    prad = d/2;
-    rows = ((prad)/ (interval)) + 1; //Calculating number of rows for the profile results matrix
+    interval = 0.0001; // m
     
-    printf("%i rows required\n", rows); 
-    double profile[rows][3];
+    frad = d/2;
+    *rows = ((frad)/ (interval)) + 1; //Calculating number of rows for the profile results matrix
     
-    for(r = 0.0; r < (prad + (interval/2)); r += interval)
+    printf("%i rows required\n", *rows);
+    
+    for(r = 0.0; r < (frad + (interval/2)); r += interval)
     {
-        profile[i][0] = r; //Displaying point radius
-        profile[i][1] = LamVelCalc(dP, L, d, mu, r); //Calculating point velocity
-        profile[i][2] = LamGenCalc(r, d);
-        //profile[i][3] = i + 1;
+        profile.r[i] = r; //Displaying point radius
+        profile.v_x[i] = LamVelCalc(dP, L, d, mu, r); //Calculating point velocity
+        profile.ratio[i] = LamGenCalc(r, d);
         ++i;
     }
     printf("%i rows successfully generated\n\n", i);
-    
-    whildisp = 1;
-    while(whildisp == 1)
-    {
-        printf("Do you want to display the generated data? ");
-        fgets(display, sizeof(display), stdin);
-        switch(display[0])
-        {
-            case '1':
-            case 'Y':
-            case 'y':
-                printf("Displaying data\n");
-                printf("Inputted variables:\n");
-                printf("dP =\t%.3f\tPa\n", dP);
-                printf("L =\t%.3f\tm\n", L);
-                printf("d =\t%.1f\tmm\n", d*1000);
-                printf("mu =\t%.3f\tPa.s\n", mu);
-                printf("v_max =\t%.3f\tm/s\n\n", LamVelCalc(dP, L, d, mu, 0));
-                
-                printf("r (m)\tv_x (m/s)\tv/v_max\n");
-                int row = 0;
-                int col = 0;
-                for(row = 0; row < i; ++row)
-                {
-                    for(col = 0; col < 3; ++col)
-                    {
-                        printf("%.5f", profile[row][col]);
-                        if(col == 2)
-                        {
-                            printf("\n");
-                        }else{
-                            printf("\t");
-                        }
-                    }
-                }
-                whildisp = 0;
-            break;
-            case '0':
-            case 'N':
-            case 'n':
-                whildisp = 0;
-            break;
-            default:
-                printf("Input not recognised.\n");
-            break;
-        }
-    }
+    return profile;
 }
 
 /*
@@ -258,11 +208,19 @@ void LamVelPro()
         double L = 0.0;
         double d = 0.0;
         double mu = 0.0;
+        LamVelProf profile;
+        
+        int rows = 0;
         
         //Data collection
         LamVelProVar(&dP, &L, &d, &mu);
         //Data manipulation
-        LamVelProfCalc(dP, L, d, mu);
+        profile = LamVelProfCalc(dP, L, d, mu, &rows);
+        
+        printf("r (mm)\tv_x (m/s)\tv/v_max\n");
+        for(int i = 0; i < rows; ++i){
+            printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
+        }
         
         //Ask for file write (Remember while loop)
         //...

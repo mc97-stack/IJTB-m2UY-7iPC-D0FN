@@ -23,7 +23,7 @@ void TurVelProVar(double *umax, double *d);
 /// @param vmax Maximum point fluid velocity (m/ s).
 /// @param r Pipe point radius (m).
 /// @param d Fixed pipe diameter (m).
-/// @param gen v/v_{max}
+/// @param gen v/v_{max}. N.B. This value is generated alongside the calculation
 double TurVelProCalc(double vmax, double r, double d, double *gen);
 
 #endif /* TurVelProCalc_h */
@@ -31,10 +31,16 @@ double TurVelProCalc(double vmax, double r, double d, double *gen);
 #ifndef TurVelProfCalc_h
 #define TurVelProfCalc_h
 
+typedef struct TurVelProfile{
+    double r[5000]; //  Point radius
+    double v_x[5000]; //  Point velocity
+    double ratio[5000]; //  Velocity ratio
+} TurVelProf;
+
 /// This subroutine is used to generate the data for the velocity profile for a turbulent fluid that obeys Prandtl's one-seventh law. This subroutine does not return the generated array to the calling function.
 /// @param vmax Maximum fluid velocity (m/ s).
 /// @param d Fixed pipe diameter (m).
-void TurVelProfCalc(double vmax, double d);
+TurVelProf TurVelProfCalc(double vmax, double d, int *rows);
 
 #endif /* TurVelProfCalc_h */
 
