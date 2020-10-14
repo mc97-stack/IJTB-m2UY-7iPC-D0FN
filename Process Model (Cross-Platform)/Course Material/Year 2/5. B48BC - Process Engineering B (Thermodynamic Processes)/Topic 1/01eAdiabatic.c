@@ -400,7 +400,7 @@ void Adiabatic()
                     case 't':
                     case 'y':
                         whilcont = 0;
-                    break;
+                        break;
                     case '0':
                     case 'F':
                     case 'N':
@@ -408,10 +408,10 @@ void Adiabatic()
                     case 'n':
                         whilcont = 0;
                         whilmain = 0;
-                    break;
+                        break;
                     default:
                         printf("Input not recognised\n");
-                    break;
+                        break;
                 }
             }
         }else{
