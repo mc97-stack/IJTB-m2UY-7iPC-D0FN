@@ -86,14 +86,16 @@ double IsotPressure(double n, double T, double P1, double P2)
     return work;
 }
 
-void IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
+ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
 {
     double incr = 0.0; // Increment between data points
     int reso = 0; // Resolution of the generated plot
     int i = 0; // Row control
     
-    reso = 50;
-    double profile[reso + 1][5];
+    ThermoProf profile;
+    double total = 0.0;
+    
+    reso = 249;
     
     if(method == 1){
         incr = V2 - V1;
@@ -107,85 +109,39 @@ void IsotProfile(int method, double n, double T, double P1, double P2, double V1
     //Setting initial system conditions
     i = 0;
     if(method == 1){
-        profile[i][1] = V1;
-        profile[i][2] = T;
-        profile[i][0] = IdealPressure(n, profile[i][2], profile[i][1]);
+        profile.V[i] = V1;
+        profile.T[i] = T;
+        profile.P[i] = IdealPressure(n, profile.T[i], profile.V[i]);
     }
     if(method == 2){
-        profile[i][0] = P1;
-        profile[i][2] = T;
-        profile[i][1] = IdealVolume(n, profile[i][0], profile[i][2]);
+        profile.P[i] = P1;
+        profile.T[i] = T;
+        profile.V[i] = IdealVolume(n, profile.P[i], profile.T[i]);
     }
-    profile[i][3] = 0.0;
-    profile[i][4] = 0.0;
+    profile.W_V[i] = 0.0;
+    total = 0.0;
     
     for(i = 1; i < (reso + 1); ++i)
     {
         if(method == 1){
-            profile[i][1] = profile[i-1][1] + incr;
-            profile[i][2] = T;
-            profile[i][0] = IdealPressure(n, profile[i][2], profile[i][1]);
-            
-            profile[i][3] = IsotVolume(n, profile[i][2], profile[i-1][1], profile[i][1]);
-            profile[i][4] = profile[i - 1][4] + profile[i][3];
+            profile.V[i] = profile.V[i-1] + incr;
+            profile.T[i] = T;
+            profile.P[i] = IdealPressure(n, profile.T[i], profile.V[i]);
+            profile.W_V[i] = IsotVolume(n, profile.T[i], profile.V[i-1], profile.V[i]);
+            total = total + profile.W_V[i];
         }
         if(method == 2){
-            profile[i][0] = profile[i - 1][0] + incr;
-            profile[i][2] = T;
-            profile[i][1] = IdealVolume(n, profile[i][0], profile[i][2]);
-            
-            profile[i][3] = IsotPressure(n, profile[i][2], profile[i - 1][0], profile[i][0]);
-            profile[i][4] = profile[i - 1][4] + profile[i][3];
+            profile.P[i] = profile.P[i-1] + incr;
+            profile.T[i] = T;
+            profile.V[i] = IdealVolume(n, profile.P[i], profile.T[i]);
+            profile.W_V[i] = IsotPressure(n, profile.T[i], profile.P[i-1], profile.P[i]);
+            total = total + profile.W_V[i];
         }
     }
-    printf("Total Volume work done = %.3f kW\n", (profile[i-1][4])/1000 );
+    printf("Total Volume work done = %.3f kW\n", total*0.001);
     printf("Profile calculated in %d rows\n\n", i);
     
-    int whildisplay = 0;
-    whildisplay = 1;
-    
-    while(whildisplay == 1)
-    {
-        printf("Do you want to display the final profile? [Y/N] ");
-        char display[maxstrlen];
-        fgets(display, sizeof(display), stdin);
-        switch(display[0]){
-            case '1':
-            case 'Y':
-            case 'y':
-                printf("P (kPa)\tV(m3)\tT (K)\tWork (kW)\tWork_cum. (kW)\n");
-                for(int row = 0; row < i; ++row){
-                    for (int col = 0; col < 5; ++col)
-                    {
-                        if(col == 0||col == 3||col == 4){
-                            printf("%.3f", (profile[row][col])/1000);
-                        }
-                        if(col == 1){
-                            printf("%.3f", profile[row][col]);
-                        }
-                        if(col == 2){
-                            printf("%.3f", profile[row][col]);
-                        }
-                        if(col == 4){
-                            printf("\n");
-                        }else{
-                            printf("\t");
-                        }
-                    }
-                }
-                whildisplay = 0;
-                break;
-            case '0':
-            case 'N':
-            case 'n':
-                // code
-                whildisplay = 0;
-                break;
-            default:
-                printf("Invalid input.\n");
-                break;
-        }
-    }
+    return profile;
 }
 
 /*
@@ -294,6 +250,18 @@ void Isothermal()
         
         int method = 0;
         
+        ThermoProf profile;
+        double total = 0.0;
+        
+        // Initialising profile to arrays on zeros
+        for(int j = 0; j < 250; ++j){
+            profile.P[j] = 0.0;
+            profile.V[j] = 0.0;
+            profile.T[j] = 0.0;
+            profile.W_V[j] = 0.0;
+            profile.Q[j] = 0.0;
+        }
+        
         int whilmethod = 0;
         int whilcont = 0;
         
@@ -333,7 +301,17 @@ void Isothermal()
             IsotVariable(method, &P1, &P2, &V1, &V2, &T, &n);
             
             //Data manipulation
-            IsotProfile(method, n, T, P1, P2, V1, V2);
+            profile = IsotProfile(method, n, T, P1, P2, V1, V2);
+            
+            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
+            for(int i = 0; i < 250; ++i){
+                printf("%f\t", profile.P[i]*0.001);
+                printf("%f\t", profile.V[i]);
+                printf("%f\t", profile.T[i] - 273.15);
+                printf("%f\t", profile.W_V[i]*0.001);
+                total += profile.W_V[i]*0.001;
+                printf("%f\n", total);
+            }
             
             //Ask for file write (Remember while loop)
             

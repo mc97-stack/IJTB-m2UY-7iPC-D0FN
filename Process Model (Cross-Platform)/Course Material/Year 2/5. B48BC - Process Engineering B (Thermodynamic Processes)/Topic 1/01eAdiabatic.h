@@ -72,7 +72,6 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 
 #endif /* AdiaFinalTemp_h */
 
-
 #ifndef AdiaProfile_h
 #define AdiaProfile_h
 
@@ -86,7 +85,7 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 /// @param T2 Final system temperature (K)
 /// @param n Moles of component in system (mol/s)
 /// @param gamma Heat capacity ratio ([ ])
-void AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma);
+ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma);
 /* 
  Pressure|Volume|Temperature|Work|Work_Cum.
  */

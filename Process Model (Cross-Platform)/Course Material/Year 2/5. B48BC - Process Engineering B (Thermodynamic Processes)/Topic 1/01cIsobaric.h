@@ -54,7 +54,7 @@ double IsobTemperature(double n, double T1, double T2);
 /// @param T1 Initial system temperature (K)
 /// @param T2 Final system temperature (K)
 /// @param n Moles of component in system (mol/s)
-void IsobProfile(int method, double P, double V1, double V2, double T1, double T2, double n);
+ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, double T2, double n);
 /*  Pressure|Volume|Temperature|Work|Work_cum.|
  */
 

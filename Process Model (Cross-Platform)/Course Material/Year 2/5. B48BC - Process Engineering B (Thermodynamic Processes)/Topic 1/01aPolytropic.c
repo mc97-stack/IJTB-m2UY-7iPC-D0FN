@@ -31,7 +31,7 @@ void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,dou
         *T2 = atof(fgets(input, sizeof(input), stdin));
         *T2 = (*T2) + 273.15;
     }
-    if(method == 2 && *T1 != 0.0 && fabs(*T2 - *T1) < 0.005){
+    if(method == 2 && fabs(*T2 - *T1) < 0.005){
         printf("You have stated an isothermal process. Changing to the Pressure-Volume equation.\n\n");
         method = 1;
     }
@@ -150,15 +150,17 @@ double PolyFinalPressure(double T1, double T2, double P1, double alpha)
     return P2;
 }
 
-void PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
+ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
 {
     double incr = 0.0; // Increment between data points
     int reso = 0; // Resolution of generated plot
     int i = 0; // Row controller
     
-    reso = 50;
-    double profile[reso+1][5];
+    ThermoProf profile;
+    double total = 0.0;
     
+    reso = 249;
+        
     if(method == 1){
         incr = P2 - P1;
         incr = (incr)/reso;
@@ -174,22 +176,21 @@ void PolyProfile(int method, double P1, double P2, double V1, double T1, double 
         double Tnum = 0.0;
         double Tden = 0.0;
         
-        profile[i][0] = P1;
-        profile[i][1] = V1;
+        profile.P[i] = P1;
+        profile.V[i] = V1;
         
-        Tnum = (profile[i][0])*(profile[i][1]);
+        Tnum = (profile.P[i])*(profile.V[i]);
         Tden = n*R;
-        profile[i][2] = Tnum/Tden;
+        profile.T[i] = Tnum/Tden;
     }
     if(method == 2){
         // Temperature must be known. Not enough information is given to calculate the system pressure or volume
         printf("Assuming Ideal Gas Law applies\n\n");
-        profile[i][0] = 0.0;
-        profile[i][1] = 0.0;
-        profile[i][2] = T1;
+        profile.P[i] = 0.0;
+        profile.V[i] = 0.0;
+        profile.T[i] = T1;
     }
-    profile[i][3] = 0.0;
-    profile[i][4] = 0.0;
+    profile.W_V[i] = 0.0;
     
     for(i = 1; i < (reso + 1); ++i)
     {
@@ -197,74 +198,30 @@ void PolyProfile(int method, double P1, double P2, double V1, double T1, double 
             double Tnum = 0.0;
             double Tden = 0.0;
             
-            profile[i][0] = profile[i-1][0] + incr;
-            profile[i][1] = PolyFinalVolume(profile[i-1][0], profile[i][0], profile[i-1][1], alpha);
+            profile.P[i] = profile.P[i-1] + incr;
+            profile.V[i] = PolyFinalVolume(profile.P[i-1], profile.P[i], profile.V[i-1], alpha);
             
-            Tnum = (profile[i][0])*(profile[i][1]);
+            Tnum = (profile.P[i])*(profile.V[i]);
             Tden = n*R;
-            profile[i][2] = Tnum/Tden;
+            profile.T[i] = Tnum/Tden;
             
-            profile[i][3] = PolyVolume(profile[i-1][0], profile[i][0], profile[i-1][1], alpha);
-            profile[i][4] = (profile[i-1][4]) + profile[i][3];
+            profile.W_V[i] = PolyVolume(profile.P[i-1], profile.P[i], profile.V[i-1], alpha);
+            total = total + profile.W_V[i];
         }
         if(method == 2){
-            profile[i][0] = 0.0;
-            profile[i][1] = 0.0;
-            profile[i][2] = profile[i-1][2]+incr;
-            profile[i][3] = PolyTemperature(n, R, profile[i-1][2], profile[i][2], alpha);
-            profile[i][4] = profile[i-1][4] + profile[i][3];
+            profile.P[i] = 0.0;
+            profile.V[i] = 0.0;
+            profile.T[i] = profile.T[i - 1] + incr;
+            profile.W_V[i] = PolyTemperature(n, R, profile.T[i - 1], profile.T[i], alpha);
+            total = total + profile.W_V[i];
         }
     }
     
-    printf("Total Volume work done = %.3f kW\n", (profile[i-1][4])/1000 );
+    printf("Total Volume work done = %.3f kW\n", total*0.001);
     printf("Profile calculated in %d rows\n\n", i);
     
-    int whildisplay = 0;
-    whildisplay = 1;
-    
-    while(whildisplay == 1)
-    {
-        printf("Do you want to display the final profile? [Y/N] ");
-        char display[maxstrlen];
-        fgets(display, sizeof(display), stdin);
-        switch(display[0]){
-            case '1':
-            case 'Y':
-            case 'y':
-                printf("P (kPa)\tV(m3)\tT (K)\tWork (kW)\tWork_cum. (kW)\n");
-                for(int row = 0; row < i; ++row){
-                    for (int col = 0; col < 5; ++col)
-                    {
-                        if(col == 0||col == 3||col == 4){
-                            printf("%.3f", (profile[row][col])/1000);
-                        }
-                        if(col == 1){
-                            printf("%.3f", profile[row][col]);
-                        }
-                        if(col == 2){
-                            printf("%.3f", profile[row][col]);
-                        }
-                        if(col == 4){
-                            printf("\n");
-                        }else{
-                            printf("\t");
-                        }
-                    }
-                }
-                whildisplay = 0;
-                break;
-            case '0':
-            case 'N':
-            case 'n':
-                // code
-                whildisplay = 0;
-                break;
-            default:
-                printf("Invalid input.\n");
-                break;
-        }
-    }
     fflush(stdout);
+    return profile;
 }
 
 void Polytropic()
@@ -293,6 +250,18 @@ void Polytropic()
         
         int whilmethod = 0;
         int whilcont = 0;
+        
+        ThermoProf profile;
+        double total = 0.0;
+        
+        // Initialising profile to arrays on zeros
+        for(int j = 0; j < 250; ++j){
+            profile.P[j] = 0.0;
+            profile.V[j] = 0.0;
+            profile.T[j] = 0.0;
+            profile.W_V[j] = 0.0;
+            profile.Q[j] = 0.0;
+        }
         
         //Data Collection
         whilmethod = 1;
@@ -330,7 +299,17 @@ void Polytropic()
             PolyVariable(method, &P1, &P2, &V1, &T1, &T2, &n, &R, &alpha);
             
             // Data Manipulation
-            PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
+            profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
+            
+            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
+            for(int i = 0; i < 250; ++i){
+                printf("%f\t", profile.P[i]*0.001);
+                printf("%f\t", profile.V[i]);
+                printf("%f\t", profile.T[i] - 273.15);
+                printf("%f\t", profile.W_V[i]*0.001);
+                total += profile.W_V[i]*0.001;
+                printf("%f\n", total);
+            }
             
             // File write
             

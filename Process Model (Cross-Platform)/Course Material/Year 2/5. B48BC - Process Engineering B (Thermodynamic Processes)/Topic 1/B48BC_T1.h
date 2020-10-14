@@ -6,6 +6,21 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef ThermoProfiler_h
+#define ThermoProfiler_h
+
+/// This struct is used to hold the generated dataset for a thermodynamic process.
+typedef struct ThermodynamicProfile{
+    // Maximum of 1000 rows per 'column'
+    double P[250];
+    double V[250];
+    double T[250];
+    double W_V[250]; // Cumulative energy requirements are not calculated and stored in the struct
+    double Q[250];
+} ThermoProf;
+
+#endif /* ThermoProfiler_h */
+
 #ifndef Polytropic_h
 #define Polytropic_h
 

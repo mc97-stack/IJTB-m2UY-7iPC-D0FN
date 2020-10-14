@@ -85,7 +85,7 @@ double PolyFinalPressure(double T1, double T2, double P1, double alpha);
 /// @param n Moles of component in system (mol/s)
 /// @param R Specific gas constant (J/ mol.K)
 /// @param alpha Polytropic index ([ ]).
-void PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha);
+ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha);
 /*  Pressure|Volume|Temperature|Work|Work_cum.|
  */
 
