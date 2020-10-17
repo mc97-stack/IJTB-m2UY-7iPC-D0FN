@@ -10,14 +10,14 @@
 #define ThermoProfiler_h
 
 /// This struct is used to hold the generated dataset for a thermodynamic process.
-typedef struct ThermodynamicProfile{
+typedef struct T1ThermodynamicProfile{
     // Maximum of 1000 rows per 'column'
     double P[250];
     double V[250];
     double T[250];
     double W_V[250]; // Cumulative energy requirements are not calculated and stored in the struct
     double Q[250];
-} ThermoProf;
+} T1ThermoProf;
 
 #endif /* ThermoProfiler_h */
 

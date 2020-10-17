@@ -83,12 +83,12 @@ double IsocTemperature(double T1, double T2, double n, double cv)
     return heat;
 }
 
-ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv)
+T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv)
 {
     double incr = 0.0; // Increment between data points
     int reso = 0; // Resolution of the generated plot
     int i = 0; // Row controller
-    ThermoProf profile;
+    T1ThermoProf profile;
     double total = 0.0;
     
     reso = 249;
@@ -250,7 +250,7 @@ void Isochoric()
         
         int method = 0;
         
-        ThermoProf profile;
+        T1ThermoProf profile;
         double total = 0.0;
         
         // Initialising profile to arrays on zeros

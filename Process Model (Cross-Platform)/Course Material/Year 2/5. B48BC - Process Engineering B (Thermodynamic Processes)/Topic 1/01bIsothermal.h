@@ -57,7 +57,7 @@ double IsotPressure(double n, double T, double P1, double P2);
 /// @param P2 Final system pressure (Pa)
 /// @param V1 Initial system volume (m3)
 /// @param V2 Final system volume (m3)
-ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2);
+T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2);
 /*  Pressure|Volume|Temperature|Work|Work_cum.|
  */
 

@@ -59,7 +59,7 @@ double IsocTemperature(double T1, double T2, double n, double cv);
 /// @param T2 Final system temperature (K)
 /// @param n Moles of component in system (mol/ s)
 /// @param cv Heat capacity at constant volume (kJ/kmol.K)
-ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv);
+T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv);
 /*  Pressure|Volume|Temperature|Work|Q|Q_cum.|
  */
 

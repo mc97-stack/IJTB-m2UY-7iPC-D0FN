@@ -150,13 +150,13 @@ double PolyFinalPressure(double T1, double T2, double P1, double alpha)
     return P2;
 }
 
-ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
+T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
 {
     double incr = 0.0; // Increment between data points
     int reso = 0; // Resolution of generated plot
     int i = 0; // Row controller
     
-    ThermoProf profile;
+    T1ThermoProf profile;
     double total = 0.0;
     
     reso = 249;
@@ -251,7 +251,7 @@ void Polytropic()
         int whilmethod = 0;
         int whilcont = 0;
         
-        ThermoProf profile;
+        T1ThermoProf profile;
         double total = 0.0;
         
         // Initialising profile to arrays on zeros

@@ -150,13 +150,13 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma)
     return T;
 }
 
-ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma)
+T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma)
 {
     double incr = 0.0; // Difference between datapoints
     int reso = 249; // Resolution of dataset
     int i = 0;
     
-    ThermoProf profile;
+    T1ThermoProf profile;
     double total = 0.0;
     
     if(method == 1){
@@ -319,7 +319,7 @@ void Adiabatic()
         double n = 0.0;
         double gamma = 0.0;
         
-        ThermoProf profile;
+        T1ThermoProf profile;
         double total = 0.0;
         
         // Initialising profile to arrays on zeros

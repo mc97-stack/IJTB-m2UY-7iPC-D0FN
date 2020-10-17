@@ -86,13 +86,13 @@ double IsotPressure(double n, double T, double P1, double P2)
     return work;
 }
 
-ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
+T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
 {
     double incr = 0.0; // Increment between data points
     int reso = 0; // Resolution of the generated plot
     int i = 0; // Row control
     
-    ThermoProf profile;
+    T1ThermoProf profile;
     double total = 0.0;
     
     reso = 249;
@@ -250,7 +250,7 @@ void Isothermal()
         
         int method = 0;
         
-        ThermoProf profile;
+        T1ThermoProf profile;
         double total = 0.0;
         
         // Initialising profile to arrays on zeros
