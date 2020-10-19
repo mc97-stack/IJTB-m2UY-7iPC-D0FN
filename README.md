@@ -7,8 +7,12 @@ This is cross-platform console-based program written in the C programming langua
 GitHub username: "mc97-stack".
 GitHub Repository URL: "https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN.git".
 
-Development status: Under development (Research)
-Repository visibility status: Private
+Development status: Under development (Research).
+Repository visibility status: Public.
+
+Features currently available:
+- Topics 1 - 4 of B48BB (Process Engineering A (Fluid Statics and Dynamics))
+- Topic 1 of B48BC (Process Engineering B (Thermodynamic Processes))
 
 ##  Windows Install (Using Visual Studio 2019)
 1.  On the "Welcome" window, click "Clone GitHub Repository".
