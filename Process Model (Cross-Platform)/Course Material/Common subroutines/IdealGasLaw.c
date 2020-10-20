@@ -14,9 +14,21 @@
 //  Custom header files
 #include "IdealGasLaw.h"
 
-#define R 8.31455
-
 double IdealPressure(double n, double T, double V)
+{
+    double P = 0.0;
+    double R = 0.0;
+    
+    R = 8.31455;
+    
+    P = n*R;
+    P = (P)*T;
+    P = (P)/V;
+    
+    return P;
+}
+
+double SpecPressure(double n, double T, double V, double R)
 {
     double P = 0.0;
     
@@ -28,6 +40,24 @@ double IdealPressure(double n, double T, double V)
 }
 
 double IdealTemperature(double n, double P, double V)
+{
+    double T = 0.0;
+    double R = 0.0;
+    
+    R = 8.31455;
+    
+    double top = 0.0;
+    double bot = 0.0;
+    
+    top = P*V;
+    bot = n*R;
+    
+    T = (top)/(bot);
+    
+    return T;
+}
+
+double SpecTemperature(double n, double P, double V, double R)
 {
     double T = 0.0;
     
@@ -43,6 +73,20 @@ double IdealTemperature(double n, double P, double V)
 }
 
 double IdealVolume(double n, double P, double T)
+{
+    double V = 0.0;
+    double R = 0.0;
+    
+    R = 8.31455;
+    
+    V = n*R;
+    V = (V)*T;
+    V = (V)/P;
+    
+    return V;
+}
+
+double SpecVolume(double n, double P, double T, double R)
 {
     double V = 0.0;
     
