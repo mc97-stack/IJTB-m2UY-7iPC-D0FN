@@ -6,6 +6,12 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+typedef struct T2StateEnergy{
+    double enthalpy;
+    double kinenergy;
+    double potenergy;
+} T2StateEnergy;
+
 #ifndef _2cOpenFirstLaw_h
 #define _2cOpenFirstLaw_h
 

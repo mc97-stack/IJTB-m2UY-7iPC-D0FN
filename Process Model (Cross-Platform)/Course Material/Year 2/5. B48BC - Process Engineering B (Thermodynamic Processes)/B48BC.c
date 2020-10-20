@@ -71,9 +71,9 @@ void B48BCtopic2(){
     inputguard = 1;
     while(inputguard == 1){
         B48BCTopComm();
-        printf("1. Reciprocating compressor.\n2. Polytropic process shaft work\n3. First law for open systems\n4. First law applications to elementary unit operations\n");
+        printf("1. Reciprocating compressor.\n2. Polytropic process shaft work\n3. First law for open systems\n");
         printf("q. Exit topic. \n\n");
-        printf("Selections [1 - 4]: ");
+        printf("Selections [1 - 3]: ");
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
         switch(B48BCTopMenu[0]){
             case '1':
@@ -88,10 +88,6 @@ void B48BCtopic2(){
                 OpenFirstLaw();
                 inputguard = 0;
                 break;
-            case '4':
-                AppFirstLaw();
-                inputguard = 0;
-                break;
             case '0':
             case 'Q':
             case 'q':
@@ -99,6 +95,7 @@ void B48BCtopic2(){
                 break;
             default:
                 printf("Input not recognised \n");
+                break;
         }
     }
     //  Isothermal reciprocating compressor

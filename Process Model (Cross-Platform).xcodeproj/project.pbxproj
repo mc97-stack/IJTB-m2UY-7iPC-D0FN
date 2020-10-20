@@ -10,7 +10,6 @@
 		E8352315253B54C700B0969A /* 02aCompressor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8352314253B54C700B0969A /* 02aCompressor.c */; };
 		E8352319253B54DC00B0969A /* 02bPolyShaftWork.c in Sources */ = {isa = PBXBuildFile; fileRef = E8352318253B54DC00B0969A /* 02bPolyShaftWork.c */; };
 		E835231D253B54F100B0969A /* 02cOpenFirstLaw.c in Sources */ = {isa = PBXBuildFile; fileRef = E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */; };
-		E8352321253B550600B0969A /* 02dAppFirstLaw.c in Sources */ = {isa = PBXBuildFile; fileRef = E8352320253B550600B0969A /* 02dAppFirstLaw.c */; };
 		E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */ = {isa = PBXBuildFile; fileRef = E8664D88252DE45B00022E45 /* 01eAdiabatic.c */; };
 		E8B15541251BEA9500808CE9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64224ECDBE1003F9D5E /* main.c */; };
 		E8B15543251BEAB500808CE9 /* Year1.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64124ECDBE0003F9D5E /* Year1.c */; };
@@ -85,8 +84,6 @@
 		E8352318253B54DC00B0969A /* 02bPolyShaftWork.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02bPolyShaftWork.c; sourceTree = "<group>"; };
 		E835231B253B54F100B0969A /* 02cOpenFirstLaw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02cOpenFirstLaw.h; sourceTree = "<group>"; };
 		E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02cOpenFirstLaw.c; sourceTree = "<group>"; };
-		E835231F253B550600B0969A /* 02dAppFirstLaw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02dAppFirstLaw.h; sourceTree = "<group>"; };
-		E8352320253B550600B0969A /* 02dAppFirstLaw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02dAppFirstLaw.c; sourceTree = "<group>"; };
 		E8664D87252DE45B00022E45 /* 01eAdiabatic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eAdiabatic.h; sourceTree = "<group>"; };
 		E8664D88252DE45B00022E45 /* 01eAdiabatic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eAdiabatic.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
@@ -431,8 +428,6 @@
 				E8352318253B54DC00B0969A /* 02bPolyShaftWork.c */,
 				E835231B253B54F100B0969A /* 02cOpenFirstLaw.h */,
 				E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */,
-				E835231F253B550600B0969A /* 02dAppFirstLaw.h */,
-				E8352320253B550600B0969A /* 02dAppFirstLaw.c */,
 			);
 			path = "Topic 2";
 			sourceTree = "<group>";
@@ -759,7 +754,6 @@
 				E8B15559251BEAF500808CE9 /* 02aMassCon.c in Sources */,
 				E8B6675A2530D29000D1ADB8 /* 03daoneK.c in Sources */,
 				E835231D253B54F100B0969A /* 02cOpenFirstLaw.c in Sources */,
-				E8352321253B550600B0969A /* 02dAppFirstLaw.c in Sources */,
 				E8B15557251BEAF000808CE9 /* 01fCapp.c in Sources */,
 				E8B15555251BEAEC00808CE9 /* 01eBubPres.c in Sources */,
 				E8B15553251BEAE700808CE9 /* 01dSurfTens.c in Sources */,
