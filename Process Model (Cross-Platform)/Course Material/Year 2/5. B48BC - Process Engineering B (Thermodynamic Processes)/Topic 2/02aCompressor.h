@@ -7,11 +7,11 @@
 //  
 
 typedef struct CompProfile{
-    double P[512];
-    double V[512];
-    double T[512];
-    double W_V[512];
-    double W_S[512];
+    double P[512]; // System pressure
+    double V[512]; // System volume
+    double T[512]; // System temperature
+    double W_V[512]; // Volume work
+    double W_S[512]; // Shaft work
 } T2CompProfile;
 
 #ifndef CompressorVar_h
