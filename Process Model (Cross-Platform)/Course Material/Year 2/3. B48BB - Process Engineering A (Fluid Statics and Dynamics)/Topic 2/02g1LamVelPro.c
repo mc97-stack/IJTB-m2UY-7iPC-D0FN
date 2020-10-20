@@ -87,6 +87,12 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows)
     int i = 0;
     
     LamVelProf profile;
+    // Initialising all elements in the struct
+    for(int i = 0; i < 5000; ++i){
+        profile.r[i] = 0.0;
+        profile.v_x[i] = 0.0;
+        profile.ratio[i] = 0.0;
+    }
     
     interval = 0.0001; // m
     
@@ -209,6 +215,13 @@ void LamVelPro()
         double d = 0.0;
         double mu = 0.0;
         LamVelProf profile;
+        
+        // Initialising all elements in the struct
+        for(int i = 0; i < 5000; ++i){
+            profile.r[i] = 0.0;
+            profile.v_x[i] = 0.0;
+            profile.ratio[i] = 0.0;
+        }
         
         int rows = 0;
         
