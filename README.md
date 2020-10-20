@@ -1,7 +1,7 @@
 # Process Model (Cross-Platform)
 
 ##  Program Description
-This is cross-platform console-based program written in the C programming language made to perform the computations required for the design, simulation and fabrication of up to industrial size process equipment. The program is able to either show the data either in console or outputting results into either a (1) report written in markdown or (2) a text file suitable for import into Microsoft Excel.
+This is cross-platform console-based program written in the C programming language made to perform the computations required for the design, simulation and fabrication of up to industrial size process equipment. The program is able to either show the data either in console or outputting results into either a (1) report written in markdown or (2) text file suitable for import into Microsoft Excel.
 
 ##  Product Properties
 GitHub username: "mc97-stack".
@@ -12,7 +12,7 @@ Repository visibility status: Public.
 
 Features currently available:
 - Topics 1 - 4 of B48BB (Process Engineering A (Fluid Statics and Dynamics))
-- Topic 1 of B48BC (Process Engineering B (Thermodynamic Processes))
+- Topic 1 and 2 of B48BC (Process Engineering B (Thermodynamic Processes))
 
 ##  Windows Install (Using Visual Studio 2019)
 1.  On the "Welcome" window, click "Clone GitHub Repository".
