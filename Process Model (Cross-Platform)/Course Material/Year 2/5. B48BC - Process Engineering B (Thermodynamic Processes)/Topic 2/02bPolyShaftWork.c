@@ -88,6 +88,7 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
     W_S = (W_S)*T1;
     W_S = (W_S)*(power);
     W_S = (W_S)*(brack);
+    W_S = -1 * (W_S);
     
     return W_S;
 }
