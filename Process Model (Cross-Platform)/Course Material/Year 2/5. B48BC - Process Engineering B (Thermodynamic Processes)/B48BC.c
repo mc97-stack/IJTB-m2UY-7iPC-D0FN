@@ -14,19 +14,20 @@
 #include "Courses.h"
 #include "B48BCMenu.h"
 #include "B48BC_T1.h"
+#include "B48BC_T2.h"
 
 #define maxstrlen 128
 
 char B48BCTopMenu[maxstrlen];
-int whilt; //While for topics
+static int inputguard = 0; //While for topics
 
 void B48BCTopComm(){
     printf("Please select from the following programs: \n");
 }
 
 void B48BCtopic1(){
-    whilt = 1;
-    while(whilt == 1){
+    inputguard = 1;
+    while(inputguard == 1){
         B48BCTopComm();
         printf("1. General Volume Work (Polytropic Process)\n2. Isothermal Volume Work\n3. Isobaric Volume Work\n4. Isochoric Heat\n5. Adiabatic Volume Work\n");
         printf("q. Exit topic\n\n");
@@ -36,22 +37,28 @@ void B48BCtopic1(){
         switch(B48BCTopMenu[0]){
             case '1':
                 Polytropic();
+                inputguard = 0;
                 break;
             case '2':
                 Isothermal();
+                inputguard = 0;
                 break;
             case '3':
                 Isobaric();
+                inputguard = 0;
                 break;
             case '4':
                 Isochoric();
+                inputguard = 0;
                 break;
             case '5':
                 Adiabatic();
+                inputguard = 0;
                 break;
+            case '0':
             case 'Q':
             case 'q':
-                whilt = 0;
+                inputguard = 0;
                 break;
             default:
                 printf("Input not recognised.\n");
@@ -61,7 +68,46 @@ void B48BCtopic1(){
 }
 
 void B48BCtopic2(){
-    B48BCTopComm();
+    inputguard = 1;
+    while(inputguard == 1){
+        B48BCTopComm();
+        printf("1. Reciprocating compressor.\n2. Polytropic process shaft work\n3. First law for open systems\n4. First law applications to elementary unit operations\n");
+        printf("q. Exit topic. \n\n");
+        printf("Selections [1 - 4]: ");
+        fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
+        switch(B48BCTopMenu[0]){
+            case '1':
+                Compressor();
+                inputguard = 0;
+                break;
+            case '2':
+                PolyShaftWork();
+                inputguard = 0;
+                break;
+            case '3':
+                OpenFirstLaw();
+                inputguard = 0;
+                break;
+            case '4':
+                AppFirstLaw();
+                inputguard = 0;
+                break;
+            case '0':
+            case 'Q':
+            case 'q':
+                inputguard = 0;
+                break;
+            default:
+                printf("Input not recognised \n");
+        }
+    }
+    //  Isothermal reciprocating compressor
+    
+    //  Shaft work for polytropic process
+    
+    //  First law for open systems (Different to the steady flow energy equation in B48BB)
+    
+    //  Irreversibilities are dealth with in Energy gen
 }
 
 void B48BCtopic3(){
@@ -82,9 +128,9 @@ void B48BCtopic6(){
 
 void B48BC(){
     char topi[maxstrlen];
-    int ConM;
+    int ConM = 0;
     
-    printf("Process Engineering B - Introduction to Thermodynamics\n\n");
+    printf("Process Engineering B - Thermodynamics Processes\n\n");
     ConM = 1;
     while(ConM == 1){
         printf("Please select from the following topics:\n");
