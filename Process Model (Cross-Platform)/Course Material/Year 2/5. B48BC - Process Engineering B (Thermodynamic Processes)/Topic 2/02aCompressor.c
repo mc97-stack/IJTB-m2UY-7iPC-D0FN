@@ -14,7 +14,7 @@
 // Custom header files
 #include "B48BC_T2.h"
 #include "02aCompressor.h"
-#include "IdealGasLaw.h"
+#include "02bPolyShaftWork.h"
 
 // Loading the thermodynamic processes required for this subroutine
 #include "01cIsobaric.h"
@@ -101,8 +101,9 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
         profile.V[i] = 0.0;
         profile.T[i] = 0.0;
         profile.W_V[i] = 0.0;
-        //  2048 total double elements -> 2048 * 8 bytes = 16 384 bytes = 16.384 KB required.
-        //  Automatic memory allocation should be able to handle this struct. Assuming typical cache size for a modern computer is about 32 KB. Some computers with a core CPU cache less than 17 KB may struggle with this program. Intel Core i3 - 6100E has a cache size of 3MB.
+        profile.W_S[i] = 0.0;
+        //  2560 total double elements -> 2560 * 8 bytes = 20 480 bytes = 20.480 KB required.
+        //  Automatic memory allocation should be able to handle this struct. Assuming typical cache size for a modern computer is about 32 KB. Some computers with a core CPU cache less than 17 KB may struggle with this program. Intel Core i3 - 6100E has a cache size of 3MB so this program should run fine on intel machines.
     }
     double incr = 0.0; // Increment between datapoints
     int elem = 0; // Element counter
@@ -118,12 +119,14 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     profile.V[elem] = Vc;
     profile.T[elem] = T1;
     profile.W_V[elem] = 0.0;
+    profile.W_S[elem] = 0.0;
     
     for(elem = 1; elem < 6; ++ elem){
         profile.P[elem] = P1; // Isobaric process, pressure will stay constant
         profile.V[elem] = profile.V[elem - 1] + incr;
         profile.T[elem] = IsobFinalTemperature(profile.V[elem - 1], profile.V[elem], profile.T[elem - 1]);
         profile.W_V[elem] = IsobVolume(profile.P[elem], profile.V[elem - 1], profile.V[elem]);
+        profile.W_S[elem] = profile.V[elem]*(profile.P[elem] - profile.P[elem - 1]); // Pressure is not changing so no shaft work is being done. Calculation is being performed just in case.
     }
     // Stage 2: Isothermal/ Polytropic Compression
         // This process must occur between elements 6 to 505
@@ -139,12 +142,14 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
             profile.T[elem] = profile.T[5];
             profile.V[elem] = IsotFinalVolume(profile.V[elem - 1], profile.P[elem - 1], profile.P[elem]);
             profile.W_V[elem] = IsotPressure(n, profile.T[elem], profile.P[elem - 1], profile.P[elem]);
+            profile.W_S[elem] = IdealShaftCalc(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem]);
         }
         if(method == 2){
             profile.P[elem] = profile.P[elem - 1] + incr;
             profile.V[elem] = PolyFinalVolume(profile.P[elem - 1], profile.P[elem], profile.V[elem - 1], alpha);
             profile.T[elem] = PolyFinalTemperature(profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
             profile.W_V[elem] = PolyVolume(profile.P[elem - 1], profile.P[elem], profile.V[elem - 1], alpha);
+            profile.W_S[elem] = PolyShaftCalc(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
         }
     }
     
@@ -159,6 +164,7 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
         profile.V[elem] = profile.V[elem - 1] + incr;
         profile.T[elem] = IsobFinalTemperature(profile.V[elem - 1], profile.V[elem], profile.T[elem - 1]);
         profile.W_V[elem] = IsobVolume(profile.P[elem], profile.V[elem - 1], profile.V[elem]);
+        profile.W_S[elem] = profile.V[elem]*(profile.P[elem] - profile.P[elem - 1]); // Pressure is not changing so no shaft work is being done. Calculation is being performed just in case.
     }
     
     return profile;
@@ -198,6 +204,7 @@ void Compressor(void)
             profile.V[j] = 0.0;
             profile.T[j] = 0.0;
             profile.W_V[j] = 0.0;
+            profile.W_S[j] = 0.0;
         }
         
         //Data Collection
@@ -240,12 +247,13 @@ void Compressor(void)
             profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha);
             
             // Viewing the generated profile
-            printf("P (kPa)\tV (m3)\tT (deg C)\tW_V (kW)\n");
+            printf("P (kPa)\tV (m3)\tT (deg C)\tW_V (kW)\tW_S (kW)\n");
             for(int i = 0; i < 512; ++i){
                 printf("%.3f\t", 0.001 * profile.P[i]);
                 printf("%.3f\t", profile.V[i]);
                 printf("%.2f\t", (profile.T[i]) - 273.15);
-                printf("%.3f\n", 0.001 * profile.W_V[i]);
+                printf("%.3f\t", 0.001 * profile.W_V[i]);
+                printf("%.3f\n", 0.001 * profile.W_S[i]);
             }
             
             // File write

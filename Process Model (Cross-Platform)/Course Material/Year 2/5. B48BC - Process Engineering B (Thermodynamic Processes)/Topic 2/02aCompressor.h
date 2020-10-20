@@ -11,6 +11,7 @@ typedef struct CompProfile{
     double V[512];
     double T[512];
     double W_V[512];
+    double W_S[512];
 } T2CompProfile;
 
 #ifndef CompressorVar_h
