@@ -13,7 +13,6 @@
 #include <string.h>
 
 //Custom Header Files
-#include "B48BC_T1.h"
 #include "01eAdiabatic.h"
 #include "IdealGasLaw.h"
 
@@ -150,6 +149,22 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma)
     return T;
 }
 
+double AdiaFinalVol(double V1, double P1, double P2, double gamma)
+{
+    // Can also calculate using temperature but using pressure is less computationally expensive.
+    double V2 = 0.0;
+    double power = 0.0;
+    double frac = 0.0;
+    
+    frac = P1/P2;
+    power = (1.0)/(gamma);
+    frac = pow(frac, power);
+    
+    V2 = frac*V1;
+    
+    return V2;
+}
+
 T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma)
 {
     double incr = 0.0; // Difference between datapoints
@@ -157,6 +172,15 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     int i = 0;
     
     T1ThermoProf profile;
+    // Initialising profile to arrays on zeros
+    for(int j = 0; j < 250; ++j){
+        profile.P[j] = 0.0;
+        profile.V[j] = 0.0;
+        profile.T[j] = 0.0;
+        profile.W_V[j] = 0.0;
+        profile.Q[j] = 0.0;
+    }
+    
     double total = 0.0;
     
     if(method == 1){
@@ -195,7 +219,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
         {
             profile.V[i] = profile.V[i - 1] + incr;
             profile.P[i] = AdiaFinalPress(profile.P[i - 1], profile.V[i - 1], profile.V[i], gamma);
-            profile.T[i] = IdealTemperature(n, profile.P[i], profile.V[i]);
+            profile.T[i] = AdiaFinalTemp(profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
             profile.W_V[i] = AdiaVolume(profile.P[i - 1], profile.V[i - 1], profile.V[i], gamma);
             total += profile.W_V[i];
         }
@@ -203,7 +227,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
         {
             profile.P[i] = profile.P[i - 1]+incr;
             profile.T[i] = AdiaFinalTemp(profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
-            profile.V[i] = IdealVolume(n, profile.P[i], profile.T[i]);
+            profile.V[i] = AdiaFinalVol(profile.V[i - 1], profile.P[i - 1], profile.P[i], gamma);
             profile.W_V[i] = AdiaTemperature(n, profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
             total += profile.W_V[i];
         }

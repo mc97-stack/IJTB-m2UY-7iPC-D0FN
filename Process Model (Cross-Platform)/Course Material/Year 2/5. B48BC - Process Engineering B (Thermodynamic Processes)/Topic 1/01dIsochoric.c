@@ -14,7 +14,6 @@
 #include <time.h>
 
 //Custom Header Files
-#include "B48BC_T1.h"
 #include "01dIsochoric.h"
 #include "IdealGasLaw.h"
 
@@ -83,6 +82,16 @@ double IsocTemperature(double T1, double T2, double n, double cv)
     return heat;
 }
 
+double IsocFinalTemperature(double T1, double P1, double P2)
+{
+    double T2 = 0.0;
+    
+    T2 = T1/P1;
+    T2 = (T2)*P2;
+    
+    return T2;
+}
+
 T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv)
 {
     double incr = 0.0; // Increment between data points
@@ -123,7 +132,7 @@ T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, 
         if(method == 1){
             profile.P[i] = profile.P[i - 1] + incr;
             profile.V[i] = V;
-            profile.T[i] = IdealTemperature(n, profile.P[i], profile.V[i]);
+            profile.T[i] = IsocFinalTemperature(profile.T[i - 1], profile.P[i - 1], profile.P[i]);
             profile.W_V[i] = 0.0;
             profile.Q[i] = IsocPressure(profile.P[i - 1], profile.P[i], profile.V[i], n, cv);
             total += profile.Q[i];

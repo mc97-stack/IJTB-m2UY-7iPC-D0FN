@@ -47,8 +47,33 @@ double IsotPressure(double n, double T, double P1, double P2);
 
 #endif /* IsotPressure_h */
 
+#ifndef IsotFinalPressure_h
+#define IsotFinalPressure_h
+
+
+/// This subroutine is used to calculate the final pressure of a process undergoing an isothermal process
+/// @param P1 Initial system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+double IsotFinalPressure(double P1, double V1, double V2);
+
+#endif /* IsotFinalPressure_h */
+
+#ifndef IsotFinalVolume_h
+#define IsotFinalVolume_h
+
+/// This subroutine is used to calculate the final volume of a process undergoing an isothermal process
+/// @param V1 initial system volume (m3)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+double IsotFinalVolume(double V1, double P1, double P2);
+
+#endif /* IsotFinalVolume_h */
+
 #ifndef IsotProfile_h
 #define IsotProfile_h
+
+#include "B48BC_T1.h"
 
 /// This subroutine is used to estimate the process profile for an isothermal process. This subroutine requires "IdealPressure(...)" and "IdealVolume(...)" from "IdealGasLaw.h" to function as intended.
 /// @param n Moles of component in system (mol/ s)

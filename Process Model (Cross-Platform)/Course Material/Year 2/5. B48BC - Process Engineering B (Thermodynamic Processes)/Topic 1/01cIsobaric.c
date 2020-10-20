@@ -14,7 +14,6 @@
 #include <time.h>
 
 //Custom Header Files
-#include "B48BC_T1.h"
 #include "01cIsobaric.h"
 #include "IdealGasLaw.h"
 
@@ -75,6 +74,16 @@ double IsobTemperature(double n, double T1, double T2)
     return work;
 }
 
+double IsobFinalTemperature(double V1, double V2, double T1)
+{
+    double T2 = 0.0;
+    
+    T2 = V2/V1;
+    T2 = (T2)*T1;
+    
+    return T2;
+}
+
 T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, double T2, double n)
 {
     double incr = 0.0; // Increment between data points
@@ -114,7 +123,7 @@ T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, 
         if(method == 1){
             profile.P[i] = P;
             profile.V[i] = profile.V[i - 1] + incr;
-            profile.T[i] = IdealTemperature(n, profile.P[i], profile.V[i]);
+            profile.T[i] = IsobFinalTemperature(profile.V[i - 1], profile.V[i], profile.T[i - 1]);
             profile.W_V[i] = IsobVolume(profile.P[i], profile.V[i-1], profile.V[i]);
             total = total + profile.W_V[i];
         }

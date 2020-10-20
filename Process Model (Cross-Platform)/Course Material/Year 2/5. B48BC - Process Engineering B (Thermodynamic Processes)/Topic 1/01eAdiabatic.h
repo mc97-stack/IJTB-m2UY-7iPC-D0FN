@@ -75,6 +75,8 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 #ifndef AdiaProfile_h
 #define AdiaProfile_h
 
+#include "B48BC_T1.h"
+
 /// This subroutine is used to determine the process profile given the input parameters. This subroutine requires "IdealTemperature(...)" and "IdealVolume(...)" from "IdealGasLaw.h" to function as intended.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Pressure-Temperature equation.
 /// @param P1 Initial system pressure (Pa)

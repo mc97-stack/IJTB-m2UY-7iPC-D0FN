@@ -50,6 +50,8 @@ double IsocTemperature(double T1, double T2, double n, double cv);
 #ifndef IsocProfile_h
 #define IsocProfile_h
 
+#include "B48BC_T1.h"
+
 /// This subroutine is used for calculating the process profile for an isochoric process. This subroutine requires "IdealTemperature(...)" from "IdealGasLaw.h" to function as intended.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
 /// @param P1 Initial system pressure (Pa).

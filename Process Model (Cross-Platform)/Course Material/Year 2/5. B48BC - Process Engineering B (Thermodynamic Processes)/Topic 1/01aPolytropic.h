@@ -72,6 +72,18 @@ double PolyFinalPressure(double T1, double T2, double P1, double alpha);
 
 #endif /* PolyFinalPressure_h */
 
+#ifndef PolyFinalTemperature_h
+#define PolyFinalTemperature_h
+
+/// Subroutine used to determine the final temperature from the pressure-temperature relationship for a polytropic process.
+/// @param T1 Initial system temperature (K).
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param alpha Polytropic index ([ ]).
+double PolyFinalTemperature(double T1, double P1, double P2, double alpha);
+
+#endif /* PolyFinalTemperature_h */
+
 #ifndef PolyProfile_h
 #define PolyProfile_h
 

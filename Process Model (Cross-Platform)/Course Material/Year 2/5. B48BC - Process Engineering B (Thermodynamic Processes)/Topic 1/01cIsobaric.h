@@ -43,8 +43,21 @@ double IsobTemperature(double n, double T1, double T2);
 
 #endif /* IsobTemperature_h */
 
+#ifndef IsobFinalTemperature_h
+#define IsobFinalTemperature_h
+
+/// This subroutine calculates the final system temperature from the combined gas law modified for an isobaric process
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+double IsobFinalTemperature(double V1, double V2, double T1);
+
+#endif /* IsobFinalTemperature_h */
+
 #ifndef IsobProfile_h
 #define IsobProfile_h
+
+#include "B48BC_T1.h"
 
 /// This subroutine is used to calculate the process profile associated with an isobaric process. This subroutine requires "IdealTemperature(...)" and "IdealGasLaw.h" to function as intended.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.

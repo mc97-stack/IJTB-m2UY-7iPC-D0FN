@@ -150,6 +150,23 @@ double PolyFinalPressure(double T1, double T2, double P1, double alpha)
     return P2;
 }
 
+double PolyFinalTemperature(double T1, double P1, double P2, double alpha)
+{
+    double T2 = 0.0;
+    double power = 0.0;
+    double frac = 0.0;
+    
+    power = 1 - alpha;
+    power = (power)/alpha;
+    
+    frac = P1/P2;
+    
+    T2 = pow(frac, power);
+    T2 = T1 * (T2);
+    
+    return T2;
+}
+
 T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
 {
     double incr = 0.0; // Increment between data points

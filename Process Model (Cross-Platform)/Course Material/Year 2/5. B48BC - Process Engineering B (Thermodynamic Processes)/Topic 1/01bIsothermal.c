@@ -13,7 +13,6 @@
 #include <string.h>
 
 //Custom Header Files
-#include "B48BC_T1.h"
 #include "01bIsothermal.h"
 #include "IdealGasLaw.h"
 
@@ -86,6 +85,26 @@ double IsotPressure(double n, double T, double P1, double P2)
     return work;
 }
 
+double IsotFinalPressure(double P1, double V1, double V2)
+{
+    double P2 = 0.0;
+    
+    P2 = P1 * V1;
+    P2 = (P2)/V2;
+    
+    return P2;
+}
+
+double IsotFinalVolume(double V1, double P1, double P2)
+{
+    double V2 = 0.0;
+    
+    V2 = P1*V1;
+    V2 = (V2)/P2;
+    
+    return V2;
+}
+
 T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
 {
     double incr = 0.0; // Increment between data points
@@ -126,14 +145,14 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
         if(method == 1){
             profile.V[i] = profile.V[i-1] + incr;
             profile.T[i] = T;
-            profile.P[i] = IdealPressure(n, profile.T[i], profile.V[i]);
+            profile.P[i] = IsotFinalPressure(profile.P[i - 1], profile.V[i-1], profile.V[i]);
             profile.W_V[i] = IsotVolume(n, profile.T[i], profile.V[i-1], profile.V[i]);
             total = total + profile.W_V[i];
         }
         if(method == 2){
             profile.P[i] = profile.P[i-1] + incr;
             profile.T[i] = T;
-            profile.V[i] = IdealVolume(n, profile.P[i], profile.T[i]);
+            profile.V[i] = IsotFinalVolume(profile.V[i - 1], profile.P[i-1], profile.P[i]);
             profile.W_V[i] = IsotPressure(n, profile.T[i], profile.P[i-1], profile.P[i]);
             total = total + profile.W_V[i];
         }
