@@ -149,8 +149,10 @@ double EnerConFluCalc(double h, double u, double z)
     
     kin = pow(u, 2);
     kin = (kin)/2;
+    kin = (kin)*0.001;
     
     pot = z*g;
+    pot = (pot)*0.001;
     
     EnerCont = h + (kin);
     
