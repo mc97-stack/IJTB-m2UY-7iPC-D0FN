@@ -54,10 +54,24 @@ typedef struct LamVelProfile{
 /// @param dP Fluid pressure loss (Pa)
 /// @param L Pipe length (m)
 /// @param d Pipe diameter (mm)
-/// @param mu Fluid viscosity (cP)
+/// @param mu Fluid viscosity (Pa.s)
 LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rowcount);
 
 #endif /* LamVelProfCalc_h */
+
+#ifndef LamVelProWrite_h
+#define LamVelProWrite_h
+
+/// This subroutine is used to write the collected data and generated velocity profile to a .txt file
+/// @param dP Fluid pressure loss (Pa).
+/// @param L Pipe length (m).
+/// @param d Pipe diameter (m).
+/// @param mu Fluid dynamic viscosity (Pa.s).
+/// @param rows Number of rows generated in "LamVelProfCalc".
+/// @param profile Velocity profile struct.
+void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile);
+
+#endif /* LamVelProWrite_h */
 
 #ifndef LamVelPro_h
 #define LamVelPro_h

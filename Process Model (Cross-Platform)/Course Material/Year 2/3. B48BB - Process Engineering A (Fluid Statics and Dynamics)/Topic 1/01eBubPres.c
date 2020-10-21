@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T1.h"
@@ -43,55 +44,79 @@ double BubPresCalc(double sigma, double r)
     
     top = 2*sigma;
     P = (top)/r;
-    printf("Bubble pressure = %.3f Pa\n", P);
+    
     return P;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void BubPresWrite(double sigma, double r, double P)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Get file name
-    *filename = (char)malloc(sizeof(filename);
-    ...
+    FILE *fp;
+    //Set file name as timestamp + Bubble Pressure Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Bubble Pressure Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
     strcat(filepath, filename);
-    strcat(filepath, ".txt");
+    void free(void *filename);
     
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
     }
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    printf("Beginning file write\n");
-    //File open
+    printf("Beginning file write...\n");
+    
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Bubble_Pressure_Calculations_\n");
+    fprintf(fp, "\tInput Parameters:\n");
+    fprintf(fp, "sigma =\t%.3f\tN/m\n", sigma);
+    fprintf(fp, "r =\t%.3f\tmm\n", r*1000);
+    fprintf(fp, "\tOutput Parameters:\n");
+    fprintf(fp, "P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
     
-    //File close
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void BubPres()
 {
     //Main Function
@@ -114,7 +139,7 @@ void BubPres()
         BubPresVar(&sigma, &r);
         printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         P = BubPresCalc(sigma, r);
-        printf("Function returns: P = %f\n", P);
+        printf("Bubble pressure = %.3f Pa\n", P);
         //Ask for file write (Remember while loop)
         //...
         

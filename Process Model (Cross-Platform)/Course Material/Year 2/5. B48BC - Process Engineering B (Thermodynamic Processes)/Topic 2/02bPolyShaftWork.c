@@ -7,9 +7,11 @@
 //
 
 // Standard header files
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <string.h>
+#include <time.h>
 
 // Custom header files
 #include "B48BC_T2.h"
@@ -92,16 +94,16 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
     
     return W_S;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Polytropic Shaft Work Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -110,72 +112,79 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Polytropic Shaft Work Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Polytropic_Shaft_Work_Results_\n");
     
-    //File close
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial System Pressure:\n");
+    fprintf(fp, "P_1 =\t%.3f\tkPa\n", P1*0.001);
+    fprintf(fp, "Final System Pressure:\n");
+    fprintf(fp, "P_2 =\t%.3f\tkPa\n", P2*0.001);
+    
+    fprintf(fp, "Initial System Temperature:\n");
+    fprintf(fp, "T_1 =\t%.3f\tdeg C\n", T1 - 273.15);
+    
+    fprintf(fp, "Molar flowrate of component i:\n");
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+        fprintf(fp, "Universal Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }else{
+        fprintf(fp, "Specific Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }
+    
+    fprintf(fp, "Polytropic Index:\n");
+    fprintf(fp, "alpha =\t%.3f\t[ ]\n\n", alpha);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Shaft Work:\n");
+    fprintf(fp, "W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]", W_S*0.001);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void PolyShaftWork()
 {
     //Main Function
@@ -215,6 +224,7 @@ void PolyShaftWork()
         printf("Shaft work = %.3f kW\n", W_S*0.001);
         
         //Ask for file write (Remember while loop)
+        PolyShaftWrite(n, R, T1, P1, P2, alpha, W_S);
         
         //Continue function
         whilcont = 1;

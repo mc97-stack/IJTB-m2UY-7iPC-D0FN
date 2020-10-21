@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //Custom Header Files
 #include "01eAdiabatic.h"
@@ -237,16 +238,16 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     
     return profile;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Adiabatic Process Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -255,72 +256,93 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Adiabatic Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Adiabatic_Process_Results_\n");
     
-    //File close
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
+    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "V1 =\t%.3f\tm3\n\n", V1);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
+    
+    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    fprintf(fp, "_System-Specific_parameters:_\n");
+    
+    fprintf(fp, "Molar flowrate of component i:\n");
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    
+    fprintf(fp, "Adiabatic Index:\n");
+    fprintf(fp, "gamma =\t%.3f\t[ ]\n\n", gamma);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    
+    double total = 0.0;
+    // Profile (Two Temperature columns (K and deg C))
+    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
+    for(int i = 0; i < 250; ++i){
+        fprintf(fp, "%f\t", profile.P[i]*0.001);
+        fprintf(fp, "%f\t", profile.V[i]);
+        fprintf(fp, "%f\t", profile.T[i]);
+        fprintf(fp, "%f\t\t", profile.T[i] - 273.15);
+        fprintf(fp, "%f\t", profile.W_V[i]*0.001);
+        total += profile.W_V[i]*0.001;
+        fprintf(fp, "%f\n", total);
+    }
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void Adiabatic()
 {
     //Main Function

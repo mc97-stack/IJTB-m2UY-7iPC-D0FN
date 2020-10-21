@@ -57,3 +57,31 @@ double ManoMeasCal(double P2, double rho1, double h1, double rho2, double h2);
 double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2);
 
 #endif /* ManoEstiCal_h */
+
+#ifndef ManoMeasWrite_h
+#define ManoMeasWrite_h
+
+/// Subroutine used to write the results from manometer measurement calculations to a .txt file
+/// @param P1 Process fluid pressure (Pa)
+/// @param P2 Atmospheric pressure (Pa)
+/// @param rho1 Process fluid density (kg/m3)
+/// @param h1 Height of process fluid in manometer (m)
+/// @param rho2 Manometer fluid density (kg/m3)
+/// @param h2 Height of manometer fluid in manometer arm (m)
+void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2);
+
+#endif /* ManoMeasWrite_h */
+
+#ifndef ManoEstiWrite_h
+#define ManoEstiWrite_h
+
+/// Subroutine used to write the results from the manometer estimation calculations
+/// @param P1 Process fluid pressure (Pa)
+/// @param P2 Atmospheric pressure (Pa)
+/// @param rho1 Process fluid density (kg/m3)
+/// @param h1 Height of process fluid in manometer (m)
+/// @param rho2 Manometer fluid density (kg/m3)
+/// @param h2 Height of manometer fluid in manometer arm (m)
+void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2);
+
+#endif /* ManoEstiWrite_h */

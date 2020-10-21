@@ -52,3 +52,20 @@ void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double
  */
 
 #endif /* PitotCalc_h */
+
+#ifndef PitotWrite_h
+#define PitotWrite_h
+
+/// This subroutine is used to output the collected data and calculated values to a .txt file.
+/// @param P1 Fluid pressure (Pa)
+/// @param P2 Static pressure on connection (Pa).
+/// @param rho1 Process fluid density (kg/ m3)
+/// @param rho2 Manometer fluid density (kg/ m3)
+/// @param h1 Process fluid height in manometer (m)
+/// @param h2 Manometer fluid height in manometer (m)
+/// @param d Pipe diameter (m)
+/// @param v Fluid velocity (m/s)
+/// @param Q Fluid volumetric flowrate (m3/ s)
+void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q);
+
+#endif /* PitotWrite_h */

@@ -11,19 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom Header Files
 #include "B48BB_T1.h"
 #include "01dSurfTens.h"
-#include "01eBubPres.h"
-#include "01fCapp.h"
 
 #define maxstrlen 128
 #define PI 3.141592653
-
-//Declaring global variables and allocating memory
-
-    //Miscellaneous Variables
 
 void wettfacts(double cang)
 {
@@ -196,61 +191,89 @@ double duNouyCalc(double F, double L, double C_F, double cang)
     
     sigma = (top)/ (bot);
     
-    printf("Surface tension = %.3f N/m\n", sigma);
     return sigma;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+
+void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Get file name
-    *filename = (char)malloc(sizeof(filename);
-    ...
+    FILE *fp;
+    //Set file name as timestamp + du Nouy
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " du Nouy");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
     strcat(filepath, filename);
-    strcat(filepath, ".txt");
+    void free(void *filename);
     
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
     }
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    printf("Beginning file write\n");
-    //File open
+    printf("Beginning file write...\n");
+    
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_du_Nouy_Surface_Tension_\n");
+    fprintf(fp, "\tInput Parameters:\n");
+    fprintf(fp, "Force required to break fluid surface:\n");
+    fprintf(fp, "F = %.3f N\n", F);
+    fprintf(fp, "Ring Circumference:\n");
+    fprintf(fp, "L = %.3f m3\n", L);
+    fprintf(fp, "Correction Factor:\n");
+    fprintf(fp, "C_F = %.3f mol\n", C_F);
+    fprintf(fp, "Contact angle:\n");
+    fprintf(fp, "phi = %.3f rad\n\n", cang);
+    fprintf(fp, "\tOutput Parameters:\n");
+    fprintf(fp, "sigma =\t%.3f\tN/m\t= \\frac{(C_F)F}{2L\\cos\\phi}\n", sigma);
     
-    //File close
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void SurfTens()
 {
     //Main Function
     char ContCond[maxstrlen];
-    char DropCond[maxstrlen];
-    char input[maxstrlen];
     
     int whilmain = 0;
     
@@ -270,104 +293,19 @@ void SurfTens()
         double L = 0.0;
         double C_F = 0.0;
         double cang = 0.0;
-        double rad = 0.0;
-        double rho = 0.0; //Fluid density
-        double d = 0.0; //Tube diameter
         
         //Declaring output variables
         double sigma = 0.0;
-        double ch = 0.0; // Capillary rise
-        double cp = 0.0; // Capillary pressure
-        
-        //Optional function variables
-        
-        
-        int DropCal = 0;
         
         duNouyVar(&F, &L, &C_F, &cang);
         printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
         sigma = duNouyCalc(F, L, C_F, cang);
+        printf("Surface tension = %.3f N/m\n", sigma);
         
-        printf("Function returns: %f\n", sigma);
-        
-        DropCal = 1;
-        while(DropCal == 1)
-        {
-            printf("Do you want to calculate the internal pressure of a droplet? ");
-            fgets(DropCond, sizeof(DropCond), stdin);
-            switch(DropCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    printf("Droplet radius (mm) = ");
-                    rad = atof(fgets(input, sizeof(input), stdin));
-                    
-                    rad = (rad)*0.001; //Conversion to m
-                    BubPresCalc(sigma, rad);
-                    DropCal = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    DropCal = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
-        
-        DropCal = 1; //Reusing DropCal to ask another question
-        while(DropCal == 1)
-        {
-            printf("Do you want to estimate Capillarity effects? ");
-            fgets(DropCond, sizeof(DropCond), stdin);
-            switch(DropCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    //Collect fluid density
-                    printf("Fluid Density (kg/m3) = ");
-                    rho = atof(fgets(input, sizeof(input), stdin));
-                    
-                    //Collect tube diameter
-                    printf("Capillary tube diameter (mm) = ");
-                    d = atof(fgets(input, sizeof(input), stdin));
-                    
-                    d = (d)*0.001; //Conversion (mm to m)
-                    //Calculate Capillary rise
-                        //Leaving the function outputs unassigned
-                    ch = CappCalch(sigma, cang, rho, d);
-                    printf("Function returns: ch = %f\n\n", ch);
-                    //Calculate Capillary pressure
-                    cp = CappCalcP(sigma, cang, d);
-                    printf("Function returns: cp = %f\n\n", cp);
-                    //Not freeing double variables as they were assigned outside of the loop
-                    
-                    DropCal = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    DropCal = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
         //Ask for file write (Remember while loop)
         //...
+        duNouyWrite(F, L, C_F, cang, sigma);
+        
         //Continue function
         int whilcont;
         whilcont = 1;

@@ -53,11 +53,13 @@ T2StateEnergy OpenFirstLawVar(int ins)
     printf("Fluid velocity at state %i (m/s) = ", ins);
     u = atof(fgets(input, sizeof(input), stdin));
     u = pow(u, 2);
-    state.kinenergy = u/2;
+    state.kinenergy = u/2; // In J/kmol
+    state.kinenergy = state.kinenergy*0.001; //Conversion
     
     printf("Vertical elevation at state %i above reference point (m) = ", ins);
     z = atof(fgets(input, sizeof(input), stdin));
-    state.potenergy = z*g;
+    state.potenergy = z*g; // In J/kmol
+    state.potenergy = state.potenergy*0.001; //Conversion
     
     fflush(stdout);
     return state;
@@ -75,10 +77,14 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
     process = q + w_s;
     
     final = state2.enthalpy + state2.kinenergy;
+    printf("final = %f\n", final);
     final = (final) + state2.potenergy;
+    printf("final = %f\n\n", final);
     
     initial = state1.enthalpy + state1.kinenergy;
+    printf("initial = %f\n", initial);
     initial = (initial) + state1.potenergy;
+    printf("initial = %f\n\n", initial);
     
     fluid = final - initial;
     
@@ -87,16 +93,32 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
     return inequality;
 }
 
-/*
-void [Data Plot & Write](...)
+double VelCalc(double kinenergy)
 {
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
+    double u = 0.0;
+    u = kinenergy*2;
+    u = (u)*1000;
+    u = pow(u, 0.5);
+    return u;
+}
 
-    FILE *fp
+double HeiCalc(double potenergy)
+{
+    double z = 0.0;
+    z = potenergy*1000;
+    z = (z)/(9.80665);
+    return z;
+}
+
+void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + First Law Equation applied to Open Systems
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -105,72 +127,80 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " First Law Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_First_Law_Applied_to_Open_Systems_\n");
+    fprintf(fp, "Assuming the fluid is incompressible. \n");
+    fprintf(fp, "g =\t9.80665\tm/s2\n\n");
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial fluid enthalpy:\n");
+    fprintf(fp, "h1 =\t%.3f\tkJ/kg\n", state1.enthalpy);
+    fprintf(fp, "Final fluid enthalpy:\n");
+    fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", state2.enthalpy);
+    fprintf(fp, "Initial fluid velocity:\n");
+    fprintf(fp, "u1 =\t%.3f\tm/s\n", VelCalc(state1.kinenergy));
+    fprintf(fp, "Final fluid velocity:\n");
+    fprintf(fp, "u2 =\t%.3f\tm/s\n", VelCalc(state2.kinenergy));
+    fprintf(fp, "Initial fluid height:\n");
+    fprintf(fp, "z1 =\t%.3f\tm\n", HeiCalc(state1.potenergy));
+    fprintf(fp, "Final fluid height:\n");
+    fprintf(fp, "z2 =\t%.3f\tm\n\n", HeiCalc(state2.potenergy));
     
-    //File close
+    fprintf(fp, "Specific process heat:\n");
+    fprintf(fp, "q =\t%.3f\tkJ/kg\n", q);
+    fprintf(fp, "Specific shaft work:\n");
+    fprintf(fp, "w =\t%.3f\tkJ/kg\n", w_s);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "System state =\t%.3f\tkJ/kg\n", sysstate);
+    if(fabs(sysstate) < 0.005){
+        fprintf(fp, "This unit operation is operating at steady-state conditions.\n");
+    }else{
+        fprintf(fp, "This unit operation is operating at unsteady-state conditions.\n");
+    }
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void OpenFirstLaw()
 {
     //Main Function
@@ -208,13 +238,14 @@ void OpenFirstLaw()
         //Data manipulation
         sysstate = OpenFirstLawCalc(q, w_s, state1, state2);
         
-        if(sysstate < 0.005){
+        if(fabs(sysstate) < 0.005){
             printf("This unit operation is operating at steady-state conditions.\n");
         }else{
             printf("This unit operation is operating at unsteady-state conditions.\n");
         }
         
         //Ask for file write (Remember while loop)
+        OpenFirstLawWrite(state1, state2, q, w_s, sysstate);
         
         //Continue function
         whilcont = 1;

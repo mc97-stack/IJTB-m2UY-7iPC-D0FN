@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T1.h"
@@ -49,52 +50,75 @@ double FluidVHydCalc(double rho, double h)
     return P;
 }
 
-/*
-void FluidVHydWrite(...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void FluidVHydWrite(double rho, double h, double P)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Get file name
-    *filename = (char)malloc(sizeof(filename);
-    ...
+    FILE *fp;
+    //Set file name as timestamp + Vertical Hydrostatic Pressure Theorem Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+        //Creating file name with base format "YYYYmmDD HHMMSS"
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Vertical Hydrostatic Pressure Theorem Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc((128*2)*sizeof(char));
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
     strcat(filepath, filename);
-    strcat(filepath, ".txt");
+    void free(void *filename);
     
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
     }
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    printf("Beginning file write\n");
-    //File open
+    printf("Beginning file write...\n");
+    
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "Fluid Vertical Hydrostatic Pressure Results\n");
+    fprintf(fp, "g = %.5f\tm/s2\n\n", g);
+    fprintf(fp, "rho = %.3f\tkg/m3\n", rho);
+    fprintf(fp, "h = %.3f\t m\n", h);
+    fprintf(fp, "P\t%.3f\tPa\t= \\rho * g * h =\n", P);
     
-    //File close
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void FluidVHyd()
 {
     //Main Function
@@ -124,6 +148,9 @@ void FluidVHyd()
         //printf("Do you want to plot the pressure variations up to this height? ");
         //FluidVHydProfile(*rho, *h);
         //printf("Profile is linear...");
+        
+        FluidVHydWrite(rho, h, P);
+        
         //Continue function
         whilcont = 1;
         while(whilcont == 1)

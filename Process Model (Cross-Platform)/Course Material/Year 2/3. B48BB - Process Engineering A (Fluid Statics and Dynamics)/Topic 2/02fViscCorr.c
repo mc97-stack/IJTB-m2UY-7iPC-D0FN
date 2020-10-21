@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T2.h"
@@ -18,11 +19,6 @@
 
 #define maxstrlen 128
 #define exp 2.718281828459045
-
-//Declaring global variables and allocating memory
-
-    //Miscellaneous Variables
-
 
 void ViscCorrVar(double *a, double *b, double *T, double *rho)
 {
@@ -122,17 +118,16 @@ double KinVisc(double mu, double rho)
     printf("Kinematic viscosity = %.3f [Units]\n", upsi);
     return upsi;
 }
-/*
-void [Data Plot & Write](...)
-{
-    //Plot the viscosity variations against temperature
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + ... Viscosity Correlation Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -141,72 +136,79 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
-    printf("File name: \"%s\"\n", filename);
+    if(method == 1){
+        strcat(filename, " Liquid Viscosity Correlation Results");
+        printf("File name: \"%s\"\n", filename);
+    }
+    if(method == 2){
+        strcat(filename, " Vapour Viscosity Correlation Results");
+        printf("File name: \"%s\"\n", filename);
+    }
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    if(method == 1){
+        fprintf(fp, "_Liquid_Viscosity_Correlation_\n");
+    }
+    if(method == 2){
+        fprintf(fp, "_Vapour_Viscosity_Correlation_\n");
+    }
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "a =\t%.3f\n", a);
+    fprintf(fp, "b =\t%.3f\n", b);
+    fprintf(fp, "Temperature:\n");
+    fprintf(fp, "T =\t%.3f\tkg/m3\n", T);
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
     
-    //File close
+    fprintf(fp, "\tOutput parameters:\n");
+    if(method == 1){
+        fprintf(fp, "mu =\t%.3f\t...\t=ae^{\\frac{b}{T}}\n", mu);
+    }
+    if(method == 2){
+        fprintf(fp, "mu =\t%.3f\t...\t=\\frac{aT^{1.5}}{(b + T)\n", mu);
+    }
+    fprintf(fp, "upsilon =\t%.3f\t...\t=\\frac{\\mu}{\\rho}\n", upsi);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void ViscCorr()
 {
     //Main Function
@@ -219,7 +221,7 @@ void ViscCorr()
     while(whilmain == 1)
     {
         //Variable declaration
-        char method[maxstrlen];
+        char input[maxstrlen];
         
             //Function Output
         double mu = 0.0; //Fluid viscosity
@@ -230,6 +232,7 @@ void ViscCorr()
         double T = 0.0;
         double rho = 0.0;
         
+        int method = 0;
         int whilmethod = 0;
         whilmethod = 1;
         
@@ -239,19 +242,21 @@ void ViscCorr()
             printf("Please select from the following types of calculation:\n");
             printf("1. Liquid Viscosity\n2. Vapour Viscosity\n");
             printf("Selection ");
-            fgets(method, sizeof(method), stdin);
-            switch(method[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                 case 'L':
                 case 'l':
                     printf("Liquid viscosity correlation selected.\n");
+                    method = 1;
                     whilmethod = 0;
                 break;
                 case '2':
                 case 'V':
                 case 'v':
                     printf("Vapour viscosity correlation selected\n");
+                    method = 2;
                     whilmethod = 0;
                 break;
                 default:
@@ -270,20 +275,16 @@ void ViscCorr()
         printf("\n");
         //Data manipulation
         mu = 0; //Initialising viscosity variable
-        switch(method[0])
+        switch(method)
         {
             case '1':
-            case 'L':
-            case 'l':
                 mu = LiqViscCalc(a, b, T);
                 printf("Function returns: mu = %f [Units]\n", mu);
-            break;
+                break;
             case '2':
-            case 'V':
-            case 'v':
                 mu = VapViscCalc(a, b, T);
                 printf("Function returns: mu = %f [Units]\n", mu);
-            break;
+                break;
             //Default case is not needed as input is checked earlier in function
         }
         printf("\n");
@@ -291,6 +292,7 @@ void ViscCorr()
         printf("Function returns: upsi = %f [Units]\n", upsi);
         //Ask for file write (Remember while loop)
         //...
+        ViscWrite(method, a, b, T, rho, mu, upsi);
         
         //Continue function
         int whilcont;

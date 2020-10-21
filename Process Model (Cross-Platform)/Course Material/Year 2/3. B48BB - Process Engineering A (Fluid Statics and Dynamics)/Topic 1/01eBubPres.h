@@ -21,7 +21,18 @@ void BubPresVar(double *sigma, double *r);
 
 /// Subroutine is used to calculate the bubble pressure given the surface tension and bubble radius. After calculation, this subroutine returns the pressure required to form the given bubble.
 /// @param sigma Surface tension (N/m)
-/// @param r bubble radius (r)(m)
+/// @param r bubble radius (m)
 double BubPresCalc(double sigma, double r);
 
 #endif /* BubPresCalc_h */
+
+#ifndef BubPresWrite_h
+#define BubPresWrite_h
+
+/// Subroutine used to write the results from bubble pressure calculation to a .txt file.
+/// @param sigma Surface tension (N/m)
+/// @param r bubble radius (m)
+/// @param P Bubble Pressure (Pa)
+void BubPresWrite(double sigma, double r, double P);
+
+#endif /* BubPresWrite_h */

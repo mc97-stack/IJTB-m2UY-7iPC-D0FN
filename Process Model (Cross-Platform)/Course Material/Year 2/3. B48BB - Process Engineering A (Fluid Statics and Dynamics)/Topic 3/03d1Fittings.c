@@ -7,10 +7,7 @@
 //
 
 //  Standard header files
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 //  Custom header files
 #include "B48BB_T3.h"
@@ -19,14 +16,6 @@
 #include "03dcEquivLeng.h"
 
 #define maxstrlen 128
-
-//Declaring global variables and allocating memory
-    //Function Output
-
-    //Calculation Variables
-
-    //Miscellaneous Variables
-
 
 void Fittings()
 {

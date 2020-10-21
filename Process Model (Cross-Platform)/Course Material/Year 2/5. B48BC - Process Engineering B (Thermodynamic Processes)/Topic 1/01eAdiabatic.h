@@ -93,3 +93,20 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
  */
 
 #endif /* AdiaProfile_h */
+
+#ifndef AdiaProcWrite_h
+#define AdiaProcWrite_h
+
+/// Subroutine used to write the colllected data and generated dataset from AdiaProfile(...) to a .txt file.
+/// @param P1 <#P1 description#>
+/// @param P2 <#P2 description#>
+/// @param V1 <#V1 description#>
+/// @param V2 <#V2 description#>
+/// @param T1 <#T1 description#>
+/// @param T2 <#T2 description#>
+/// @param n <#n description#>
+/// @param gamma <#gamma description#>
+/// @param profile <#profile description#>
+void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
+
+#endif /* AdiaProcWrite_h */

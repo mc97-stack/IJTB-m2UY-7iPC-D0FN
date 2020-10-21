@@ -23,6 +23,16 @@ void FluidVHydVar(double *rho, double *h);
 /// @param rho Fluid density (kg/m3).
 /// @param h Height of fluid (m).
 double FluidVHydCalc(double rho, double h);
-/*  Subroutine used to calculate the fluid hydrostatic pressure. All variables used in this function have been declared previously as global variables. The function will return the hydrostatic pressure as a double value in addition to printing the hydrostatic pressure with LaTeX formatting from running the function alone. This */
 
 #endif /* FluidVHydCalc_h */
+
+#ifndef FluidVHydWrite_h
+#define FluidVHydWrite_h
+
+/// This subroutine is used to write the results of this program to a .txt file
+/// @param rho Fluid density (kg/ m3)
+/// @param h Fluid depth from the free fluid surface (m)
+/// @param P Hydrostatic pressure (Pa)
+void FluidVHydWrite(double rho, double h, double P);
+
+#endif /* FluidVHydWrite_h */

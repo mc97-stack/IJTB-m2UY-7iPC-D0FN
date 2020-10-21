@@ -49,3 +49,18 @@ double VapViscCalc(double a, double b, double T);
 double KinVisc(double mu, double rho);
 
 #endif /* KinVisc_h */
+
+#ifndef ViscWrite_h
+#define ViscWrite_h
+
+/// This subroutine is used to write the viscosity correlation results to a .txt file.
+/// @param method Variable used to tell the subroutine whether the liquid or vapour correlation was used in the program. This subroutine then modifies behaviour accordingly.
+/// @param a Correlation constant
+/// @param b Correlation constant
+/// @param T Temperature
+/// @param rho Fluid density
+/// @param mu Fluid dynamic viscosity
+/// @param upsi Fluid kinematic viscosity
+void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi);
+
+#endif /* ViscWrite_h */

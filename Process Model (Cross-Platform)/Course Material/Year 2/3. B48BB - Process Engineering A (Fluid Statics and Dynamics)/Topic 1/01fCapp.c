@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T1.h"
@@ -60,7 +61,6 @@ double CappCalch(double sigma, double cang, double rho, double d)
     
     h = (top)/(bot);
     
-    printf("Capillary rise = %.3f m\n", h);
     return h;
 }
 
@@ -75,57 +75,84 @@ double CappCalcP(double sigma, double cang, double d)
     Pc = d/2;
     Pc = (top)/(Pc);
     
-    printf("Capillary pressure = %.3f Pa\n", Pc);
     
     return Pc;
 }
 
-/*
-void [Data Plot & Write](...)
+void CappWrite(double sigma, double cang, double d, double h, double Pc)
 {
+    //Function variables
     char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Get file name
-    *filename = (char)malloc(sizeof(filename);
-    ...
+    FILE *fp;
+    //Set file name as timestamp + Fluid Coefficient of Compressibility
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Capillarity Calculations Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
     strcat(filepath, filename);
-    strcat(filepath, ".txt");
+    void free(void *filename); // Removing 'filename' from the heap
     
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
     }
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    printf("Beginning file write\n");
-    //File open
+    printf("Beginning file write...\n");
+    
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Capillarity_Calculations_\n");
+    fprintf(fp, "\tInput Parameters:\n");
+    fprintf(fp, "Fluid surface tension:\n");
+    fprintf(fp, "sigma =\t%.3f\tN/m\n", sigma);
+    fprintf(fp, "Contact angle:\n");
+    fprintf(fp, "cang =\t%.3f\trad\n", cang);
+    fprintf(fp, "\tOutput Parameters:\n");
+    fprintf(fp, "Capillary rise:\n");
+    fprintf(fp, "h =\t%.3f\tcm\t=\\frac{2\\sigma\\cos\\theta}{\\rho gr}\n",h*0.01);
+    fprintf(fp, "Capillary pressure:\n");
+    fprintf(fp, "Pc =\t%.3f\tPa\t=\\frac{2\\sigma\\cos\\theta}{r}\n",Pc);
     
-    //File close
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void Capp()
 {
     //Main Function
@@ -155,14 +182,13 @@ void Capp()
         printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
         h = CappCalch(sigma, cang, rho, d);
-        
-        printf("Function returns: h = %f\n", h);
+        printf("Capillary rise = %.3f m\n", h);
         Pc  = CappCalcP(sigma, cang, d);
-        
-        printf("Function returns: Pc = %f\n", Pc);
+        printf("Capillary pressure = %.3f Pa\n", Pc);
         
         //Ask for file write (Remember while loop)
         //...
+        CappWrite(sigma, cang, d, h, Pc);
         
         //Continue function
         

@@ -53,3 +53,20 @@ double EnerConFluCalc(double h, double u, double z);
 double EnerConProCalc(double q, double w);
 
 #endif /* EnerConProCalc_h */
+
+#ifndef EnerConProWrite_h
+#define EnerConProWrite_h
+
+/// This subroutine is used to determine whether the first law of thermodynamics is being violated or not. This subroutine can only tell if a process is operating at steady-state as seen later in "02cOpenFirstLaw.c".
+/// @param h1 Initial stream enthalpy. (kJ/ kg)
+/// @param h2 Final stream enthalpy. (kJ/ kg)
+/// @param u1 Initial fluid velocity. (m/ s)
+/// @param u2 Final fluid velocity. (m/ s)
+/// @param z1 Initial fluid height. (m)
+/// @param z2 Final fluid height. (m)
+/// @param q Process heat. (kJ/ kg)
+/// @param w Process work. (kJ/ kg)
+/// @param check Value of inequality
+void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check);
+
+#endif /* EnerConProWrite_h */

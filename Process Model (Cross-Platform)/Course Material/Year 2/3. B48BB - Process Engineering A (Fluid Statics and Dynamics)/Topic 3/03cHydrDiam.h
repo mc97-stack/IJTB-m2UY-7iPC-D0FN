@@ -25,3 +25,14 @@ void HydrDiamVar(double *A_F, double *P_W);
 double HydrDiamCalc(double A_F, double P_W);
 
 #endif /* HydrDiamCalc_h */
+
+#ifndef HydrDiamwrite_h
+#define HydrDiamwrite_h
+
+/// This subroutine is used to write the collected data and the calculated hydraulic diameter to a .txt file
+/// @param A_F Cross-sectional flow area (m2)
+/// @param P_W Wetted perimeter (m)
+/// @param d_H Hydraulic diameter (m)
+void HydrDiamWrite(double A_F, double P_W, double d_H);
+
+#endif /* HydrDiamwrite_h */

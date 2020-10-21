@@ -29,3 +29,16 @@ void ReyNoVar(double *rho, double *u, double *d, double *mu);
 double ReyNoCalc(double rho, double u, double d, double mu);
 
 #endif /* ReyNoCalc_h */
+
+#ifndef ReyNoWrite_h
+#define ReyNoWrite_h
+
+/// This subroutine is used to output the collected data and calculated Reynolds number to a .txt file.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param ReyNum Reynold's Number
+void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum);
+
+#endif /* ReyNoWrite_h */

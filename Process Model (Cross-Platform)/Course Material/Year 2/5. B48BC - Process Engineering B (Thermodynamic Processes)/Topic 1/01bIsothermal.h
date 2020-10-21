@@ -87,3 +87,18 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
  */
 
 #endif /* IsotProfile_h */
+
+#ifndef IsocProcWrite_h
+#define IsocProcWrite_h
+
+/// This subroutine is used to write the collected data and generated profile to a .txt file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T System temperature (K)
+/// @param n Moles of component in system (mol/ s)
+/// @param profile Isothermal process profile
+void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+
+#endif /* IsocProcWrite_h */

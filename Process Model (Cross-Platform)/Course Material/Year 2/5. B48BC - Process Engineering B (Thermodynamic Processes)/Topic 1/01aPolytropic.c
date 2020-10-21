@@ -7,9 +7,11 @@
 //
 
 //  Standard header files
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BC_T1.h"
@@ -241,6 +243,116 @@ T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1,
     return profile;
 }
 
+void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + Polytropic Process Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Polytropic Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Polytropic_Process_Results_\n");
+    
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
+    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "V1 =\t%.3f\tm3\n\n", V1);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
+    
+    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    fprintf(fp, "_System-Specific_parameters:_\n");
+    
+    fprintf(fp, "Molar flowrate of component i:\n");
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+        fprintf(fp, "Universal Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }else{
+        fprintf(fp, "Specific Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }
+    
+    fprintf(fp, "Polytropic Index:\n");
+    fprintf(fp, "alpha =\t%.3f\t[ ]\n\n", alpha);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    
+    double total = 0.0;
+    // Profile (Two Temperature columns (K and deg C))
+    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
+    for(int i = 0; i < 250; ++i){
+        fprintf(fp, "%f\t", profile.P[i]*0.001);
+        fprintf(fp, "%f\t", profile.V[i]);
+        fprintf(fp, "%f\t", profile.T[i]);
+        fprintf(fp, "%f\t\t", profile.T[i] - 273.15);
+        fprintf(fp, "%f\t", profile.W_V[i]*0.001);
+        total += profile.W_V[i]*0.001;
+        fprintf(fp, "%f\n", total);
+    }
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
 void Polytropic()
 {
     char ContCond[maxstrlen];
@@ -251,7 +363,6 @@ void Polytropic()
     while(whilmain == 1)
     {
         // Variable declaration
-        
         char methodinput[maxstrlen];
         
         double P1 = 0.0;
@@ -262,6 +373,8 @@ void Polytropic()
         double n = 0.0;
         double R = 0.0;
         double alpha = 0.0;
+        
+        double V2 = 0.0;
         
         int method = 0;
         
@@ -327,8 +440,20 @@ void Polytropic()
                 total += profile.W_V[i]*0.001;
                 printf("%f\n", total);
             }
+            V2 = profile.V[249];
+            if(method == 1){
+                T1 = profile.T[0];
+                T2 = profile.T[249];
+            }
+            if(method == 2){
+                P1 = profile.P[0];
+                P2 = profile.P[249];
+                V1 = profile.V[0];
+                V2 = profile.V[249];
+            }
             
             // File write
+            PolyProcWrite(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
             
             whilcont = 1;
             while(whilcont == 1)

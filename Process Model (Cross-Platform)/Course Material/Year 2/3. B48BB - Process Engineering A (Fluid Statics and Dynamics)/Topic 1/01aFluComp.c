@@ -79,7 +79,7 @@ double FluCompCalc(double P, double V, double n, double T)
 void FluCompWrite(double P, double V, double n, double T, double c)
 {
     //Function variables
-    char filename[67];
+    char filename[maxstrlen];
     char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
@@ -95,7 +95,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     //Allocating memory for the file name
     *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename, " Fluid Coefficient of Compressibility Results");
@@ -124,7 +124,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");
     
@@ -132,6 +132,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     fp = fopen(filepath, "w+");
     
     //Write to file
+    fprintf(fp, "_Fluid_Coefficient_of_Compressibility_Results_\n");
     fprintf(fp, "P = %.3f kPa\n", P*0.001);
     fprintf(fp, "V = %.3f m3\n", V);
     fprintf(fp, "n = %.3f mol\n", n);
@@ -142,7 +143,6 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     fclose(fp);
      
     printf("Write Complete\n");
-    
 }
 
 void FluComp()

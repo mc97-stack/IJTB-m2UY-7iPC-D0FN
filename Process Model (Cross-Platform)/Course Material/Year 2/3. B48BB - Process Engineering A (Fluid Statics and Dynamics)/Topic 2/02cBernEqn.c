@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T2.h"
@@ -124,16 +125,15 @@ double BernEqnCalc(double stathead, double dynhead, double Z)
     return calc;
 }
 
-/*
-void [Data Plot & Write](...)
+void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
+    //Function variables
     char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Bernoulli Equation Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -142,72 +142,73 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Bernoulli Equation Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Mass_Conservation_Principle_\n");
+    fprintf(fp, "Assuming the fluid is incompressible. \n");
+    fprintf(fp, "g =\t%.3f\tm/s2\n\n", g);
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial fluid pressure:\n");
+    fprintf(fp, "P1 =\t%.3f\tPa\n", P1);
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    fprintf(fp, "Initial fluid velocity:\n");
+    fprintf(fp, "u1 =\t%.3f\tm/s\n", u1);
+    fprintf(fp, "Final fluid velocity:\n");
+    fprintf(fp, "u2 =\t%.3f\tm/s\n", u2);
+    fprintf(fp, "Initial fluid height:\n");
+    fprintf(fp, "z1 =\t%.3f\tm\n", z1);
+    fprintf(fp, "Final fluid height:\n");
+    fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
+    fprintf(fp, "Fluid frictional head loss:\n");
+    fprintf(fp, "hf =\t%.3f\tm\n\n", hf);
     
-    //File close
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Final fluid pressure:\n");
+    fprintf(fp, "P2 =\t%.3f\tkJ/kg\n", P2);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void BernEqn()
 {
     //Main Function
@@ -261,6 +262,7 @@ void BernEqn()
         printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
         //Ask for file write (Remember while loop)
         //...
+        BernEqnWrite(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //Continue function
         int whilcont;

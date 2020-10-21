@@ -38,3 +38,16 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang);
 double duNouyCalc(double F, double L, double C_F, double cang);
 
 #endif /* duNouyCalc_h */
+
+#ifndef duNouyWrite_h
+#define duNouyWrite_h
+
+/// Subroutine used to write the results of calculating the surface tension through the du Nouy Ring method
+/// @param F Force required to break the fluid surface (N)
+/// @param L Ring circumference (m)
+/// @param C_F Correction factor (C_F) ([ ])
+/// @param cang Fluid contact angle with the ring (rad) 
+/// @param sigma Surface tension (N/m)
+void duNouyWrite(double F, double L, double C_F, double cang, double sigma);
+
+#endif /* duNouyWrite_h */

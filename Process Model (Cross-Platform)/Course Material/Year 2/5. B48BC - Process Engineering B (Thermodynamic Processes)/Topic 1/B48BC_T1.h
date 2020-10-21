@@ -11,7 +11,7 @@
 
 /// This struct is used to hold the generated dataset for a thermodynamic process.
 typedef struct T1ThermodynamicProfile{
-    // Maximum of 1000 rows per 'column'
+    // Remember to change the limits of the intervals and for loops in the function as well!
     double P[250];
     double V[250];
     double T[250];

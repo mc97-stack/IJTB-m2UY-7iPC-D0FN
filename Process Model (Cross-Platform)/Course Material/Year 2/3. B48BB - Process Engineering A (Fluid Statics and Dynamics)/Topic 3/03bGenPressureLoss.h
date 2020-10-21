@@ -45,3 +45,19 @@ double phicalc(double rho, double u, double d, double mu, double vareps);
 double LossCalculation(double phi, double L, double d, double rho, double u);
 
 #endif /* LossCalculation_h */
+
+#ifndef PressLossWrite_h
+#define PressLossWrite_h
+
+/// Subroutine used to write the collected data and calculated values for pressure loss and friction factor to a .txt file
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param L Pipe length (m)
+/// @param vareps Pipe absolute roughness (m)
+/// @param phi Friction factor
+/// @param dP Frictional Pressure Loss (Pa)
+void PressLossWrite(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
+
+#endif /* PressLossWrite_h */

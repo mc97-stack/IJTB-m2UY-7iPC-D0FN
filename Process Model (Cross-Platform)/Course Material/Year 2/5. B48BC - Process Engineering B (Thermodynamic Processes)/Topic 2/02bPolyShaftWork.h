@@ -46,3 +46,18 @@ double IdealShaftCalc(double n, double R, double T1, double P1, double P2);
 double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double alpha);
 
 #endif /* PolyShaftCalc_h */
+
+#ifndef PolyShaftWrite_h
+#define PolyShaftWrite_h
+
+/// This subroutine is used to write the collected data and calculated shaft work into a .txt file.
+/// @param n Moles of component in system (mol/s)
+/// @param R Specific gas constant (J/mol.K)
+/// @param T1 Initial system temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param alpha Polytropic index
+/// @param W_S Shaft Work (kW)
+void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
+
+#endif /* PolyShaftWrite_h */

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T3.h"
@@ -108,16 +109,16 @@ void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double
     printf("m = %f\n", *m);
     //return [Function Output];
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Orifice Plate Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -126,72 +127,78 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Orifice Plate Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
     
-    //File close
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial fluid pressure:\n");
+    fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
+    fprintf(fp, "Final system pressure:\n");
+    fprintf(fp, "P2 =\t%.3f\tkPa\n", P2*0.001);
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    
+    fprintf(fp, "Pipe diameter:\n");
+    fprintf(fp, "d1 =\t%.3f\tcm\n", d1*1000);
+    fprintf(fp, "Vena Contracta Diameter:\n");
+    fprintf(fp, "d2 =\t%.3f\tcm\n", d2*1000);
+    fprintf(fp, "Discharge coefficient:\n");
+    fprintf(fp, "C_d =\t%.3f\tcm\n", C_d);
+    fprintf(fp, "Frictional head loss:\n");
+    fprintf(fp, "h_f =\t%.3f\tm\n\n", h_f);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Process fluid velocity:\n");
+    fprintf(fp, "u =\t%.3f\tPa\n", u);
+    fprintf(fp, "Process fluid volumetric flowrate:\n");
+    fprintf(fp, "Q =\t%.3f\tPa\n", Q);
+    fprintf(fp, "Process fluid mass flowrate:\n");
+    fprintf(fp, "Q =\t%.3f\tPa\n", m);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void Orifice()
 {
     //Main Function
@@ -229,6 +236,8 @@ void Orifice()
         
         //Ask for file write (Remember while loop)
         //...
+        OrificeWrite(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+        
         //Continue function
         whilcont = 1;
         while(whilcont == 1)

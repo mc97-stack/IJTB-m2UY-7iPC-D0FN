@@ -40,3 +40,16 @@ double CappCalch(double sigma, double cang, double rho, double d);
 double CappCalcP(double sigma, double cang, double d);
 
 #endif /* CappCalcP_h */
+
+#ifndef CappWrite_h
+#define CappWrite_h
+
+/// Subroutine used to output the results of capillary rise and pressure from capillarity calculations to a .txt file.
+/// @param sigma Surface Tension (N/m)
+/// @param cang Contact angle (rad)
+/// @param d Capillary tube diameter
+/// @param h Capillary rise (m)
+/// @param Pc Capillary pressure (Pa) 
+void CappWrite(double sigma, double cang, double d, double h, double Pc);
+
+#endif /* CappWrite_h */

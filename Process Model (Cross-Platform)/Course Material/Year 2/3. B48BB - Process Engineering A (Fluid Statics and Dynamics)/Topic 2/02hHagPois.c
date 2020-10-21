@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T2.h"
@@ -58,16 +59,16 @@ double HagPoisCalc(double u, double mu, double L, double d)
     
     return dP;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void HagPoisWrite(double u, double mu, double L, double d, double dP)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Hagen-Poiseuille Equation Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -76,72 +77,67 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Hagen-Poiseuille Equation Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
     
-    //File close
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Fluid velocity:\n");
+    fprintf(fp, "u =\t%.3f\tm/s\n", u);
+    fprintf(fp, "Fluid viscosity:\n");
+    fprintf(fp, "mu =\t%.3f\tPa.s\n", mu);
+    fprintf(fp, "Pipe length:\n");
+    fprintf(fp, "L =\t%.3f\tm\n", L);
+    fprintf(fp, "Pipe diameter:\n");
+    fprintf(fp, "d =\t%.3f\tm\n", d*1000);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Fluid pressure loss:\n");
+    fprintf(fp, "dP =\t%.3f\tPa\t= \\frac{32u\\mu L}{d^2}", dP);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void HagPois()
 {
     //Main Function
@@ -171,6 +167,8 @@ void HagPois()
         
         //Ask for file write (Remember while loop)
         //...
+        HagPoisWrite(u, mu, L, d, dP);
+        
         //Continue function
         int whilcont = 1;
         while(whilcont == 1)

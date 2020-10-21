@@ -7,19 +7,21 @@
 //
 
 // Standard header files
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <string.h>
+#include <time.h>
 
 // Custom header files
 #include "B48BC_T2.h"
 #include "02aCompressor.h"
 #include "02bPolyShaftWork.h"
 
-// Loading the thermodynamic processes required for this subroutine
-#include "01cIsobaric.h"
-#include "01bIsothermal.h"
+    // Loading the thermodynamic processes required for this subroutine
 #include "01aPolytropic.h"
+#include "01bIsothermal.h"
+#include "01cIsobaric.h"
 
 #define maxstrlen 128
 
@@ -91,7 +93,7 @@ void CompressorVar(int method, double *P1, double *P2, double *Vc, double *V1, d
     fflush(stdout);
 }
 
-T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double V1, double T1, double T2, double n, double R, double alpha)
+T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double V1, double T1, double T2, double n, double R, double alpha, double *V2)
 {
     T2CompProfile profile;
     
@@ -152,6 +154,7 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
             profile.W_S[elem] = PolyShaftCalc(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
         }
     }
+    *V2 = profile.V[505];
     
     // Stage 3: Isobaric Compression (Volume decreases
         // This process must occur between elements 506 to 511
@@ -170,6 +173,116 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     return profile;
 }
 
+void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + Polytropic Process Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Polytropic Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Polytropic_Process_Results_\n");
+    
+    //Write to file
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
+    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "V1 =\t%.3f\tm3\n\n", V1);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
+    
+    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    fprintf(fp, "_System-Specific_parameters:_\n");
+    
+    fprintf(fp, "Molar flowrate of component i:\n");
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+        fprintf(fp, "Universal Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }else{
+        fprintf(fp, "Specific Gas Constant:\n");
+        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }
+    
+    fprintf(fp, "Polytropic Index:\n");
+    fprintf(fp, "alpha =\t%.3f\t[ ]\n\n", alpha);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    
+    // Profile (Two Temperature columns (K and deg C))
+    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_S (kW)\n");
+    for(int i = 0; i < 512; ++i){
+        fprintf(fp, "%f\t", profile.P[i]*0.001);
+        fprintf(fp, "%f\t", profile.V[i]);
+        fprintf(fp, "%f\t", profile.T[i]);
+        fprintf(fp, "0%f\t\t", profile.T[i] - 273.15);
+        fprintf(fp, "%f\t", profile.W_V[i]*0.001);
+        fprintf(fp, "%f\n", profile.W_S[i]*0.001);
+    }
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+
+
 void Compressor(void)
 {
     char ContCond[maxstrlen];
@@ -186,6 +299,7 @@ void Compressor(void)
         double P2 = 0.0;
         double Vc = 0.0;
         double V1 = 0.0;
+        double V2 = 0.0;
         double T1 = 0.0;
         double T2 = 0.0;
         double n = 0.0;
@@ -242,9 +356,11 @@ void Compressor(void)
         }
         if(method == 1||method == 2){
             CompressorVar(method, &P1, &P2, &Vc, &V1, &T1, &T2, &n, &R, &alpha);
-            
+            if(alpha == 1){
+                method = 1;
+            }
             // Data Manipulation
-            profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha);
+            profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
             
             // Viewing the generated profile
             printf("P (kPa)\tV (m3)\tT (deg C)\tW_V (kW)\tW_S (kW)\n");
@@ -257,6 +373,7 @@ void Compressor(void)
             }
             
             // File write
+            CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
             
             whilcont = 1;
             while(whilcont == 1)

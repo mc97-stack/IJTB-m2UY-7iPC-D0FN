@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T1.h"
@@ -281,52 +282,164 @@ double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2)
     return h2;
 }
 
-/*
-void [Data Plot & Write](...)
+void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
+    //Function variables
     char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Get file name
-    *filename = (char)malloc(sizeof(filename);
-    ...
+    FILE *fp;
+    //Set file name as timestamp + Manometer Measurement Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Manometer Measurement Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
     strcat(filepath, filename);
-    strcat(filepath, ".txt");
+    void free(void *filename);
     
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
     }
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    printf("Beginning file write\n");
-    //File open
+    printf("Beginning file write...\n");
+    
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "Manometer Estimation Calculations\n\n");
+    fprintf(fp, "_Input_Parameters:_\n");
+    fprintf(fp, "\tProcess Fluid:\n");
+    fprintf(fp, "P1 =\t%.3f\tkPa_abs\n", P1*0.001);
+    fprintf(fp, "Process fluid density:\n");
+    fprintf(fp, "rho1 =\t%.3f\tkg/m3\n", rho1);
+    fprintf(fp, "Process fluid height:\n");
+    fprintf(fp, "h1 =\t%.3f\tm\n", h1);
+    fprintf(fp, "\tManometer Fluid:\n");
+    fprintf(fp, "P2 =\t%.3f\tkPa_abs\n", P2*0.001);
+    fprintf(fp, "Manometer fluid density:\n");
+    fprintf(fp, "rho2 =\t%.3f\tkg/m3\n\n", rho2);
     
-    //File close
+    fprintf(fp, "_Output_Values:_\n");
+    fprintf(fp, "Manometer fluid height:\n");
+    fprintf(fp, "h2 =\t%.3f\tm\t= \\frac{\\rho_1gh_1 - \\Delta{P}}{\\rho_2g}\n", h2);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
+void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + Manometer Height Estimation Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Manometer Height Estimation Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename);
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    printf("Note that write sequence disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "Manometer Measurement Calculations\n\n");
+    fprintf(fp, "_Input_Parameters:_\n");
+    fprintf(fp, "\tProcess Fluid:\n");
+    fprintf(fp, "Process fluid density:\n");
+    fprintf(fp, "rho1 =\t%.3f\tkg/m3\n", rho1);
+    fprintf(fp, "Process fluid height:\n");
+    fprintf(fp, "h1 =\t%.3f\tm\n", h1);
+    fprintf(fp, "\tManometer Fluid:\n");
+    fprintf(fp, "P2 =\t%.3f\tkPa_abs\n", P2*0.001);
+    fprintf(fp, "Process fluid density:\n");
+    fprintf(fp, "rho2 =\t%.3f\tkg/m3\n", rho2);
+    fprintf(fp, "Process fluid height:\n");
+    fprintf(fp, "h2 =\t%.3f\tm\n\n", h2);
+    
+    fprintf(fp, "_Output_Values:_\n");
+    fprintf(fp, "P1 =\t%.3f\tkPa_abs\t= P2 + g(\\rho_2h_2 - \\rho_1h_1)\n", P1*0.001);
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
 void Mano()
 {
     //Main Function
@@ -366,6 +479,8 @@ void Mano()
                     printf("Function returns:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", P2, rho1, h1, rho2, h2);
                     P1 = ManoMeasCal(P2, rho1, h1, rho2, h2);
                     printf("Function returns: %f\n", P1);
+                    
+                    ManoMeasWrite(P1, P2, rho1, h1, rho2, h2);
                     whilside = 0;
                 break;
                 case '2':
@@ -376,6 +491,7 @@ void Mano()
                     printf("Function returns:\nP1 = %f\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\n\n", P1, P2, rho1, h1, rho2);
                     h2 = ManoEstiCal(P1, P2, rho1, h1, rho2);
                     printf("Function returns: %f\n", h2);
+                    ManoEstiWrite(P1, P2, rho1, h1, rho2, h2);
                     whilside = 0;
                 break;
                 default:

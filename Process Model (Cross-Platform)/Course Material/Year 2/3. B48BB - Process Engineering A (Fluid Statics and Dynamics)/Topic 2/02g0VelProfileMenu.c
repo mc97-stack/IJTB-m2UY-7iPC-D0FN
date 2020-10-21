@@ -14,8 +14,6 @@
 
 //  Standard header files
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 //  Custom header files
 #include "B48BB_T2.h"

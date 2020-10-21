@@ -10,6 +10,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "03dcEquivLeng.h"

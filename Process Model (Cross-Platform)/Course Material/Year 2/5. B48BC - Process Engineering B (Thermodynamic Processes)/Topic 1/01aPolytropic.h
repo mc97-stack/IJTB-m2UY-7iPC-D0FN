@@ -87,6 +87,8 @@ double PolyFinalTemperature(double T1, double P1, double P2, double alpha);
 #ifndef PolyProfile_h
 #define PolyProfile_h
 
+#include "B48BC_T1.h"
+
 /// This subroutine is used to determine the process profile given the input parameters.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
 /// @param P1 Initial system pressure (Pa)
@@ -102,3 +104,21 @@ T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1,
  */
 
 #endif /* PolyProfile_h */
+
+#ifndef PolyProcWrite_h
+#define PolyProcWrite_h
+
+/// This subroutine is used to write the collected data and the simulated process profile generated in "PolyProfile(...)" to a .txt file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param R Specific gas constant (J/ mol.K)
+/// @param alpha Polytropic index ([ ]).
+/// @param profile Process Profile.
+void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
+
+#endif /* PolyProcWrite_h */

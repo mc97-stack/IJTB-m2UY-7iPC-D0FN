@@ -29,3 +29,16 @@ void HagPoisVar(double *u, double *mu, double *L, double *d);
 double HagPoisCalc(double u, double mu, double L, double d);
 
 #endif /* HagPoisCalc_h */
+
+#ifndef HagPoisWrite_h
+#define HagPoisWrite_h
+
+/// This subroutine is used to write the data collected and calculated pressure loss to a .txt file
+/// @param u Fluid velocity (m/s)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param L Pipe length (m)
+/// @param d Pipe diameter (m)
+/// @param dP Fluid pressure loss (Pa)
+void HagPoisWrite(double u, double mu, double L, double d, double dP);
+
+#endif /* HagPoisWrite_h */

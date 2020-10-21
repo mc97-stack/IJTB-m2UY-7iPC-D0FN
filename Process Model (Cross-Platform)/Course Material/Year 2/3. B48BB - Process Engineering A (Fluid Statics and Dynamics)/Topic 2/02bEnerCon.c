@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T2.h"
@@ -167,16 +168,16 @@ double EnerConProCalc(double q, double w)
     Energy  = q + w;
     return Energy;
 }
-/*
-void [Data Plot & Write](...)
-{
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
 
-    FILE *fp
+void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Steady Flow Energy Equation Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -185,72 +186,75 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Steady Flow Energy Equation Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Steady-Flow_Energy_Equation_\n");
+    fprintf(fp, "Assuming the fluid is incompressible. \n");
+    fprintf(fp, "g =\t%.3f\tm/s2\n\n", g);
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial fluid enthalpy:\n");
+    fprintf(fp, "h1 =\t%.3f\tkJ/kg\n", h1);
+    fprintf(fp, "Final fluid enthalpy:\n");
+    fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", h2);
+    fprintf(fp, "Initial fluid velocity:\n");
+    fprintf(fp, "u1 =\t%.3f\tm/s\n", u1);
+    fprintf(fp, "Final fluid velocity:\n");
+    fprintf(fp, "u2 =\t%.3f\tm/s\n", u2);
+    fprintf(fp, "Initial fluid height:\n");
+    fprintf(fp, "z1 =\t%.3f\tm\n", z1);
+    fprintf(fp, "Final fluid height:\n");
+    fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
     
-    //File close
+    fprintf(fp, "Specific process heat:\n");
+    fprintf(fp, "q =\t%.3f\tkJ/kg\n", q);
+    fprintf(fp, "Specific process work:\n");
+    fprintf(fp, "w =\t%.3f\tkJ/kg\n", w);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "check =\t%.3f\tkJ/kg\n", check);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
+
 void EnerCon()
 {
     //First law states that energy is always conserved, This has mathematical implications when designing processes
@@ -307,7 +311,7 @@ void EnerCon()
         //Checking for a violation of the first law
         check = state2 - state1;
         check = process - check;
-        if(check <= 0.001)
+        if(fabs(check) <= 0.001)
         {
             printf("Your process should work in reality\n");
         }else{
@@ -315,6 +319,7 @@ void EnerCon()
         }
         //Ask for file write (Remember while loop)
         //...
+        EnerConWrite(h1, h2, u1, u2, z1, z2, q, w, check);
         
         whilcont = 1;
         while(whilcont == 1)

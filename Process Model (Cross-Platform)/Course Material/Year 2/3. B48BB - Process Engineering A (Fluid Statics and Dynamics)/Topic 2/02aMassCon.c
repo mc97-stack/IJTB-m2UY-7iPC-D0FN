@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //  Custom header files
 #include "B48BB_T2.h"
@@ -71,7 +72,6 @@ double VolFloCalc(double u, double d)
     
     q = u*(A);
     
-    printf("Volumetric flow rate = %.3f m3/s\n", q);
     return q;
 }
 
@@ -87,20 +87,18 @@ double MassFloCalc(double rho, double d, double u)
     m = rho * (A);
     m = (m) * u;
     
-    printf("Mass flow rate = %.3f kg/s\n", m);
     return m;
 }
 
-/*
-void [Data Plot & Write](...)
+void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2)
 {
+    //Function variables
     char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
     
-    //Set file name as timestamp + Name of Program
+    FILE *fp;
+    //Set file name as timestamp + Mass Conservation Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -109,26 +107,26 @@ void [Data Plot & Write](...)
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    *filename = (char)malloc(sizeof *filename);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
     printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " (Name of Program)");
+    strcat(filename, " Mass Conservation Results");
     printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
@@ -140,41 +138,45 @@ void [Data Plot & Write](...)
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
-    printf("Note that write sequence disabled by zsh\n");
+    printf("Note that write sequence may be disabled by zsh\n");
     
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
+    printf("Beginning file write...\n");
     
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
+    //Open file
     fp = fopen(filepath, "w+");
     
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
+    //Write to file
+    fprintf(fp, "_Mass_Conservation_Principle_\n");
+    fprintf(fp, "Assuming the fluid is incompressible. \n");
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Initial fluid density:\n");
+    fprintf(fp, "rho1 =\t%.3f\tkg/m3\n", rho1);
+    fprintf(fp, "Final fluid density:\n");
+    fprintf(fp, "rho2 =\t%.3f\tkg/m3\n", rho2);
+    fprintf(fp, "Initial pipe diameter:\n");
+    fprintf(fp, "d1 =\t%.3f\tmm\n", d1*1000);
+    fprintf(fp, "Final pipe diameter:\n");
+    fprintf(fp, "d2 =\t%.3f\tmm\n", d2*1000);
+    fprintf(fp, "Initial fluid velocity:\n");
+    fprintf(fp, "u1 =\t%.3f\tm/s\n\n", u1);
     
-    //File close
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Final fluid velocity:\n");
+    fprintf(fp, "u2 =\t%.3f\tm/s\n", u2);
+    fprintf(fp, "Initial volumetric flowrate:\n");
+    fprintf(fp, "q1 =\t%.3f\tm3/s\n", q1);
+    fprintf(fp, "Final volumetric flowrate:\n");
+    fprintf(fp, "q2 =\t%.3f\tm3/s\n", q2);
+    fprintf(fp, "Initial mass flowrate:\n");
+    fprintf(fp, "m1 =\t%.3f\tkg/s\n", m1);
+    fprintf(fp, "Final pipe diameter:\n");
+    fprintf(fp, "m2 =\t%.3f\tkg/s\n", m2);
+    
+    //Close file
     fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+     
+    printf("Write Complete\n");
 }
-*/
 
 void MassCon()
 {
@@ -216,14 +218,14 @@ void MassCon()
         printf("Function returns: u2 = %f\n\n", u2);
         
         q1 = VolFloCalc(u1, d1);
-        printf("Function returns: q1 = %f\n\n", q1);
+        printf("Volumetric flow rate = %.3f m3/s\n", q1);
         q2 = VolFloCalc(u2, d2);
-        printf("Function returns: q2 = %f\n\n", q2);
+        printf("Volumetric flow rate = %.3f m3/s\n", q2);
         
         m1 = MassFloCalc(rho1, d1, u1);
-        printf("Function returns: m1 = %f\n\n", m1);
+        printf("Mass flow rate = %.3f kg/s\n", m1);
         m2 = MassFloCalc(rho2, d2, u2);
-        printf("Function returns: m2 = %f\n\n", m2);
+        printf("Mass flow rate = %.3f kg/s\n", m2);
         
         double error;
         error = m1 - m2;
@@ -239,6 +241,8 @@ void MassCon()
         }
         //Ask for file write (Remember while loop)
         //...
+        MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
+        
         whilcont = 1;
         while(whilcont == 1)
         {
