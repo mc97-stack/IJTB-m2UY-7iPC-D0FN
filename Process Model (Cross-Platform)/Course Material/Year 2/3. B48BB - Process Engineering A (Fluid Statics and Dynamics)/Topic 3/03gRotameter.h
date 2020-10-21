@@ -70,5 +70,18 @@ void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f,
 /// @param Q Volumetric flowrate (m3/ s)
 /// @param u Fluid velocity (m/ s)
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param rho Fluid density (kg/m3)
+/// @param V_f Float volume (m3)
+/// @param rho_f Float density (kg/m3)
+/// @param A_f Maximum cross-sectional area of the float (m2)
+/// @param are1 Cross-sectional area of tube at point of float (m2)
+/// @param are2 Annular area between float and tube at the point (m2)
+/// @param C_d Discharge Coefficient
+/// @param dP Pressure loss (Pa)
+/// @param m Mass flowrate (kg/ s)
+/// @param Q Volumetric flowrate (m3/ s)
+/// @param u Fluid velocity (m/ s)
+void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
 
 #endif /* RotameterWrite_h */

@@ -263,6 +263,40 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     printf("Write Complete\n");
 }
 
+void IsotProcWriteCheck(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                IsotProcWrite(P1, P2, V1, V2, T, n, profile);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void Isothermal()
 {
     //Main Function
@@ -349,6 +383,7 @@ void Isothermal()
             }
             
             //Ask for file write (Remember while loop)
+            IsotProcWriteCheck(P1, P2, V1, V2, T, n, profile);
             
             //Continue function
             whilcont = 1;

@@ -54,7 +54,6 @@ double BernEqnCalc(double stathead, double dynhead, double Z);
 #ifndef BernEqnWrite_h
 #define BernEqnWrite_h
 
-
 /// This subroutine is used to output the collected data and final result to a .txt file.
 /// @param P1 Initial fluid pressure (Pa).
 /// @param P2 Final fluid pressure (Pa).
@@ -65,5 +64,15 @@ double BernEqnCalc(double stathead, double dynhead, double Z);
 /// @param z2 Final fluid height (m).
 /// @param hf Frictional head loss between points '1' and '2' (m).
 void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial fluid pressure (Pa).
+/// @param P2 Final fluid pressure (Pa).
+/// @param rho Fluid density (kg/ m3).
+/// @param u1 Initial fluid velocity (m/ s).
+/// @param u2 Final fluid velocity (m/ s). This value is inferred using velcalc(...).
+/// @param z1 Initial fluid height (m).
+/// @param z2 Final fluid height (m).
+/// @param hf Frictional head loss between points '1' and '2' (m).
+void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
 
 #endif /* BernEqnWrite_h */

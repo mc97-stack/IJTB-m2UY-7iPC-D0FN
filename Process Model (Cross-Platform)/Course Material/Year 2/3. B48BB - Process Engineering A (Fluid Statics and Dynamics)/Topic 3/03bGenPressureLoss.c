@@ -225,6 +225,40 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     printf("Write Complete\n");
 }
 
+void PressLossWriteCheck(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                PressLossWrite(rho, u, d, mu, L, vareps, phi, dP);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void GenPressureLoss()
 {
     //Main Function
@@ -257,8 +291,7 @@ void GenPressureLoss()
         printf("dP = %.3f kPa\n", dP*0.001);
         
         //Ask for file write (Remember while loop)
-        //...
-        PressLossWrite(rho, u, d, mu, L, vareps, phi, dP);
+        PressLossWriteCheck(rho, u, d, mu, L, vareps, phi, dP);
         
         //Continue function
         whilcont = 1;

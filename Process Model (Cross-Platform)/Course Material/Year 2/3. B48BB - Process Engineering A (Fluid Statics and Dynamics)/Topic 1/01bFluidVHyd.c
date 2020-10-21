@@ -119,6 +119,40 @@ void FluidVHydWrite(double rho, double h, double P)
     printf("Write Complete\n");
 }
 
+void FluidVHydWriteCheck(double rho, double h, double P)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                FluidVHydWrite(rho, h, P);
+                SaveC = 0;
+            break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+            break;
+            default:
+                printf("Input not recognised\n");
+            break;
+        }
+    }
+}
+
 void FluidVHyd()
 {
     //Main Function
@@ -149,7 +183,7 @@ void FluidVHyd()
         //FluidVHydProfile(*rho, *h);
         //printf("Profile is linear...");
         
-        FluidVHydWrite(rho, h, P);
+        FluidVHydWriteCheck(rho, h, P);
         
         //Continue function
         whilcont = 1;

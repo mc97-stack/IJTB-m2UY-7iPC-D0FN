@@ -59,5 +59,14 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
 /// @param alpha Polytropic index
 /// @param W_S Shaft Work (kW)
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param n Moles of component in system (mol/s)
+/// @param R Specific gas constant (J/mol.K)
+/// @param T1 Initial system temperature (K)
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param alpha Polytropic index
+/// @param W_S Shaft Work (kW)
+void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
 
 #endif /* PolyShaftWrite_h */

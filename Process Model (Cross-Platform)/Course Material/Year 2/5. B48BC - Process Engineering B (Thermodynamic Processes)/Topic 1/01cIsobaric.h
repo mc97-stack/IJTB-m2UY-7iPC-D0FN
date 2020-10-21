@@ -85,5 +85,14 @@ T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, 
 /// @param n Moles of component in system (mol/s)
 /// @param profile Isobaric process profile.
 void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P System pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param profile Isobaric process profile.
+void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile);
 
 #endif /* IsobProcWrite_h */

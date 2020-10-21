@@ -164,6 +164,40 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     printf("Write Complete\n");
 }
 
+void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                PitotWrite(P1, P2, rho1, rho2, h1, h2, d, v, Q);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void Pitot()
 {
     //Main Function
@@ -201,8 +235,7 @@ void Pitot()
         printf("Q = %.3f m3/s\n\n", Q);
         
         //Ask for file write (Remember while loop)
-        //...
-        PitotWrite(P1, P2, rho1, rho2, h1, h2, d, v, Q);
+        PitotWriteCheck(P1, P2, rho1, rho2, h1, h2, d, v, Q);
         
         //Continue function
         whilcont = 1;

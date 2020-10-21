@@ -270,6 +270,40 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     printf("Write Complete\n");
 }
 
+void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                duNouyWrite(F, L, C_F, cang, sigma);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void SurfTens()
 {
     //Main Function
@@ -303,8 +337,7 @@ void SurfTens()
         printf("Surface tension = %.3f N/m\n", sigma);
         
         //Ask for file write (Remember while loop)
-        //...
-        duNouyWrite(F, L, C_F, cang, sigma);
+        duNouyWriteCheck(F, L, C_F, cang, sigma);
         
         //Continue function
         int whilcont;

@@ -169,6 +169,40 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     printf("Write Complete\n");
 }
 
+void TurVelProWriteCheck(double umax, double d, int rows, TurVelProf profile)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                TurVelProWrite(umax, d, rows, profile);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void TurVelPro()
 {
     //Main Function
@@ -205,8 +239,7 @@ void TurVelPro()
         }
         
         //Ask for file write (Remember while loop)
-        //...
-        TurVelProWrite(vmax, d, rows, profile);
+        TurVelProWriteCheck(vmax, d, rows, profile);
         
         //Continue function
         int whilcont = 1;

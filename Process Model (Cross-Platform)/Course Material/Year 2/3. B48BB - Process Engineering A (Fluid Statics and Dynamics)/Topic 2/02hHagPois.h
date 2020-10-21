@@ -40,5 +40,12 @@ double HagPoisCalc(double u, double mu, double L, double d);
 /// @param d Pipe diameter (m)
 /// @param dP Fluid pressure loss (Pa)
 void HagPoisWrite(double u, double mu, double L, double d, double dP);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param u Fluid velocity (m/s)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param L Pipe length (m)
+/// @param d Pipe diameter (m)
+/// @param dP Fluid pressure loss (Pa)
+void HagPoisWriteCheck(double u, double mu, double L, double d, double dP);
 
 #endif /* HagPoisWrite_h */

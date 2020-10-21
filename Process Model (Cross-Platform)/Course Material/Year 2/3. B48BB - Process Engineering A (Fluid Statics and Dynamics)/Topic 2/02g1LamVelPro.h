@@ -70,6 +70,14 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rowcoun
 /// @param rows Number of rows generated in "LamVelProfCalc".
 /// @param profile Velocity profile struct.
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param dP Fluid pressure loss (Pa).
+/// @param L Pipe length (m).
+/// @param d Pipe diameter (m).
+/// @param mu Fluid dynamic viscosity (Pa.s).
+/// @param rows Number of rows generated in "LamVelProfCalc".
+/// @param profile Velocity profile struct.
+void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile);
 
 #endif /* LamVelProWrite_h */
 

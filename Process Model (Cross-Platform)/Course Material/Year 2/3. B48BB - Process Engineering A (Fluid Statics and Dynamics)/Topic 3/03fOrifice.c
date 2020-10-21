@@ -199,6 +199,40 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     printf("Write Complete\n");
 }
 
+void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                OrificeWrite(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void Orifice()
 {
     //Main Function
@@ -235,8 +269,7 @@ void Orifice()
         printf("Mass flowrate = %.3f kg/s\n\n", m);
         
         //Ask for file write (Remember while loop)
-        //...
-        OrificeWrite(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+        OrificeWriteCheck(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
         
         //Continue function
         whilcont = 1;

@@ -361,6 +361,40 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
     printf("Write Complete\n");
 }
 
+void ManoMeasWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        //*SaveQ = (char)malloc(sizeof(SaveQ));
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                ManoMeasWrite(P1, P2, rho1, h1, rho2, h2);
+                SaveC = 0;
+            break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+            break;
+            default:
+                printf("Input not recognised\n");
+            break;
+        }
+    }
+}
+
 void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
     //Function variables
@@ -440,6 +474,40 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
     printf("Write Complete\n");
 }
 
+void ManoEstiWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                ManoEstiWrite(P1, P2, rho1, h1, rho2, h2);
+                SaveC = 0;
+            break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+            break;
+            default:
+                printf("Input not recognised\n");
+            break;
+        }
+    }
+}
+
 void Mano()
 {
     //Main Function
@@ -480,7 +548,7 @@ void Mano()
                     P1 = ManoMeasCal(P2, rho1, h1, rho2, h2);
                     printf("Function returns: %f\n", P1);
                     
-                    ManoMeasWrite(P1, P2, rho1, h1, rho2, h2);
+                    ManoMeasWriteCheck(P1, P2, rho1, h1, rho2, h2);
                     whilside = 0;
                 break;
                 case '2':
@@ -491,7 +559,7 @@ void Mano()
                     printf("Function returns:\nP1 = %f\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\n\n", P1, P2, rho1, h1, rho2);
                     h2 = ManoEstiCal(P1, P2, rho1, h1, rho2);
                     printf("Function returns: %f\n", h2);
-                    ManoEstiWrite(P1, P2, rho1, h1, rho2, h2);
+                    ManoEstiWriteCheck(P1, P2, rho1, h1, rho2, h2);
                     whilside = 0;
                 break;
                 default:

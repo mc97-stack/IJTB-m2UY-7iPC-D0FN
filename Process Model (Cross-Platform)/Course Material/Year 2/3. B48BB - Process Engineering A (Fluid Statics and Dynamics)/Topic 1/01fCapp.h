@@ -51,5 +51,12 @@ double CappCalcP(double sigma, double cang, double d);
 /// @param h Capillary rise (m)
 /// @param Pc Capillary pressure (Pa) 
 void CappWrite(double sigma, double cang, double d, double h, double Pc);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param sigma Surface Tension (N/m)
+/// @param cang Contact angle (rad)
+/// @param d Capillary tube diameter
+/// @param h Capillary rise (m)
+/// @param Pc Capillary pressure (Pa) 
+void CappWriteCheck(double sigma, double cang, double d, double h, double Pc);
 
 #endif /* CappWrite_h */

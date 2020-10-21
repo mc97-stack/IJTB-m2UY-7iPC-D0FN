@@ -185,6 +185,40 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     printf("Write Complete\n");
 }
 
+void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                PolyShaftWrite(n, R, T1, P1, P2, alpha, W_S);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void PolyShaftWork()
 {
     //Main Function
@@ -224,7 +258,7 @@ void PolyShaftWork()
         printf("Shaft work = %.3f kW\n", W_S*0.001);
         
         //Ask for file write (Remember while loop)
-        PolyShaftWrite(n, R, T1, P1, P2, alpha, W_S);
+        PolyShaftWriteCheck(n, R, T1, P1, P2, alpha, W_S);
         
         //Continue function
         whilcont = 1;

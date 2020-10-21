@@ -116,6 +116,39 @@ void BubPresWrite(double sigma, double r, double P)
      
     printf("Write Complete\n");
 }
+void BubPresWriteCheck(double sigma, double r, double P)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                BubPresWrite(sigma, r, P);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
 
 void BubPres()
 {
@@ -141,7 +174,7 @@ void BubPres()
         P = BubPresCalc(sigma, r);
         printf("Bubble pressure = %.3f Pa\n", P);
         //Ask for file write (Remember while loop)
-        //...
+        BubPresWriteCheck(sigma, r, P);
         
         whilcont = 1;
         while(whilcont == 1)

@@ -120,5 +120,17 @@ T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1,
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param R Specific gas constant (J/ mol.K)
+/// @param alpha Polytropic index ([ ]).
+/// @param profile Process Profile.
+void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
 
 #endif /* PolyProcWrite_h */

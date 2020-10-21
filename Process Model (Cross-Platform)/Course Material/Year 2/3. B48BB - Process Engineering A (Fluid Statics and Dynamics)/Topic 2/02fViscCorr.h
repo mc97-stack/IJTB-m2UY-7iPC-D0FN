@@ -62,5 +62,14 @@ double KinVisc(double mu, double rho);
 /// @param mu Fluid dynamic viscosity
 /// @param upsi Fluid kinematic viscosity
 void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param method Variable used to tell the subroutine whether the liquid or vapour correlation was used in the program. This subroutine then modifies behaviour accordingly.
+/// @param a Correlation constant
+/// @param b Correlation constant
+/// @param T Temperature
+/// @param rho Fluid density
+/// @param mu Fluid dynamic viscosity
+/// @param upsi Fluid kinematic viscosity
+void ViscWriteCheck(int method, double a, double b, double T, double rho, double mu, double upsi);
 
 #endif /* ViscWrite_h */

@@ -235,14 +235,14 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     
     double total = 0.0;
     // Profile (Two Temperature columns (K and deg C))
-    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
+    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tQ (kW)\tQ (kW)\n");
     for(int i = 0; i < 250; ++i){
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
         fprintf(fp, "%f\t\t", profile.T[i] - 273.15);
-        fprintf(fp, "%f\t", profile.W_V[i]*0.001);
-        total += profile.W_V[i]*0.001;
+        fprintf(fp, "%f\t", profile.Q[i]*0.001);
+        total += profile.Q[i]*0.001;
         fprintf(fp, "%f\n", total);
     }
     
@@ -250,6 +250,40 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     fclose(fp);
      
     printf("Write Complete\n");
+}
+
+void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                IsocProcWrite(P1, P2, V, T1, T2, n, c_v, profile);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
 }
 
 void Isochoric()
@@ -340,7 +374,7 @@ void Isochoric()
                 printf("%f\n", total);
             }
             //Ask for file write (Remember while loop)
-            IsocProcWrite(P1, P2, V, T1, T2, n, cv, profile);
+            IsocProcWriteCheck(P1, P2, V, T1, T2, n, cv, profile);
             
             //Continue function
             whilcont = 1;

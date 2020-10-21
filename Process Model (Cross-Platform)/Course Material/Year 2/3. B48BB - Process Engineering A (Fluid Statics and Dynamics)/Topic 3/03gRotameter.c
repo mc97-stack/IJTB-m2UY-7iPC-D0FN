@@ -174,6 +174,39 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
      
     printf("Write Complete\n");
 }
+void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                RotameterWrite(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
 
 void Rotameter()
 {
@@ -213,7 +246,8 @@ void Rotameter()
         printf("Mass flowrate = %.3f kg/s\n", m);
         
         //Ask for file write (Remember while loop)
-        //...
+        RotameterWriteCheck(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
+        
         //Continue function
         int whilcont = 1;
         while(whilcont == 1)

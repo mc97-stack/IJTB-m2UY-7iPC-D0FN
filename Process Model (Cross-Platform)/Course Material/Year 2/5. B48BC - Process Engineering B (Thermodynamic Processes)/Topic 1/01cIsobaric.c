@@ -243,6 +243,40 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     printf("Write Complete\n");
 }
 
+void IsobProcWriteCheck(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                IsobProcWrite(P, V1, V2, T1, T2, n, profile);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void Isobaric()
 {
     //Main Function
@@ -331,7 +365,7 @@ void Isobaric()
             }
             
             //Ask for file write (Remember while loop)
-            IsobProcWrite(P, V1, V2, T1, T2, n, profile);
+            IsobProcWriteCheck(P, V1, V2, T1, T2, n, profile);
             
             //Continue function
             whilcont = 1;

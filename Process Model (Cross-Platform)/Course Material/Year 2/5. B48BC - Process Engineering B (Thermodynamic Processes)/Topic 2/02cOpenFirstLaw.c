@@ -199,6 +199,40 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     printf("Write Complete\n");
 }
 
+void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                OpenFirstLawWrite(state1, state2, q, w_s, sysstate);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void OpenFirstLaw()
 {
     //Main Function
@@ -243,6 +277,7 @@ void OpenFirstLaw()
         }
         
         //Ask for file write (Remember while loop)
+        OpenFirstLawWriteCheck(state1, state2, q, w_s, sysstate);
         
         //Continue function
         whilcont = 1;

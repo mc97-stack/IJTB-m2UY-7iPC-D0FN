@@ -177,6 +177,38 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
      
     printf("Write Complete\n");
 }
+void MassConWriteCheck(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
 
 void MassCon()
 {
@@ -240,8 +272,7 @@ void MassCon()
             }
         }
         //Ask for file write (Remember while loop)
-        //...
-        MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
+        MassConWriteCheck(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
         
         whilcont = 1;
         while(whilcont == 1)

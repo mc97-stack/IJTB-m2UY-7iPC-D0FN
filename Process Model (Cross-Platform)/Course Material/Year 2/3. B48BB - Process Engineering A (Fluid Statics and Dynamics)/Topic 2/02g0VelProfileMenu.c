@@ -2,12 +2,6 @@
 //  02g0VelProfileMenu.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 21/09/2020.
-//  Copyright © 2020 Matthew Cheung. All rights reserved.
-//
-
-
-
 //  Created by Matthew Cheung on 29/06/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //

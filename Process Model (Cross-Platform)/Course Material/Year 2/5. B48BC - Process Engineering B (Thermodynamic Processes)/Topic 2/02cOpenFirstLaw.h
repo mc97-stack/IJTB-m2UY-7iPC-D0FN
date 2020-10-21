@@ -59,5 +59,12 @@ void InitialValue(T2StateEnergy state, double *u, double *z);
 /// @param w_s Process shaft work
 /// @param sysstate Inequality between process energy and fluid energy contributions
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param state1 State 1 energy contribution
+/// @param state2 State 2 energy contribution
+/// @param q Process Heat
+/// @param w_s Process shaft work
+/// @param sysstate Inequality between process energy and fluid energy contributions
+void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
 
 #endif /* OpenFirstLawWrite_h */

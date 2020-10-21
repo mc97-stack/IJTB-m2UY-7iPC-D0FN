@@ -209,6 +209,40 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     printf("Write Complete\n");
 }
 
+void ViscWriteCheck(int method, double a, double b, double T, double rho, double mu, double upsi)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                ViscWrite(method, a, b, T, rho, mu, upsi);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void ViscCorr()
 {
     //Main Function
@@ -291,8 +325,7 @@ void ViscCorr()
         upsi = KinVisc(mu, rho);
         printf("Function returns: upsi = %f [Units]\n", upsi);
         //Ask for file write (Remember while loop)
-        //...
-        ViscWrite(method, a, b, T, rho, mu, upsi);
+        ViscWriteCheck(method, a, b, T, rho, mu, upsi);
         
         //Continue function
         int whilcont;

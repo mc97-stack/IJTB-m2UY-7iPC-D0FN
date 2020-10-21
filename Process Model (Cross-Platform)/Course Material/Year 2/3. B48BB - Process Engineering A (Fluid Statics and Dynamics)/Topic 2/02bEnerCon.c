@@ -257,6 +257,40 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     printf("Write Complete\n");
 }
 
+void EnerConWriteCheck(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                EnerConWrite(h1, h2, u1, u2, z1, z2, q, w, check);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void EnerCon()
 {
     //First law states that energy is always conserved, This has mathematical implications when designing processes
@@ -320,8 +354,7 @@ void EnerCon()
             printf("Your process breaks the first law\n");
         }
         //Ask for file write (Remember while loop)
-        //...
-        EnerConWrite(h1, h2, u1, u2, z1, z2, q, w, check);
+        EnerConWriteCheck(h1, h2, u1, u2, z1, z2, q, w, check);
         
         whilcont = 1;
         while(whilcont == 1)

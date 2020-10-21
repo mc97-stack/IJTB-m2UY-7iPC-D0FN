@@ -132,6 +132,40 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     printf("Write Complete\n");
 }
 
+void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                ReyNoWrite(rho, u, d, mu, ReyNum);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void ReyNo()
 {
     //Main Function
@@ -179,8 +213,7 @@ void ReyNo()
         
         printf("Function returns: ReyNum = %f \n", ReyNum);
         //Ask for file write (Remember while loop)
-        //...
-        ReyNoWrite(rho, u, d, mu, ReyNum);
+        ReyNoWriteCheck(rho, u, d, mu, ReyNum);
         
         whilcont = 1;
         while(whilcont == 1)

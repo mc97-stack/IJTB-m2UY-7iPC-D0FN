@@ -281,7 +281,39 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     printf("Write Complete\n");
 }
 
-
+void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
 
 void Compressor(void)
 {
@@ -373,7 +405,7 @@ void Compressor(void)
             }
             
             // File write
-            CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+            CompresWriteCheck(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
             
             whilcont = 1;
             while(whilcont == 1)

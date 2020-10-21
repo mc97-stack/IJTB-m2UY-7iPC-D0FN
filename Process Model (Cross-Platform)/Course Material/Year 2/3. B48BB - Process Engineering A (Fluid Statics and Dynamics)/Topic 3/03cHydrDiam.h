@@ -34,5 +34,10 @@ double HydrDiamCalc(double A_F, double P_W);
 /// @param P_W Wetted perimeter (m)
 /// @param d_H Hydraulic diameter (m)
 void HydrDiamWrite(double A_F, double P_W, double d_H);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param A_F Cross-sectional flow area (m2)
+/// @param P_W Wetted perimeter (m)
+/// @param d_H Hydraulic diameter (m)
+void HydrDiamWriteCheck(double A_F, double P_W, double d_H);
 
 #endif /* HydrDiamwrite_h */

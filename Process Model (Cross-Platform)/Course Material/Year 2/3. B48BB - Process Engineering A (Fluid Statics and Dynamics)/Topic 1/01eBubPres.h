@@ -34,5 +34,10 @@ double BubPresCalc(double sigma, double r);
 /// @param r bubble radius (m)
 /// @param P Bubble Pressure (Pa)
 void BubPresWrite(double sigma, double r, double P);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param sigma Surface tension (N/m)
+/// @param r bubble radius (m)
+/// @param P Bubble Pressure (Pa)
+void BubPresWriteCheck(double sigma, double r, double P);
 
 #endif /* BubPresWrite_h */

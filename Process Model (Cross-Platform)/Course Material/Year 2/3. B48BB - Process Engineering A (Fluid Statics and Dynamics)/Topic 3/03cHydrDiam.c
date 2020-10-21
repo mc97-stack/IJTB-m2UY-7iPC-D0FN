@@ -128,6 +128,40 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     printf("Write Complete\n");
 }
 
+void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                HydrDiamWrite(A_F, P_W, d_H);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void HydrDiam()
 {
     //Main Function
@@ -154,7 +188,8 @@ void HydrDiam()
         
         printf("d_H = %.3f mm\n\n", d_H*1000);
         
-        HydrDiamWrite(A_F, P_W, d_H);
+        //Ask for file write
+        HydrDiamWriteCheck(A_F, P_W, d_H);
         
         //Continue function
         whilcont = 0;

@@ -138,6 +138,40 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     printf("Write Complete\n");
 }
 
+void HagPoisWriteCheck(double u, double mu, double L, double d, double dP)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                HagPoisWrite(u, mu, L, d, dP);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void HagPois()
 {
     //Main Function
@@ -166,8 +200,7 @@ void HagPois()
         printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
         
         //Ask for file write (Remember while loop)
-        //...
-        HagPoisWrite(u, mu, L, d, dP);
+        HagPoisWriteCheck(u, mu, L, d, dP);
         
         //Continue function
         int whilcont = 1;

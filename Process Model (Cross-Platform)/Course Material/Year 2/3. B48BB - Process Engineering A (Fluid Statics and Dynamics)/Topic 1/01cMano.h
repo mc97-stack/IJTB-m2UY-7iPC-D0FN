@@ -69,6 +69,14 @@ double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2);
 /// @param rho2 Manometer fluid density (kg/m3)
 /// @param h2 Height of manometer fluid in manometer arm (m)
 void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2);
+/// <#Description#>
+/// @param P1 Process fluid pressure (Pa)
+/// @param P2 Atmospheric pressure (Pa)
+/// @param rho1 Process fluid density (kg/m3)
+/// @param h1 Height of process fluid in manometer (m)
+/// @param rho2 Manometer fluid density (kg/m3)
+/// @param h2 Height of manometer fluid in manometer arm (m)
+void ManoMeasWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoMeasWrite_h */
 
@@ -83,5 +91,13 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
 /// @param rho2 Manometer fluid density (kg/m3)
 /// @param h2 Height of manometer fluid in manometer arm (m)
 void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Process fluid pressure (Pa)
+/// @param P2 Atmospheric pressure (Pa)
+/// @param rho1 Process fluid density (kg/m3)
+/// @param h1 Height of process fluid in manometer (m)
+/// @param rho2 Manometer fluid density (kg/m3)
+/// @param h2 Height of manometer fluid in manometer arm (m)
+void ManoEstiWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoEstiWrite_h */

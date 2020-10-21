@@ -34,5 +34,10 @@ double FluidVHydCalc(double rho, double h);
 /// @param h Fluid depth from the free fluid surface (m)
 /// @param P Hydrostatic pressure (Pa)
 void FluidVHydWrite(double rho, double h, double P);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param rho Fluid density (kg/ m3)
+/// @param h Fluid depth from the free fluid surface (m)
+/// @param P Hydrostatic pressure (Pa)
+void FluidVHydWriteCheck(double rho, double h, double P);
 
 #endif /* FluidVHydWrite_h */

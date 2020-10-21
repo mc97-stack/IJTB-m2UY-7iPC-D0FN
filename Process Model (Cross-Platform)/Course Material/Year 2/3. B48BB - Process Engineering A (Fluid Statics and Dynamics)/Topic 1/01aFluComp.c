@@ -145,9 +145,42 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     printf("Write Complete\n");
 }
 
+void FluCompWriteCheck(double P, double V, double n, double T, double c)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                FluCompWrite(P, V, n, T, c);
+                SaveC = 0;
+            break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+            break;
+            default:
+                printf("Input not recognised\n");
+            break;
+        }
+    }
+}
+
 void FluComp()
 {
-    char SaveQ[maxstrlen];
     char ContIn[maxstrlen];
     
     int WhilFlu = 0;
@@ -158,7 +191,7 @@ void FluComp()
     while(WhilFlu == 1)
     {
         //Declaring variables used
-        double FCompCoeff = 0.0;
+        double c = 0.0;
         double P = 0.0;
         double V = 0.0;
         double n = 0.0;
@@ -167,39 +200,10 @@ void FluComp()
         FluCompVar(&P, &V, &n, &T);
         printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
-        FCompCoeff = FluCompCalc(P, V, n, T);
-        printf("Function has outputted = %f m3/ Pa\n\n", FCompCoeff);
+        c = FluCompCalc(P, V, n, T);
+        printf("Function has outputted = %f m3/ Pa\n\n", c);
         
-        int SaveC;
-        SaveC = 1;
-        while(SaveC == 1)
-        {
-            //*SaveQ = (char)malloc(sizeof(SaveQ));
-            printf("Do you want to save results to file? ");
-            fgets(SaveQ, sizeof(SaveQ), stdin);
-            switch(SaveQ[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    FluCompWrite(P, V, n, T, FCompCoeff);
-                    SaveC = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    SaveC = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
-        
+        FluCompWriteCheck(P, V, n, T, c);
         
         int ContCond;
         ContCond = 1;

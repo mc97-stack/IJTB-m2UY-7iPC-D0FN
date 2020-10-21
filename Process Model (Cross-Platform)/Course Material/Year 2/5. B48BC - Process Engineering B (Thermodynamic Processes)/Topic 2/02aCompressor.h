@@ -67,5 +67,18 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
 /// @param alpha Polytropic index
 //T2ThermoProffile Compressor Profile.
 void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial system pressure. (Pa)
+/// @param P2 Final system pressure. (Pa)
+/// @param Vc Clearance volume (m3)
+/// @param V1 Initial system volume. (m3)
+/// @param V2 System volume after compression. (m3)
+/// @param T1 Initial system temperature. For the isothermal equation, this variable is the constant temperature. (K)
+/// @param T2 Final system temperature. (K)
+/// @param n Moles of component. (mol/ s)
+/// @param R Specific gas constant. (J/ mol. K)
+/// @param alpha Polytropic index
+//T2ThermoProffile Compressor Profile.
+void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
 
 #endif /* CompresWrite_h */

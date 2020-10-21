@@ -421,13 +421,13 @@
 		E8FEA62724ECDBE0003F9D5E /* Topic 2 */ = {
 			isa = PBXGroup;
 			children = (
-				E8352311253B452A00B0969A /* B48BC_T2.h */,
-				E8352313253B54C700B0969A /* 02aCompressor.h */,
 				E8352314253B54C700B0969A /* 02aCompressor.c */,
-				E8352317253B54DC00B0969A /* 02bPolyShaftWork.h */,
+				E8352313253B54C700B0969A /* 02aCompressor.h */,
 				E8352318253B54DC00B0969A /* 02bPolyShaftWork.c */,
-				E835231B253B54F100B0969A /* 02cOpenFirstLaw.h */,
+				E8352317253B54DC00B0969A /* 02bPolyShaftWork.h */,
 				E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */,
+				E835231B253B54F100B0969A /* 02cOpenFirstLaw.h */,
+				E8352311253B452A00B0969A /* B48BC_T2.h */,
 			);
 			path = "Topic 2";
 			sourceTree = "<group>";

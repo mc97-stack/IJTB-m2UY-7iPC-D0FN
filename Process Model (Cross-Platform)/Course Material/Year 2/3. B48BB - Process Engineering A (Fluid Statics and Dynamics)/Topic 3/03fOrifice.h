@@ -54,5 +54,17 @@ void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double
 /// @param Q Fluid volumetric flowrate (m3/ s)
 /// @param m Fluid mass flowrate (kg/ s)
 void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param rho Fluid density (kg/ m3)
+/// @param d1 Pipe diameter (m)
+/// @param d2 Vena contracta diameter (m)
+/// @param C_d Discharge coefficient
+/// @param h_f Frictional head loss (m)
+/// @param u Fluid velocity (m/s)
+/// @param Q Fluid volumetric flowrate (m3/ s)
+/// @param m Fluid mass flowrate (kg/ s)
+void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
 
 #endif /* OrificeWrite_h */

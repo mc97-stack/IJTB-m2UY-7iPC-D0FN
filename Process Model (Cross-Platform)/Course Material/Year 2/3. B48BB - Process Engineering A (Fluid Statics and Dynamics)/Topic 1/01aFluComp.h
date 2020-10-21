@@ -40,5 +40,12 @@ double FluCompCalc(double P, double V, double n, double T);
 /// @param T Absolute system temperatre (K)
 /// @param c Fluid coefficient of compressibility
 void FluCompWrite(double P, double V, double n, double T, double c);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P Absolute system pressure (Pa)
+/// @param V System volume (m3)
+/// @param n Moles of component (mol)
+/// @param T Absolute system temperatre (K)
+/// @param c Fluid coefficient of compressibility
+void FluCompWriteCheck(double P, double V, double n, double T, double c);
 
 #endif /* FluCompWrite_h */

@@ -98,15 +98,26 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
 #define AdiaProcWrite_h
 
 /// Subroutine used to write the colllected data and generated dataset from AdiaProfile(...) to a .txt file.
-/// @param P1 <#P1 description#>
-/// @param P2 <#P2 description#>
-/// @param V1 <#V1 description#>
-/// @param V2 <#V2 description#>
-/// @param T1 <#T1 description#>
-/// @param T2 <#T2 description#>
-/// @param n <#n description#>
-/// @param gamma <#gamma description#>
-/// @param profile <#profile description#>
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param gamma Heat capacity ratio ([ ])
+/// @param profile Process profile.
 void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T1 Initial system temperature (K)
+/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (mol/s)
+/// @param gamma Heat capacity ratio ([ ])
+/// @param profile Process profile.
+void AdiaProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
 
 #endif /* AdiaProcWrite_h */

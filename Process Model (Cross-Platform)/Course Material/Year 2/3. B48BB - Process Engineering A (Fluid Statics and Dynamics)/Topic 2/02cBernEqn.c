@@ -208,6 +208,39 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
      
     printf("Write Complete\n");
 }
+void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                BernEqnWrite(P1, P2, rho, u1, u2, z1, z2, hf);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
 
 void BernEqn()
 {
@@ -262,7 +295,7 @@ void BernEqn()
         printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
         //Ask for file write (Remember while loop)
         //...
-        BernEqnWrite(P1, P2, rho, u1, u2, Z1, Z2, hf);
+        BernEqnWriteCheck(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //Continue function
         int whilcont;

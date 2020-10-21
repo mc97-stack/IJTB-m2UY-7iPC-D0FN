@@ -40,5 +40,12 @@ double ReyNoCalc(double rho, double u, double d, double mu);
 /// @param mu Fluid viscosity (Pa.s)
 /// @param ReyNum Reynold's Number
 void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param ReyNum Reynold's Number
+void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum);
 
 #endif /* ReyNoWrite_h */

@@ -49,5 +49,12 @@ double duNouyCalc(double F, double L, double C_F, double cang);
 /// @param cang Fluid contact angle with the ring (rad) 
 /// @param sigma Surface tension (N/m)
 void duNouyWrite(double F, double L, double C_F, double cang, double sigma);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param F Force required to break the fluid surface (N)
+/// @param L Ring circumference (m)
+/// @param C_F Correction factor (C_F) ([ ])
+/// @param cang Fluid contact angle with the ring (rad) 
+/// @param sigma Surface tension (N/m)
+void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma);
 
 #endif /* duNouyWrite_h */

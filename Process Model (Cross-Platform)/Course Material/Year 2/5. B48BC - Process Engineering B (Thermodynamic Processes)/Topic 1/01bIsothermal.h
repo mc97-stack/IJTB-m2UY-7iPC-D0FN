@@ -100,5 +100,14 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
 /// @param n Moles of component in system (mol/ s)
 /// @param profile Isothermal process profile
 void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// @param P1 Initial system pressure (Pa)
+/// @param P2 Final system pressure (Pa)
+/// @param V1 Initial system volume (m3)
+/// @param V2 Final system volume (m3)
+/// @param T System temperature (K)
+/// @param n Moles of component in system (mol/ s)
+/// @param profile Isothermal process profile
+void IsotProcWriteCheck(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */
