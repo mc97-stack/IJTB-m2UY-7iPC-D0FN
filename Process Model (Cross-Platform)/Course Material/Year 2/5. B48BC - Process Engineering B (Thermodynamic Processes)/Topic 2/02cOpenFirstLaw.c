@@ -53,13 +53,11 @@ T2StateEnergy OpenFirstLawVar(int ins)
     printf("Fluid velocity at state %i (m/s) = ", ins);
     u = atof(fgets(input, sizeof(input), stdin));
     u = pow(u, 2);
-    state.kinenergy = u/2; // In J/kmol
-    state.kinenergy = state.kinenergy*0.001; //Conversion
+    state.kinenergy = u/2;
     
     printf("Vertical elevation at state %i above reference point (m) = ", ins);
     z = atof(fgets(input, sizeof(input), stdin));
-    state.potenergy = z*g; // In J/kmol
-    state.potenergy = state.potenergy*0.001; //Conversion
+    state.potenergy = z*g;
     
     fflush(stdout);
     return state;
@@ -93,21 +91,14 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
     return inequality;
 }
 
-double VelCalc(double kinenergy)
+void InitialValue(T2StateEnergy state, double *u, double *z)
 {
-    double u = 0.0;
-    u = kinenergy*2;
-    u = (u)*1000;
-    u = pow(u, 0.5);
-    return u;
-}
-
-double HeiCalc(double potenergy)
-{
-    double z = 0.0;
-    z = potenergy*1000;
-    z = (z)/(9.80665);
-    return z;
+    *u = state.kinenergy *2;
+    *u = (*u)*1000;
+    *u = pow((*u), 0.5);
+    
+    *z = state.potenergy*1000;
+    *z = (*z)/(9.80665);
 }
 
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
@@ -165,6 +156,13 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     fp = fopen(filepath, "w+");
     
     //Write to file
+    double u1 = 0.0;
+    double u2 = 0.0;
+    double z1 = 0.0;
+    double z2 = 0.0;
+    InitialValue(state1, &u1, &z1);
+    InitialValue(state2, &u2, &z2);
+    
     fprintf(fp, "_First_Law_Applied_to_Open_Systems_\n");
     fprintf(fp, "Assuming the fluid is incompressible. \n");
     fprintf(fp, "g =\t9.80665\tm/s2\n\n");
@@ -174,13 +172,13 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     fprintf(fp, "Final fluid enthalpy:\n");
     fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", state2.enthalpy);
     fprintf(fp, "Initial fluid velocity:\n");
-    fprintf(fp, "u1 =\t%.3f\tm/s\n", VelCalc(state1.kinenergy));
+    fprintf(fp, "u1 =\t%.3f\tm/s\n", u1);
     fprintf(fp, "Final fluid velocity:\n");
-    fprintf(fp, "u2 =\t%.3f\tm/s\n", VelCalc(state2.kinenergy));
+    fprintf(fp, "u2 =\t%.3f\tm/s\n", u2);
     fprintf(fp, "Initial fluid height:\n");
-    fprintf(fp, "z1 =\t%.3f\tm\n", HeiCalc(state1.potenergy));
+    fprintf(fp, "z1 =\t%.3f\tm\n", z1);
     fprintf(fp, "Final fluid height:\n");
-    fprintf(fp, "z2 =\t%.3f\tm\n\n", HeiCalc(state2.potenergy));
+    fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
     
     fprintf(fp, "Specific process heat:\n");
     fprintf(fp, "q =\t%.3f\tkJ/kg\n", q);
@@ -245,7 +243,6 @@ void OpenFirstLaw()
         }
         
         //Ask for file write (Remember while loop)
-        OpenFirstLawWrite(state1, state2, q, w_s, sysstate);
         
         //Continue function
         whilcont = 1;

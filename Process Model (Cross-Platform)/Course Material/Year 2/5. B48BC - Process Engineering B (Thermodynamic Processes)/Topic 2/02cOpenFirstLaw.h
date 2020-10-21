@@ -43,13 +43,15 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
 
 #endif /* OpenFirstLawCalc_h */
 
+#ifndef OpenFirstLawWrite_h
+#define OpenFirstLawWrite_h
 
-/// Subroutine used to extract the fluid velocity from the kinetic energy.
-/// @param kinenergy Kinetic energy (kJ/kmol)
-double VelCalc(double kinenergy);
-/// Subroutine used to extract the fluid height from the potential energy
-/// @param potenergy Potential energy (kJ/kmol)
-double HeiCalc(double potenergy);
+/// Subroutine used to calculate the values of velocity and height from the first law applied to an open system.
+/// @param state State energy contribution.
+/// @param u Fluid velocity
+/// @param z Fluid height
+void InitialValue(T2StateEnergy state, double *u, double *z);
+
 /// Subroutine used to write the input variables and evaluated system state to a .txt file
 /// @param state1 State 1 energy contribution
 /// @param state2 State 2 energy contribution
@@ -57,3 +59,5 @@ double HeiCalc(double potenergy);
 /// @param w_s Process shaft work
 /// @param sysstate Inequality between process energy and fluid energy contributions
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
+
+#endif /* OpenFirstLawWrite_h */
