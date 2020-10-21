@@ -15,7 +15,6 @@
 //  Custom header files
 #include "B48BB_T2.h"
 #include "02hHagPois.h"
-#include "02g1LamVelPro.h"
 
 #define maxstrlen 128
 
@@ -56,7 +55,7 @@ double HagPoisCalc(double u, double mu, double L, double d)
     bot = pow(d, 2);
     
     dP = (top)/(bot);
-    printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
+    
     return dP;
 }
 /*
@@ -155,8 +154,6 @@ void HagPois()
     while(whilmain == 1)
     {
         //Variable declaration
-        char velprof[maxstrlen];
-        
         double u = 0.0; //Average fluid velocity
         double mu = 0.0; //Fluid viscosity
         double L = 0.0; //Horizontal pipe length
@@ -164,50 +161,14 @@ void HagPois()
         
         double dP = 0.0; //Frictional pressure loss
         
-        int rows = 0;
-        
-        LamVelProf profile;
-        
         //Data collection
         HagPoisVar(&u, &mu, &L, &d);
         
         //Data manipulation
         dP = HagPoisCalc(u, mu, L, d);
         printf("Assuming fluid flow is isothermal\n");
-        int whilprof = 1;
-        while(whilprof == 1)
-        {
-            printf("Do you want to calculate the velocity profile? ");
-            fgets(velprof, sizeof(whilprof), stdin);
-            switch(velprof[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    printf("Calculating velocity profile from data...\n");
-                    profile = LamVelProfCalc(dP, L, d, mu, &rows);
-                    //  Displaying generated array
-                    printf("r (mm)\tv_x (m/s)\tv/v_max\n");
-                    for(int i = 0; i < rows; ++i){
-                        printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
-                    }
-                    
-                    whilprof = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilprof = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
+        
         //Ask for file write (Remember while loop)
         //...
         //Continue function

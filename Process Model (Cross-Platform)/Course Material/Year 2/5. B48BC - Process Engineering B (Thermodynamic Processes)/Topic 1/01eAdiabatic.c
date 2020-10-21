@@ -171,7 +171,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     int reso = 249; // Resolution of dataset
     int i = 0;
     
-    T1ThermoProf profile;
+    static T1ThermoProf profile;
     // Initialising profile to arrays on zeros
     for(int j = 0; j < 250; ++j){
         profile.P[j] = 0.0;

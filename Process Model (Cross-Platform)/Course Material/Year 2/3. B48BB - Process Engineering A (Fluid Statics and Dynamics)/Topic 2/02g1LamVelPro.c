@@ -86,7 +86,7 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows)
     
     int i = 0;
     
-    LamVelProf profile;
+    static LamVelProf profile;
     // Initialising all elements in the struct
     for(int i = 0; i < 5000; ++i){
         profile.r[i] = 0.0;

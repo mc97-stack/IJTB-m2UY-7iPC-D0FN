@@ -63,7 +63,7 @@ TurVelProf TurVelProfCalc(double vmax, double d, int *rows)
     double interval = 0.0;
     double prad = 0.0;
     
-    TurVelProf profile;
+    static TurVelProf profile;
     // Initialising all elements in the struct
     for(int i = 0; i < 5000; ++i){
         profile.r[i] = 0.0;

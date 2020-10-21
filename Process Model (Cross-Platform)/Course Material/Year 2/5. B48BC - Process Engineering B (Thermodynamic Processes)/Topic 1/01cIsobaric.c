@@ -250,7 +250,7 @@ void Isobaric()
         
         int method = 0;
         
-        T1ThermoProf profile;
+        static T1ThermoProf profile;
         double total = 0.0;
         
         // Initialising profile to arrays on zeros
