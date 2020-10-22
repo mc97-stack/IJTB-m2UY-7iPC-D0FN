@@ -132,7 +132,7 @@
 		E8C43436252FA10900662F7C /* 01cIsobaric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01cIsobaric.c; sourceTree = "<group>"; };
 		E8C4343A252FAE1500662F7C /* 01dIsochoric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01dIsochoric.h; sourceTree = "<group>"; };
 		E8C4343B252FAE1500662F7C /* 01dIsochoric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01dIsochoric.c; sourceTree = "<group>"; };
-		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = archive.jar; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
 		E8FEA60E24ECDBE0003F9D5E /* Year4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Year4.c; sourceTree = "<group>"; };

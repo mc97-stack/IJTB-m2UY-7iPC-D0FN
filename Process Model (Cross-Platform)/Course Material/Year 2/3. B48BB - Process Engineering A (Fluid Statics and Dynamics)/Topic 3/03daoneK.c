@@ -19,178 +19,237 @@
 #define maxstrlen 128
 #define g 9.80665
 
-double OneKCalc(int count, int i, double u)
+OneKFittings OneKData(OneKFittings input)
 {
-    double data[15] = {0.35, 0.8, 1.5, 1.2, 1.8, 0.5, 1.0, 0.04, 6.0, 0.15, 1.0, 4.0, 16.0, 0.4, 0.4};
+    input.data[0] = 0.35;
+    input.data[1] = 0.8;
+    input.data[2] = 1.5;
+    input.data[3] = 1.2;
+    input.data[4] = 1.8;
+    input.data[5] = 0.5;
+    input.data[6] = 1.0;
+    input.data[7] = 0.04;
+    input.data[8] = 6.0;
+    input.data[9] = 0.15;
+    input.data[10] = 1.0;
+    input.data[11] = 4.0;
+    input.data[12] = 16.0;
+    input.data[13] = 0.4;
+    input.data[14] = 0.4;
     
+    return input;
+}
+
+OneKFittings OneKVar(OneKFittings table, double *u)
+{
+    char input[maxstrlen];
+    
+    //  Setting data to data column
+    table = OneKData(table);
+    
+    //  Collecting fluid velocity
+    printf("Fluid velocity (m/s) = ");
+    *u = atof(fgets(input, sizeof(input), stdin));
+    
+    //  Collecting table.count
+    printf("Standard 45 deg elbow = ");
+    table.count[0] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("90 deg elbow standard radius = ");
+    table.count[1] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("90 deg square elbow = ");
+    table.count[2] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Entry from leg T-piece = ");
+    table.count[3] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Entry into leg T-piece = ");
+    table.count[4] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Sudden Reduction (Tank outlet) = ");
+    table.count[5] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Sudden Expansion (Tank Inlet) = ");
+    table.count[6] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Unions and Couplings = ");
+    table.count[7] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Globe valve fully open = ");
+    table.count[8] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Gate valve (100 pct) = ");
+    table.count[9] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Gate valve (75 pct) = ");
+    table.count[10] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Gate valve (50 pct) = ");
+    table.count[11] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Gate valve (25 pct) = ");
+    table.count[12] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Ball valve (100 pct) = ");
+    table.count[13] = atoi(fgets(input, sizeof(input), stdin));
+    
+    printf("Plug valve open = ");
+    table.count[14] = atoi(fgets(input, sizeof(input), stdin));
+    
+    return table;
+}
+
+double OneKCalc(int count, double data, double u)
+{
     double hf = 0.0;
     
     hf = pow(u, 2);
     hf = (hf)/(2*g);
-    hf = (data[i])*(hf);
+    hf = data*(hf);
     hf = count *(hf);
     
     return hf;
 }
 
-/*
-void [Data Plot & Write](...)
+OneKFittings OneKFinalTable(OneKFittings data, double u)
 {
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
-    
-    //Set file name as timestamp + Name of Program
-        //Get current time
-    time_t rawtime;
-    struct tm *info;
-    time(&rawtime);
-    info = localtime(&rawtime);
-    
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
-    
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
-    
-    strcat(filename, " (Name of Program)");
-    printf("File name: \"%s\"\n", filename);
-    
-    strcat(filename,".txt");
-    printf("File name: \"%s\"\n", filename);
-    
-    //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
-    
-    //printf("Save file to: /Users/user/Documents/ ");
-    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
-    strcat(filepath, filename);
-    void free(void *filename);
-    
-    printf("File name: \"%s\"\n", filename);
-    printf("Full file path: \"%s\"\n\n", filepath);
-    
-    //Testing if directory is not present
-    
-    if(fopen(filepath, "r") == NULL){
-        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
-        strcpy(filepath, "/Users/user/Documents/");
-        printf("File is now being outputted to: %s\n", filepath);
+    // Counts and database should already be specified prior to this function being run
+    for(int i = 0; i < 15; ++i){
+        data.headloss[i] = OneKCalc(data.count[i], data.data[i], u);
     }
-    printf("Note that write sequence disabled by zsh\n");
-    
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
-    
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
-    fp = fopen(filepath, "w+");
-    
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
-    
-    //File close
-    fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+    return data;
 }
-*/
-double OneK()
+
+void OneKDisplay(OneKFittings table, double u, double total)
 {
-    //Main Function
+    int i = 0;
     
+    printf("Fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
     
-    printf("OneK Pressure Loss\n");
+    printf("Total Head Loss:\n");
+    printf("total =\t%.3f\tm\n\n", total);
     
-    //Variable declaration
-    char input[maxstrlen];
+    printf("Fitting\tk\tCount\tHead loss (m)\n");
+    i = 0;
+    printf("Standard 45 deg elbow\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
     
-    double counts[15];
+    i = 1;
+    printf("90 deg elbow standard radius\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 2;
+    printf("90 deg square elbow\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 3;
+    printf("Entry from leg T-piece\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 4;
+    printf("Entry into leg T-piece\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 5;
+    printf("Sudden Reduction (Tank outlet)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 6;
+    printf("Sudden Expansion (Tank Inlet)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 7;
+    printf("Unions and Couplings\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 8;
+    printf("Globe valve fully open\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 9;
+    printf("Gate valve (100 pct)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 10;
+    printf("Gate valve (75 pct)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 11;
+    printf("Gate valve (50 pct)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 12;
+    printf("Gate valve (25 pct)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 13;
+    printf("Ball valve (100 pct)\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+    
+    i = 14;
+    printf("Plug valve open\t");
+    printf("%.2f\t", table.data[i]);
+    printf("%i\t", table.count[i]);
+    printf("%.3f\n", table.headloss[i]);
+}
+
+void OneK()
+{
     double u = 0.0;
+    
+    OneKFittings OneKTable;
+    
+    // Initializing the struct
+    for(int i = 0; i < 15; ++i)
+    {
+        OneKTable.count[i] = 0;
+        OneKTable.data[i] = 0.0;
+        OneKTable.headloss[i] = 0.0;
+    }
+    //  Collecting data
+    OneKTable = OneKVar(OneKTable, &u);
+    
+    //  Performing calculations
+    OneKTable = OneKFinalTable(OneKTable, u);
+    
+    //  Calculating total head loss
     double total = 0.0;
-    
-    //Data collection
-    printf("Fluid velocity (m/s) = ");
-    u = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Standard 45 deg elbow = ");
-    counts[0] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("90 deg elbow standard radius = ");
-    counts[1] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("90 deg square elbow = ");
-    counts[2] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Entry from leg T-piece = ");
-    counts[3] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Entry into leg T-piece = ");
-    counts[4] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Sudden Reduction (Tank outlet) = ");
-    counts[5] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Sudden Expansion (Tank Inlet) = ");
-    counts[6] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Unions and Couplings = ");
-    counts[7] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Globe valve fully open = ");
-    counts[8] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Gate valve (100 pct) = ");
-    counts[9] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Gate valve (75 pct) = ");
-    counts[10] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Gate valve (50 pct) = ");
-    counts[11] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Gate valve (25 pct) = ");
-    counts[12] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Ball valve (100 pct) = ");
-    counts[13] = atoi(fgets(input, sizeof(input), stdin));
-    
-    printf("Plug valve open = ");
-    counts[14] = atoi(fgets(input, sizeof(input), stdin));
-    
-    //Data manipulation
-    double run = 0.0;
     
     for(int i = 0; i < 15; ++i)
     {
-        run = OneKCalc(counts[i], i, u);
-        total = run + total;
+        total += OneKTable.headloss[i];
     }
-    printf("Total head loss, hf = %.3f m\n", total);
-    //Ask for file write (Remember while loop)
-    //...
     
-    return total;
+    // Displaying data
+    OneKDisplay(OneKTable, u, total);
 }
