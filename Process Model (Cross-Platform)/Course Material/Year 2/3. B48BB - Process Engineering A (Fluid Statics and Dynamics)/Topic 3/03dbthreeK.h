@@ -6,43 +6,81 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-#ifndef threeKcalc_h
-#define threeKcalc_h
+typedef struct ThreeKFittings{
+    int k1[34];
+    double kinf[34];
+    double Impkd[34];
+    double Metkd[34];
+    int count[34];
+    double headloss[34];
+}ThreeKFittings;
 
-/// This subroutine is used calculate the K-value used to calculate the head loss in the main function
-/// @param K1 K_1 ([ ])
-/// @param Kinf K_{infty} ([ ])
-/// @param Kd K_d (inches OR mm)
-/// @param Re Reynold's number ([ ])
-/// @param NPS Nominal Pipe Schedule
-double threeKcalc(double K1, double Kinf, double Kd, double Re, double NPS);
+#ifndef ThreeKData_h
+#define ThreeKData_h
 
-#endif /* _3dbthreeK_h */
+/// This subroutine is used to load the 3K database into the struct stated above
+/// @param input Struct where constants should be entered.
+ThreeKFittings ThreeKData(ThreeKFittings input);
 
-#ifndef threeK_h
-#define threeK_h
+/// This subroutine is used to collect the variables required to run the calculations.
+/// @param table Struct where model constants and counts should be entered.
+/// @param DN Diameter Nominal (mm)
+/// @param rho Fluid density (kg/ m3) - For Reynolds number.
+/// @param u Fluid velocity (m/ s) - For Reynolds number and 3K.
+/// @param d Internal pipe diameter (mm) - For Reynolds number.
+/// @param mu Fluid viscosity (cP) - For Reynolds number.
+ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu);
 
-/// This subroutine is used to calculate the overall head loss incurred by a fluid travelling through large diameter pipes. 
-/// 
-///1) The array to contain the 3K database, input values and calculation steps is declared with 34 rows and 9 columns.\n
-///
-///2) Data is entered into the array.
-///   Column 0 = k_1 values
-///   Column 1 = k_inf values
-///   Column 2 = k_d values (inches)
-///   Column 3 = k_d values (mm)
-///
-///3) The program asks for user input and inputs the collected integer values into Column 4.
-///
-///4) The program collects the Reynolds number, Nominal Pipe Size and average fluid velocity.
-///
-///5) The program begins calculating the head loss for each fitting before multiplying by the count.
-///   Column 5 = K-value by fitting
-///   Column 6 = Fitting head loss
-///   Column 7 = Total group head loss
-///   Column 8 = Cumulative head loss
-///
-///6) The program then asks if the user would like to see the final calculation sheet. If affirmative, a for loop is run to display the collected data on the console
-void threeK(void);
+#endif /* ThreeKData_h */
 
-#endif /* threeK_h */
+#ifndef ThreeKCalc_h
+#define ThreeKCalc_h
+
+/// This subroutine is used to calculate the K-value later used to calculate the head loss associated with said fitting.
+/// @param Re Reynolds number
+/// @param DN Diameter nominal (mm)
+/// @param k1 k_1 value from database
+/// @param kinf k_inf value from database
+/// @param kd k_d value from database (mm^0.3)
+double ThreeKCalcK(double Re, double DN, int k1, double kinf, double kd);
+
+/// This subroutine is used to calculate the head loss associated with a singular fitting.
+/// @param count Number of fittings
+/// @param K K-value from "ThreeKCalcK(...)"
+/// @param u Fluid velocity (m/ s)
+double ThreeKCalcH(double count, double K, double u);
+
+/// This subroutine is used to amalgamate the data into a single variable.
+/// @param data Struct where data was previously entered.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa. s)
+/// @param DN Diameter Nominal
+/// @param Re Reynolds number ([ ])
+ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, double d, double mu, double DN, double *Re);
+
+#endif /* ThreeKCalc_h */
+
+#ifndef ThreeKDisplay_h
+#define ThreeKDisplay_h
+
+/// This subroutine is used to display the contents of the generated data table in addition to all inputted variables.
+/// @param data Generated data table.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param Re Reynold's number
+/// @param DN Diameter Nominal (mm)
+/// @param total Total head loss (m)
+void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double total);
+
+#endif /* ThreeKDisplay_h */
+
+#ifndef ThreeK_h
+#define ThreeK_h
+
+void ThreeK(void);
+
+#endif /* ThreeK_h */

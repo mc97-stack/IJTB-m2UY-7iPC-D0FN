@@ -1,22 +1,28 @@
 //
-//  03dbthreeK.c
+//  03dThreeK.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 02/07/2020.
+//  Created by Matthew Cheung on 22/10/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
-#include "03dbthreeK.h"
 #include "02dReyNo.h"
 
 #define maxstrlen 128
 #define g 9.80665
+
+typedef struct ThreeKFittings{
+    int k1[34];
+    double kinf[34];
+    double Impkd[34];
+    double Metkd[34];
+    int count[34];
+    double headloss[34];
+}ThreeKFittings;
 
 ThreeKFittings ThreeKData(ThreeKFittings input)
 {
@@ -202,7 +208,7 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
             check = 0;
         }else{
             // DN size is bigger than pipe internal diameter. Not possible.
-            printf("Given diameter nominal exceeds internal pipe diameter. Please re-enter DN size.\n");
+            printf("Given diameter nominal exceeds internal pipe diameter. Please re-enter DN size");
         }
     }
     *d = (*d)*0.001; //Conversion (mm to m)
@@ -348,16 +354,12 @@ double ThreeKCalcH(double count, double K, double u)
 ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, double d, double mu, double DN, double *Re)
 {
     double ReyNo = 0.0;
-    double K = 0.0;
     
     *Re = ReyNoCalc(rho, u, d, mu);
     ReyNo = (*Re);
     
     for(int i = 0; i < 34; ++i){
-        K = ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]);
-        printf("K = %.3f\n", K);
-        data.headloss[i] = ThreeKCalcH(data.count[i], K, u);
-        printf("h_L = %.3f\n", data.headloss[i]);
+        data.headloss[i] = ThreeKCalcH(data.count[i], ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
     }
     
     return data;
@@ -378,15 +380,12 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("Internal pipe diameter:\n");
     printf("d =\t%.3f\tmm\n", d*1000);
     printf("Diameter Nominal:\n");
-    printf("DN\t%.0f\t(mm)\n\n", DN);
-    
-    printf("Reynold's number:\n");
-    printf("Re =\t%.0f\t[ ]\n\n", Re);
+    printf("DN\t%.0f\tmm\n\n", DN);
     
     printf("Total head loss:\n");
     printf("total =\t%.3f\tm\n\n", total);
     
-    printf("K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \\infty }\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
+    printf("K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \textrm{ inf }}\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
     printf("h_L = K \\frac{u^2}{2*g}\n");
     printf("Fitting\tK_1\tK_inf\tK_d (in^{0.3})\tK_d (mm^{0.3})\tCount\tHead loss (m)\n");
     
@@ -699,7 +698,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
 }
 
-void ThreeK()
+void ThreeKEdit()
 {
     double rho = 0.0;
     double u = 0.0;
@@ -726,7 +725,7 @@ void ThreeK()
     ThreeKTable = ThreeKVar(ThreeKTable, &DN, &rho, &u, &d, &mu);
     
     //  Performing calculations
-    ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
+    ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
     
     for(int i = 0; i < 34; ++i){
         total += ThreeKTable.headloss[i];
