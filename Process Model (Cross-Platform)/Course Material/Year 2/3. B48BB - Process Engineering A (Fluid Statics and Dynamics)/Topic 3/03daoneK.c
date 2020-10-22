@@ -131,6 +131,7 @@ void OneKDisplay(OneKFittings table, double u, double total)
     printf("Total Head Loss:\n");
     printf("total =\t%.3f\tm\n\n", total);
     
+    printf("h_L = K \\frac{u^2}{2*g}\n");
     printf("Fitting\tk\tCount\tHead loss (m)\n");
     i = 0;
     printf("Standard 45 deg elbow\t");

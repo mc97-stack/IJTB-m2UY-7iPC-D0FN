@@ -47,7 +47,7 @@ void Fittings()
                     whilside = 0;
                     break;
                 case '2':
-                    threeK();
+                    ThreeK();
                     whilside = 0;
                     break;
                 case '3':
