@@ -303,13 +303,13 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
     printf("Diaphragm valve, dam type: ");
     table.count[31] = atoi(fgets(input, sizeof(input), stdin));
     
+    printf("N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     printf("Swing check valve: ");
     table.count[32] = atoi(fgets(input, sizeof(input), stdin));
-    printf("N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     
+    printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     printf("Lift check valve: ");
     table.count[33] = atoi(fgets(input, sizeof(input), stdin));
-    printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     
     return table;
 }
@@ -710,6 +710,7 @@ void ThreeK()
     
     double total = 0.0;
     
+    printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
     ThreeKFittings ThreeKTable;
     
     // Initialising all values in the struct
@@ -724,7 +725,7 @@ void ThreeK()
     
     //  Collecting data
     ThreeKTable = ThreeKVar(ThreeKTable, &DN, &rho, &u, &d, &mu);
-    
+    printf("\n");
     //  Performing calculations
     ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
     
