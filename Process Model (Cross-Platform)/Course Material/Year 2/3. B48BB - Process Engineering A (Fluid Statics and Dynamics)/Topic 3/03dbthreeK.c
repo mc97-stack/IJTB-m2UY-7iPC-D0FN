@@ -303,12 +303,12 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
     printf("Diaphragm valve, dam type: ");
     table.count[31] = atoi(fgets(input, sizeof(input), stdin));
     
-    printf("N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
-    printf("Swing check valve: ");
+    printf("N.B. V_{min} = 35\\left(\\rho\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    printf("Swing check valve Type: Vmin = 40: ");
     table.count[32] = atoi(fgets(input, sizeof(input), stdin));
     
-    printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
-    printf("Lift check valve: ");
+    printf("N.B. V_{min} = 40\\left(\\rho\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    printf("Lift check valve, Type: Vmin = 40: ");
     table.count[33] = atoi(fgets(input, sizeof(input), stdin));
     
     return table;
@@ -348,16 +348,12 @@ double ThreeKCalcH(double count, double K, double u)
 ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, double d, double mu, double DN, double *Re)
 {
     double ReyNo = 0.0;
-    double K = 0.0;
     
     *Re = ReyNoCalc(rho, u, d, mu);
     ReyNo = (*Re);
     
     for(int i = 0; i < 34; ++i){
-        K = ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]);
-        printf("K = %.3f\n", K);
-        data.headloss[i] = ThreeKCalcH(data.count[i], K, u);
-        printf("h_L = %.3f\n", data.headloss[i]);
+        data.headloss[i] = ThreeKCalcH(data.count[i], ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
     }
     
     return data;

@@ -36,7 +36,7 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
 #ifndef ThreeKCalc_h
 #define ThreeKCalc_h
 
-/// This subroutine is used to calculate the K-value later used to calculate the head loss associated with said fitting.
+/// This subroutine is used to calculate the Resistant Coefficient later used to calculate the head loss associated with said fitting.
 /// @param Re Reynolds number
 /// @param DN Diameter nominal (mm)
 /// @param k1 k_1 value from database
@@ -46,7 +46,7 @@ double ThreeKCalcK(double Re, double DN, int k1, double kinf, double kd);
 
 /// This subroutine is used to calculate the head loss associated with a singular fitting.
 /// @param count Number of fittings
-/// @param K K-value from "ThreeKCalcK(...)"
+/// @param K Resistant Coefficient from "ThreeKCalcK(...)"
 /// @param u Fluid velocity (m/ s)
 double ThreeKCalcH(double count, double K, double u);
 
@@ -81,6 +81,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
 #ifndef ThreeK_h
 #define ThreeK_h
 
+/// This subroutine is the pseudo-main subroutine guiding the computer through collecting the necessary data and calculating and displaying head losses
 void ThreeK(void);
 
 #endif /* ThreeK_h */
