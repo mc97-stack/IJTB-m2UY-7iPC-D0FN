@@ -11,9 +11,10 @@
 
 //  Custom header files
 #include "B48BB_T3.h"
-#include "03daoneK.h"
-#include "03dbthreeK.h"
-#include "03dcEquivLeng.h"
+#include "03dOneK.h"
+#include "03dTwoK.h"
+#include "03dThreeK.h"
+#include "03dEquivLeng.h"
 
 #define maxstrlen 128
 
@@ -36,8 +37,9 @@ void Fittings()
             //Data collection
             printf("Which method do you want to use to calculate friction losses:\n");
             printf("1. 1K (Lost velocity heads)(Excess heads method) (Recommended for small pipe sizes)\n");
-            printf("2. 3K (Lost velocity heads) (Recommended for NPS > NPS 12)\n");
-            printf("3. Equivalent length\n");
+            printf("2. 2K (Lost velocity heads)\n");
+            printf("3. 3K (Lost velocity heads) (Recommended for NPS > NPS 12)\n");
+            printf("4. Equivalent length\n");
             printf("Selection: ");
             fgets(input, sizeof(input), stdin);
             switch(input[0])
@@ -47,10 +49,14 @@ void Fittings()
                     whilside = 0;
                     break;
                 case '2':
-                    ThreeK();
+                    TwoK();
                     whilside = 0;
                     break;
                 case '3':
+                    ThreeK();
+                    whilside = 0;
+                    break;
+                case '4':
                     EquivLeng();
                     whilside = 0;
                     break;
