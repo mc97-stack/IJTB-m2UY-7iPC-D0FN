@@ -6,80 +6,78 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //  
 
+typedef struct head{
+    double P;
+    double h1;
+    double h2;
+    double hf;
+} head;
+
 #ifndef PumpVar_h
 #define PumpVar_h
 
-/// This subroutine is used for collecting data used to size a pump. Since alot of variables are being collected, this function can be simplified by asking the user to input the state variables and then allowing the computer to gather the required data and run the calculations.
-/// @param Q Volumetric flowrate (m3/s)
+/// This subroutine is used to collect the variables that do not belong to a struct.
+/// @param Q Fluid volumetric flowrate (m3/s)
 /// @param rho Fluid density (kg/m3)
-/// @param Psat Fluid vapour pressure (kPa)
-/// @param SucVesselP Suction-side vessel pressure (kPa)
-/// @param hs1 Liquid level in suction-side vessel (m)
-/// @param hs2 Liquid elevation above pump inlet (m)
-/// @param dPsuction Suction side frictional head loss (m)
-/// @param DisVesselP Discharge-side vessel pressure (kPa)
-/// @param hd1 Liquid level in Discharge-side vessel (m)
-/// @param hd2 Liquid elevation above pump outlet (m)
-/// @param dPdischarge Discharge side frictional head loss (m)
-/// @param eta Pump efficiency (0% - 100%)
-void PumpVar(double *Q, double *rho, double *Psat, double *SucVesselP, double *hs1, double *hs2, double *dPsuction, double *DisVesselP, double *hd1, double *hd2, double *dPdischarge, double *eta);
+/// @param Psat Saturated vapour pressure (kPa)
+/// @param NPSHr Required NPSH
+/// @param eta Pump efficiency (value between 0 and 100)
+void PumpVar(double *Q, double *rho, double *Psat, double *NPSHr, double *eta);
 
-#endif /* _4bPumpSizing_h */
+/// This subroutine is used to collect the data required to calculate either the suction or discharge head.
+/// @param type Integer value used to control the printf output. (1) = Suction descriptors. (2) = Discharge descriptors)
+/// @param var Struct where data should be inputted to.
+head PumpHeadVar(int type, head var);
 
-#ifndef PumpInitialCalc_h
-#define PumpInitialCalc_h
+#endif /* PumpVar_h */
 
-/// This subroutine is used to calculate the head produced either side of a pump. This subroutine returns the calculated head back to the calling function.
-/// @param P Vessel pressure.
-/// @param rho Fluid density.
-/// @param h1 Fluid level in receiving tank.
-/// @param h2 Fluid elevation above pump port.
-/// @param fric Headloss due to friction.
-double PumpInitialCalc(double P, double rho, double h1, double h2, double fric);
+#ifndef PumpCalc_h
+#define PumpCalc_h
 
-#endif /* PumpInitialCalc_h */
+/// This subroutine is used to calculate the head on either side of the pump
+/// @param var Struct containing variables specific to each side of the pump.
+/// @param rho Fluid density (kg/m3).
+double HeadCalc(head var, double rho);
 
-#ifndef PumpNPSHCalc_h
-#define PumpNPSHCalc_h
-
-/// This subroutine is used to calculate the available NPSH for the pump.
-/// @param P Suction-side vessel pressure (Pa)
-/// @param Phat Vapour pressure of fluid in suction-side vessel (Pa)
-/// @param rho Fluid density (kg/ m3)
-/// @param hs1 Liquid level in suction-side vessel (m)
-/// @param hs2 Liquid elevation above pump inlet (m)
-/// @param hfric Frictional head loss (m)
-double PumpNPSHCalc(double P, double Phat, double rho, double hs1, double hs2, double hfric);
-
-#endif /* PumpNPSHCalc_h */
-
-#ifndef PumpHeadCalc_h
-#define PumpHeadCalc_h
+/// This subroutine is used to calculate the NPSH available.
+/// @param var Suction-side parameters.
+/// @param Psat Saturated vapour pressure (Pa).
+/// @param rho Fluid density (kg/m3).
+double NPSHCalc(head var, double Psat, double rho);
 
 /// This subroutine is used to calculate the pump head.
 /// @param hs Suction head.
 /// @param hd Discharge head.
 double PumpHeadCalc(double hs, double hd);
 
-#endif /* PumpHeadCalc_h */
+/// This subroutine is used to calculate the pressure 'drop' across the pump.
+/// @param rho Fluid density (kg/m3).
+/// @param hp Pump head (m).
+double PumpPressureCalc(double rho, double hp);
 
-#ifndef PumpPressureCalc_h
-#define PumpPressureCalc_h
+/// This subroutine is used to calculate the pump power requirement.
+/// @param dP_p Pressure 'drop' across the pump (Pa).
+/// @param Q Fluid volumetric flowrate (m3/s)
+/// @param eta Pump efficiency.
+double PumpPower(double dP_p, double Q, double eta);
 
-/// This subroutine is used to find the pressure change across the pump.
-/// @param rho Fluid density (kg/ m3)
-/// @param dHp Pump head (m)
-double PumpPressureCalc(double rho, double dHp);
+#endif /* PumpCalc_h */
 
-#endif /* PumpPressureCalc_h */
+#ifndef PumpDisp_h
+#define PumpDisp_h
 
-#ifndef PumpPowerCalc_h
-#define PumpPowerCalc_h
+/// This subroutine is used to display the collected data and calculated parameters on the user console.
+/// @param suction Suction-side parameters
+/// @param discharge Discharge-side parameters
+/// @param Q Fluid volumetric flowrate (m3/s)
+/// @param rho Fluid density (kg/m3)
+/// @param Psat Saturated vapour pressure (Pa)
+/// @param NPSHr Required Net Positive Suction Head (m)
+/// @param NPSHa Available Net Positive Suction Head (m)
+/// @param eta Pump efficiency (%)
+/// @param phead Pump head (m)
+/// @param ppressure Pump pressure 'drop' (Pa)
+/// @param ppower Pump power requirement (kW)
+void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
 
-/// This subroutine is used to find the pump power requirement.
-/// @param dPp Pump pressure change (Pa)
-/// @param Q Volumetric flowrate (m3/s)
-/// @param eta Pump efficiency
-double PumpPowerCalc(double dPp, double Q, double eta);
-
-#endif /* PumpPowerCalc_h */
+#endif /* PumpDisp_h */

@@ -12,17 +12,16 @@
 #include <string.h>
 #include <time.h>
 
+#include "B48BB_T4.h"
 #include "04bPumpSizing.h"
 
 #define maxstrlen 128
 #define g 9.80665
 
-void PumpVar(double *Q, double *rho, double *Psat, double *SucVesselP, double *hs1, double *hs2, double *dPsuction, double *DisVesselP, double *hd1, double *hd2, double *dPdischarge, double *eta)
+void PumpVar(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
 {
-    //Declaring input variables
     char input[maxstrlen];
     
-    printf("Fluid Properties:\n");
     printf("Volumetric flowrate (m3/s) = ");
     *Q = atof(fgets(input, sizeof(input), stdin));
     
@@ -33,261 +32,218 @@ void PumpVar(double *Q, double *rho, double *Psat, double *SucVesselP, double *h
     *Psat = atof(fgets(input, sizeof(input), stdin));
     *Psat = (*Psat)*1000;
     
-    printf("\n");
-    fflush(stdout);
+    printf("Required NPSH (m) = ");
+    *NPSHr = atof(fgets(input, sizeof(input), stdin));
     
-    printf("Suction Side:\n");
-    printf("Suction vessel Pressure (kPa) = ");
-    *SucVesselP = atof(fgets(input, sizeof(input), stdin));
-    *SucVesselP = (*SucVesselP)*1000;
-    
-    printf("Liquid level in Suction-side vessel (m) = ");
-    *hs1 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Liquid elevation above pump inlet (m) = ");
-    *hs2 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Fluid frictional head loss (m) = ");
-    *dPsuction = atof(fgets(input, sizeof(input), stdin));
-    printf("\n");
-    fflush(stdout);
-    
-    printf("Discharge Side:\n");
-    printf("Discharge vessel Pressure (kPa) = ");
-    *DisVesselP = atof(fgets(input, sizeof(input), stdin));
-    *DisVesselP = (*DisVesselP)*1000;
-    
-    printf("Liquid level in Dischrge-side vessel (m) = ");
-    *hd1 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Liquid elevation above pump outlet (m) = ");
-    *hd2 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Fluid frictional head loss (m) = ");
-    *dPdischarge = atof(fgets(input, sizeof(input), stdin));
-    //If pressure loss on discharge < pressure loss on suction, recommend moving pump closer to suction vessel
-    printf("\n");
-    fflush(stdout);
-    printf("Pump Properties:\n");
     printf("Pump efficiency (0 pct - 100 pct) = ");
     *eta = atof(fgets(input, sizeof(input), stdin));
+    *eta = (*eta)*0.01; // Conversion to decimal
 }
 
-double PumpInitialCalc(double P, double rho, double h1, double h2, double fric)
+head PumpHeadVar(int type, head var)
 {
-    double head = 0.0;
+    char input[maxstrlen];
     
-    head = rho * g;
-    head = P/(head);
-    head = (head) + h1;
-    head = (head) + h2;
-    head = (head) - fric;
+    if(type == 1){
+        printf("Suction head parameters\n");
+    }
+    if(type == 2){
+        printf("Discharge head parameters\n");
+    }
     
-    return head;
+    if(type == 1){
+        printf("Suction vessel pressure (kPa) = ");
+    }
+    if(type == 2){
+        printf("Discharge vessel pressure (kPa) = ");
+    }
+    var.P = atof(fgets(input, sizeof(input), stdin));
+    var.P = (var.P)*1000;
+    
+    if(type == 1){
+        printf("Liquid level in Suction-side vessel (m) = ");
+    }
+    if(type == 2){
+        printf("Liquid level in Discharge-side vessel (m) = ");
+    }
+    var.h1 = atof(fgets(input, sizeof(input), stdin));
+    
+    if(type == 1){
+        printf("Liquid elevation above pump inlet (m) = ");
+    }
+    if(type == 2){
+        printf("Liquid elevation above pump outlet (m) = ");
+    }
+    var.h2 = atof(fgets(input, sizeof(input), stdin));
+    
+    printf("Fluid frictional head loss (m) = ");
+    var.hf = atof(fgets(input, sizeof(input), stdin));
+    
+    return var;
 }
 
-double PumpNPSHCalc(double P, double Phat, double rho, double hs1, double hs2, double hfric)
+double HeadCalc(head var, double rho)
 {
-    double NPSH = 0.0; //Net Positive Suction Head & Initialising
+    double output = 0.0;
     
-    NPSH = P - Phat;
-    NPSH = (NPSH)/(rho*g);
-    NPSH = (NPSH) + hs1;
-    NPSH = (NPSH) + hs2;
-    NPSH = (NPSH) - hfric;
+    output = rho*g;
+    output = var.P/(output);
     
-    return NPSH;
+    output = (output) + var.h1;
+    output = (output) + var.h2;
+    output = (output) - var.hf;
+    
+    return output;
+}
+
+double NPSHCalc(head var, double Psat, double rho)
+{
+    double output = 0.0;
+    
+    output = rho*g;
+    output = (var.P - Psat)/(output);
+    
+    output = (output) + var.h1;
+    output = (output) + var.h2;
+    output = (output) - var.hf;
+    
+    return output;
 }
 
 double PumpHeadCalc(double hs, double hd)
 {
-    //Returns the pump head in metres
     return hd - hs;
 }
 
-double PumpPressureCalc(double rho, double dHp)
+double PumpPressureCalc(double rho, double hp)
 {
-    double pressure = 0.0; //Pump pressure
+    double pressure = 0.0;
     
     pressure = rho*g;
-    pressure = (pressure)*dHp;
+    pressure = (pressure)*hp;
     
     return pressure;
 }
 
-double PumpPowerCalc(double dPp, double Q, double eta)
+double PumpPower(double dP_p, double Q, double eta)
 {
-    //Returns the power power required to achieve the specified pressure drop
-    //eta is the efficiency of the pump (Value between 0 and 1)
     double power = 0.0;
     
-    power = dPp*Q;
+    power = dP_p * Q;
     power = (power)/eta;
+    
     return power;
 }
 
-/*
-void [Data Plot & Write](...)
+void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
 {
-    char filename[maxstrlen];
-    char path[maxstrlen];
-    char filepath[maxstrlen*2];
-
-    FILE *fp
+    printf("Suction-side parameters.\n");
+    printf("Suction vessel pressure:\n");
+    printf("P =\t%.3f\tkPa\n", (suction.P)*0.001);
+    printf("Liquid level in Suction-side vessel:\n");
+    printf("h_s1 =\t%.3f\tm\n", suction.h1);
+    printf("Liquid level above pump inlet:\n");
+    printf("h_s2 =\t%.3f\tm\n", suction.h2);
+    printf("Suction side frictional losses:\n");
+    printf("h_f,s =\t%.3f\tm\n\n", suction.hf);
     
-    //Set file name as timestamp + Name of Program
-        //Get current time
-    time_t rawtime;
-    struct tm *info;
-    time(&rawtime);
-    info = localtime(&rawtime);
+    printf("Discharge-side parameters.\n");
+    printf("Discharge vessel pressure:\n");
+    printf("P =\t%.3f\tkPa\n", (discharge.P)*0.001);
+    printf("Liquid level in Discharge-side vessel:\n");
+    printf("h_d1 =\t%.3f\tm\n", discharge.h1);
+    printf("Liquid level above pump outlet:\n");
+    printf("h_d2 =\t%.3f\tm\n", discharge.h2);
+    printf("Discharge side frictional losses:\n");
+    printf("h_f,d =\t%.3f\tm\n\n", discharge.hf);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof(filename));
+    printf("Fluid-specific parameters\n");
+    printf("Volmetric flowrate:\n");
+    printf("Q =\t%.3f\tm3/s\n", Q);
+    printf("Fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    printf("Fluid saturated vapour pressure:\n");
+    printf("Psat =\t%.3f\tkPa\n\n", Psat*0.001);
     
-    strftime(filename, 16, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    printf("Pump-specific parameters\n");
+    printf("Required NPSH:\n");
+    printf("NPSHr =\t%.2f\tm\n", NPSHr);
+    printf("Available NPSH:\n");
+    printf("NPSHa =\t%.2f\tm\n", NPSHa);
+    printf("Pump efficiency:");
+    printf("eta =\t%.1f\t%%\n\n", eta*100);
     
-    strcat(filename, " (Name of Program)");
-    printf("File name: \"%s\"\n", filename);
-    
-    strcat(filename,".txt");
-    printf("File name: \"%s\"\n", filename);
-    
-    //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof(filepath));
-    
-    //printf("Save file to: /Users/user/Documents/ ");
-    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
-    strcat(filepath, filename);
-    void free(void *filename);
-    
-    printf("File name: \"%s\"\n", filename);
-    printf("Full file path: \"%s\"\n\n", filepath);
-    
-    //Testing if directory is not present
-    
-    if(fopen(filepath, "r") == NULL){
-        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
-        strcpy(filepath, "/Users/user/Documents/");
-        printf("File is now being outputted to: %s\n", filepath);
-    }
-    printf("Note that write sequence disabled by zsh\n");
-    
-    //Get file path - This step is optional
-    *path = (char)malloc(sizeof(path));
-    ...
-    
-    //Creating the full path and name through concatenation
-    *filepath = (char)malloc(sizeof(filepath));
-    strcpy(filepath, filepath);
-    strcat(filepath, filename);
-    strcat(filepath, ".txt");
-    
-    //Testing if directory exists
-    if(fopen(filepath, "r") == NULL)
-    {
-            printf("Directory does not exist, writing data to \"Documents\" folder\n");
-            strcpy(filepath, "/Users/user/Documents/");
-            printf("Filepath: %s\n", filepath);
-    }
-    
-    printf("Beginning file write\n");
-    //File open
-    fp = fopen(filepath, "w+");
-    
-    //Writing to file
-    fprintf(fp, "...", ...);
-    ...
-    
-    //File close
-    fclose(fp);
-    
-    printf("Write successful\n");
-    fflush(stdout);
+    printf("Pump head:\n");
+    printf("phead =\t%.3f\tm\n", phead);
+    printf("Pump pressure:\n");
+    printf("dP_P =\t%.3f\tkPa\n", ppressure*0.001);
+    printf("Pump power:\n");
+    printf("W_h =\t%.3f\tkW\n", ppower*0.001);
 }
-*/
+
 void PumpSizing()
 {
-    //Main Function
     char ContCond[maxstrlen];
     
     int whilmain = 0;
-    printf("Pump Sizing Calculator\n");
+    
+    printf("Pump Sizing Calculator.\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-        double Q = 0.0; // Volumetric flowrate
-        double rho = 0.0; // Fluid density
-        double Psat = 0.0; // Fluid Saturated Vapour Pressure
-        double SuctionVessP = 0.0; // Pressure in suction side vessel
-        double hs1 = 0.0; // Liquid level in suction side vessel
-        double hs2 = 0.0; // Vertical elevation of fluid in pipe from vessel to pump
-        double dPsuction = 0.0; // Suction side frictional pressure loss
-        double DischargeVessP = 0.0; // Pressure in discharge side vessel
-        double hd1 = 0.0; // Liquid level in discharge side vessel
-        double hd2 = 0.0; // Vertical elevation of fluid in pipe from pump to discharge vessel
-        double dPdischarge = 0.0; // Discharge side frictional pressure loss
-        double eta = 0.0; // Pump efficiency
+        //  Variable declaration
+        double Q = 0.0;
+        double rho = 0.0;
+        double Psat = 0.0;
+        double NPSHr = 0.0;
+        double eta = 0.0;
         
-        double suctionhead = 0.0;
-        double dischargehead = 0.0;
-        double AvailNPSH = 0.0; //Available NPSH
-        double pumphead = 0.0;
-        double pumppower = 0.0;
+        double shead = 0.0;
+        double dhead = 0.0;
+        double NPSHa = 0.0;
+        
+        double phead = 0.0;
+        double ppressure = 0.0;
+        double ppower = 0.0;
         
         int whilcont = 0;
         
-        //Data collection
-        PumpVar(&Q, &rho, &Psat, &SuctionVessP, &hs1, &hs2, &dPsuction, &DischargeVessP, &hd1, &hd2, &dPdischarge, &eta);
+        head suction;
+        head discharge;
         
-        printf("Function returns:\n");
-        printf("Fluid properties:\n");
-        printf("Q = %.3f m3/s\n",Q);
-        printf("rho = %.3f kg/m3\n", rho);
-        printf("Psat = %.3f Pa\n\n", Psat);
+        //Initialising struct values
+        suction.P = 0.0;
+        suction.h1 = 0.0;
+        suction.h2 = 0.0;
+        suction.hf = 0.0;
         
-        printf("Suction/ Discharge side properties:\n");
-        printf("SuctionVessP = %.3f Pa\n", SuctionVessP);
-        printf("hs1 = %.3f m\n", hs1);
-        printf("hs2 = %.3f m\n", hs2);
-        printf("dPsuction = %.3f m3/s\n", dPsuction);
-        printf("DischargeVessP = %.3f Pa\n", DischargeVessP);
-        printf("hd1 = %.3f m\n", hd1);
-        printf("hd2 = %.3f m\n", hd2);
-        printf("dPdischarge = %.3f m3/s\n\n", dPdischarge);
+        discharge.P = 0.0;
+        discharge.h1 = 0.0;
+        discharge.h2 = 0.0;
+        discharge.hf = 0.0;
         
-        printf("Pump characteristics:\n");
-        printf("eta = %.1f pct \n\n", eta*100);
+        //  Data collection
+        PumpVar(&Q, &rho, &Psat, &NPSHr, &eta);
+        suction = PumpHeadVar(1, suction);
+        discharge = PumpHeadVar(2, discharge);
         
-        //Data manipulation
-            //Calculation of suction & discharge head
-        suctionhead = PumpInitialCalc(SuctionVessP, rho, hs1, hs2, dPsuction);
-        dischargehead = PumpInitialCalc(DischargeVessP, rho, hd1, hd2, dPdischarge);
+        //  Calculations
+        shead = HeadCalc(suction, rho);
+        dhead = HeadCalc(discharge, rho);
         
-        pumphead = PumpHeadCalc(suctionhead, dischargehead);
-        
-        printf("suctionhead = %.3f m\n", suctionhead);
-        printf("dischargehead = %.3f m\n", dischargehead);
-        printf("pumphead = %.3f m\n", pumphead);
-        
-            //Calculating Available NPSH
-        AvailNPSH = PumpNPSHCalc(SuctionVessP, Psat, rho, hs1, hs2, dPsuction);
-        
-        printf("Available NPSH = %.1f m\n", AvailNPSH);
-        printf("N.B. Check that this value is > Required NPSH from the manufacturer\n\n");
-        
-            //Calculating pump power
-        pumppower = PumpPowerCalc(PumpPressureCalc(rho, pumphead), Q, eta);
-        printf("Pump power at %.1f pct efficiency = %.3f\n", eta, pumppower);
-        //Ask for file write (Remember while loop)
-        //...
-        //Continue function
+        NPSHa = NPSHCalc(suction, Psat, rho);
+        if(NPSHa > NPSHr){
+            phead = PumpHeadCalc(shead, dhead);
+            ppressure = PumpPressureCalc(rho, phead);
+            ppower = PumpPower(ppressure, Q, eta);
+            
+            //  Display
+            PumpDisplay(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
+        }else{
+            printf("Insufficient Net Positive Suction Head. Ending calculations.\n");
+        }
+        //  Continue?
         whilcont = 1;
         while(whilcont == 1)
         {
@@ -316,5 +272,4 @@ void PumpSizing()
             }
         }
     }
-    fflush(stdout);
 }
