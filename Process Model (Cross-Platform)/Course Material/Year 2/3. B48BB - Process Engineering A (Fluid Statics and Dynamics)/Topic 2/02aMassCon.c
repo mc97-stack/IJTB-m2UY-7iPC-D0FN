@@ -117,7 +117,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -138,6 +138,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

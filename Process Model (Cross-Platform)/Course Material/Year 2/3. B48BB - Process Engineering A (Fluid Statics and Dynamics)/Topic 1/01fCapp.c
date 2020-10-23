@@ -106,7 +106,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -127,6 +127,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

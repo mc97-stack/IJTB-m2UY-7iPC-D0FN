@@ -152,7 +152,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -172,6 +172,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");
@@ -208,6 +209,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
      
     printf("Write Complete\n");
 }
+
 void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
     int SaveC;

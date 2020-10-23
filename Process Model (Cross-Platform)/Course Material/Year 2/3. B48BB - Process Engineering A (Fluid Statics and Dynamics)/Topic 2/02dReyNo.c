@@ -86,7 +86,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -106,6 +106,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

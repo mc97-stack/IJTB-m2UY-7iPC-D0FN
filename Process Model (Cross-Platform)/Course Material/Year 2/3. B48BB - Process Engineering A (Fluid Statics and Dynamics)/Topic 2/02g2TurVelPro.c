@@ -118,7 +118,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -138,6 +138,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

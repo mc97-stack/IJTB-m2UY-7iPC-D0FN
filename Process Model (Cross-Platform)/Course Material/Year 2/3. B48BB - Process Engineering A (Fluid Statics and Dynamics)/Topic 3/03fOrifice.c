@@ -137,7 +137,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -157,6 +157,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

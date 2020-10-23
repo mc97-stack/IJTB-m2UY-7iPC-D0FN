@@ -107,7 +107,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -127,6 +127,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");
@@ -174,6 +175,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
      
     printf("Write Complete\n");
 }
+
 void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
     int SaveC;

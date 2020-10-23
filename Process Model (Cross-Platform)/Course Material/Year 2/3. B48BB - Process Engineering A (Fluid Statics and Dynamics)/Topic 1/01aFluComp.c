@@ -103,12 +103,12 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
-    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    strcpy(filepath, "~/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
@@ -121,15 +121,16 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
-        strcpy(filepath, "/Users/user/Documents/");
+        strcpy(filepath, "~/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Fluid_Coefficient_of_Compressibility_Results_\n");

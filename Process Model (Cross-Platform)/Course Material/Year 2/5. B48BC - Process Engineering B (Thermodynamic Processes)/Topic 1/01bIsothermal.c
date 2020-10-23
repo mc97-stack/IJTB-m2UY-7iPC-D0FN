@@ -191,7 +191,7 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -211,6 +211,7 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");

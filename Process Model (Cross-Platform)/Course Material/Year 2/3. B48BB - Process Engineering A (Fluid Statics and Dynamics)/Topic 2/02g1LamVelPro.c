@@ -142,7 +142,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    
+    /*
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -162,6 +162,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
         strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
+    */
     printf("Note that write sequence may be disabled by zsh\n");
     
     printf("Beginning file write...\n");
