@@ -746,7 +746,7 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

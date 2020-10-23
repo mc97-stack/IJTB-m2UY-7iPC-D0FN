@@ -156,7 +156,7 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

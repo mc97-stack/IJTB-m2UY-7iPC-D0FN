@@ -138,7 +138,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

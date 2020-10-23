@@ -243,7 +243,7 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

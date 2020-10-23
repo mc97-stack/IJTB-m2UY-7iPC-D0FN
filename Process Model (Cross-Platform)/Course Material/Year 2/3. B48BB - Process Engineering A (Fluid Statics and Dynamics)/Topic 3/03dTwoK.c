@@ -561,7 +561,7 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

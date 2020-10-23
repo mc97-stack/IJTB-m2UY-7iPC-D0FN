@@ -58,7 +58,7 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

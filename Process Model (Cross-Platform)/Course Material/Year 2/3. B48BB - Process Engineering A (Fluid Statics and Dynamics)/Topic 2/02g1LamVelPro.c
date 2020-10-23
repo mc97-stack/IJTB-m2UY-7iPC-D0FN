@@ -119,7 +119,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

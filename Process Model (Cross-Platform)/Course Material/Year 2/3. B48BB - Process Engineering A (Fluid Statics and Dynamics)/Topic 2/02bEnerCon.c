@@ -175,7 +175,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

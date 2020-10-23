@@ -84,7 +84,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

@@ -399,7 +399,7 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

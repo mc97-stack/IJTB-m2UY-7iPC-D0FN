@@ -114,7 +114,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

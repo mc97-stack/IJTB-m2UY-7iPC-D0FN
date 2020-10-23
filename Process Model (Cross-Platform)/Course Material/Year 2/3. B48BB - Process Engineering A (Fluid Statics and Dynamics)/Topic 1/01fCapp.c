@@ -83,7 +83,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

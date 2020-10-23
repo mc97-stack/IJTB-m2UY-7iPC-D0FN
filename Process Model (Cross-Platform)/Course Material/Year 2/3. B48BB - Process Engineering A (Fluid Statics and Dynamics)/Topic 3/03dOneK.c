@@ -228,7 +228,7 @@ void OneKWrite(OneKFittings table, double u, double total)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

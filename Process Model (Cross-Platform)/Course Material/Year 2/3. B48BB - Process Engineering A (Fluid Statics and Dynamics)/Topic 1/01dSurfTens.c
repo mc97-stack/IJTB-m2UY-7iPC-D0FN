@@ -199,7 +199,7 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

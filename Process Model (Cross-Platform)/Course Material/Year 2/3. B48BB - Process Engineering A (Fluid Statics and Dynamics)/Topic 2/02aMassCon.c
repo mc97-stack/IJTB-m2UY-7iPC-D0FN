@@ -94,7 +94,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

@@ -80,7 +80,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

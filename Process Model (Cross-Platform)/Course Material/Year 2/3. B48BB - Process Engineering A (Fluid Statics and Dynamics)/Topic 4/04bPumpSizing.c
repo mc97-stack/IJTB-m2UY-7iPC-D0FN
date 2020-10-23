@@ -185,7 +185,7 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

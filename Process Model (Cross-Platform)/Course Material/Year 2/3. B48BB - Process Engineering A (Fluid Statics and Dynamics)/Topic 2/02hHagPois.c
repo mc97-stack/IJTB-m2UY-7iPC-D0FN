@@ -64,7 +64,7 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

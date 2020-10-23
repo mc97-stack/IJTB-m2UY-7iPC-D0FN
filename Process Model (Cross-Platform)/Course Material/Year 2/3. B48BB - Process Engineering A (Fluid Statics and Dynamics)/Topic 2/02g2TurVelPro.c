@@ -95,7 +95,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

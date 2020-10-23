@@ -129,7 +129,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;

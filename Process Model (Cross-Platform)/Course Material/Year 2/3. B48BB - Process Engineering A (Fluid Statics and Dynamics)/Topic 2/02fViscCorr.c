@@ -123,7 +123,7 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
 {
     //Function variables
     char filename[maxstrlen];
-    char filepath[maxstrlen*(2)];
+    //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;
