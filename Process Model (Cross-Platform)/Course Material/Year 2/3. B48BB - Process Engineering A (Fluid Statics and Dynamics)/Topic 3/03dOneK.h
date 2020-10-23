@@ -6,11 +6,16 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef OneKStruct
+#define OneKStruct
+
 typedef struct OneKFittings{
     double data[15];
     int count[15];
     double headloss[15];
 } OneKFittings;
+
+#endif /* OneKStruct */
 
 #ifndef OneKData_h
 #define OneKData_h

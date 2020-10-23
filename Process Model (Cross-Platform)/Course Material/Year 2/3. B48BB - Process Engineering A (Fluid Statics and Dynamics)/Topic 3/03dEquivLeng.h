@@ -6,12 +6,17 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef EquivLengStruct
+#define EquivLengStruct
+
 typedef struct EquivLengthFittings{
     double data[15];
     int count[15];
     double dP_f[15];
     double h_f[15];
 } EquivLenFits;
+
+#endif /* EquivLengStruct */
 
 #ifndef EquivLengData_h
 #define EquivLengData_h

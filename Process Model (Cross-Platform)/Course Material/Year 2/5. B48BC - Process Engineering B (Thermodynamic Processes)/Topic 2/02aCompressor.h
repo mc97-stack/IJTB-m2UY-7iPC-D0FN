@@ -6,6 +6,9 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //  
 
+#ifndef CompStruct
+#define CompStruct
+
 typedef struct CompProfile{
     double P[512]; // System pressure
     double V[512]; // System volume
@@ -13,6 +16,8 @@ typedef struct CompProfile{
     double W_V[512]; // Volume work
     double W_S[512]; // Shaft work
 } T2CompProfile;
+
+#endif /* CompStruct */
 
 #ifndef CompressorVar_h
 #define CompressorVar_h

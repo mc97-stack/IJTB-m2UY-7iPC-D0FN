@@ -6,12 +6,17 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //  
 
+#ifndef PumpStruct
+#define PumpStruct
+
 typedef struct head{
     double P;
     double h1;
     double h2;
     double hf;
 } head;
+
+#endif /* PumpStruct */
 
 #ifndef PumpVar_h
 #define PumpVar_h

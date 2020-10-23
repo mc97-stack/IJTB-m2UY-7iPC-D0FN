@@ -6,11 +6,16 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef OpFirstLawStruct
+#define OpFirstLawStruct
+
 typedef struct T2StateEnergy{
     double enthalpy;
     double kinenergy;
     double potenergy;
 } T2StateEnergy;
+
+#endif /* OpFirstLawStruct */
 
 #ifndef OpenFirstLawVarProc_h
 #define OpenFirstLawVarProc_h

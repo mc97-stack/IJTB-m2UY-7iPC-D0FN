@@ -6,6 +6,9 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef TwoKStruct
+#define TwoKStruct
+
 typedef struct TwoKFittings{
     int k1[32];
     double kinf[32];
@@ -13,6 +16,8 @@ typedef struct TwoKFittings{
     double headloss[32];
     double dP_f[32];
 } TwoKFittings;
+
+#endif /* TwoKStruct */
 
 #ifndef TwoKData_h
 #define TwoKData_h

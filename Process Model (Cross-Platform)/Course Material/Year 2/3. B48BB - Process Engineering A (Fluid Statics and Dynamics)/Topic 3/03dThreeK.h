@@ -6,6 +6,9 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef ThreeKStruct
+#define ThreeKStruct
+
 typedef struct ThreeKFittings{
     int k1[34];
     double kinf[34];
@@ -15,6 +18,8 @@ typedef struct ThreeKFittings{
     double headloss[34];
     double dP_f[34];
 }ThreeKFittings;
+
+#endif /* ThreeKStruct */
 
 #ifndef ThreeKData_h
 #define ThreeKData_h
