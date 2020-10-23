@@ -86,6 +86,33 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
 
 #endif /* TwoKDisp_h */
 
+#ifndef TwoKWrite_h
+#define TwoKWrite_h
+
+/// This subroutine is used to write the collect data and calculated parameters to a .txt file.
+/// @param data Table containing collected data and calculated parameters.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param Re Reynold's number
+/// @param TotalP Total pressure loss (Pa)
+/// @param TotalH Total head loss (m)
+void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH);
+
+/// This subroutine is used to ask the user if they would like to write the generated dataset and calculated parameters to a .txt file.
+/// @param data Table containing collected data and calculated parameters.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param Re Reynold's number
+/// @param TotalP Total pressure loss (Pa)
+/// @param TotalH Total head loss (m)
+void TwoKWriteCheck(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH);
+
+#endif /* TwoKWrite_h */
+
 #ifndef TwoK_h
 #define TwoK_h
 

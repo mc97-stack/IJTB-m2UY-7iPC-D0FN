@@ -181,6 +181,148 @@ void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat
     printf("W_h =\t%.3f\tkW\n", ppower*0.001);
 }
 
+void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + Pump Sizing
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Pump Sizing");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Hydraulic_Diameter_Results_\n");
+    
+    //Write to file
+    fprintf(fp, "Suction-side parameters.\n");
+    fprintf(fp, "Suction vessel pressure:\n");
+    fprintf(fp, "P =\t%.3f\tkPa\n", (suction.P)*0.001);
+    fprintf(fp, "Liquid level in Suction-side vessel:\n");
+    fprintf(fp, "h_s1 =\t%.3f\tm\n", suction.h1);
+    fprintf(fp, "Liquid level above pump inlet:\n");
+    fprintf(fp, "h_s2 =\t%.3f\tm\n", suction.h2);
+    fprintf(fp, "Suction side frictional losses:\n");
+    fprintf(fp, "h_f,s =\t%.3f\tm\n\n", suction.hf);
+    
+    fprintf(fp, "Discharge-side parameters.\n");
+    fprintf(fp, "Discharge vessel pressure:\n");
+    fprintf(fp, "P =\t%.3f\tkPa\n", (discharge.P)*0.001);
+    fprintf(fp, "Liquid level in Discharge-side vessel:\n");
+    fprintf(fp, "h_d1 =\t%.3f\tm\n", discharge.h1);
+    fprintf(fp, "Liquid level above pump outlet:\n");
+    fprintf(fp, "h_d2 =\t%.3f\tm\n", discharge.h2);
+    fprintf(fp, "Discharge side frictional losses:\n");
+    fprintf(fp, "h_f,d =\t%.3f\tm\n\n", discharge.hf);
+    
+    fprintf(fp, "Fluid-specific parameters\n");
+    fprintf(fp, "Volmetric flowrate:\n");
+    fprintf(fp, "Q =\t%.3f\tm3/s\n", Q);
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    fprintf(fp, "Fluid saturated vapour pressure:\n");
+    fprintf(fp, "Psat =\t%.3f\tkPa\n\n", Psat*0.001);
+    
+    fprintf(fp, "Pump-specific parameters\n");
+    fprintf(fp, "Required NPSH:\n");
+    fprintf(fp, "NPSHr =\t%.2f\tm\n", NPSHr);
+    fprintf(fp, "Available NPSH:\n");
+    fprintf(fp, "NPSHa =\t%.2f\tm\n", NPSHa);
+    fprintf(fp, "Pump efficiency:");
+    fprintf(fp, "eta =\t%.1f\t%%\n\n", eta*100);
+    
+    fprintf(fp, "Pump head:\n");
+    fprintf(fp, "phead =\t%.3f\tm\n", phead);
+    fprintf(fp, "Pump pressure:\n");
+    fprintf(fp, "dP_P =\t%.3f\tkPa\n", ppressure*0.001);
+    fprintf(fp, "Pump power:\n");
+    fprintf(fp, "W_h =\t%.3f\tkW\n", ppower*0.001);
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void PumpWriteCheck(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void PumpSizing()
 {
     char ContCond[maxstrlen];

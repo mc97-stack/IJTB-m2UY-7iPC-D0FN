@@ -85,6 +85,34 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
 
 #endif /* ThreeKDisplay_h */
 
+#ifndef ThreeKWrite_h
+#define ThreeKWrite_h
+
+/// This subroutine is used to write the collected data and generated dataset to a .txt file.
+/// @param data Generated data table.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param Re Reynold's number
+/// @param DN Diameter Nominal (mm)
+/// @param TotalH Total head loss (m)
+/// @param TotalP Total pressure loss (Pa)
+void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
+/// This subroutine is used to check if the user would like to write the generated dataset and collected parameters to a .txt file.
+/// @param data Generated data table.
+/// @param rho Fluid density (kg/m3)
+/// @param u Fluid velocity (m/s)
+/// @param d Internal pipe diameter (m)
+/// @param mu Fluid viscosity (Pa.s)
+/// @param Re Reynold's number
+/// @param DN Diameter Nominal (mm)
+/// @param TotalH Total head loss (m)
+/// @param TotalP Total pressure loss (Pa)
+void ThreeKWriteCheck(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
+
+#endif /* ThreeKWrite_h */
+
 #ifndef ThreeK_h
 #define ThreeK_h
 

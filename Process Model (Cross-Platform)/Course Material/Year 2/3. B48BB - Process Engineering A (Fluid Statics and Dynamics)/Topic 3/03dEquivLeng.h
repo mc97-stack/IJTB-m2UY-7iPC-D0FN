@@ -81,6 +81,34 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
 
 #endif /* EquivLengDisp_h */
 
+#ifndef EquivLengWrite_h
+#define EquivLengWrite_h
+
+/// This subroutine is used to write the collected data and calculated parameters to a .txt file.
+/// @param table Equivalent length data table.
+/// @param rho Fluid density (kg/m3).
+/// @param u Fluid velocity (m/s).
+/// @param d Internal pipe diameter (m).
+/// @param mu Fluid viscosity (Pa.s).
+/// @param vareps Pipe absolute roughness (m).
+/// @param phi Friction Factor.
+/// @param totalP Total pressure loss through pipe fittings.
+/// @param totalh Total head loss through pipe fittings.
+void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh);
+/// This subroutine is used to ask the user if they would like to write the results to a .txt file.
+/// @param table Equivalent length data table.
+/// @param rho Fluid density (kg/m3).
+/// @param u Fluid velocity (m/s).
+/// @param d Internal pipe diameter (m).
+/// @param mu Fluid viscosity (Pa.s).
+/// @param vareps Pipe absolute roughness (m).
+/// @param phi Friction Factor.
+/// @param totalP Total pressure loss through pipe fittings.
+/// @param totalh Total head loss through pipe fittings.
+void EquivLengWriteCheck(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh);
+
+#endif /* EquivLengWrite_h */
+
 #ifndef EquivLeng_h
 #define EquivLeng_h
 

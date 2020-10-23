@@ -397,7 +397,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     
     printf("K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \\infty }\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
     printf("h_L = K \\frac{u^2}{2*g}\n");
-    printf("Fitting\tK_1\tK_inf\tK_d (in^{0.3})\tK_d (mm^{0.3})\tCount\tHead loss (m)\n");
+    printf("Fitting\tK_1\tK_inf\tK_d (in^{0.3})\tK_d (mm^{0.3})\tCount\tHead loss (m)\tdP_f (Pa)");
     
     i = 0;
     printf("90 deg Elbow, Threaded, Standard Radius (R/D = 1)\t");
@@ -406,7 +406,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Threaded, Long Radius (R/D = 1)\t");
@@ -415,7 +416,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Flanged or Welded, Standard Radius (R/D = 1)\t");
@@ -424,7 +426,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Flanged or Welded, Long Radius (R/D = 2)\t");
@@ -433,7 +436,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Flanged or Welded, Long Radius (R/D = 4)\t");
@@ -442,7 +446,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Flanged or Welded, Long Radius (R/D = 6)\t");
@@ -451,7 +456,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Mitered, 1 weld 90 deg\t");
@@ -460,7 +466,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Mitered, 2 weld 45 deg\t");
@@ -469,7 +476,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("90 deg Elbow, Mitered, 3 weld 30 deg\t");
@@ -478,7 +486,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("45 deg Elbow, Threaded, Standard Radius (R/D = 1)\t");
@@ -487,7 +496,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("45 deg Elbow, Threaded, Long Radius (R/D = 1.5)\t");
@@ -496,7 +506,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("45 deg Elbow, Mitered, 1 weld 45 deg\t");
@@ -505,7 +516,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("45 deg Elbow, Mitered, 2 weld 22.5 deg\t");
@@ -514,7 +526,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("180 deg Bend, threaded, close-return (R/D = 1)\t");
@@ -523,7 +536,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("180 deg Bend, threaded, flanged (R/D = 1)\t");
@@ -532,7 +546,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("180 deg Bend, threaded, All types (R/D = 1.5)\t");
@@ -541,7 +556,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Through-branch as an Elbow, threaded (R/D = 1)\t");
@@ -550,7 +566,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Through-branch as an Elbow, threaded (R/D = 1.5)\t");
@@ -559,7 +576,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Through-branch as an Elbow, flanged (R/D = 1)\t");
@@ -568,7 +586,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Through-branch as an Elbow, stub-in branch\t");
@@ -577,7 +596,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Run-through, threaded (R/D = 1)\t");
@@ -586,7 +606,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Run-through, flanged (R/D = 1)\t");
@@ -595,7 +616,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Tee Run-through, stub-in branch\t");
@@ -604,7 +626,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Angle valve, 45 deg, full line size \\beta = 1\t");
@@ -613,7 +636,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Angle valve, 90 deg, full line size \\beta = 1\t");
@@ -622,7 +646,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Globe valve, standard, \\beta = 1\t");
@@ -631,7 +656,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Plug valve, branch flow\t");
@@ -640,7 +666,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Plug valve, straight through\t");
@@ -649,7 +676,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Plug valve, three-way (flow through)\t");
@@ -658,7 +686,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Gate valve, standard, \\beta = 1\t");
@@ -667,7 +696,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Ball valve, standard, \\beta = 1\t");
@@ -676,7 +706,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Diaphragm valve, dam type\t");
@@ -685,7 +716,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Impkd[i]);
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
-    printf("%.3f\n", data.headloss[i]);
+    printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\n", data.dP_f[i]);
     ++i;
     
     printf("Swing check valve\t");
@@ -695,6 +727,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
     printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\t", data.dP_f[i]);
     printf("N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     ++i;
     
@@ -705,7 +738,476 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.1f\t", data.Metkd[i]);
     printf("%i\t", data.count[i]);
     printf("%.3f\t", data.headloss[i]);
+    printf("%.3f\t", data.dP_f[i]);
     printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+}
+
+void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + 3K Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " 3K Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(3K_Method)_Results_\n");
+    
+    //Write to file
+    int i = 0;
+    
+    fprintf(fp, "Inputted parameters.\n");
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    fprintf(fp, "Fluid velocity:\n");
+    fprintf(fp, "u =\t%.3f\tkg/m3\n", u);
+    fprintf(fp, "Fluid viscosity:\n");
+    fprintf(fp, "mu =\t%.3f\tcP\n\n", mu*1000);
+    
+    fprintf(fp, "Internal pipe diameter:\n");
+    fprintf(fp, "d =\t%.3f\tmm\n", d*1000);
+    fprintf(fp, "Diameter Nominal:\n");
+    fprintf(fp, "DN\t%.0f\t(mm)\n\n", DN);
+    
+    fprintf(fp, "Reynold's number:\n");
+    fprintf(fp, "Re =\t%.0f\t[ ]\n\n", Re);
+    
+    fprintf(fp, "Total head loss:\n");
+    fprintf(fp, "total =\t%.3f\tm\n\n", TotalH);
+    fprintf(fp, "Total pressure loss:\n");
+    fprintf(fp, "total =\t%.3f\tPa\n\n", TotalP);
+    
+    fprintf(fp, "K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \\infty }\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
+    fprintf(fp, "h_L = K \\frac{u^2}{2*g}\n");
+    fprintf(fp, "Fitting\tK_1\tK_inf\tK_d (in^{0.3})\tK_d (mm^{0.3})\tCount\tHead loss (m)\n");
+    
+    i = 0;
+    fprintf(fp, "90 deg Elbow, Threaded, Standard Radius (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Threaded, Long Radius (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Flanged or Welded, Standard Radius (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Flanged or Welded, Long Radius (R/D = 2)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Flanged or Welded, Long Radius (R/D = 4)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Flanged or Welded, Long Radius (R/D = 6)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Mitered, 1 weld 90 deg\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Mitered, 2 weld 45 deg\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Mitered, 3 weld 30 deg\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow, Threaded, Standard Radius (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow, Threaded, Long Radius (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow, Mitered, 1 weld 45 deg\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow, Mitered, 2 weld 22.5 deg\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "180 deg Bend, threaded, close-return (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "180 deg Bend, threaded, flanged (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "180 deg Bend, threaded, All types (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Through-branch as an Elbow, threaded (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Through-branch as an Elbow, threaded (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Through-branch as an Elbow, flanged (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Through-branch as an Elbow, stub-in branch\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Run-through, threaded (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Run-through, flanged (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee Run-through, stub-in branch\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Angle valve, 45 deg, full line size \\beta = 1\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Angle valve, 90 deg, full line size \\beta = 1\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Globe valve, standard, \\beta = 1\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Plug valve, branch flow\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Plug valve, straight through\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Plug valve, three-way (flow through)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Gate valve, standard, \\beta = 1\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Ball valve, standard, \\beta = 1\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Diaphragm valve, dam type\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Swing check valve\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\t", data.dP_f[i]);
+    fprintf(fp, "N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    ++i;
+    
+    fprintf(fp, "Lift check valve\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.3f\t", data.kinf[i]);
+    fprintf(fp, "%.1f\t", data.Impkd[i]);
+    fprintf(fp, "%.1f\t", data.Metkd[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\t", data.dP_f[i]);
+    fprintf(fp, "N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void ThreeKWriteCheck(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                ThreeKWrite(data, rho, u, d, mu, Re, DN, TotalH, TotalP);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
 }
 
 void ThreeK()
@@ -731,6 +1233,7 @@ void ThreeK()
         ThreeKTable.Metkd[i] = 0.0;
         ThreeKTable.count[i] = 0;
         ThreeKTable.headloss[i] = 0.0;
+        ThreeKTable.dP_f[i] = 0.0;
     }
     
     //  Collecting data
@@ -747,4 +1250,7 @@ void ThreeK()
     
     //  Displaying results
     ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
+    
+    //  Writing results
+    ThreeKWriteCheck(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
 }

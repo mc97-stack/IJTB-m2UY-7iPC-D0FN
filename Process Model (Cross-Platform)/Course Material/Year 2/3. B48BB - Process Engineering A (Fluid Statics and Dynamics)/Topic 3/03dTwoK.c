@@ -9,6 +9,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 #include "02dReyNo.h"
 #include "03dTwoK.h"
@@ -555,6 +557,397 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
     ++i;
 }
 
+void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + 2K Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " 2K Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(2K_Method)_Results_\n");
+    
+    int i = 0;
+    
+    fprintf(fp, "Inputted parameters:\n");
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    fprintf(fp, "Fluid velocity:\n");
+    fprintf(fp, "u =\t%.3f\tkg/m3\n", u);
+    fprintf(fp, "Fluid viscosity:\n");
+    fprintf(fp, "mu =\t%.3f\tcP\n\n", mu*1000);
+    
+    fprintf(fp, "Internal pipe diameter:\n");
+    fprintf(fp, "d =\t%.3f\tmm\n\n", d*1000);
+    
+    fprintf(fp, "Calculated parameters:\n");
+    fprintf(fp, "Reynold's number:\n");
+    fprintf(fp, "Re =\t%.0f\t[ ]\n", Re);
+    
+    fprintf(fp, "Total head loss:\n");
+    fprintf(fp, "total =\t%.3f\tm\n\n", TotalH);
+    fprintf(fp, "Total pressure loss:\n");
+    fprintf(fp, "total =\t%.3f\tPa\n\n", TotalP);
+    
+    fprintf(fp, "K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \\infty }\\left(1 + \\frac{1}{D}\\right)\n");
+    fprintf(fp, "h_L = K \\frac{u^2}{2*g}\n");
+    fprintf(fp, "dP_f = \\rho g h_L\n\n");
+    
+    fprintf(fp, "Fitting\tK_1\tK_inf\tCount\tHead loss (m)\tPressure Loss (Pa)\n");
+    i = 0;
+    fprintf(fp, "90 deg Elbow, Threaded (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, Flanged/Welded (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow, All types (Long Radius) (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "90 deg Elbow Mitered (R/D = 1.5), 1 Weld (90 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow Mitered (R/D = 1.5), 2 Weld (45 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow Mitered (R/D = 1.5), 3 Weld (30 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow Mitered (R/D = 1.5), 4 Weld (22.5 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg Elbow Mitered (R/D = 1.5), 5 Weld (18 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "45 deg Elbow, All types (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow, All types (Long Radius) (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "45 deg Elbow Mitered, 1 Weld (45 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "45 deg Elbow Mitered, 2 Weld (45 deg angle)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "180 deg bend, Screwed (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "180 deg bend, Flanged/Welded (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "180 deg bend, All types (Long Radius) (R/D = 1.5)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "Tee (used as elbow), Screwed (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee (used as elbow), Screwed (Long Radius)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee (used as elbow), Flanged/Welded (Standard Radius) (R/D = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee (used as elbow), Stub-in-type Branch\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "Tee (Run Through), Screwed\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee (Run Through), Flanged/Welded\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Tee (Run Through), Stub-in-type Branch\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "Valves (Gate/ Ball/ Plug), Full Line Size (Beta = 1)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Valves (Gate/ Ball/ Plug), Reduced Trim (Beta = 0.9)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Valves (Gate/ Ball/ Plug), Reduced Trum (Beta = 0.8)\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "Globe Valve, Standard\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Globe Valve, Angle\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Diaphragm Valve, Dam Type\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Butterfly Valve\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n\n", data.dP_f[i]);
+    ++i;
+    
+    
+    fprintf(fp, "Check Valves, Lift\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Check Valves, Swing\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    fprintf(fp, "Check Valves, Tilting-disk\t");
+    fprintf(fp, "%i\t", data.k1[i]);
+    fprintf(fp, "%.2f\t", data.kinf[i]);
+    fprintf(fp, "%i\t", data.count[i]);
+    fprintf(fp, "%.3f\t", data.headloss[i]);
+    fprintf(fp, "%.3f\n", data.dP_f[i]);
+    ++i;
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void TwoKWriteCheck(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                TwoKWrite(data, rho, u, d, mu, Re, TotalP, TotalH);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void TwoK()
 {
     double rho = 0.0;
@@ -592,5 +985,9 @@ void TwoK()
         TotalP += TwoKTable.dP_f[i];
     }
     
+    //  Displaying Results
     TwoKDisplay(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
+    
+    //  Writing Results
+    TwoKWriteCheck(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
 }

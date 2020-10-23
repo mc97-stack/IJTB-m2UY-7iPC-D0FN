@@ -224,6 +224,204 @@ void OneKDisplay(OneKFittings table, double u, double total)
     printf("%.3f\n", table.headloss[i]);
 }
 
+void OneKWrite(OneKFittings table, double u, double total)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + 1K Results Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " 1K Results");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(1K_Method)_Results_\n");
+    
+    int i = 0;
+    
+    fprintf(fp, "Fluid velocity:\n");
+    fprintf(fp, "u =\t%.3f\tm/s\n", u);
+    
+    fprintf(fp, "Total Head Loss:\n");
+    fprintf(fp, "total =\t%.3f\tm\n\n", total);
+    
+    fprintf(fp, "h_L = K \\frac{u^2}{2*g}\n");
+    fprintf(fp, "Fitting\tk\tCount\tHead loss (m)\n");
+    i = 0;
+    fprintf(fp, "Standard 45 deg elbow\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 1;
+    fprintf(fp, "90 deg elbow standard radius\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 2;
+    fprintf(fp, "90 deg square elbow\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 3;
+    fprintf(fp, "Entry from leg T-piece\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 4;
+    fprintf(fp, "Entry into leg T-piece\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 5;
+    fprintf(fp, "Sudden Reduction (Tank outlet)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 6;
+    fprintf(fp, "Sudden Expansion (Tank Inlet)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 7;
+    fprintf(fp, "Unions and Couplings\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 8;
+    fprintf(fp, "Globe valve fully open\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 9;
+    fprintf(fp, "Gate valve (100 pct)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 10;
+    fprintf(fp, "Gate valve (75 pct)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 11;
+    fprintf(fp, "Gate valve (50 pct)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 12;
+    fprintf(fp, "Gate valve (25 pct)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 13;
+    fprintf(fp, "Ball valve (100 pct)\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    i = 14;
+    fprintf(fp, "Plug valve open\t");
+    fprintf(fp, "%.2f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\n", table.headloss[i]);
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void OneKWriteCheck(OneKFittings table, double u, double total)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                OneKWrite(table, u, total);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void OneK()
 {
     double u = 0.0;
@@ -252,4 +450,7 @@ void OneK()
     
     // Displaying data
     OneKDisplay(OneKTable, u, total);
+    
+    // Writing data
+    OneKWriteCheck(OneKTable, u, total);
 }

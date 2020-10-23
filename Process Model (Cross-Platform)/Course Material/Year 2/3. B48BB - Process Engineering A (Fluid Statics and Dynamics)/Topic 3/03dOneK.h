@@ -73,6 +73,23 @@ void OneKDisplay(OneKFittings table, double u, double total);
 
 #endif /* OneKDisplay_h */
 
+#ifndef OneKWrite_h
+#define OneKWrite_h
+
+/// This subroutine is used to write the collected data and calculated table to a .txt file.
+/// @param table Table containing counts, k-values and calculated head losses
+/// @param u Fluid velocity (m/s).
+/// @param total Total head losses presented in the table (m).
+void OneKWrite(OneKFittings table, double u, double total);
+
+/// This subroutine is used to check whether the user would like to write the generated results to a .txt file..
+/// @param table Table containing counts, k-values and calculated head losses
+/// @param u Fluid velocity (m/s).
+/// @param total Total head losses presented in the table (m).
+void OneKWriteCheck(OneKFittings table, double u, double total);
+
+#endif /* OneKWrite_h */
+
 #ifndef OneK_h
 #define OneK_h
 

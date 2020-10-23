@@ -86,3 +86,36 @@ double PumpPower(double dP_p, double Q, double eta);
 void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
 
 #endif /* PumpDisp_h */
+
+#ifndef PumpWrite_h
+#define PumpWrite_h
+
+/// This subroutine is used to write the generated dataset and collected parameters to a .txt file.
+/// @param suction Suction-side parameters
+/// @param discharge Discharge-side parameters
+/// @param Q Fluid volumetric flowrate (m3/s)
+/// @param rho Fluid density (kg/m3)
+/// @param Psat Saturated vapour pressure (Pa)
+/// @param NPSHr Required Net Positive Suction Head (m)
+/// @param NPSHa Available Net Positive Suction Head (m)
+/// @param eta Pump efficiency (%)
+/// @param phead Pump head (m)
+/// @param ppressure Pump pressure 'drop' (Pa)
+/// @param ppower Pump power requirement (kW)
+void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
+
+/// This subroutine is used to ask the user if they would like to write the generated dataset and collected parameters to a .txt file.
+/// @param suction Suction-side parameters
+/// @param discharge Discharge-side parameters
+/// @param Q Fluid volumetric flowrate (m3/s)
+/// @param rho Fluid density (kg/m3)
+/// @param Psat Saturated vapour pressure (Pa)
+/// @param NPSHr Required Net Positive Suction Head (m)
+/// @param NPSHa Available Net Positive Suction Head (m)
+/// @param eta Pump efficiency (%)
+/// @param phead Pump head (m)
+/// @param ppressure Pump pressure 'drop' (Pa)
+/// @param ppower Pump power requirement (kW)
+void PumpWriteCheck(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
+
+#endif /* PumpWrite_h */

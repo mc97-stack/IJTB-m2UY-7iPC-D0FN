@@ -291,6 +291,237 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
     printf("%.3f\n", table.h_f[i]);
 }
 
+void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
+{
+    //Function variables
+    char filename[maxstrlen];
+    char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;
+    //Set file name as timestamp + Equivalent Length Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Equivalent Length");
+    printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename,".txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    *filepath = (char)malloc(sizeof *filepath);
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    printf("File path: \"%s\"\n", filepath);
+    
+    strcat(filepath, filename);
+    void free(void *filename); // Removing 'filename' from the heap
+    
+    printf("File name: \"%s\"\n", filename);
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filepath, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(Equivalent_Length_Method)_Results_\n");
+    
+    int i = 0;
+    
+    fprintf(fp, "Fluid density:\n");
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    
+    fprintf(fp, "Fluid velocity (m/s):\n");
+    fprintf(fp, "u =\t%.3f\tm/s\n", u);
+    
+    fprintf(fp, "Fluid viscosity (cP):\n");
+    fprintf(fp, "mu =\t%.3f\tcP\n", mu*1000);
+    
+    fprintf(fp, "Pipe internal diameter (mm):\n");
+    fprintf(fp, "d =\t%.1f\tmm\n", d*1000);
+    
+    fprintf(fp, "Pipe absolute roughness (mm):\n");
+    fprintf(fp, "vareps =\t%.5f\tmm\n", vareps*1000);
+    
+    fprintf(fp, "Friction Factor:\n");
+    fprintf(fp, "phi =\t%.5f\t[ ]\n\n", phi);
+    
+    fprintf(fp, "Total pressure loss:\n");
+    fprintf(fp, "dP_f =\t%.3f\tPa\n", totalP);
+    
+    fprintf(fp, "Total head loss:\n");
+    fprintf(fp, "h_L =\t%3f\tm\n\n", totalh);
+    
+    fprintf(fp, "Fitting\tL_e/d\tCount\tdP_f (Pa)\th_L (m)\n");
+    
+    i = 0;
+    fprintf(fp, "Standard 45 deg elbow\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg elbow standard radius\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "90 deg square elbow\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Entry from leg T-piece\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Entry into leg T-piece\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Sudden Reduction (Tank outlet)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Sudden Expansion (Tank Inlet)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Unions and Couplings\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Globe valve fully open\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Gate valve (100 pct)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Gate valve (75 pct)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Gate valve (50 pct)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Gate valve (25 pct)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Ball valve (100 pct)\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    ++i;
+    
+    fprintf(fp, "Plug valve open\t");
+    fprintf(fp, "%.1f\t", table.data[i]);
+    fprintf(fp, "%i\t", table.count[i]);
+    fprintf(fp, "%.3f\t", table.dP_f[i]);
+    fprintf(fp, "%.3f\n", table.h_f[i]);
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void EquivLengWriteCheck(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
+{
+    int SaveC;
+    SaveC = 1;
+    while(SaveC == 1)
+    {
+        char input[maxstrlen];
+        
+        printf("Do you want to save results to file? ");
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
+        {
+            case '1':
+            case 'T':
+            case 'Y':
+            case 't':
+            case 'y':
+                EquivLengWrite(table, rho, u, d, mu, vareps, phi, totalP, totalh);
+                SaveC = 0;
+                break;
+            case '0':
+            case 'F':
+            case 'N':
+            case 'f':
+            case 'n':
+                SaveC = 0;
+                break;
+            default:
+                printf("Input not recognised\n");
+                break;
+        }
+    }
+}
+
 void EquivLeng()
 {
     double rho = 0.0;
@@ -330,5 +561,8 @@ void EquivLeng()
     
     //  Displaying data
     EquivLengDisplay(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
+    
+    //  Writing data to file
+    EquivLengWriteCheck(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
 }
 
