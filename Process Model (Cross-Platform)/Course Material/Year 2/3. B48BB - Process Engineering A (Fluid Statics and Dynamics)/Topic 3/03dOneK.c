@@ -14,7 +14,7 @@
 #include <time.h>
 
 //Custom Header Files
-#include "03daoneK.h"
+#include "03dOneK.h"
 
 #define maxstrlen 128
 #define g 9.80665
@@ -246,8 +246,7 @@ void OneK()
     //  Calculating total head loss
     double total = 0.0;
     
-    for(int i = 0; i < 15; ++i)
-    {
+    for(int i = 0; i < 15; ++i){
         total += OneKTable.headloss[i];
     }
     
