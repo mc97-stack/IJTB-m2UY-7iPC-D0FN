@@ -1,28 +1,22 @@
 //
-//  03dThreeK.c
+//  03dbthreeK.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 22/10/2020.
+//  Created by Matthew Cheung on 02/07/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
+#include "03dThreeK.h"
 #include "02dReyNo.h"
 
 #define maxstrlen 128
 #define g 9.80665
-
-typedef struct ThreeKFittings{
-    int k1[34];
-    double kinf[34];
-    double Impkd[34];
-    double Metkd[34];
-    int count[34];
-    double headloss[34];
-}ThreeKFittings;
 
 ThreeKFittings ThreeKData(ThreeKFittings input)
 {
@@ -208,7 +202,7 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
             check = 0;
         }else{
             // DN size is bigger than pipe internal diameter. Not possible.
-            printf("Given diameter nominal exceeds internal pipe diameter. Please re-enter DN size");
+            printf("Given diameter nominal exceeds internal pipe diameter. Please re-enter DN size.\n");
         }
     }
     *d = (*d)*0.001; //Conversion (mm to m)
@@ -309,13 +303,13 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
     printf("Diaphragm valve, dam type: ");
     table.count[31] = atoi(fgets(input, sizeof(input), stdin));
     
-    printf("Swing check valve: ");
+    printf("N.B. V_{min} = 35\\left(\\rho\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    printf("Swing check valve Type: Vmin = 40: ");
     table.count[32] = atoi(fgets(input, sizeof(input), stdin));
-    printf("N.B. V_{min} = 35\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     
-    printf("Lift check valve: ");
+    printf("N.B. V_{min} = 40\\left(\\rho\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    printf("Lift check valve, Type: Vmin = 40: ");
     table.count[33] = atoi(fgets(input, sizeof(input), stdin));
-    printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     
     return table;
 }
@@ -351,6 +345,16 @@ double ThreeKCalcH(double count, double K, double u)
     return hf;
 }
 
+double ThreeKCalcP(double h, double rho)
+{
+    double P = 0.0;
+    
+    P = rho*g;
+    P = (P)*h;
+    
+    return P;
+}
+
 ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, double d, double mu, double DN, double *Re)
 {
     double ReyNo = 0.0;
@@ -360,12 +364,13 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
     
     for(int i = 0; i < 34; ++i){
         data.headloss[i] = ThreeKCalcH(data.count[i], ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
+        data.dP_f[i] = ThreeKCalcP(data.headloss[i], rho);
     }
     
     return data;
 }
 
-void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double total)
+void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
 {
     int i = 0;
     
@@ -380,12 +385,17 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("Internal pipe diameter:\n");
     printf("d =\t%.3f\tmm\n", d*1000);
     printf("Diameter Nominal:\n");
-    printf("DN\t%.0f\tmm\n\n", DN);
+    printf("DN\t%.0f\t(mm)\n\n", DN);
+    
+    printf("Reynold's number:\n");
+    printf("Re =\t%.0f\t[ ]\n\n", Re);
     
     printf("Total head loss:\n");
-    printf("total =\t%.3f\tm\n\n", total);
+    printf("total =\t%.3f\tm\n\n", TotalH);
+    printf("Total pressure loss:\n");
+    printf("total =\t%.3f\tPa\n\n", TotalP);
     
-    printf("K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \textrm{ inf }}\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
+    printf("K = \\frac{ K_1 }{ \\textrm{Re} } + K_{ \\infty }\\left(1 + \\frac{K_d}{D_n^{0.3}}\\right)\n");
     printf("h_L = K \\frac{u^2}{2*g}\n");
     printf("Fitting\tK_1\tK_inf\tK_d (in^{0.3})\tK_d (mm^{0.3})\tCount\tHead loss (m)\n");
     
@@ -698,7 +708,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
 }
 
-void ThreeKEdit()
+void ThreeK()
 {
     double rho = 0.0;
     double u = 0.0;
@@ -707,8 +717,10 @@ void ThreeKEdit()
     double DN = 0.0;
     double Re = 0.0;
     
-    double total = 0.0;
+    double TotalH = 0.0;
+    double TotalP = 0.0;
     
+    printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
     ThreeKFittings ThreeKTable;
     
     // Initialising all values in the struct
@@ -723,14 +735,16 @@ void ThreeKEdit()
     
     //  Collecting data
     ThreeKTable = ThreeKVar(ThreeKTable, &DN, &rho, &u, &d, &mu);
-    
+    printf("\n");
     //  Performing calculations
-    ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
+    ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
     
-    for(int i = 0; i < 34; ++i){
-        total += ThreeKTable.headloss[i];
+    for(int i = 0; i < 34; ++i)
+    {
+        TotalH += ThreeKTable.headloss[i];
+        TotalP += ThreeKTable.dP_f[i];
     }
     
     //  Displaying results
-    ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, total);
+    ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
 }

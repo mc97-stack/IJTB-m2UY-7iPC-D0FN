@@ -13,6 +13,7 @@ typedef struct ThreeKFittings{
     double Metkd[34];
     int count[34];
     double headloss[34];
+    double dP_f[34];
 }ThreeKFittings;
 
 #ifndef ThreeKData_h
@@ -73,8 +74,9 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
 /// @param mu Fluid viscosity (Pa.s)
 /// @param Re Reynold's number
 /// @param DN Diameter Nominal (mm)
-/// @param total Total head loss (m)
-void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double total);
+/// @param TotalH Total head loss (m)
+/// @param TotalP Total pressure loss (Pa)
+void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
 
 #endif /* ThreeKDisplay_h */
 
