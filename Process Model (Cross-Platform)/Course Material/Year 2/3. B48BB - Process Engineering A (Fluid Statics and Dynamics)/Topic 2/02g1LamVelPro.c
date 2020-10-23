@@ -168,7 +168,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Laminar_Velocity_Profile_Calculation_\n");

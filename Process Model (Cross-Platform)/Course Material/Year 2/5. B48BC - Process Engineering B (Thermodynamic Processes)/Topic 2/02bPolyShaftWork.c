@@ -148,7 +148,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Polytropic_Shaft_Work_Results_\n");

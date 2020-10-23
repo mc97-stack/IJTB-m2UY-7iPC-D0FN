@@ -344,7 +344,7 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(Equivalent_Length_Method)_Results_\n");

@@ -105,7 +105,7 @@ void FluidVHydWrite(double rho, double h, double P)
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "Fluid Vertical Hydrostatic Pressure Results\n");

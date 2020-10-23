@@ -178,7 +178,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Mass_Conservation_Principle_\n");

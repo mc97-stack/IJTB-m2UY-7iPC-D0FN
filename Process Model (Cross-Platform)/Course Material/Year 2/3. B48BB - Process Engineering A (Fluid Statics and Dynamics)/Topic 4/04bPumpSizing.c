@@ -234,7 +234,7 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Hydraulic_Diameter_Results_\n");

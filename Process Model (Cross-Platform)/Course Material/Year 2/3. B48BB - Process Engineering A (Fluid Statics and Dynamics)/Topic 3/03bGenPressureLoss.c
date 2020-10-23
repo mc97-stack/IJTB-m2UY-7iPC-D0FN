@@ -187,7 +187,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Equation_Results_\n");

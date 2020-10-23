@@ -178,7 +178,7 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     if(method == 1){

@@ -102,7 +102,7 @@ void BubPresWrite(double sigma, double r, double P)
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Bubble_Pressure_Calculations_\n");

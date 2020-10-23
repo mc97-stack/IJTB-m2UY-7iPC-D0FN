@@ -592,9 +592,9 @@
 		E8FEA65824ED6861003F9D5E /* Topic 4 */ = {
 			isa = PBXGroup;
 			children = (
-				E8FEA65F24ED8DB1003F9D5E /* B48BB_T4.h */,
-				E8B15538251BE02800808CE9 /* 04bPumpSizing.h */,
 				E8B15539251BE02800808CE9 /* 04bPumpSizing.c */,
+				E8B15538251BE02800808CE9 /* 04bPumpSizing.h */,
+				E8FEA65F24ED8DB1003F9D5E /* B48BB_T4.h */,
 			);
 			path = "Topic 4";
 			sourceTree = "<group>";

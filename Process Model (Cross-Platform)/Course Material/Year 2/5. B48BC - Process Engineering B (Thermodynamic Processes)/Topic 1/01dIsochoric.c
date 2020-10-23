@@ -205,7 +205,7 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Polytropic_Process_Results_\n");

@@ -197,7 +197,7 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Isobaric_Process_Results_\n");

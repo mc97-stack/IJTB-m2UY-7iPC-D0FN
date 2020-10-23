@@ -112,7 +112,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Mass_Conservation_Principle_\n");

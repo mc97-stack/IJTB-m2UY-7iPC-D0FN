@@ -449,7 +449,7 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "Manometer Measurement Calculations\n\n");

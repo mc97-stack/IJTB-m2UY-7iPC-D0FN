@@ -133,7 +133,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Rotameter_Results_\n");

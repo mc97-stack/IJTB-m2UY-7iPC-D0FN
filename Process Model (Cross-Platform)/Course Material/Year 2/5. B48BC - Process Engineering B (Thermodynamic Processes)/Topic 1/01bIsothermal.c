@@ -217,7 +217,7 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Isothermal_Process_Results_\n");

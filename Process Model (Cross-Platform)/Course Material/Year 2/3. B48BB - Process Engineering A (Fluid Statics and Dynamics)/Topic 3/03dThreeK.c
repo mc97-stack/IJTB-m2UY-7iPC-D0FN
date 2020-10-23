@@ -795,7 +795,7 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(3K_Method)_Results_\n");

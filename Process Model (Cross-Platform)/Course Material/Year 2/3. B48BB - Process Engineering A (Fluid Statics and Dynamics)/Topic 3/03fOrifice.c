@@ -163,7 +163,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     printf("Beginning file write...\n");
     
     //Open file
-    fp = fopen(filepath, "w+");
+    fp = fopen(filename, "w+");
     
     //Write to file
     fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
