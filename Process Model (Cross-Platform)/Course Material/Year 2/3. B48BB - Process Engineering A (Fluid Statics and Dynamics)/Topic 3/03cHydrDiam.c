@@ -55,6 +55,20 @@ double HydrDiamCalc(double A_F, double P_W)
     return d_H;
 }
 
+void HydrDiamDisp(double A_F, double P_W, double d_H)
+{
+    printf("_Hydraulic_Diameter_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Cross-sectional flow area:\n");
+    printf("A_F =\t%.3f\tmm2\n", A_F*pow(1000,2));
+    printf("Wetted perimeter:\n");
+    printf("P_W =\t%.3f\tcm\n\n", P_W*100);
+    
+    printf("\tOutput parameters:\n");
+    printf("Hydraulic diameter:\n");
+    printf("d_H =\t%.3f\tmm\t= \\frac{4A_F}{P_W}", d_H*1000);
+}
+
 void HydrDiamWrite(double A_F, double P_W, double d_H)
 {
     //Function variables
@@ -112,13 +126,11 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     
     //Write to file
     fprintf(fp, "_Hydraulic_Diameter_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Cross-sectional flow area:\n");
     fprintf(fp, "A_F =\t%.3f\tmm2\n", A_F*pow(1000,2));
     fprintf(fp, "Wetted perimeter:\n");
-    fprintf(fp, "P_W =\t%.3f\tcm\n", P_W*100);
+    fprintf(fp, "P_W =\t%.3f\tcm\n\n", P_W*100);
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Hydraulic diameter:\n");
@@ -132,7 +144,7 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
 
 void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -184,12 +196,15 @@ void HydrDiam()
         //  Running calculations
         d_H = HydrDiamCalc(A_F, P_W);
         
-        printf("d_H = %.3f mm\n\n", d_H*1000);
+        //printf("d_H = %.3f mm\n\n", d_H*1000);
         
-        //Ask for file write
+        //  Displaying results
+        HydrDiamDisp(A_F, P_W, d_H);
+        
+        //  Writing to File
         HydrDiamWriteCheck(A_F, P_W, d_H);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

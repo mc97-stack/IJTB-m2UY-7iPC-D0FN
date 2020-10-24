@@ -283,6 +283,26 @@ double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2)
     return h2;
 }
 
+void ManoMeasDisp(double P1, double P2, double rho1, double h1, double rho2, double h2)
+{
+    printf("_Manometer_Estimation_Calculations_\n\n");
+    printf("_Input_Parameters:_\n");
+    printf("\tProcess Fluid:\n");
+    printf("P1 =\t%.3f\tkPa_abs\n", P1*0.001);
+    printf("Process fluid density:\n");
+    printf("rho1 =\t%.3f\tkg/m3\n", rho1);
+    printf("Process fluid height:\n");
+    printf("h1 =\t%.3f\tm\n", h1);
+    printf("\tManometer Fluid:\n");
+    printf("P2 =\t%.3f\tkPa_abs\n", P2*0.001);
+    printf("Manometer fluid density:\n");
+    printf("rho2 =\t%.3f\tkg/m3\n\n", rho2);
+    
+    printf("_Output_Values:_\n");
+    printf("Manometer fluid height:\n");
+    printf("h2 =\t%.3f\tm\t= \\frac{\\rho_1gh_1 - \\Delta{P}}{\\rho_2g}\n", h2);
+}
+
 void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
     //Function variables
@@ -339,7 +359,7 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
     fp = fopen(filepath, "w+");
     
     //Write to file
-    fprintf(fp, "Manometer Estimation Calculations\n\n");
+    fprintf(fp, "_Manometer_Measurement_Calculations_\n\n");
     fprintf(fp, "_Input_Parameters:_\n");
     fprintf(fp, "\tProcess Fluid:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa_abs\n", P1*0.001);
@@ -364,7 +384,7 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
 
 void ManoMeasWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -394,6 +414,26 @@ void ManoMeasWriteCheck(double P1, double P2, double rho1, double h1, double rho
             break;
         }
     }
+}
+
+void ManoEstiDisp(double P1, double P2, double rho1, double h1, double rho2, double h2)
+{
+    printf("_Manometer_Pressure_Estimation_Calculations_\n\n");
+    printf("_Input_Parameters:_\n");
+    printf("\tProcess Fluid:\n");
+    printf("Process fluid density:\n");
+    printf("rho1 =\t%.3f\tkg/m3\n", rho1);
+    printf("Process fluid height:\n");
+    printf("h1 =\t%.3f\tm\n", h1);
+    printf("\tManometer Fluid:\n");
+    printf("P2 =\t%.3f\tkPa_abs\n", P2*0.001);
+    printf("Process fluid density:\n");
+    printf("rho2 =\t%.3f\tkg/m3\n", rho2);
+    printf("Process fluid height:\n");
+    printf("h2 =\t%.3f\tm\n\n", h2);
+    
+    printf("_Output_Values:_\n");
+    printf("P1 =\t%.3f\tkPa_abs\t= P2 + g(\\rho_2h_2 - \\rho_1h_1)\n", P1*0.001);
 }
 
 void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
@@ -453,7 +493,7 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "Manometer Measurement Calculations\n\n");
+    fprintf(fp, "_Manometer_Measurement_Calculations_\n\n");
     fprintf(fp, "_Input_Parameters:_\n");
     fprintf(fp, "\tProcess Fluid:\n");
     fprintf(fp, "Process fluid density:\n");
@@ -519,6 +559,7 @@ void Mano()
     printf("Manometer calculations\n");
     while(whilmain == 1)
     {
+        //  Declaring variables
         double P1 = 0.0;
         double P2 = 0.0;
         double rho1 = 0.0;
@@ -544,9 +585,12 @@ void Mano()
                 case 'm':
                     printf("\n");
                     ManoMeasVar(&P2, &rho1, &h1, &rho2, &h2);
-                    printf("Function returns:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", P2, rho1, h1, rho2, h2);
+                    //printf("Function returns:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", P2, rho1, h1, rho2, h2);
+                    
                     P1 = ManoMeasCal(P2, rho1, h1, rho2, h2);
-                    printf("Function returns: %f\n", P1);
+                    //printf("Function returns: %f\n", P1);
+                    
+                    ManoMeasDisp(P1, P2, rho1, h1, rho2, h2);
                     
                     ManoMeasWriteCheck(P1, P2, rho1, h1, rho2, h2);
                     whilfunc = 0;
@@ -556,10 +600,15 @@ void Mano()
                 case 'e':
                     printf("\n");
                     ManoEstiVar(&P1, &P2, &rho1, &rho2, &h1);
-                    printf("Function returns:\nP1 = %f\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\n\n", P1, P2, rho1, h1, rho2);
+                    //printf("Function returns:\nP1 = %f\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\n\n", P1, P2, rho1, h1, rho2);
+                    
                     h2 = ManoEstiCal(P1, P2, rho1, h1, rho2);
-                    printf("Function returns: %f\n", h2);
+                    //printf("Function returns: %f\n", h2);
+                    
+                    ManoEstiDisp(P1, P2, rho1, h1, rho2, h2);
+                    
                     ManoEstiWriteCheck(P1, P2, rho1, h1, rho2, h2);
+                    
                     whilfunc = 0;
                 break;
                 default:

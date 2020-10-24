@@ -244,6 +244,57 @@ T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1,
     return profile;
 }
 
+void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
+{
+    double total = 0.0;
+    
+    printf("_Polytropic_Process_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Initial system pressure: ");
+    printf("P1 =\t%.3f\tkPa\n\n", P1*0.001);
+    printf("Final system pressure: ");
+    printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    printf("Initial system volume: ");
+    printf("V1 =\t%.3f\tm3\n\n", V1);
+    printf("Final system volume: ");
+    printf("V2 =\t%.3f\tm3\n\n", V2);
+    
+    printf("Initial system temperature: ");
+    printf("T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    printf("Final system volume: ");
+    printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    printf("_System-Specific_parameters:_\n");
+    
+    printf("Molar flowrate of component i:\n");
+    printf("n =\t%.3f\tkmol/s\n", n*0.001);
+    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+        printf("Universal Gas Constant:\n");
+        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }else{
+        printf("Specific Gas Constant:\n");
+        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }
+    
+    printf("Polytropic Index:\n");
+    printf("alpha =\t%.3f\t[ ]\n\n", alpha);
+    
+    printf("\tOutput parameters:\n");
+    
+    // Profile (Two Temperature columns (K and deg C))
+    printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
+    for(int i = 0; i < 250; ++i){
+        printf("%f\t", profile.P[i]*0.001);
+        printf("%f\t", profile.V[i]);
+        printf("%f\t", profile.T[i]);
+        printf("%f\t\t", profile.T[i] - 273.15);
+        printf("%f\t", profile.W_V[i]*0.001);
+        total += profile.W_V[i]*0.001;
+        printf("%f\n", total);
+    }
+}
+
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
     //Function variables
@@ -300,9 +351,9 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Polytropic_Process_Results_\n");
+    double total = 0.0;
     
-    //Write to file
+    fprintf(fp, "_Polytropic_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
     fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
@@ -320,9 +371,8 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");
-    
     fprintf(fp, "Molar flowrate of component i:\n");
-    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         fprintf(fp, "Universal Gas Constant:\n");
         fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
@@ -336,7 +386,6 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     fprintf(fp, "\tOutput parameters:\n");
     
-    double total = 0.0;
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
     for(int i = 0; i < 250; ++i){
@@ -357,7 +406,7 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
 
 void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -414,8 +463,7 @@ void Polytropic()
         
         int whilmethod = 0;
         
-        static T1ThermoProf profile;
-        double total = 0.0;
+        T1ThermoProf profile;
         
         // Initialising profile to arrays on zeros
         for(int j = 0; j < 250; ++j){
@@ -426,7 +474,7 @@ void Polytropic()
             profile.Q[j] = 0.0;
         }
         
-        //Data Collection
+        //  Data Collection
         whilmethod = 1;
         while(whilmethod == 1)
         {
@@ -476,18 +524,10 @@ void Polytropic()
                 V1 = profile.V[0];
                 V2 = profile.V[249];
             }
-            //  Displaying data
-            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
-            for(int i = 0; i < 250; ++i){
-                printf("%f\t", profile.P[i]*0.001);
-                printf("%f\t", profile.V[i]);
-                printf("%f\t", profile.T[i] - 273.15);
-                printf("%f\t", profile.W_V[i]*0.001);
-                total += profile.W_V[i]*0.001;
-                printf("%f\n", total);
-            }
+            //  Displaying Results
+            PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
             
-            // File write
+            // Writing to File
             PolyProcWriteCheck(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
         }
         //  Continue function

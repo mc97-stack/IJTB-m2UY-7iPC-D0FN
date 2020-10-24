@@ -81,6 +81,33 @@ void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double
     //return [Function Output];
 }
 
+void PitotDisp(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
+{
+    printf("_Pitot_Static_Tube_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Static pressure on connection:\n");
+    printf("P2 =\t%.3f\tkPa\n", P2*0.001);
+    printf("Process fluid density:\n");
+    printf("rho1 =\t%.3f\tkg/m3\n", rho1);
+    printf("Process fluid height in manometer element:\n");
+    printf("h1 =\t%.3f\tcm\n", h1*100);
+    printf("Manometer fluid density:\n");
+    printf("rho2 =\t%.3f\tkg/m3\n", rho2);
+    printf("Manometer fluid height:\n");
+    printf("h2 =\t%.3f\tcm\n\n", h2*100);
+    
+    printf("\tOutput parameters:\n");
+    printf("Assuming skin friction losses can be ignored.\n");
+    printf("Therefore, assuming that the impact connection is located on the pipe centreline\n\n");
+    
+    printf("Process fluid pressure:\n");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Process fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", v);
+    printf("Process fluid volumetric flowrate:\n");
+    printf("Q =\t%.3f\tm3/s\n", Q);
+}
+
 void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
     //Function variables
@@ -138,8 +165,6 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     
     //Write to file
     fprintf(fp, "_Pitot_Static_Tube_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Static pressure on connection:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n", P2*0.001);
@@ -153,12 +178,15 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     fprintf(fp, "h2 =\t%.3f\tcm\n", h2*100);
     
     fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Assuming skin friction losses can be ignored.\n");
+    fprintf(fp, "Therefore, assuming that the impact connection is located on the pipe centreline\n\n");
+    
     fprintf(fp, "Process fluid pressure:\n");
-    fprintf(fp, "P1 =\t%.3f\tPa\n", P1*1000);
+    fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
     fprintf(fp, "Process fluid velocity:\n");
-    fprintf(fp, "u =\t%.3f\tPa\n", v);
+    fprintf(fp, "u =\t%.3f\tm/s\n", v);
     fprintf(fp, "Process fluid volumetric flowrate:\n");
-    fprintf(fp, "Q =\t%.3f\tPa\n", Q);
+    fprintf(fp, "Q =\t%.3f\tm3/s\n", Q);
     
     //Close file
     fclose(fp);
@@ -168,7 +196,7 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
 
 void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -225,17 +253,18 @@ void Pitot()
         PitotVar(&P2, &rho1, &rho2, &h1, &h2, &d);
         
         //  Running calculations
-        printf("Assuming skin friction losses can be ignored.\n");
-        printf("tfr assuming that the impact connection is located on the pipe centreline\n\n");
         PitotCalc(P2, rho1, rho2, h1, h2, d, &P1, &v, &Q);
-        printf("P1 = %.3f kPa\n", P1*0.001); //Function will return pressure in Pa.
-        printf("v = %.3f m/s\n", v);
-        printf("Q = %.3f m3/s\n\n", Q);
+        //printf("P1 = %.3f kPa\n", P1*0.001); //Function will return pressure in Pa.
+        //printf("v = %.3f m/s\n", v);
+        //printf("Q = %.3f m3/s\n\n", Q);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        PitotDisp(P1, P2, rho1, rho2, h1, h2, d, v, Q);
+        
+        //  Writing to File
         PitotWriteCheck(P1, P2, rho1, rho2, h1, h2, d, v, Q);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

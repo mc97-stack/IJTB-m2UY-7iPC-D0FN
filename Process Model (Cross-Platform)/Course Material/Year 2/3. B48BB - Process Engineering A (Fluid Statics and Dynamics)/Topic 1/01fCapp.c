@@ -80,6 +80,22 @@ double CappCalcP(double sigma, double cang, double d)
     return Pc;
 }
 
+void CappDisp(double sigma, double cang, double d, double h, double Pc)
+{
+    printf("_Capillarity_Calculations_\n");
+    printf("\tInput Parameters:\n");
+    printf("Fluid surface tension:\n");
+    printf("sigma =\t%.3f\tN/m\n", sigma);
+    printf("Contact angle:\n");
+    printf("cang =\t%.3f\trad\n\n", cang);
+    
+    printf("\tOutput Parameters:\n");
+    printf("Capillary rise:\n");
+    printf("h =\t%.3f\tcm\t=\\frac{2\\sigma\\cos\\theta}{\\rho gr}\n",h*0.01);
+    printf("Capillary pressure:\n");
+    printf("Pc =\t%.3f\tPa\t=\\frac{2\\sigma\\cos\\theta}{r}\n",Pc);
+}
+
 void CappWrite(double sigma, double cang, double d, double h, double Pc)
 {
     //Function variables
@@ -142,7 +158,8 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     fprintf(fp, "Fluid surface tension:\n");
     fprintf(fp, "sigma =\t%.3f\tN/m\n", sigma);
     fprintf(fp, "Contact angle:\n");
-    fprintf(fp, "cang =\t%.3f\trad\n", cang);
+    fprintf(fp, "cang =\t%.3f\trad\n\n", cang);
+    
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "Capillary rise:\n");
     fprintf(fp, "h =\t%.3f\tcm\t=\\frac{2\\sigma\\cos\\theta}{\\rho gr}\n",h*0.01);
@@ -157,7 +174,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
 
 void CappWriteCheck(double sigma, double cang, double d, double h, double Pc)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -199,11 +216,10 @@ void Capp()
     
     while(whilmain == 1)
     {
-        //Declaring function variables
-            //Function Output
+        //  Declaring variables
         double h = 0.0; //Capillary rise
         double Pc = 0.0; //Capillary pressure
-            //Calculation Variables
+        
         double sigma = 0.0; //Surface tension
         double cang = 0.0; //Contact angle
         double rho = 0.0; //Fluid density
@@ -211,15 +227,18 @@ void Capp()
         
         //  Collecting data
         CappVar(&sigma, &cang, &rho, &d);
-        printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
+        //printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
         //  Running calculations
         h = CappCalch(sigma, cang, rho, d);
-        printf("Capillary rise = %.3f m\n", h);
+        //printf("Capillary rise = %.3f m\n", h);
         Pc  = CappCalcP(sigma, cang, d);
-        printf("Capillary pressure = %.3f Pa\n", Pc);
+        //printf("Capillary pressure = %.3f Pa\n", Pc);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        CappDisp(sigma, cang, d, h, Pc);
+        
+        //  Writing to file
         CappWriteCheck(sigma, cang, d, h, Pc);
         
         //Continue function

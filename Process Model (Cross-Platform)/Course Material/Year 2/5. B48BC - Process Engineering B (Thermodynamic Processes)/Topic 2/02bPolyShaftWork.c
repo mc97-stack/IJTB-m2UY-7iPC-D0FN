@@ -47,7 +47,7 @@ int PolyShaftVar(double *P1, double *P2, double *T1, double *n, double *R, doubl
     printf("Polytropic Index ([ ]) = ");
     *alpha = atof(fgets(input, sizeof(input), stdin));
     
-    if((*alpha - 1.0) < 0.005){
+    if(fabs(*alpha - 1.0) < 0.05){
         // Polytropic index is pretty much 1
         ideal = 1;
     }else{
@@ -94,6 +94,36 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
     W_S = -1 * (W_S);
     
     return W_S;
+}
+
+void PolyShaftDisp(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
+{
+    printf("_Polytropic_Shaft_Work_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Initial System Pressure:\n");
+    printf("P_1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Final System Pressure:\n");
+    printf("P_2 =\t%.3f\tkPa\n", P2*0.001);
+    
+    printf("Initial System Temperature:\n");
+    printf("T_1 =\t%.3f\tdeg C\n", T1 - 273.15);
+    
+    printf("Molar flowrate of component i:\n");
+    printf("n =\t%.3f\tkmol/s\n", n*0.001);
+    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+        printf("Universal Gas Constant:\n");
+        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }else{
+        printf("Specific Gas Constant:\n");
+        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    }
+    
+    printf("Polytropic Index:\n");
+    printf("alpha =\t%.3f\t[ ]\n\n", alpha);
+    
+    printf("\tOutput parameters:\n");
+    printf("Shaft Work:\n");
+    printf("W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]", W_S*0.001);
 }
 
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
@@ -153,8 +183,6 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     
     //Write to file
     fprintf(fp, "_Polytropic_Shaft_Work_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial System Pressure:\n");
     fprintf(fp, "P_1 =\t%.3f\tkPa\n", P1*0.001);
@@ -165,7 +193,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     fprintf(fp, "T_1 =\t%.3f\tdeg C\n", T1 - 273.15);
     
     fprintf(fp, "Molar flowrate of component i:\n");
-    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         fprintf(fp, "Universal Gas Constant:\n");
         fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
@@ -189,7 +217,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
 
 void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -255,12 +283,15 @@ void PolyShaftWork()
             printf("Polytropic process has been specified.\n");
             W_S = PolyShaftCalc(n, R, T1, P1, P2, alpha);
         }
-        printf("Shaft work = %.3f kW\n", W_S*0.001);
+        //printf("Shaft work = %.3f kW\n", W_S*0.001);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        PolyShaftDisp(n, R, T1, P1, P2, alpha, W_S);
+        
+        //  Writing to File
         PolyShaftWriteCheck(n, R, T1, P1, P2, alpha, W_S);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

@@ -153,6 +153,46 @@ T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, 
     return profile;
 }
 
+void IsocProcDisp(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
+{
+    double total = 0.0;
+    
+    printf("_Isochoric_Process_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Initial system pressure: ");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Final system pressure: ");
+    printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    printf("System volume: ");
+    printf("V =\t%.3f\tm3\n\n", V);
+    
+    printf("Initial system temperature: ");
+    printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
+    printf("Final system volume: ");
+    printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    printf("_System-Specific_parameters:_\n");
+    printf("Molar flowrate of component i:\n");
+    printf("n =\t%.3f\tkmol/s\n", n*0.001);
+    printf("c_v =\t%.3f\tJ/(mol. K)\n", c_v);
+    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    
+    printf("\tOutput parameters:\n");
+    
+    // Profile (Two Temperature columns (K and deg C))
+    printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tQ (kW)\tQ (kW)\n");
+    for(int i = 0; i < 250; ++i){
+        printf("%f\t", profile.P[i]*0.001);
+        printf("%f\t", profile.V[i]);
+        printf("%f\t", profile.T[i]);
+        printf("%f\t\t", profile.T[i] - 273.15);
+        printf("%f\t", profile.Q[i]*0.001);
+        total += profile.Q[i]*0.001;
+        printf("%f\n", total);
+    }
+}
+
 void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
     //Function variables
@@ -209,9 +249,9 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Polytropic_Process_Results_\n");
+    double total = 0.0;
     
-    //Write to file
+    fprintf(fp, "_Isochoric_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
     fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
@@ -229,13 +269,12 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     fprintf(fp, "_System-Specific_parameters:_\n");
     
     fprintf(fp, "Molar flowrate of component i:\n");
-    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
-    fprintf(fp, "c_v =\t%.3f\tJ/(mol. K)\n\n", c_v);
+    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n*0.001);
+    fprintf(fp, "c_v =\t%.3f\tJ/(mol. K)\n", c_v);
     fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
     
     fprintf(fp, "\tOutput parameters:\n");
     
-    double total = 0.0;
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tQ (kW)\tQ (kW)\n");
     for(int i = 0; i < 250; ++i){
@@ -256,7 +295,7 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
 
 void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -309,8 +348,7 @@ void Isochoric()
         
         int method = 0;
         
-        static T1ThermoProf profile;
-        double total = 0.0;
+        T1ThermoProf profile;
         
         // Initialising profile to arrays on zeros
         for(int j = 0; j < 250; ++j){
@@ -362,17 +400,10 @@ void Isochoric()
             //  Running calculations
             profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
             
-            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tQ (kW)\tQ (kW)\n");
-            for(int i = 0; i < 250; ++i){
-                printf("%f\t", profile.P[i]*0.001);
-                printf("%f\t", profile.V[i]);
-                printf("%f\t", profile.T[i] - 273.15);
-                printf("%f\t", profile.W_V[i]*0.001);
-                printf("%f\t", profile.Q[i]*0.001);
-                total += profile.Q[i]*0.001;
-                printf("%f\n", total);
-            }
-            //  Ask for file write (Remember while loop)
+            //  Displaying results
+            IsocProcDisp(P1, P2, V, T1, T2, n, cv, profile);
+            
+            //  Writing to File
             IsocProcWriteCheck(P1, P2, V, T1, T2, n, cv, profile);
         }
         //Continue function

@@ -11,13 +11,13 @@
 
 /// This subroutine is used for collecting data for calculating the volume work for a polytropic process. Logic has also been implemented to collect the temperatures first in case an isothermal process is specified although the user specifies an isothermal process when asked in the pseudomain function.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
-/// @param P1 Initial system pressure (kPa)
-/// @param P2 Final system pressure (kPa)
-/// @param V1 Initial system volume (m3)
-/// @param T1 Initial system temperature (deg C)
-/// @param T2 Final system temperature (deg C)
-/// @param n Moles of component in system (kmol/s)
-/// @param R Specific gas constant (kJ/ kmol.K)
+/// @param P1 Initial system pressure (kPa).
+/// @param P2 Final system pressure (kPa).
+/// @param V1 Initial system volume (m3).
+/// @param T1 Initial system temperature (deg C).
+/// @param T2 Final system temperature (deg C).
+/// @param n Moles of component in system (kmol/s).
+/// @param R Specific gas constant (kJ/ kmol.K).
 /// @param alpha Polytropic index ([ ]).
 void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,double *T2, double *n, double *R, double *alpha);
 
@@ -39,10 +39,10 @@ double PolyVolume(double P1, double P2, double V1, double alpha);
 #define PolyTemperature_h
 
 /// Subroutine used to calculate the volume work for a polytropic process utilising the changes to system temperature.
-/// @param n Moles of component in system (kmol/s)
-/// @param R Specific gas constant (kJ/ kmol.K)
-/// @param T1 Initial system temperature (K)
-/// @param T2 Final system temperature (K)
+/// @param n Moles of component in system (kmol/s).
+/// @param R Specific gas constant (kJ/ kmol.K).
+/// @param T1 Initial system temperature (K).
+/// @param T2 Final system temperature (K).
 /// @param alpha Polytropic index ([ ]).
 double PolyTemperature(double n, double R, double T1, double T2, double alpha);
 
@@ -91,44 +91,62 @@ double PolyFinalTemperature(double T1, double P1, double P2, double alpha);
 
 /// This subroutine is used to determine the process profile given the input parameters.
 /// @param method Integer variable used to determine what equation should be used. (1) = Pressure-Volume equation. (2) = Temperature equation.
-/// @param P1 Initial system pressure (Pa)
-/// @param P2 Final system pressure (Pa)
-/// @param V1 Initial system volume (m3)
-/// @param T1 Initial system temperature (K)
-/// @param T2 Final system temperature (K)
-/// @param n Moles of component in system (mol/s)
-/// @param R Specific gas constant (J/ mol.K)
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V1 Initial system volume (m3).
+/// @param T1 Initial system temperature (K).
+/// @param T2 Final system temperature (K).
+/// @param n Moles of component in system (mol/s).
+/// @param R Specific gas constant (J/ mol.K).
 /// @param alpha Polytropic index ([ ]).
 T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha);
 /*  Pressure|Volume|Temperature|Work|Work_cum.|
- */
+ */ 
 
 #endif /* PolyProfile_h */
+
+#ifndef PolyProcDisp_h
+#define PolyProcDisp_h
+
+/// This subroutine is used to output the collected data and the simulated process profile generated in "PolyProfile(...)" to the user console.
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
+/// @param T1 Initial system temperature (K).
+/// @param T2 Final system temperature (K).
+/// @param n Moles of component in system (mol/s).
+/// @param R Specific gas constant (J/ mol.K).
+/// @param alpha Polytropic index ([ ]).
+/// @param profile Process Profile.
+void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
+
+#endif /* PolyProcDisp_h */
 
 #ifndef PolyProcWrite_h
 #define PolyProcWrite_h
 
 /// This subroutine is used to write the collected data and the simulated process profile generated in "PolyProfile(...)" to a .txt file.
-/// @param P1 Initial system pressure (Pa)
-/// @param P2 Final system pressure (Pa)
-/// @param V1 Initial system volume (m3)
-/// @param V2 Final system volume (m3)
-/// @param T1 Initial system temperature (K)
-/// @param T2 Final system temperature (K)
-/// @param n Moles of component in system (mol/s)
-/// @param R Specific gas constant (J/ mol.K)
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
+/// @param T1 Initial system temperature (K).
+/// @param T2 Final system temperature (K).
+/// @param n Moles of component in system (mol/s).
+/// @param R Specific gas constant (J/ mol.K).
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
-/// @param P1 Initial system pressure (Pa)
-/// @param P2 Final system pressure (Pa)
-/// @param V1 Initial system volume (m3)
-/// @param V2 Final system volume (m3)
-/// @param T1 Initial system temperature (K)
-/// @param T2 Final system temperature (K)
-/// @param n Moles of component in system (mol/s)
-/// @param R Specific gas constant (J/ mol.K)
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
+/// @param T1 Initial system temperature (K).
+/// @param T2 Final system temperature (K).
+/// @param n Moles of component in system (mol/s).
+/// @param R Specific gas constant (J/ mol.K).
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
 void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);

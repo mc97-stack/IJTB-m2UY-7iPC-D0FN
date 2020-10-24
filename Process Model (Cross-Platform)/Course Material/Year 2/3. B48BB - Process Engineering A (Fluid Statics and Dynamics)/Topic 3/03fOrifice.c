@@ -111,6 +111,35 @@ void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double
     //return [Function Output];
 }
 
+void OrificeDisp(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
+{
+    printf("_Orifice_Plate_Flow_Measurement_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Initial fluid pressure:\n");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Final system pressure:\n");
+    printf("P2 =\t%.3f\tkPa\n", P2*0.001);
+    printf("Fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    
+    printf("Pipe diameter:\n");
+    printf("d1 =\t%.3f\tmm\n", d1*1000);
+    printf("Vena Contracta Diameter:\n");
+    printf("d2 =\t%.3f\tmm\n", d2*1000);
+    printf("Discharge coefficient:\n");
+    printf("C_d =\t%.3f\t[ ]\n", C_d);
+    printf("Frictional head loss:\n");
+    printf("h_f =\t%.3f\tm\n\n", h_f);
+    
+    printf("\tOutput parameters:\n");
+    printf("Process fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
+    printf("Process fluid volumetric flowrate:\n");
+    printf("Q =\t%.3f\tm3/s\n", Q);
+    printf("Process fluid mass flowrate:\n");
+    printf("m =\t%.3f\tkg/s\n", m);
+}
+
 void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
     //Function variables
@@ -167,9 +196,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
-    
-    //Write to file
+    fprintf(fp, "_Orifice_Plate_Flow_Measurement_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial fluid pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
@@ -179,21 +206,21 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
     
     fprintf(fp, "Pipe diameter:\n");
-    fprintf(fp, "d1 =\t%.3f\tcm\n", d1*1000);
+    fprintf(fp, "d1 =\t%.3f\tmm\n", d1*1000);
     fprintf(fp, "Vena Contracta Diameter:\n");
-    fprintf(fp, "d2 =\t%.3f\tcm\n", d2*1000);
+    fprintf(fp, "d2 =\t%.3f\tmm\n", d2*1000);
     fprintf(fp, "Discharge coefficient:\n");
-    fprintf(fp, "C_d =\t%.3f\tcm\n", C_d);
+    fprintf(fp, "C_d =\t%.3f\t[ ]\n", C_d);
     fprintf(fp, "Frictional head loss:\n");
     fprintf(fp, "h_f =\t%.3f\tm\n\n", h_f);
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Process fluid velocity:\n");
-    fprintf(fp, "u =\t%.3f\tPa\n", u);
+    fprintf(fp, "u =\t%.3f\tm/s\n", u);
     fprintf(fp, "Process fluid volumetric flowrate:\n");
-    fprintf(fp, "Q =\t%.3f\tPa\n", Q);
+    fprintf(fp, "Q =\t%.3f\tm3/s\n", Q);
     fprintf(fp, "Process fluid mass flowrate:\n");
-    fprintf(fp, "Q =\t%.3f\tPa\n", m);
+    fprintf(fp, "m =\t%.3f\tkg/s\n", m);
     
     //Close file
     fclose(fp);
@@ -203,7 +230,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
 
 void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -263,14 +290,17 @@ void Orifice()
         
         //  Running calculations
         OrificeCalc(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
-        printf("Average fluid velocity = %.3f m/s\n", u);
-        printf("Volumetric flow rate = %.3f m3/s\n", Q);
-        printf("Mass flowrate = %.3f kg/s\n\n", m);
+        //printf("Average fluid velocity = %.3f m/s\n", u);
+        //printf("Volumetric flow rate = %.3f m3/s\n", Q);
+        //printf("Mass flowrate = %.3f kg/s\n\n", m);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        OrificeDisp(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+        
+        //  Writing to File
         OrificeWriteCheck(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

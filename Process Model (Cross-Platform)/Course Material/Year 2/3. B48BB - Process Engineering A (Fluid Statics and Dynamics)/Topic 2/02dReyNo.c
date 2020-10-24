@@ -60,6 +60,33 @@ double ReyNoCalc(double rho, double u, double d, double mu)
     return ReyNum;
 }
 
+void ReyNoDisp(double rho, double u, double d, double mu, double ReyNum)
+{
+    printf("_Reynold's_Number_Calculation_\n");
+    printf("\tInput parameters:\n");
+    printf("Fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    printf("Fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
+    printf("Pipe internal diameter:");
+    printf("d =\t%.3f\tmm\n\n", d*1000);
+    printf("Fluid viscosity:\n");
+    printf("mu =\t%.3f\tcP\n", mu*1000);
+    
+    printf("\tOutput parameters:\n");
+    printf("ReyNum =\t%.3f\t[ ]\t=\\frac{\\rho ud}{\\mu}\n", ReyNum);
+    if(ReyNum < 2000)
+    {
+        printf("Flow regime is laminar \n");
+    }else{
+        if(ReyNum <3000){
+            printf("Flow regime lies within the transition region. Consider using experimental data going forward.\n");
+        }else{
+            printf("Flow regime is turbulent. \n");
+        }
+    }
+}
+
 void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
 {
     //Function variables
@@ -116,7 +143,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Mass_Conservation_Principle_\n");
+    fprintf(fp, "_Reynold's_Number_Calculation_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid density:\n");
     fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
@@ -124,9 +151,21 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     fprintf(fp, "u =\t%.3f\tm/s\n", u);
     fprintf(fp, "Pipe internal diameter:");
     fprintf(fp, "d =\t%.3f\tmm\n\n", d*1000);
+    fprintf(fp, "Fluid viscosity:\n");
+    fprintf(fp, "mu =\t%.3f\tcP\n", mu*1000);
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "ReyNum =\t%.3f\t[ ]\t=\\frac{\\rho ud}{\\mu}\n", ReyNum);
+    if(ReyNum < 2000)
+    {
+        fprintf(fp, "Flow regime is laminar \n");
+    }else{
+        if(ReyNum <3000){
+            fprintf(fp, "Flow regime lies within the transition region. Consider using experimental data going forward.\n");
+        }else{
+            fprintf(fp, "Flow regime is turbulent. \n");
+        }
+    }
     
     //Close file
     fclose(fp);
@@ -136,7 +175,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
 
 void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -187,30 +226,21 @@ void ReyNo()
         double mu = 0.0;
         
         //Data collection
-        ReyNoVar(&rho, &u, &d, &mu);
+        ReyNoVar(&rho, &u, &d, &mu);/*
         printf("Function returns:\n");
         printf("rho = %f \n", rho);
         printf("u = %f \n", u);
         printf("d = %f \n", d);
-        printf("mu = %f \n\n", mu);
+        printf("mu = %f \n\n", mu);*/
         
         //  Running calculations
         ReyNum = ReyNoCalc(rho, u, d, mu);
+        //printf("Function returns: ReyNum = %f \n", ReyNum);
         
-        printf("Reynolds Number = %.3f []\n", ReyNum);
-        if(ReyNum < 2000)
-        {
-            printf("Flow regime is laminar \n");
-        }else{
-            if(ReyNum <3000){
-                printf("Flow regime lies within the transition region. Consider using experimental data going forward.\n");
-            }else{
-                printf("Flow regime is turbulent. \n");
-            }
-        }
+        //  Displaying results
+        ReyNoDisp(rho, u, d, mu, ReyNum);
         
-        printf("Function returns: ReyNum = %f \n", ReyNum);
-        //Ask for file write (Remember while loop)
+        //  Writing to File
         ReyNoWriteCheck(rho, u, d, mu, ReyNum);
         
         //  Continue function

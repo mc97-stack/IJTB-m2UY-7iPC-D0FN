@@ -61,6 +61,25 @@ double HagPoisCalc(double u, double mu, double L, double d)
     return dP;
 }
 
+void HagPoisDisp(double u, double mu, double L, double d, double dP)
+{
+    printf("_Hagen-Pouseuille_Equation_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
+    printf("Fluid viscosity:\n");
+    printf("mu =\t%.3f\tcP\n", mu*1000);
+    printf("Pipe length:\n");
+    printf("L =\t%.3f\tm\n", L);
+    printf("Pipe diameter:\n");
+    printf("d =\t%.3f\tmm\n\n", d*1000);
+    
+    printf("\tOutput parameters:\n");
+    printf("Assuming fluid flow is isothermal\n");
+    printf("Fluid pressure loss:\n");
+    printf("dP =\t%.3f\tPa\t= \\frac{32u\\mu L}{d^2}", dP);
+}
+
 void HagPoisWrite(double u, double mu, double L, double d, double dP)
 {
     //Function variables
@@ -118,19 +137,18 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     
     //Write to file
     fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid velocity:\n");
     fprintf(fp, "u =\t%.3f\tm/s\n", u);
     fprintf(fp, "Fluid viscosity:\n");
-    fprintf(fp, "mu =\t%.3f\tPa.s\n", mu);
+    fprintf(fp, "mu =\t%.3f\tcP\n", mu*1000);
     fprintf(fp, "Pipe length:\n");
     fprintf(fp, "L =\t%.3f\tm\n", L);
     fprintf(fp, "Pipe diameter:\n");
-    fprintf(fp, "d =\t%.3f\tm\n", d*1000);
+    fprintf(fp, "d =\t%.3f\tmm\n\n", d*1000);
     
     fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Assuming fluid flow is isothermal\n");
     fprintf(fp, "Fluid pressure loss:\n");
     fprintf(fp, "dP =\t%.3f\tPa\t= \\frac{32u\\mu L}{d^2}", dP);
     
@@ -142,7 +160,7 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
 
 void HagPoisWriteCheck(double u, double mu, double L, double d, double dP)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -183,7 +201,7 @@ void HagPois()
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
+        //  Variable declaration
         double u = 0.0; //Average fluid velocity
         double mu = 0.0; //Fluid viscosity
         double L = 0.0; //Horizontal pipe length
@@ -191,18 +209,21 @@ void HagPois()
         
         double dP = 0.0; //Frictional pressure loss
         
-        //Data collection
+        //  Data collection
         HagPoisVar(&u, &mu, &L, &d);
         
         //  Running calculations
         dP = HagPoisCalc(u, mu, L, d);
-        printf("Assuming fluid flow is isothermal\n");
-        printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
         
-        //Ask for file write (Remember while loop)
+        //printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
+        
+        //  Displaying results
+        HagPoisDisp(u, mu, L, d, dP);
+        
+        //  Writing to File
         HagPoisWriteCheck(u, mu, L, d, dP);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

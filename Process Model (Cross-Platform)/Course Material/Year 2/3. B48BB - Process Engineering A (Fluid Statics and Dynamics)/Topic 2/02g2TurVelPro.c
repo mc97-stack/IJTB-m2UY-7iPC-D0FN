@@ -91,6 +91,26 @@ TurVelProf TurVelProfCalc(double vmax, double d, int *rows)
     return profile;
 }
 
+void TurVelProDisp(double umax, double d, int rows, TurVelProf profile)
+{
+    printf("_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
+    
+    //Write to file
+    printf("\tInput parameters:\n");
+    printf("Maximum fluid velocity:");
+    printf("u_{max.} =\t%.3f\tm/s\n", umax);
+    printf("Pipe diameter:\n");
+    printf("d =\t%.3f\tmm\n", d*1000);
+    
+    printf("\tOutput parameters:\n");
+    printf("r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
+    for(int i = 0; i < ++rows; ++i){
+        printf("%.3f\t", 1000*profile.r[i]);
+        printf("%.3f\t", profile.v_x[i]);
+        printf("%.3f\n", profile.ratio[i]);
+    }
+}
+
 void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 {
     //Function variables
@@ -148,8 +168,6 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     //Write to file
     fprintf(fp, "_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Maximum fluid velocity:");
     fprintf(fp, "u_{max.} =\t%.3f\tm/s\n", umax);
@@ -172,7 +190,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 
 void TurVelProWriteCheck(double umax, double d, int rows, TurVelProf profile)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -233,12 +251,10 @@ void TurVelPro()
         //  Running calculations
         profile = TurVelProfCalc(vmax, d, &rows);
         
-        printf("r (mm)\tv_x (m/s)\tv/v_max\n");
-        for(int i = 0; i < rows; ++i){
-            printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
-        }
+        //  Displaying results
+        TurVelProDisp(vmax, d, rows, profile);
         
-        //Ask for file write (Remember while loop)
+        //  Writing to File
         TurVelProWriteCheck(vmax, d, rows, profile);
     }
     fflush(stdout);

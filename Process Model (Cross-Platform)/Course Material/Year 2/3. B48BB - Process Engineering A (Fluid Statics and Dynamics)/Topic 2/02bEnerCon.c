@@ -64,15 +64,19 @@ void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, doub
             case 'u':
                 printf("Initial internal energy (kJ/kg) = ");
                 inteng1 = atof(fgets(input, sizeof(input), stdin));
+                inteng1 = inteng1*1000;
                 
                 printf("Final internal energy (kJ/kg) = ");
                 inteng2 = atof(fgets(input, sizeof(input), stdin));
+                inteng2 = inteng2*1000;
                 
                 printf("Initial pressure (kPa) = ");
                 pres1 = atof(fgets(input, sizeof(input), stdin));
+                pres1 = pres1*1000;
                 
                 printf("Final pressure (kPa) = ");
                 pres2 = atof(fgets(input, sizeof(input), stdin));
+                pres2 = pres2*1000;
                 
                 printf("Initial density (kg/m3) = ");
                 rho1 = atof(fgets(input, sizeof(input), stdin));
@@ -81,7 +85,7 @@ void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, doub
                 rho2 = atof(fgets(input, sizeof(input), stdin));
                 
                 //Converting through to enthalpy using definition
-                *h1 = EnthalpyConv(inteng1, pres1, rho1);                
+                *h1 = EnthalpyConv(inteng1, pres1, rho1);
                 *h2 = EnthalpyConv(inteng2, pres2, rho2);
                 
                 whilmeth = 0;
@@ -93,9 +97,11 @@ void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, doub
             case 'h':
                 printf("Initial enthalpy (kJ/kg) = ");
                 *h1 = atof(fgets(input, sizeof(input), stdin));
+                *h1 = (*h1)*1000;
                 
                 printf("Final enthalpy (kJ/kg) = ");
                 *h2 = atof(fgets(input, sizeof(input), stdin));
+                *h2 = (*h2)*1000;
                 
                 whilmeth = 0;
             break;
@@ -123,21 +129,12 @@ void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, doub
     
     printf("Process heat (kJ/ kg) = ");
     *q = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
+    *q = (*q)*1000;
     
     printf("Process work (kJ/ kg) = ");
     *w = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
+    *w = (*w)*1000;
     
-    printf("Function assignments:\n");
-    printf("h1 = %.3f kJ/kg\n", *h1);
-    printf("h2 = %.3f kJ/kg\n", *h2);
-    printf("u1 = %.3f m/s\n", *u1);
-    printf("u2 = %.3f m/s\n", *u2);
-    printf("z1 = %.3f m\n", *z1);
-    printf("z2 = %.3f m\n", *z2);
-    printf("q = %.3f kJ/kg\n", *q);
-    printf("w = %.3f kJ/kg\n", *w);
     fflush(stdout);
 }
 
@@ -159,7 +156,7 @@ double EnerConFluCalc(double h, double u, double z)
     
     EnerCont = (EnerCont) + (pot);
     
-    printf("State energy content = %.3f kJ/kg\n", EnerCont);
+    printf("State energy content = %.3f kJ/kg\n", EnerCont*0.001);
     
     return EnerCont;
 }
@@ -170,6 +167,34 @@ double EnerConProCalc(double q, double w)
     
     Energy  = q + w;
     return Energy;
+}
+
+void EnerConDisp(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+{
+    printf("_Steady-Flow_Energy_Equation_\n");
+    printf("Assuming the fluid is incompressible. \n");
+    printf("g =\t%.3f\tm/s2\n\n", g);
+    printf("\tInput parameters:\n");
+    printf("Initial fluid enthalpy:\n");
+    printf("h1 =\t%.3f\tkJ/kg\n", h1*0.001);
+    printf("Final fluid enthalpy:\n");
+    printf("h2 =\t%.3f\tkJ/kg\n", h2*0.001);
+    printf("Initial fluid velocity:\n");
+    printf("u1 =\t%.3f\tm/s\n", u1);
+    printf("Final fluid velocity:\n");
+    printf("u2 =\t%.3f\tm/s\n", u2);
+    printf("Initial fluid height:\n");
+    printf("z1 =\t%.3f\tm\n", z1);
+    printf("Final fluid height:\n");
+    printf("z2 =\t%.3f\tm\n\n", z2);
+    
+    printf("Specific process heat:\n");
+    printf("q =\t%.3f\tkJ/kg\n", q*0.001);
+    printf("Specific process work:\n");
+    printf("w =\t%.3f\tkJ/kg\n\n", w*0.001);
+    
+    printf("\tOutput parameters:\n");
+    printf("check =\t%.3f\tkJ/kg\n", check*0.001);
 }
 
 void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
@@ -233,9 +258,9 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     fprintf(fp, "g =\t%.3f\tm/s2\n\n", g);
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial fluid enthalpy:\n");
-    fprintf(fp, "h1 =\t%.3f\tkJ/kg\n", h1);
+    fprintf(fp, "h1 =\t%.3f\tkJ/kg\n", h1*0.001);
     fprintf(fp, "Final fluid enthalpy:\n");
-    fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", h2);
+    fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", h2*0.001);
     fprintf(fp, "Initial fluid velocity:\n");
     fprintf(fp, "u1 =\t%.3f\tm/s\n", u1);
     fprintf(fp, "Final fluid velocity:\n");
@@ -246,12 +271,12 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
     
     fprintf(fp, "Specific process heat:\n");
-    fprintf(fp, "q =\t%.3f\tkJ/kg\n", q);
+    fprintf(fp, "q =\t%.3f\tkJ/kg\n", q*0.001);
     fprintf(fp, "Specific process work:\n");
-    fprintf(fp, "w =\t%.3f\tkJ/kg\n", w);
+    fprintf(fp, "w =\t%.3f\tkJ/kg\n\n", w*0.001);
     
     fprintf(fp, "\tOutput parameters:\n");
-    fprintf(fp, "check =\t%.3f\tkJ/kg\n", check);
+    fprintf(fp, "check =\t%.3f\tkJ/kg\n", check*0.001);
     
     //Close file
     fclose(fp);
@@ -261,7 +286,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
 
 void EnerConWriteCheck(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -344,14 +369,17 @@ void EnerCon()
         
             //  Checking for a violation of the first law
         check = state2 - state1;
-        check = process - check;
-        if(fabs(check) <= 0.001)
+        check = fabs(process - check);
+        if(check <= 0.001)
         {
             printf("Your process should work in reality\n");
         }else{
             printf("Your process breaks the first law\n");
         }
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        EnerConDisp(h1, h2, u1, u2, z1, z2, q, w, check);
+        
+        //  Writing to file
         EnerConWriteCheck(h1, h2, u1, u2, z1, z2, q, w, check);
         
         //  Continue function

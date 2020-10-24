@@ -195,6 +195,22 @@ double duNouyCalc(double F, double L, double C_F, double cang)
     return sigma;
 }
 
+void duNouyDisp(double F, double L, double C_F, double cang, double sigma)
+{
+    printf("_du_Nouy_Surface_Tension_\n");
+    printf("\tInput Parameters:\n");
+    printf("Force required to break fluid surface:\n");
+    printf("F =\t%.3f\tN\n", F);
+    printf("Ring Circumference:\n");
+    printf("L =\t%.3f\tm3\n", L);
+    printf("Correction Factor:\n");
+    printf("C_F =\t%.3f\tmol\n", C_F);
+    printf("Contact angle:\n");
+    printf("phi =\t%.3f\trad\n\n", cang);
+    
+    printf("\tOutput Parameters:\n");
+    printf("sigma =\t%.3f\tN/m\t= \\frac{(C_F)F}{2L\\cos\\phi}\n", sigma);
+}
 
 void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
 {
@@ -256,13 +272,13 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     fprintf(fp, "_du_Nouy_Surface_Tension_\n");
     fprintf(fp, "\tInput Parameters:\n");
     fprintf(fp, "Force required to break fluid surface:\n");
-    fprintf(fp, "F = %.3f N\n", F);
+    fprintf(fp, "F =\t%.3f\tN\n", F);
     fprintf(fp, "Ring Circumference:\n");
-    fprintf(fp, "L = %.3f m3\n", L);
+    fprintf(fp, "L =\t%.3f\tm3\n", L);
     fprintf(fp, "Correction Factor:\n");
-    fprintf(fp, "C_F = %.3f mol\n", C_F);
+    fprintf(fp, "C_F =\t%.3f\tmol\n", C_F);
     fprintf(fp, "Contact angle:\n");
-    fprintf(fp, "phi = %.3f rad\n\n", cang);
+    fprintf(fp, "phi =\t%.3f\trad\n\n", cang);
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "sigma =\t%.3f\tN/m\t= \\frac{(C_F)F}{2L\\cos\\phi}\n", sigma);
     
@@ -274,7 +290,7 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
 
 void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -322,27 +338,29 @@ void SurfTens()
         printf("3. SLOWLY raise the spoon and closely watch the free liquid surface until it separates from the spoon\n");
         printf("Q: How do you model this fluid behaviour?\n\n");
          */
-        //Declaring calculation variables
+        //  Declaring variables
         double F = 0.0;
         double L = 0.0;
         double C_F = 0.0;
         double cang = 0.0;
         
-        //Declaring output variables
         double sigma = 0.0;
         
         //  Collecting data
         duNouyVar(&F, &L, &C_F, &cang);
-        printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
+        //printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
         
         //  Running calculation
         sigma = duNouyCalc(F, L, C_F, cang);
-        printf("Surface tension = %.3f N/m\n", sigma);
+        //printf("Surface tension = %.3f N/m\n", sigma);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        duNouyDisp(F, L, C_F, cang, sigma);
+        
+        //  Writing to file
         duNouyWriteCheck(F, L, C_F, cang, sigma);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

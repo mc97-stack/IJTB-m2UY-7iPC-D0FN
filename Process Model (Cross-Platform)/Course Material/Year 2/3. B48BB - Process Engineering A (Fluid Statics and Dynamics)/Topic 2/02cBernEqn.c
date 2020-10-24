@@ -16,17 +16,12 @@
 //  Custom header files
 #include "System.h"
 #include "B48BB_T2.h"
-#include "02cBernEqn.h"
 #include "02aMassCon.h"
+#include "02cBernEqn.h"
 
 #define maxstrlen 128
 #define PI 3.141592653
 #define g 9.80665
-
-//Declaring global variables
-
-    //Miscellaneous Variables
-
 
 void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf)
 {
@@ -39,54 +34,34 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
     
     printf("Initial pressure (kPa) = ");
     *P1 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
-    
     *P1 = *P1*1000; //Conversion (kPa to Pa)
     
     printf("Fluid density (kg/m3) = ");
     *rho = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
     
     printf("Initial fluid velocity (m/s) = ");
     *u1 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
     
     printf("Pipe diameter at state 1 (mm) = ");
     d1 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
-    
     d1 = d1*0.001; //Conversion (mm to m)
     
     printf("Pipe diameter at state 2 (mm) = ");
     d2 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
-    
     d2 = d2*0.001; //Conversion (mm to m)
     
     *u2 = VelCalc(*u1, d1, d2);
     
     printf("Initial fluid height from reference point (m) = ");
     *Z1 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
     
     printf("Final fluid height from reference point (m) = ");
     *Z2 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
     
     printf("Frictional pressure loss (Pa) = ");
     *hf = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
-    
     *hf = (*hf)/((*rho)*g);
     
-    printf("Variable assignments:\n");
-    printf("P1 = %.3f Pa\n", *P1);
-    printf("rho = %.3f kg/m3\n", *rho);
-    printf("u1 = %.3f m/s\n", *u1);
-    printf("u2 = %.3f m/s\n", *u2);
-    printf("Z1 = %.3f m\n", *Z1);
-    printf("Z2 = %.3f m\n", *Z2);
-    printf("hf = %.3f m\n\n", *hf);
     fflush(stdout);
 }
 
@@ -97,7 +72,7 @@ double StatHeadCalc(double P, double rho)
     stathead = (rho*g);
     stathead = P/(stathead);
     
-    printf("Static head = %.3f m\n", stathead);
+    //printf("Static head = %.3f m\n", stathead);
     return stathead;
 }
 
@@ -111,8 +86,7 @@ double DynHeadCalc(double u)
     dynhead = pow(u, 2);
     dynhead = (frac)*(dynhead);
     
-    printf("Dynamic head = %.3f m\n", dynhead);
-    
+    //printf("Dynamic head = %.3f m\n", dynhead);
     return dynhead;
 }
 
@@ -124,6 +98,32 @@ double BernEqnCalc(double stathead, double dynhead, double Z)
     calc = (calc) + Z;
     
     return calc;
+}
+
+void BernEqnDisp(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
+{
+    printf("_Bernoulli's_Equation_Results_\n");
+    printf("Assuming the fluid is incompressible. \n");
+    printf("g =\t%.3f\tm/s2\n\n", g);
+    printf("\tInput parameters:\n");
+    printf("Initial fluid pressure:\n");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    printf("Initial fluid velocity:\n");
+    printf("u1 =\t%.3f\tm/s\n", u1);
+    printf("Final fluid velocity:\n");
+    printf("u2 =\t%.3f\tm/s\n", u2);
+    printf("Initial fluid height:\n");
+    printf("z1 =\t%.3f\tm\n", z1);
+    printf("Final fluid height:\n");
+    printf("z2 =\t%.3f\tm\n\n", z2);
+    printf("Fluid frictional head loss:\n");
+    printf("hf =\t%.3f\tm\n\n", hf);
+    
+    printf("\tOutput parameters:\n");
+    printf("Final fluid pressure:\n");
+    printf("P2 =\t%.3f\tkPa\n", P2*0.001);
 }
 
 void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
@@ -182,12 +182,12 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Mass_Conservation_Principle_\n");
+    fprintf(fp, "_Bernoulli's_Equation_Results_\n");
     fprintf(fp, "Assuming the fluid is incompressible. \n");
     fprintf(fp, "g =\t%.3f\tm/s2\n\n", g);
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial fluid pressure:\n");
-    fprintf(fp, "P1 =\t%.3f\tPa\n", P1);
+    fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
     fprintf(fp, "Fluid density:\n");
     fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
     fprintf(fp, "Initial fluid velocity:\n");
@@ -197,13 +197,13 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     fprintf(fp, "Initial fluid height:\n");
     fprintf(fp, "z1 =\t%.3f\tm\n", z1);
     fprintf(fp, "Final fluid height:\n");
-    fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
+    fprintf(fp, "z2 =\t%.3f\tm\n", z2);
     fprintf(fp, "Fluid frictional head loss:\n");
     fprintf(fp, "hf =\t%.3f\tm\n\n", hf);
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Final fluid pressure:\n");
-    fprintf(fp, "P2 =\t%.3f\tkJ/kg\n", P2);
+    fprintf(fp, "P2 =\t%.3f\tkPa\n", P2*0.001);
     
     //Close file
     fclose(fp);
@@ -213,7 +213,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
 
 void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -270,7 +270,7 @@ void BernEqn()
         double RHS = 0.0;
         
         //  Data collection
-        BernEqnVar(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);
+        BernEqnVar(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);/*
         printf("Function assignments:\n");
         printf("P1 = %f\n", P1);
         printf("rho = %f\n", rho);
@@ -278,14 +278,14 @@ void BernEqn()
         printf("u2 = %f\n", u2);
         printf("Z1 = %f\n", Z1);
         printf("Z2 = %f\n", Z2);
-        printf("hf = %f\n\n", hf);
+        printf("hf = %f\n\n", hf);*/
         
         //  Running calculations
         LHS = BernEqnCalc(StatHeadCalc(P1, rho), DynHeadCalc(u1), Z1);
-        printf("Function returns: LHS = %f\n", LHS);
+        //printf("Function returns: LHS = %f\n", LHS);
         
         RHS = BernEqnCalc(0, DynHeadCalc(u2), Z2);
-        printf("Function returns: RHS = %f\n\n", RHS);
+        //printf("Function returns: RHS = %f\n\n", RHS);
         
         RHS = (RHS) + (hf);
         P2 = (LHS) - (RHS);
@@ -294,9 +294,11 @@ void BernEqn()
         
         P2 = (P2)*0.001;
         
-        printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
-        //Ask for file write (Remember while loop)
-        //...
+        //printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
+        //  Displaying results
+        BernEqnDisp(P1, P2, rho, u1, u2, Z1, Z2, hf);
+        
+        //  Writing to file
         BernEqnWriteCheck(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //Continue function

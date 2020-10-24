@@ -51,6 +51,14 @@ double FluidVHydCalc(double rho, double h)
     return P;
 }
 
+void FluidVHydDisp(double rho, double h, double P)
+{
+    printf("_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
+    printf("g = %.5f\tm/s2\n\n", g);
+    printf("rho = %.3f\tkg/m3\n", rho);
+    printf("h = %.3f\t m\n", h);
+    printf("P\t%.3f\tPa\t= \\rho * g * h =\n", P);
+}
 
 void FluidVHydWrite(double rho, double h, double P)
 {
@@ -109,7 +117,7 @@ void FluidVHydWrite(double rho, double h, double P)
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "Fluid Vertical Hydrostatic Pressure Results\n");
+    fprintf(fp, "_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
     fprintf(fp, "g = %.5f\tm/s2\n\n", g);
     fprintf(fp, "rho = %.3f\tkg/m3\n", rho);
     fprintf(fp, "h = %.3f\t m\n", h);
@@ -123,7 +131,7 @@ void FluidVHydWrite(double rho, double h, double P)
 
 void FluidVHydWriteCheck(double rho, double h, double P)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -165,21 +173,27 @@ void FluidVHyd()
     
     while(whilmain == 1)
     {
+        //  Declaring variables
         double rho = 0.0;
         double h = 0.0;
         double P = 0.0;
         
+        //  Collecting data
         FluidVHydVar(&rho, &h);
-        printf("rho = %f kg/m3\n", rho);
-        printf("h = %f m\n", h);
+        //printf("rho = %f kg/m3\n", rho);
+        //printf("h = %f m\n", h);
         
+        //  Running calculation
         P = FluidVHydCalc(rho, h);
-        printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
+        //printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        FluidVHydDisp(rho, h, P);
+        
+        //  Writing to file
         FluidVHydWriteCheck(rho, h, P);
         
-        //Continue function
+        //  Continue function
         whilmain = Continue(whilmain);
     }
     fflush(stdout);

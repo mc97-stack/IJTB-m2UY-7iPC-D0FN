@@ -77,6 +77,16 @@ double FluCompCalc(double P, double V, double n, double T)
     return c;
 }
 
+void FluCompDisp(double P, double V, double n, double T, double c)
+{
+    printf("_Fluid_Coefficient_of_Compressibility_Results_\n");
+    printf("P = %.3f kPa\n", P*0.001);
+    printf("V = %.3f m3\n", V);
+    printf("n = %.3f mol\n", n);
+    printf("T = %.3f deg C\n\n", (T - 273.15));
+    printf("c = $$-\\frac{1}{V}\\left(\\frac{\\delta{V}}{\\delta{P}}\\right))_T$$ = %.6f m3/Pa\n", c);
+}
+
 void FluCompWrite(double P, double V, double n, double T, double c)
 {
     //Function variables
@@ -149,7 +159,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
 
 void FluCompWriteCheck(double P, double V, double n, double T, double c)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -190,7 +200,7 @@ void FluComp()
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Declaring variables used
+        //  Declaring variables
         double c = 0.0;
         double P = 0.0;
         double V = 0.0;
@@ -205,7 +215,10 @@ void FluComp()
         c = FluCompCalc(P, V, n, T);
         //printf("Function has outputted = %f m3/ Pa\n\n", c);
         
-        //  Asking for file write
+        //  Displaying data
+        FluCompDisp(P, V, n, T, c);
+        
+        //  Writing to file
         FluCompWriteCheck(P, V, n, T, c);
         
         //  Continue function

@@ -10,10 +10,10 @@
 #define CappVar_h
 
 /// Subroutine used to collect the data required to determine the capillary rise and pressure.
-/// @param sigma Surface tension (N/m)
-/// @param cang Contact angle (deg)
-/// @param rho Fluid density (kg/m3)
-/// @param d Cappillary tube diameter (mm)
+/// @param sigma Surface tension (N/m).
+/// @param cang Contact angle (deg).
+/// @param rho Fluid density (kg/m3).
+/// @param d Cappillary tube diameter (mm).
 void CappVar(double *sigma, double *cang, double *rho, double *d);
 
 #endif /* _1fCapp_h */
@@ -22,10 +22,10 @@ void CappVar(double *sigma, double *cang, double *rho, double *d);
 #define CappCalch_h
 
 /// Subroutine used to calculate the capillary rise given the arguments required. This subroutine, after calculation, returns the capillary rise (m) to the calling function.
-/// @param sigma Surface tension (N/m)
-/// @param cang Contact angle (rad)
-/// @param rho Fluid density (kg/m3)
-/// @param d Capillary tube diameter (m)
+/// @param sigma Surface tension (N/m).
+/// @param cang Contact angle (rad).
+/// @param rho Fluid density (kg/m3).
+/// @param d Capillary tube diameter (m).
 double CappCalch(double sigma, double cang, double rho, double d);
 
 #endif /* CappCalch_h */
@@ -34,29 +34,42 @@ double CappCalch(double sigma, double cang, double rho, double d);
 #define CappCalcP_h
 
 /// Subroutine used to calculate the capillary pressure given the required arguments. This subroutine, after calculation, returns the capillary pressure (Pa) to the calling function.
-/// @param sigma Surface tension (N/m)
-/// @param cang Contact angle (rad)
-/// @param d Capillary tube diameter (m)
+/// @param sigma Surface tension (N/m).
+/// @param cang Contact angle (rad).
+/// @param d Capillary tube diameter (m).
 double CappCalcP(double sigma, double cang, double d);
 
 #endif /* CappCalcP_h */
+
+#ifndef CappDisp_h
+#define CappDisp_h
+
+/// Subroutine used to output the results of capillary rise and pressure from capillarity calculations to the user console.
+/// @param sigma Surface Tension (N/m).
+/// @param cang Contact angle (rad).
+/// @param d Capillary tube diameter.
+/// @param h Capillary rise (m).
+/// @param Pc Capillary pressure (Pa). 
+void CappDisp(double sigma, double cang, double d, double h, double Pc);
+
+#endif /* CappDisp_h */
 
 #ifndef CappWrite_h
 #define CappWrite_h
 
 /// Subroutine used to output the results of capillary rise and pressure from capillarity calculations to a .txt file.
-/// @param sigma Surface Tension (N/m)
-/// @param cang Contact angle (rad)
-/// @param d Capillary tube diameter
-/// @param h Capillary rise (m)
-/// @param Pc Capillary pressure (Pa) 
+/// @param sigma Surface Tension (N/m).
+/// @param cang Contact angle (rad).
+/// @param d Capillary tube diameter (m).
+/// @param h Capillary rise (m).
+/// @param Pc Capillary pressure (Pa).
 void CappWrite(double sigma, double cang, double d, double h, double Pc);
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
-/// @param sigma Surface Tension (N/m)
-/// @param cang Contact angle (rad)
-/// @param d Capillary tube diameter
-/// @param h Capillary rise (m)
-/// @param Pc Capillary pressure (Pa) 
+/// @param sigma Surface Tension (N/m).
+/// @param cang Contact angle (rad).
+/// @param d Capillary tube diameter (m)
+/// @param h Capillary rise (m).
+/// @param Pc Capillary pressure (Pa). 
 void CappWriteCheck(double sigma, double cang, double d, double h, double Pc);
 
 #endif /* CappWrite_h */

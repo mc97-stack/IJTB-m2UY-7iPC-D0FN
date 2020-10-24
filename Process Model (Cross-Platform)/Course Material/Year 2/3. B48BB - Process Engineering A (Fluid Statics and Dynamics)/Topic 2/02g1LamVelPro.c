@@ -115,6 +115,28 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows)
     return profile;
 }
 
+void LamVelProDisp(double dP, double L, double d, double mu, int rows, LamVelProf profile)
+{
+    printf("_Laminar_Velocity_Profile_Calculation_\n");
+    printf("\tInput parameters:\n");
+    printf("Fluid pressure loss:\n");
+    printf("dP =\t%.3f\tPa\n", dP);
+    printf("Pipe length:\n");
+    printf("L =\t%.3f\tm\n", L);
+    printf("Pipe diameter:\n");
+    printf("d =\t%.3f\tmm\n", d*1000);
+    printf("Fluid dynamic viscosity:\n");
+    printf("mu =\t%.3f\tcP\n\n", mu*1000);
+    
+    printf("\tOutput Parameters:\n");
+    printf("r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
+    for(int i = 0; i < rows; ++i){
+        printf("%.3f\t", 1000*profile.r[i]);
+        printf("%.3f\t", profile.v_x[i]);
+        printf("%.3f\n", profile.ratio[i]);
+    }
+}
+
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     //Function variables
@@ -177,10 +199,10 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     fprintf(fp, "dP =\t%.3f\tPa\n", dP);
     fprintf(fp, "Pipe length:\n");
     fprintf(fp, "L =\t%.3f\tm\n", L);
-    fprintf(fp, "Pipe length:\n");
+    fprintf(fp, "Pipe diameter:\n");
     fprintf(fp, "d =\t%.3f\tmm\n", d*1000);
     fprintf(fp, "Fluid dynamic viscosity:\n");
-    fprintf(fp, "mu =\t%.3f\tPa\n\n", dP);
+    fprintf(fp, "mu =\t%.3f\tcP\n\n", mu*1000);
     
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
@@ -189,6 +211,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
         fprintf(fp, "%.3f\t", profile.v_x[i]);
         fprintf(fp, "%.3f\n", profile.ratio[i]);
     }
+    
     //Close file
     fclose(fp);
      
@@ -197,7 +220,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
 
 void LamVelProWriteCheck(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -261,12 +284,10 @@ void LamVelPro()
         //  Running calculations
         profile = LamVelProfCalc(dP, L, d, mu, &rows);
         
-        printf("r (mm)\tv_x (m/s)\tv/v_max\n");
-        for(int i = 0; i < rows; ++i){
-            printf("%f\t%f\t%f\n", profile.r[i]*1000, profile.v_x[i], profile.ratio[i]);
-        }
+        //  Displaying results
+        LamVelProDisp(dP, L, d, mu, rows, profile);
         
-        //Ask for file write (Remember while loop)
+        //  Writing to File
         LamVelProWriteCheck(dP, L, d, mu, rows, profile);
     }
     fflush(stdout);

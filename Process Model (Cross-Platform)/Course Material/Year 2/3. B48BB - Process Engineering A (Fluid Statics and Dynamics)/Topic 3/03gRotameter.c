@@ -81,6 +81,41 @@ void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f,
     //return [Function Output];
 }
 
+void RotameterDisp(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
+{
+    printf("_Rotameter_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Fluid parameters:\n");
+    printf("Process fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n\n", rho);
+    
+    printf("Float parameters:\n");
+    printf("Float volume:\n");
+    printf("V_f =\t%.3f\tm3\n", V_f);
+    printf("Float density:\n");
+    printf("rho_f =\t%.3f\tkg/m3\n", rho_f);
+    printf("Maximum cross-sectional area of float:\n");
+    printf("A_f =\t%.3f\tm2\n", A_f);
+    printf("Cross-sectional area of tube at point of float:\n");
+    printf("are1 =\t%.3f\tm2\n", are1);
+    printf("Annular area between float and tube at point:\n");
+    printf("are2 =\t%.3f\tm2\n\n", are2);
+    
+    printf("Device parameters:\n");
+    printf("Discharge Coefficient:\n");
+    printf("C_d =\t%.3f\t[ ]\n\n", C_d);
+    
+    printf("\tOutput parameters:\n");
+    printf("Fluid pressure loss:\n");
+    printf("dP =\t%.3f\tPa\n", dP);
+    printf("Mass flowrate of process fluid:\n");
+    printf("m =\t%.3f\tkg/s\n", m);
+    printf("Volumetric flowrate of process fluid:\n");
+    printf("Q =\t%.3f\tm3/s\n", Q);
+    printf("Process fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
+}
+
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
     //Function variables
@@ -138,8 +173,6 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     
     //Write to file
     fprintf(fp, "_Rotameter_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid parameters:\n");
     fprintf(fp, "Process fluid density:\n");
@@ -179,7 +212,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
 
 void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -240,13 +273,16 @@ void Rotameter()
         
         //  Running calculations
         RotameterCalc(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
-        
+        /*
         printf("Buoyant force = %.3f Pa\n", dP);
         printf("Fluid velocity = %.3f m/s\n", u);
         printf("Volumetric flow = %.3f m3/s\n", Q);
         printf("Mass flowrate = %.3f kg/s\n", m);
+        */
+        //  Displaying results
+        RotameterDisp(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         
-        //  Ask for file write (Remember while loop)
+        //  Writing to File
         RotameterWriteCheck(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         
         //  Continue function

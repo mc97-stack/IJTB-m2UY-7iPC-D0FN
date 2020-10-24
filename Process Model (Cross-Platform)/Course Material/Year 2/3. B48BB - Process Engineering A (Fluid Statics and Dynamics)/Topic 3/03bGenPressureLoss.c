@@ -135,6 +135,37 @@ double LossCalculation(double phi, double L, double d, double rho, double u)
     return dP;
 }
 
+void PressLossDisp(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
+{
+    printf("_Pressure_Loss_Equation_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Fluid density:\n");
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    printf("Fluid velocity:\n");
+    printf("u =\t%.3f\tm/s\n", u);
+    printf("Fluid viscosity:\n");
+    printf("mu =\t%.3f\tcP\n\n", mu*1000);
+    
+    printf("Pipe diameter:\n");
+    printf("d =\t%.3f\tmm\n", d*1000);
+    printf("Pipe length:\n");
+    printf("L =\t%.3f\tm\n", L);
+    if(vareps == 0.0){
+        printf("Pipe absolute roughness not used\n\n");
+    }else{
+        printf("Pipe absolute roughness:\n");
+        printf("vareps =\t%.3f\tmm\n\n", vareps*1000);
+    }
+    
+    printf("\tIntermediate parameters:\n");
+    printf("Friction factor:\n");
+    printf("phi =\t%.3f\t[]\n\n", phi);
+    
+    printf("\tOutput parameters:\n");
+    printf("Fluid pressure loss:\n");
+    printf("dP =\t%.3f\tPa\t= 8\\phi\\frac{L}{d}\\frac{\\rho u^2}{2}", dP);
+}
+
 void PressLossWrite(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
     //Function variables
@@ -192,8 +223,6 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Equation_Results_\n");
-    
-    //Write to file
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid density:\n");
     fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
@@ -203,7 +232,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     fprintf(fp, "mu =\t%.3f\tPa.s\n\n", mu);
     
     fprintf(fp, "Pipe diameter:\n");
-    fprintf(fp, "d =\t%.3f\tm\n", d*1000);
+    fprintf(fp, "d =\t%.3f\tmm\n", d*1000);
     fprintf(fp, "Pipe length:\n");
     fprintf(fp, "L =\t%.3f\tm\n", L);
     if(vareps == 0.0){
@@ -215,7 +244,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     
     fprintf(fp, "\tIntermediate parameters:\n");
     fprintf(fp, "Friction factor:\n");
-    fprintf(fp, "phi =\t%.3f\t[]\n", u);
+    fprintf(fp, "phi =\t%.3f\t[]\n", phi);
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Fluid pressure loss:\n");
@@ -229,7 +258,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
 
 void PressLossWriteCheck(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -285,11 +314,14 @@ void GenPressureLoss()
         
         //  Running calculations
         phi = phicalc(rho, u, d, mu, vareps);
-        printf("phi = %.5f [ ]\n", phi);
+        //printf("phi = %.5f [ ]\n", phi);
         dP = LossCalculation(phi, L, d, rho, u);
-        printf("dP = %.3f kPa\n", dP*0.001);
+        //printf("dP = %.3f kPa\n", dP*0.001);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        PressLossDisp(rho, u, d, mu, L, vareps, phi, dP);
+        
+        //  Writing to File
         PressLossWriteCheck(rho, u, d, mu, L, vareps, phi, dP);
         
         //Continue function

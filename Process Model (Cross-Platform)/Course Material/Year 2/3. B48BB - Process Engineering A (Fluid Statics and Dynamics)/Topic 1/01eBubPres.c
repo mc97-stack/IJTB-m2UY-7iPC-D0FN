@@ -49,6 +49,19 @@ double BubPresCalc(double sigma, double r)
     return P;
 }
 
+void BubPresDisp(double sigma, double r, double P)
+{
+    printf("_Bubble_Pressure_Calculations_\n");
+    printf("\tInput Parameters:\n");
+    printf("Surface tension:\n");
+    printf("sigma =\t%.3f\tN/m\n", sigma);
+    printf("Bubble radius:\n");
+    printf("r =\t%.3f\tmm\n\n", r*1000);
+    
+    printf("\tOutput Parameters:\n");
+    printf("P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
+}
+
 void BubPresWrite(double sigma, double r, double P)
 {
     //Function variables
@@ -108,8 +121,11 @@ void BubPresWrite(double sigma, double r, double P)
     //Write to file
     fprintf(fp, "_Bubble_Pressure_Calculations_\n");
     fprintf(fp, "\tInput Parameters:\n");
+    fprintf(fp, "Surface tension:\n");
     fprintf(fp, "sigma =\t%.3f\tN/m\n", sigma);
-    fprintf(fp, "r =\t%.3f\tmm\n", r*1000);
+    fprintf(fp, "Bubble radius:\n");
+    fprintf(fp, "r =\t%.3f\tmm\n\n", r*1000);
+    
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
     
@@ -120,7 +136,7 @@ void BubPresWrite(double sigma, double r, double P)
 }
 void BubPresWriteCheck(double sigma, double r, double P)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -162,7 +178,7 @@ void BubPres()
     
     while(whilmain == 1)
     {
-        //Declaring variables
+        //  Declaring variables
         double sigma = 0.0;
         double r = 0.0;
         double P = 0.0;
@@ -175,7 +191,10 @@ void BubPres()
         P = BubPresCalc(sigma, r);
         printf("Bubble pressure = %.3f Pa\n", P);
         
-        //Ask for file write (Remember while loop)
+        //  Displaying results
+        BubPresDisp(sigma, r, P);
+        
+        //  Writing to file
         BubPresWriteCheck(sigma, r, P);
         
         //  Continue function

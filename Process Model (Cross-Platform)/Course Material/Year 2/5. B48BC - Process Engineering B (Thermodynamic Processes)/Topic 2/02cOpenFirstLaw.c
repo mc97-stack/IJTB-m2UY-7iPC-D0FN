@@ -26,9 +26,11 @@ void OpenFirstLawVarProc(double *q, double *w_s)
     
     printf("Specific process heat (kJ/ kmol) = ");
     *q = atof(fgets(input, sizeof(input), stdin));
+    *q = (*q)*1000;
     
     printf("Specific shaft work (kJ/ kmol) = ");
     *w_s = atof(fgets(input, sizeof(input), stdin));
+    *w_s = (*w_s)*1000;
     
     fflush(stdout);
 }
@@ -50,6 +52,7 @@ T2StateEnergy OpenFirstLawVar(int ins)
     
     printf("Stream enthalpy at state %i (kJ/kmol) = ", ins);
     state.enthalpy = atof(fgets(input, sizeof(input), stdin));
+    state.enthalpy = (state.enthalpy)*1000;
     
     printf("Fluid velocity at state %i (m/s) = ", ins);
     u = atof(fgets(input, sizeof(input), stdin));
@@ -76,14 +79,14 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
     process = q + w_s;
     
     final = state2.enthalpy + state2.kinenergy;
-    printf("final = %f\n", final);
+    //printf("final = %f\n", final);
     final = (final) + state2.potenergy;
-    printf("final = %f\n\n", final);
+    //printf("final = %f\n\n", final);
     
     initial = state1.enthalpy + state1.kinenergy;
-    printf("initial = %f\n", initial);
+    //printf("initial = %f\n", initial);
     initial = (initial) + state1.potenergy;
-    printf("initial = %f\n\n", initial);
+    //printf("initial = %f\n\n", initial);
     
     fluid = final - initial;
     
@@ -92,7 +95,7 @@ double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnerg
     return inequality;
 }
 
-void InitialValue(T2StateEnergy state, double *u, double *z)
+void OpenInitialValue(T2StateEnergy state, double *u, double *z)
 {
     *u = state.kinenergy *2;
     *u = (*u)*1000;
@@ -100,6 +103,48 @@ void InitialValue(T2StateEnergy state, double *u, double *z)
     
     *z = state.potenergy*1000;
     *z = (*z)/(9.80665);
+}
+
+void OpenFirstLawDisp(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
+{
+    double u1 = 0.0;
+    double u2 = 0.0;
+    double z1 = 0.0;
+    double z2 = 0.0;
+    
+    OpenInitialValue(state1, &u1, &z1);
+    OpenInitialValue(state2, &u2, &z2);
+    
+    printf("_First_Law_Applied_to_Open_Systems_\n");
+    printf("Assuming the fluid is incompressible. \n");
+    printf("g =\t9.80665\tm/s2\n\n");
+    printf("\tInput parameters:\n");
+    printf("Initial fluid enthalpy:\n");
+    printf("h1 =\t%.3f\tkJ/kmol\n", 0.001*state1.enthalpy);
+    printf("Final fluid enthalpy:\n");
+    printf("h2 =\t%.3f\tkJ/kmol\n", 0.001*state2.enthalpy);
+    printf("Initial fluid velocity:\n");
+    printf("u1 =\t%.3f\tm/s\n", u1);
+    printf("Final fluid velocity:\n");
+    printf("u2 =\t%.3f\tm/s\n", u2);
+    printf("Initial fluid height:\n");
+    printf("z1 =\t%.3f\tm\n", z1);
+    printf("Final fluid height:\n");
+    printf("z2 =\t%.3f\tm\n\n", z2);
+    
+    printf("Specific process heat:\n");
+    printf("q =\t%.3f\tkJ/kmol\n", q*0.001);
+    printf("Specific shaft work:\n");
+    printf("w =\t%.3f\tkJ/kmol\n\n", w_s*0.001);
+    
+    printf("\tOutput parameters:\n");
+    printf("System state =\t%.3f\tkJ/kmol\n", sysstate*0.001);
+    
+    if(fabs(sysstate) < 0.005){
+        printf("This unit operation is operating at steady-state conditions.\n");
+    }else{
+        printf("This unit operation is operating at unsteady-state conditions.\n");
+    }
 }
 
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
@@ -162,17 +207,18 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     double u2 = 0.0;
     double z1 = 0.0;
     double z2 = 0.0;
-    InitialValue(state1, &u1, &z1);
-    InitialValue(state2, &u2, &z2);
+    
+    OpenInitialValue(state1, &u1, &z1);
+    OpenInitialValue(state2, &u2, &z2);
     
     fprintf(fp, "_First_Law_Applied_to_Open_Systems_\n");
     fprintf(fp, "Assuming the fluid is incompressible. \n");
     fprintf(fp, "g =\t9.80665\tm/s2\n\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial fluid enthalpy:\n");
-    fprintf(fp, "h1 =\t%.3f\tkJ/kg\n", state1.enthalpy);
+    fprintf(fp, "h1 =\t%.3f\tkJ/kmol\n", 0.001*state1.enthalpy);
     fprintf(fp, "Final fluid enthalpy:\n");
-    fprintf(fp, "h2 =\t%.3f\tkJ/kg\n", state2.enthalpy);
+    fprintf(fp, "h2 =\t%.3f\tkJ/kmol\n", 0.001*state2.enthalpy);
     fprintf(fp, "Initial fluid velocity:\n");
     fprintf(fp, "u1 =\t%.3f\tm/s\n", u1);
     fprintf(fp, "Final fluid velocity:\n");
@@ -183,12 +229,13 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
     
     fprintf(fp, "Specific process heat:\n");
-    fprintf(fp, "q =\t%.3f\tkJ/kg\n", q);
+    fprintf(fp, "q =\t%.3f\tkJ/kmol\n", q*0.001);
     fprintf(fp, "Specific shaft work:\n");
-    fprintf(fp, "w =\t%.3f\tkJ/kg\n", w_s);
+    fprintf(fp, "w =\t%.3f\tkJ/kmol\n\n", w_s*0.001);
     
     fprintf(fp, "\tOutput parameters:\n");
-    fprintf(fp, "System state =\t%.3f\tkJ/kg\n", sysstate);
+    fprintf(fp, "System state =\t%.3f\tkJ/kmol\n", sysstate*0.001);
+    
     if(fabs(sysstate) < 0.005){
         fprintf(fp, "This unit operation is operating at steady-state conditions.\n");
     }else{
@@ -203,7 +250,7 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
 
 void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -269,13 +316,10 @@ void OpenFirstLaw()
         //  Data manipulation
         sysstate = OpenFirstLawCalc(q, w_s, state1, state2);
         
-        if(fabs(sysstate) < 0.005){
-            printf("This unit operation is operating at steady-state conditions.\n");
-        }else{
-            printf("This unit operation is operating at unsteady-state conditions.\n");
-        }
+        //  Displaying results
+        OpenFirstLawDisp(state1, state2, q, w_s, sysstate);
         
-        //  Ask for file write (Remember while loop)
+        //  Writing to File
         OpenFirstLawWriteCheck(state1, state2, q, w_s, sysstate);
         
         //  Continue function

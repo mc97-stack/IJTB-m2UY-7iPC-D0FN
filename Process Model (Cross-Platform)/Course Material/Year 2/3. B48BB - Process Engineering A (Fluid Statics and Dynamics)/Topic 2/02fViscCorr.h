@@ -10,10 +10,10 @@
 #define ViscCorrVar_h
 
 /// This subroutine is used to collect the data required for standard fluid viscosity correlations.
-/// @param a Parameter 1 for correlation
-/// @param b Parameter 2 for correlation
-/// @param T System temperature (Units dependent on correlation  being used)
-/// @param rho Fluid density (kg/ m3)
+/// @param a Parameter 1 for correlation.
+/// @param b Parameter 2 for correlation.
+/// @param T System temperature (Units dependent on correlation  being used).
+/// @param rho Fluid density.
 void ViscCorrVar(double *a, double *b, double *T, double *rho);
 
 #endif /* ViscCorrVar_h */
@@ -22,9 +22,9 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho);
 #define LiqViscCalc_h
 
 /// This subroutine is used to calculate the liquid viscosity given the required arguments. After calculation, the subroutine displays the value of viscosity before returning the value to the calling function. 
-/// @param a Parameter 1 for correlation
-/// @param b Parameter 2 for correlation
-/// @param T System temperature (Units dependent on correlation  being used)
+/// @param a Parameter 1 for correlation.
+/// @param b Parameter 2 for correlation.
+/// @param T System temperature (Units dependent on correlation  being used).
 double LiqViscCalc(double a, double b, double T);
 
 #endif /* LiqViscCalc_h */
@@ -33,9 +33,9 @@ double LiqViscCalc(double a, double b, double T);
 #define VapViscCalc_h
 
 /// This subroutine is used to calculate the vapour viscosity given the required arguments. After calculation, the subroutine displays the value of viscosity before returning the value to the calling function. 
-/// @param a Parameter 1 for correlation
-/// @param b Parameter 2 for correlation
-/// @param T System temperature (Units dependent on correlation  being used)
+/// @param a Parameter 1 for correlation.
+/// @param b Parameter 2 for correlation.
+/// @param T System temperature (Units dependent on correlation  being used).
 double VapViscCalc(double a, double b, double T);
 
 #endif /* VapViscCalc_h */
@@ -44,32 +44,48 @@ double VapViscCalc(double a, double b, double T);
 #define KinVisc_h
 
 /// This subroutine is used to calculate the kinematic viscosity given the declared arguments. This subroutine then returns the value of kinematic viscosity to the calling function prior to displaying the calculated value on the console..
-/// @param mu Dynamic viscosity (Pa. s) 
-/// @param rho Fluid density (kg/ m3)
+/// @param mu Dynamic viscosity.
+/// @param rho Fluid density.
 double KinVisc(double mu, double rho);
 
 #endif /* KinVisc_h */
+
+#ifndef ViscDisp_h
+#define ViscDisp_h
+
+/// This subroutine is used to output the viscosity correlation results to the user console.
+/// @param method Variable used to tell the subroutine whether the liquid or vapour correlation was used in the program. This subroutine then modifies behaviour accordingly.
+/// @param a Correlation constant.
+/// @param b Correlation constant.
+/// @param T Temperature.
+/// @param rho Fluid density.
+/// @param mu Fluid dynamic viscosity.
+/// @param upsi Fluid kinematic viscosity.
+void ViscDisp(int method, double a, double b, double T, double rho, double mu, double upsi);
+
+#endif /* ViscDisp_h */
 
 #ifndef ViscWrite_h
 #define ViscWrite_h
 
 /// This subroutine is used to write the viscosity correlation results to a .txt file.
 /// @param method Variable used to tell the subroutine whether the liquid or vapour correlation was used in the program. This subroutine then modifies behaviour accordingly.
-/// @param a Correlation constant
-/// @param b Correlation constant
-/// @param T Temperature
-/// @param rho Fluid density
-/// @param mu Fluid dynamic viscosity
-/// @param upsi Fluid kinematic viscosity
+/// @param a Correlation constant.
+/// @param b Correlation constant.
+/// @param T Temperature.
+/// @param rho Fluid density.
+/// @param mu Fluid dynamic viscosity.
+/// @param upsi Fluid kinematic viscosity.
 void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi);
+
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
 /// @param method Variable used to tell the subroutine whether the liquid or vapour correlation was used in the program. This subroutine then modifies behaviour accordingly.
-/// @param a Correlation constant
-/// @param b Correlation constant
-/// @param T Temperature
-/// @param rho Fluid density
-/// @param mu Fluid dynamic viscosity
-/// @param upsi Fluid kinematic viscosity
+/// @param a Correlation constant.
+/// @param b Correlation constant.
+/// @param T Temperature.
+/// @param rho Fluid density.
+/// @param mu Fluid dynamic viscosity.
+/// @param upsi Fluid kinematic viscosity.
 void ViscWriteCheck(int method, double a, double b, double T, double rho, double mu, double upsi);
 
 #endif /* ViscWrite_h */

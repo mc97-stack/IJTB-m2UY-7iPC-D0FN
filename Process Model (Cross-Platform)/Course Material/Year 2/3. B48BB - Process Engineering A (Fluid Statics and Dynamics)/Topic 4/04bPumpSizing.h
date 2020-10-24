@@ -90,7 +90,7 @@ void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat
 #ifndef PumpWrite_h
 #define PumpWrite_h
 
-/// This subroutine is used to write the generated dataset and collected parameters to a .txt file.
+/// This subroutine is used to output the generated dataset and collected parameters to a .txt file.
 /// @param suction Suction-side parameters
 /// @param discharge Discharge-side parameters
 /// @param Q Fluid volumetric flowrate (m3/s)

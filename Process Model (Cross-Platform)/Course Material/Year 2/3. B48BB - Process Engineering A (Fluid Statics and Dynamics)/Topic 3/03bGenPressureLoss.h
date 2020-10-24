@@ -37,7 +37,7 @@ double phicalc(double rho, double u, double d, double mu, double vareps);
 #define LossCalculation_h
 
 /// This subroutine is used to estimate the frictional pressure loss given the stated arguments. This subroutine then returns the pressure loss to the calling function.
-/// @param phi Friction factor ([ ])
+/// @param phi Friction factor ([ ]).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
 /// @param rho Fluid density (kg/ m3).
@@ -46,28 +46,45 @@ double LossCalculation(double phi, double L, double d, double rho, double u);
 
 #endif /* LossCalculation_h */
 
+#ifndef PressLossDisp_h
+#define PressLossDisp_h
+
+/// Subroutine used to write the collected data and calculated values for pressure loss and friction factor to the user console.
+/// @param rho Fluid density (kg/m3).
+/// @param u Fluid velocity (m/s).
+/// @param d Pipe diameter (m).
+/// @param mu Fluid viscosity (Pa.s).
+/// @param L Pipe length (m).
+/// @param vareps Pipe absolute roughness (m).
+/// @param phi Friction factor.
+/// @param dP Frictional Pressure Loss (Pa).
+void PressLossDisp(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
+
+#endif /* PressLossDisp_h */
+
 #ifndef PressLossWrite_h
 #define PressLossWrite_h
 
 /// Subroutine used to write the collected data and calculated values for pressure loss and friction factor to a .txt file
-/// @param rho Fluid density (kg/m3)
-/// @param u Fluid velocity (m/s)
-/// @param d Pipe diameter (m)
-/// @param mu Fluid viscosity (Pa.s)
-/// @param L Pipe length (m)
-/// @param vareps Pipe absolute roughness (m)
-/// @param phi Friction factor
-/// @param dP Frictional Pressure Loss (Pa)
+/// @param rho Fluid density (kg/m3).
+/// @param u Fluid velocity (m/s).
+/// @param d Pipe diameter (m).
+/// @param mu Fluid viscosity (Pa.s).
+/// @param L Pipe length (m).
+/// @param vareps Pipe absolute roughness (m).
+/// @param phi Friction factor.
+/// @param dP Frictional Pressure Loss (Pa).
 void PressLossWrite(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
+
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
-/// @param rho Fluid density (kg/m3)
-/// @param u Fluid velocity (m/s)
-/// @param d Pipe diameter (m)
-/// @param mu Fluid viscosity (Pa.s)
-/// @param L Pipe length (m)
-/// @param vareps Pipe absolute roughness (m)
-/// @param phi Friction factor
-/// @param dP Frictional Pressure Loss (Pa)
+/// @param rho Fluid density (kg/m3).
+/// @param u Fluid velocity (m/s).
+/// @param d Pipe diameter (m).
+/// @param mu Fluid viscosity (Pa.s).
+/// @param L Pipe length (m).
+/// @param vareps Pipe absolute roughness (m).
+/// @param phi Friction factor.
+/// @param dP Frictional Pressure Loss (Pa).
 void PressLossWriteCheck(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
 
 #endif /* PressLossWrite_h */

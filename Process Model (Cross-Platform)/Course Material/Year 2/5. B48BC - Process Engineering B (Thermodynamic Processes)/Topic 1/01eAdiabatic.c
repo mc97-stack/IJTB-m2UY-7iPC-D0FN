@@ -240,6 +240,51 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     return profile;
 }
 
+void AdiaProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
+{
+    double total = 0.0;
+    
+    printf("_Adiabatic_Process_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Initial system pressure: ");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Final system pressure: ");
+    printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
+    
+    printf("Initial system volume: ");
+    printf("V1 =\t%.3f\tm3\n", V1);
+    printf("Final system volume: ");
+    printf("V2 =\t%.3f\tm3\n\n", V2);
+    
+    printf("Initial system temperature: ");
+    printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
+    printf("Final system volume: ");
+    printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
+    
+    printf("_System-Specific_parameters:_\n");
+    
+    printf("Molar flowrate of component i:\n");
+    printf("n =\t%.3f\tkmol/s\n", n*0.001);
+    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    
+    printf("Adiabatic Index:\n");
+    printf("gamma =\t%.3f\t[ ]\n\n", gamma);
+    
+    printf("\tOutput parameters:\n");
+    
+    // Profile (Two Temperature columns (K and deg C))
+    printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
+    for(int i = 0; i < 250; ++i){
+        printf("%f\t", profile.P[i]*0.001);
+        printf("%f\t", profile.V[i]);
+        printf("%f\t", profile.T[i]);
+        printf("%f\t\t", profile.T[i] - 273.15);
+        printf("%f\t", profile.W_V[i]*0.001);
+        total += profile.W_V[i]*0.001;
+        printf("%f\n", total);
+    }
+}
+
 void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
     //Function variables
@@ -296,29 +341,29 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Adiabatic_Process_Results_\n");
+    double total = 0.0;
     
-    //Write to file
+    fprintf(fp, "_Adiabatic_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
-    fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
+    fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
     fprintf(fp, "Final system pressure: ");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     fprintf(fp, "Initial system volume: ");
-    fprintf(fp, "V1 =\t%.3f\tm3\n\n", V1);
+    fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
     fprintf(fp, "Final system volume: ");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
     fprintf(fp, "Initial system temperature: ");
-    fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
     fprintf(fp, "Final system volume: ");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");
     
     fprintf(fp, "Molar flowrate of component i:\n");
-    fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n);
+    fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
     fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
     
     fprintf(fp, "Adiabatic Index:\n");
@@ -326,7 +371,6 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     fprintf(fp, "\tOutput parameters:\n");
     
-    double total = 0.0;
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
     for(int i = 0; i < 250; ++i){
@@ -347,7 +391,7 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
 
 void AdiaProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
-    int SaveC;
+    int SaveC = 0;
     SaveC = 1;
     while(SaveC == 1)
     {
@@ -401,7 +445,6 @@ void Adiabatic()
         double gamma = 0.0;
         
         T1ThermoProf profile;
-        double total = 0.0;
         
         // Initialising profile to arrays on zeros
         for(int j = 0; j < 250; ++j){
@@ -454,17 +497,10 @@ void Adiabatic()
             //  Running calculations
             profile = AdiaProfile(method, P1, P2, V1, V2, T1, T2, n, gamma);
             
-            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
-            for(int i = 0; i < 250; ++i){
-                printf("%f\t", profile.P[i]*0.001);
-                printf("%f\t", profile.V[i]);
-                printf("%f\t", profile.T[i] - 273.15);
-                printf("%f\t", profile.W_V[i]*0.001);
-                total += profile.W_V[i]*0.001;
-                printf("%f\n", total);
-            }
+            //  Displaying results
+            AdiaProcDisp(P1, P2, V1, V2, T1, T2, n, gamma, profile);
             
-            //Ask for file write (Remember while loop)
+            //  Writing to File
             AdiaProcWriteCheck(P1, P2, V1, V2, T1, T2, n, gamma, profile);
         }
         //Continue function
