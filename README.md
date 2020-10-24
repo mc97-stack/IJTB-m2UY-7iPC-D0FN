@@ -26,3 +26,6 @@ Features currently available:
 3.  This repository is located at the URL: "https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN.git".
 4.  After allowing Visual Studio 2019 to download repository, compile the project.
 5.  Locate the compiled project in file explorer with either command prompt or windows powershell.
+
+##  Known bugs
+Please refer to https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN/issues for updates on known bugs and to report a bug.
