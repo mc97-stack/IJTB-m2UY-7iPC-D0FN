@@ -31,7 +31,7 @@ Features currently available:
 - Imported windows version will not properly compile the project.
 
 Resolution:
-- The program codebase will be finished before manually creating the Visual Studio solution file
+- The program codebase will be finished before manually creating the Visual Studio solution file.
 
 ---
 - Program on MacOS Terminal will not create a file output. N.B. File output still works as intended within the xcode environment.
