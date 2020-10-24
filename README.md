@@ -33,7 +33,9 @@ Features currently available:
 Resolution:
 - The program codebase will be finished before manually creating the Visual Studio solution file
 
+---
 - Program on MacOS Terminal will not create a file output. N.B. File output still works as intended within the xcode environment.
 
 Resolution:
 - All subroutines where calculations are performed will have a display function which displays the same output as what would appear in the text file if the program is working as intended. The console output can then be copied into a text editing software (e.g. textedit) for import into Microsoft Excel using the data import from text file facilities.
+---
