@@ -47,7 +47,7 @@ void FluCompVar(double *P, double *V, double *n, double *T)
     
     *T = *T + 273.15; //Conversion to K
     
-    printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T);
+    //printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T);
     fflush(stdout);
 }
 
@@ -72,7 +72,7 @@ double FluCompCalc(double P, double V, double n, double T)
     
     c = (frac)*(c);
     
-    printf("c = %f m3/ Pa \n", c);
+    //printf("c = %f m3/ Pa \n", c);
     return c;
 }
 
@@ -199,10 +199,10 @@ void FluComp()
         double T = 0.0;
         
         FluCompVar(&P, &V, &n, &T);
-        printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
+        //printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
         c = FluCompCalc(P, V, n, T);
-        printf("Function has outputted = %f m3/ Pa\n\n", c);
+        //printf("Function has outputted = %f m3/ Pa\n\n", c);
         
         FluCompWriteCheck(P, V, n, T, c);
         

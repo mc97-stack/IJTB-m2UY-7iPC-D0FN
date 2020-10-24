@@ -56,8 +56,8 @@
 		E8FEA5FB24ECDAE9003F9D5E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -125,7 +125,6 @@
 		E8B851B0250FB53400B72538 /* 02dReyNo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02dReyNo.c; sourceTree = "<group>"; };
 		E8B851B2250FBC0900B72538 /* 02fViscCorr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02fViscCorr.h; sourceTree = "<group>"; };
 		E8B851B3250FBC0900B72538 /* 02fViscCorr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02fViscCorr.c; sourceTree = "<group>"; };
-		E8C0BCF62543572E0003B49D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 		E8C2C4402542396600822ED0 /* 03dTwoK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03dTwoK.h; sourceTree = "<group>"; };
 		E8C2C4412542396600822ED0 /* 03dTwoK.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03dTwoK.c; sourceTree = "<group>"; };
 		E8C4342B252F713C00662F7C /* 01aPolytropic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01aPolytropic.h; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 				E8FEA64224ECDBE1003F9D5E /* main.c */,
 				E8FEA64824ECDBE2003F9D5E /* main.h */,
 				E8FEA64524ECDBE1003F9D5E /* README.md */,
-				E8C0BCF62543572E0003B49D /* Makefile */,
 			);
 			path = "Process Model (Cross-Platform)";
 			sourceTree = "<group>";
