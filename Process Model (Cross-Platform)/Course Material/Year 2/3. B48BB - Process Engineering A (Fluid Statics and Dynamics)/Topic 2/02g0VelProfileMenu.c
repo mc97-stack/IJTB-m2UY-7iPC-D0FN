@@ -10,6 +10,7 @@
 #include <stdio.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02g0VelProfileMenu.h"
 #include "02g1LamVelPro.h"
@@ -20,8 +21,6 @@
 void VelProfile()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain;
     printf("Velocity Profile Selection\n");
     whilmain = 1;
@@ -56,34 +55,7 @@ void VelProfile()
             }
         }
         //Continue function
-        int whilcont;
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to exit the velocity profile program? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     printf("\n");
     fflush(stdout);

@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T1.h"
 #include "01bFluidVHyd.h"
 
@@ -157,8 +158,6 @@ void FluidVHydWriteCheck(double rho, double h, double P)
 void FluidVHyd()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     
     printf("Vertical Hydrostatic Pressure Gradient\n");
@@ -170,8 +169,6 @@ void FluidVHyd()
         double h = 0.0;
         double P = 0.0;
         
-        int whilcont = 0;
-        
         FluidVHydVar(&rho, &h);
         printf("rho = %f kg/m3\n", rho);
         printf("h = %f m\n", h);
@@ -180,40 +177,10 @@ void FluidVHyd()
         printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
         
         //Ask for file write (Remember while loop)
-        //printf("Do you want to plot the pressure variations up to this height? ");
-        //FluidVHydProfile(*rho, *h);
-        //printf("Profile is linear...");
-        
         FluidVHydWriteCheck(rho, h, P);
         
         //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

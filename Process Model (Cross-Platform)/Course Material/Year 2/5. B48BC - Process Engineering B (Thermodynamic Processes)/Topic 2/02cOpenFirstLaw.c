@@ -14,6 +14,7 @@
 #include <time.h>
 
 //Custom Header Files
+#include "System.h"
 #include "B48BC_T2.h"
 #include "02cOpenFirstLaw.h"
 
@@ -237,8 +238,6 @@ void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q,
 void OpenFirstLaw()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("First Law for Open Systems\nN.B. This is very similar to B48BB's Steady-flow energy equation but with some improvements\n\n");
     
@@ -250,8 +249,6 @@ void OpenFirstLaw()
         
         double sysstate = 0.0;
         
-        int whilcont = 0;
-        
         T2StateEnergy state1;
         T2StateEnergy state2;
         
@@ -259,16 +256,17 @@ void OpenFirstLaw()
         state1.enthalpy = 0.0;
         state1.kinenergy = 0.0;
         state1.potenergy = 0.0;
+        
         state2.enthalpy = 0.0;
         state2.kinenergy = 0.0;
         state2.potenergy = 0.0;
         
-        //Data collection
+        //  Data collection
         OpenFirstLawVarProc(&q, &w_s);
         state1 = OpenFirstLawVar(1);
         state2 = OpenFirstLawVar(2);
         
-        //Data manipulation
+        //  Data manipulation
         sysstate = OpenFirstLawCalc(q, w_s, state1, state2);
         
         if(fabs(sysstate) < 0.005){
@@ -277,37 +275,11 @@ void OpenFirstLaw()
             printf("This unit operation is operating at unsteady-state conditions.\n");
         }
         
-        //Ask for file write (Remember while loop)
+        //  Ask for file write (Remember while loop)
         OpenFirstLawWriteCheck(state1, state2, q, w_s, sysstate);
         
-        //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

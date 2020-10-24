@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BC_T1.h"
 #include "01aPolytropic.h"
 
@@ -390,8 +391,6 @@ void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, d
 
 void Polytropic()
 {
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Polytropic Volume Work\n");
     whilmain = 1;
@@ -414,7 +413,6 @@ void Polytropic()
         int method = 0;
         
         int whilmethod = 0;
-        int whilcont = 0;
         
         static T1ThermoProf profile;
         double total = 0.0;
@@ -463,18 +461,10 @@ void Polytropic()
         if(method == 1||method == 2){
             PolyVariable(method, &P1, &P2, &V1, &T1, &T2, &n, &R, &alpha);
             
-            // Data Manipulation
+            // Running calculations
             profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
             
-            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
-            for(int i = 0; i < 250; ++i){
-                printf("%f\t", profile.P[i]*0.001);
-                printf("%f\t", profile.V[i]);
-                printf("%f\t", profile.T[i] - 273.15);
-                printf("%f\t", profile.W_V[i]*0.001);
-                total += profile.W_V[i]*0.001;
-                printf("%f\n", total);
-            }
+                //  Gathering unknown variables
             V2 = profile.V[249];
             if(method == 1){
                 T1 = profile.T[0];
@@ -486,41 +476,22 @@ void Polytropic()
                 V1 = profile.V[0];
                 V2 = profile.V[249];
             }
+            //  Displaying data
+            printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
+            for(int i = 0; i < 250; ++i){
+                printf("%f\t", profile.P[i]*0.001);
+                printf("%f\t", profile.V[i]);
+                printf("%f\t", profile.T[i] - 273.15);
+                printf("%f\t", profile.W_V[i]*0.001);
+                total += profile.W_V[i]*0.001;
+                printf("%f\n", total);
+            }
             
             // File write
             PolyProcWriteCheck(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
-            
-            whilcont = 1;
-            while(whilcont == 1)
-            {
-                printf("Do you want to continue? ");
-                fgets(ContCond, sizeof(ContCond), stdin);
-                switch(ContCond[0])
-                {
-                    case '1':
-                    case 'T':
-                    case 'Y':
-                    case 't':
-                    case 'y':
-                        whilcont = 0;
-                    break;
-                    case '0':
-                    case 'F':
-                    case 'N':
-                    case 'f':
-                    case 'n':
-                        whilcont = 0;
-                        whilmain = 0;
-                    break;
-                    default:
-                        printf("Input not recognised\n");
-                    break;
-                }
-            }
-        }else{
-            whilmain = 0;
         }
-        
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

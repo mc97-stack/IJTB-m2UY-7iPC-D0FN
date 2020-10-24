@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T1.h"
 #include "01aFluComp.h"
 
@@ -138,7 +139,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     fprintf(fp, "V = %.3f m3\n", V);
     fprintf(fp, "n = %.3f mol\n", n);
     fprintf(fp, "T = %.3f deg C\n\n", (T - 273.15));
-    fprintf(fp, "c = $$-\\frac{1}{V}\\left(\\frac{\\delta{V}}{\\delta{P}}\\right))_T$$ = %.3f m3/Pa\n", c);
+    fprintf(fp, "c = $$-\\frac{1}{V}\\left(\\frac{\\delta{V}}{\\delta{P}}\\right))_T$$ = %.6f m3/Pa\n", c);
     
     //Close file
     fclose(fp);
@@ -182,14 +183,12 @@ void FluCompWriteCheck(double P, double V, double n, double T, double c)
 
 void FluComp()
 {
-    char ContIn[maxstrlen];
-    
-    int WhilFlu = 0;
+    int whilmain = 0;
     
     printf("Fluid Coefficient of Compressibility\n");
     
-    WhilFlu = 1;
-    while(WhilFlu == 1)
+    whilmain = 1;
+    while(whilmain == 1)
     {
         //Declaring variables used
         double c = 0.0;
@@ -198,45 +197,20 @@ void FluComp()
         double n = 0.0;
         double T = 0.0;
         
+        //  Collecting data
         FluCompVar(&P, &V, &n, &T);
         //printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
+        //  Running calculation
         c = FluCompCalc(P, V, n, T);
         //printf("Function has outputted = %f m3/ Pa\n\n", c);
         
+        //  Asking for file write
         FluCompWriteCheck(P, V, n, T, c);
         
-        int ContCond;
-        ContCond = 1;
-        while(ContCond == 1)
-        {
-            printf("Do you want to continue? ");
-            *ContIn = (char)malloc(sizeof *ContIn);
-            fgets(ContIn, sizeof(ContIn), stdin);
-            switch(ContIn[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    ContCond = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    ContCond = 0;
-                    WhilFlu = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-            void free(void *ContIn);
-        }
-        printf("\n");
+        //  Continue function
+        whilmain = Continue(whilmain);
+        
         fflush(stdout);
     }
     //fflush(stdout);

@@ -10,6 +10,7 @@
 #include <stdio.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03dOneK.h"
 #include "03dTwoK.h"
@@ -21,8 +22,6 @@
 void Fittings()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("Pressure Loss through Pipe Fittings\n");
     
@@ -65,35 +64,8 @@ void Fittings()
                     break;
             }
         }
-        
         //Continue function
-        int whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
         printf("\n");
     }
     fflush(stdout);

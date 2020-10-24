@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 //#include "02aMassCon.h"
 
@@ -220,8 +221,6 @@ void MassCon()
      then the weight of the total system (Ignoring the surroundings) should not change
      as there are no other inputs or outputs to/from the system*/
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain;
     printf("Mass Conservation Principle\n");
     whilmain = 1;
@@ -241,12 +240,11 @@ void MassCon()
         double q1 = 0.0;
         double q2 = 0.0;
         
-        int whilcont = 0;
-        
         //Data collection
         MassConVar(&rho1, &rho2, &d1, &d2, &u1);
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
-        //Data manipulation
+        
+        //  Running calculations
         u2 = VelCalc(u1, d1, d2);
         printf("Function returns: u2 = %f\n\n", u2);
         
@@ -275,33 +273,8 @@ void MassCon()
         //Ask for file write (Remember while loop)
         MassConWriteCheck(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
         
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

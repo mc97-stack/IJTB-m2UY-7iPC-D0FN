@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom Header Files
+#include "System.h"
 #include "B48BB_T1.h"
 #include "01dSurfTens.h"
 
@@ -308,8 +309,6 @@ void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
 void SurfTens()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     
     whilmain = 1;
@@ -332,8 +331,11 @@ void SurfTens()
         //Declaring output variables
         double sigma = 0.0;
         
+        //  Collecting data
         duNouyVar(&F, &L, &C_F, &cang);
         printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
+        
+        //  Running calculation
         sigma = duNouyCalc(F, L, C_F, cang);
         printf("Surface tension = %.3f N/m\n", sigma);
         
@@ -341,36 +343,7 @@ void SurfTens()
         duNouyWriteCheck(F, L, C_F, cang, sigma);
         
         //Continue function
-        int whilcont;
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    printf("\n");
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    printf("\n");
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

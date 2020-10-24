@@ -232,21 +232,18 @@ void LamVelProWriteCheck(double dP, double L, double d, double mu, int rows, Lam
 void LamVelPro()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
-    int whilcont = 0;
     printf("Laminar flow velocity profile\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
         //Variable declaration
-            //Calculation Variables
         double dP = 0.0;
         double L = 0.0;
         double d = 0.0;
         double mu = 0.0;
+        
         LamVelProf profile;
         
         // Initialising all elements in the struct
@@ -258,9 +255,10 @@ void LamVelPro()
         
         int rows = 0;
         
-        //Data collection
+        //  Data collection
         LamVelProVar(&dP, &L, &d, &mu);
-        //Data manipulation
+        
+        //  Running calculations
         profile = LamVelProfCalc(dP, L, d, mu, &rows);
         
         printf("r (mm)\tv_x (m/s)\tv/v_max\n");
@@ -270,35 +268,6 @@ void LamVelPro()
         
         //Ask for file write (Remember while loop)
         LamVelProWriteCheck(dP, L, d, mu, rows, profile);
-        
-        //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
     }
     fflush(stdout);
 }

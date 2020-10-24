@@ -6,14 +6,15 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//Standard Header Files
+//  Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//Custom Header Files
+//  Custom Header Files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03bGenPressureLoss.h"
 #include "02dReyNo.h"
@@ -263,14 +264,12 @@ void PressLossWriteCheck(double rho, double u, double d, double mu, double L, do
 void GenPressureLoss()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("General Pressure Loss\n");
     
     while(whilmain == 1)
     {
-        //Variable declaration
+        //  Variable declaration
         double rho = 0.0;
         double u = 0.0;
         double d = 0.0;
@@ -281,11 +280,10 @@ void GenPressureLoss()
         double phi = 0.0;
         double dP = 0.0;
         
-        int whilcont = 0;
-        
-        //Data collection
+        //  Data collection
         PressLossVariable(&rho, &u, &d, &mu, &L, &vareps);
-        //Data manipulation
+        
+        //  Running calculations
         phi = phicalc(rho, u, d, mu, vareps);
         printf("phi = %.5f [ ]\n", phi);
         dP = LossCalculation(phi, L, d, rho, u);
@@ -295,33 +293,7 @@ void GenPressureLoss()
         PressLossWriteCheck(rho, u, d, mu, L, vareps, phi, dP);
         
         //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

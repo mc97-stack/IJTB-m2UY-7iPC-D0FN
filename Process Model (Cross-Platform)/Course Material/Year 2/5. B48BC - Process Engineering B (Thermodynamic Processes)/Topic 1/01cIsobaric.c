@@ -14,6 +14,7 @@
 #include <time.h>
 
 //Custom Header Files
+#include "System.h"
 #include "01cIsobaric.h"
 #include "IdealGasLaw.h"
 
@@ -281,7 +282,6 @@ void IsobProcWriteCheck(double P, double V1, double V2, double T1, double T2, do
 void Isobaric()
 {
     //Main Function
-    char ContCond[maxstrlen];
     
     int whilmain = 0;
     printf("Isobaric Process\n");
@@ -314,7 +314,6 @@ void Isobaric()
         }
         
         int whilmethod = 0;
-        int whilcont = 0;
         
         //Data Collection
         whilmethod = 1;
@@ -349,10 +348,10 @@ void Isobaric()
             }
         }
         if(method == 1 || method == 2){
-            //Data collection
+            //  Data collection
             IsobVariable(method, &P, &V1, &V2, &T1, &T2, &n);
             
-            //Data manipulation
+            //  Running calculations
             profile = IsobProfile(method, P, V1, V2, T1, T2, n);
             
             printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
@@ -367,38 +366,9 @@ void Isobaric()
             
             //Ask for file write (Remember while loop)
             IsobProcWriteCheck(P, V1, V2, T1, T2, n, profile);
-            
-            //Continue function
-            whilcont = 1;
-            while(whilcont == 1)
-            {
-                printf("Do you want to continue? ");
-                fgets(ContCond, sizeof(ContCond), stdin);
-                switch(ContCond[0])
-                {
-                    case '1':
-                    case 'T':
-                    case 'Y':
-                    case 't':
-                    case 'y':
-                        whilcont = 0;
-                    break;
-                    case '0':
-                    case 'F':
-                    case 'N':
-                    case 'f':
-                    case 'n':
-                        whilcont = 0;
-                        whilmain = 0;
-                    break;
-                    default:
-                        printf("Input not recognised\n");
-                    break;
-                }
-            }
-        }else{
-            whilmain = 0;
         }
+        //Continue function
+        whilmain = Continue(whilmain);
         fflush(stdout);
     }
 }

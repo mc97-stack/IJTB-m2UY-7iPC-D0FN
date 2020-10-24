@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02bEnerCon.h"
 
@@ -297,8 +298,6 @@ void EnerCon()
     //First law states that energy is always conserved, This has mathematical implications when designing processes
     //Condition can be checked by using the definition from internal energy (C_v) or enthalpy (C_P)
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Energy Conservation Check\n");
     
@@ -321,9 +320,7 @@ void EnerCon()
         
         double check = 0.0;
         
-        int whilcont = 0;
-        
-        //Data collection
+        //  Data collection
         EnerConVar(&h1, &h2, &u1, &u2, &z1, &z2, &q, &w);
         printf("\nFunction assignments:\n");
         printf("h1 = %f \n", h1);
@@ -335,7 +332,7 @@ void EnerCon()
         printf("q = %f \n", q);
         printf("w = %f \n\n", w);
         
-        //Data manipulation
+        //  Running calculations
         state1 = EnerConFluCalc(h1, u1, z1);
         printf("Function returns: state1 = %f\n", state1);
         
@@ -345,7 +342,7 @@ void EnerCon()
         process = EnerConProCalc(q, w);
         printf("Function returns: Process = %f\n\n", process);
         
-        //Checking for a violation of the first law
+            //  Checking for a violation of the first law
         check = state2 - state1;
         check = process - check;
         if(fabs(check) <= 0.001)
@@ -357,34 +354,8 @@ void EnerCon()
         //Ask for file write (Remember while loop)
         EnerConWriteCheck(h1, h2, u1, u2, z1, z2, q, w, check);
         
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            printf("\n");
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

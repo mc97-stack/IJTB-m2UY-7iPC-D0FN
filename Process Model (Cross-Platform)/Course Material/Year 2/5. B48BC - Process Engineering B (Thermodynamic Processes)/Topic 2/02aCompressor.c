@@ -14,6 +14,7 @@
 #include <time.h>
 
 // Custom header files
+#include "System.h"
 #include "B48BC_T2.h"
 #include "02aCompressor.h"
 #include "02bPolyShaftWork.h"
@@ -318,8 +319,6 @@ void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, do
 
 void Compressor(void)
 {
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Reciprocating Compressor\n");
     whilmain = 1;
@@ -342,7 +341,6 @@ void Compressor(void)
         int method = 0;
         
         int whilmethod = 0;
-        int whilcont = 0;
         T2CompProfile profile;
         
         // Initialising profile to arrays on zeros
@@ -388,14 +386,16 @@ void Compressor(void)
             }
         }
         if(method == 1||method == 2){
+            //  Collecting data
             CompressorVar(method, &P1, &P2, &Vc, &V1, &T1, &T2, &n, &R, &alpha);
-            if(alpha == 1){
+            if(alpha == 1.0){
                 method = 1;
             }
-            // Data Manipulation
+            
+            //  Data Manipulation
             profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
             
-            // Viewing the generated profile
+            //  Viewing the generated profile
             printf("P (kPa)\tV (m3)\tT (deg C)\tW_V (kW)\tW_S (kW)\n");
             for(int i = 0; i < 512; ++i){
                 printf("%.3f\t", 0.001 * profile.P[i]);
@@ -405,40 +405,11 @@ void Compressor(void)
                 printf("%.3f\n", 0.001 * profile.W_S[i]);
             }
             
-            // File write
+            //  File write
             CompresWriteCheck(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
-            
-            whilcont = 1;
-            while(whilcont == 1)
-            {
-                printf("Do you want to continue? ");
-                fgets(ContCond, sizeof(ContCond), stdin);
-                switch(ContCond[0])
-                {
-                    case '1':
-                    case 'T':
-                    case 'Y':
-                    case 't':
-                    case 'y':
-                        whilcont = 0;
-                    break;
-                    case '0':
-                    case 'F':
-                    case 'N':
-                    case 'f':
-                    case 'n':
-                        whilcont = 0;
-                        whilmain = 0;
-                    break;
-                    default:
-                        printf("Input not recognised\n");
-                    break;
-                }
-            }
-        }else{
-            whilmain = 0;
         }
-        
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

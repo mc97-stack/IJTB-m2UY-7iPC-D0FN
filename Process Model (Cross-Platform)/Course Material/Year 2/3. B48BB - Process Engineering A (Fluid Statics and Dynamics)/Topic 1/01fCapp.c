@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T1.h"
 #include "01dSurfTens.h"
 #include "01fCapp.h"
@@ -191,8 +192,6 @@ void CappWriteCheck(double sigma, double cang, double d, double h, double Pc)
 void Capp()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     
     printf("Capillarity Calculator\n");
@@ -210,50 +209,21 @@ void Capp()
         double rho = 0.0; //Fluid density
         double d = 0.0; //Tube diameter
         
-        int whilcont = 0;
-        
-        //Collecting & Manipulating data
+        //  Collecting data
         CappVar(&sigma, &cang, &rho, &d);
         printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
+        //  Running calculations
         h = CappCalch(sigma, cang, rho, d);
         printf("Capillary rise = %.3f m\n", h);
         Pc  = CappCalcP(sigma, cang, d);
         printf("Capillary pressure = %.3f Pa\n", Pc);
         
         //Ask for file write (Remember while loop)
-        //...
         CappWriteCheck(sigma, cang, d, h, Pc);
         
         //Continue function
-        
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

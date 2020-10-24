@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T1.h"
 #include "01cMano.h"
 
@@ -513,7 +514,6 @@ void Mano()
 {
     //Main Function
     char CalcSelec[maxstrlen];
-    char ContCond[maxstrlen];
     int whilmain = 1;
     
     printf("Manometer calculations\n");
@@ -526,11 +526,10 @@ void Mano()
         double h1 = 0.0;
         double h2 = 0.0;
         
-        int whilcont = 0;
-        int whilside = 0;
+        int whilfunc = 0;
         
-        whilside = 1;
-        while(whilside == 1)
+        whilfunc = 1;
+        while(whilfunc == 1)
         {
             printf("Please make a selection: \n");
             printf("1. Pressure Measurement\n");
@@ -550,7 +549,7 @@ void Mano()
                     printf("Function returns: %f\n", P1);
                     
                     ManoMeasWriteCheck(P1, P2, rho1, h1, rho2, h2);
-                    whilside = 0;
+                    whilfunc = 0;
                 break;
                 case '2':
                 case 'E':
@@ -561,41 +560,15 @@ void Mano()
                     h2 = ManoEstiCal(P1, P2, rho1, h1, rho2);
                     printf("Function returns: %f\n", h2);
                     ManoEstiWriteCheck(P1, P2, rho1, h1, rho2, h2);
-                    whilside = 0;
+                    whilfunc = 0;
                 break;
                 default:
                     printf("Input not recognised. \n");
                 break;
             }
         }
-        
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
         printf("\n");
     }
     fflush(stdout);

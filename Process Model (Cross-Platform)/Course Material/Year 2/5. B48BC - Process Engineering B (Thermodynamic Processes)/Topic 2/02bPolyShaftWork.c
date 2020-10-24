@@ -14,6 +14,7 @@
 #include <time.h>
 
 // Custom header files
+#include "System.h"
 #include "B48BC_T2.h"
 #include "02bPolyShaftWork.h"
 
@@ -223,8 +224,6 @@ void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, do
 void PolyShaftWork()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("Polytropic Shaft Work\n");
     
@@ -241,11 +240,11 @@ void PolyShaftWork()
         double W_S = 0.0;
         
         int ideal = 0;
-        int whilcont = 0;
         
-        //Data collection
+        //  Data collection
         ideal = PolyShaftVar(&P1, &P2, &T1, &n, &R, &alpha);
-        //Data manipulation
+        
+        //  Running calculations
         if(ideal == 1){
             // Ideal
             printf("Isothermal process has been specified.\n");
@@ -262,33 +261,7 @@ void PolyShaftWork()
         PolyShaftWriteCheck(n, R, T1, P1, P2, alpha, W_S);
         
         //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

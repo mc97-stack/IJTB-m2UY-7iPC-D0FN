@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02cBernEqn.h"
 #include "02aMassCon.h"
@@ -247,8 +248,6 @@ void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, d
 void BernEqn()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Bernoulli's Equation\n");
     whilmain = 1;
@@ -270,7 +269,7 @@ void BernEqn()
         double LHS = 0.0;
         double RHS = 0.0;
         
-        //Data collection
+        //  Data collection
         BernEqnVar(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);
         printf("Function assignments:\n");
         printf("P1 = %f\n", P1);
@@ -280,7 +279,8 @@ void BernEqn()
         printf("Z1 = %f\n", Z1);
         printf("Z2 = %f\n", Z2);
         printf("hf = %f\n\n", hf);
-        //Data manipulation
+        
+        //  Running calculations
         LHS = BernEqnCalc(StatHeadCalc(P1, rho), DynHeadCalc(u1), Z1);
         printf("Function returns: LHS = %f\n", LHS);
         
@@ -300,34 +300,7 @@ void BernEqn()
         BernEqnWriteCheck(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //Continue function
-        int whilcont;
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

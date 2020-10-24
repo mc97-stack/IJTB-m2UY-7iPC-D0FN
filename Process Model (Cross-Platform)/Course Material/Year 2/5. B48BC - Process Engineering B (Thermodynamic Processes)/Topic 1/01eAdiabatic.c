@@ -14,6 +14,7 @@
 #include <time.h>
 
 //Custom Header Files
+#include "System.h"
 #include "01eAdiabatic.h"
 #include "IdealGasLaw.h"
 
@@ -381,7 +382,6 @@ void AdiaProcWriteCheck(double P1, double P2, double V1, double V2, double T1, d
 void Adiabatic()
 {
     //Main Function
-    char ContCond[maxstrlen];
     char methodinput[maxstrlen];
     
     int whilmain = 0;
@@ -415,7 +415,6 @@ void Adiabatic()
         //Data collection
         int whilmethod = 0;
         int method = 0;
-        int whilcont = 0;
         
         whilmethod = 1;
         while(whilmethod == 1)
@@ -449,9 +448,10 @@ void Adiabatic()
             }
         }
         if(method == 1||method == 2){
+            //  Collecting data
             AdiaVariable(method, &P1, &P2, &V1, &V2, &T1, &T2, &n, &gamma);
             
-            //Data manipulation
+            //  Running calculations
             profile = AdiaProfile(method, P1, P2, V1, V2, T1, T2, n, gamma);
             
             printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tW_V (kW)\n");
@@ -466,38 +466,9 @@ void Adiabatic()
             
             //Ask for file write (Remember while loop)
             AdiaProcWriteCheck(P1, P2, V1, V2, T1, T2, n, gamma, profile);
-            
-            //Continue function
-            whilcont = 1;
-            while(whilcont == 1)
-            {
-                printf("Do you want to continue? ");
-                fgets(ContCond, sizeof(ContCond), stdin);
-                switch(ContCond[0])
-                {
-                    case '1':
-                    case 'T':
-                    case 'Y':
-                    case 't':
-                    case 'y':
-                        whilcont = 0;
-                        break;
-                    case '0':
-                    case 'F':
-                    case 'N':
-                    case 'f':
-                    case 'n':
-                        whilcont = 0;
-                        whilmain = 0;
-                        break;
-                    default:
-                        printf("Input not recognised\n");
-                        break;
-                }
-            }
-        }else{
-            whilmain = 0;
         }
+        //Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

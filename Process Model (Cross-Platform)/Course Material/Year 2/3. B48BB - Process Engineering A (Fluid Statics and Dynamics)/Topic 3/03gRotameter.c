@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03gRotameter.h"
 
@@ -213,8 +214,6 @@ void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, doubl
 void Rotameter()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Rotameter Calculator\n");
     
@@ -236,10 +235,10 @@ void Rotameter()
         double are1 = 0.0;
         double are2 = 0.0;
         
-        //Data collection
+        //  Data collection
         RotameterVar(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);
         
-        //Data manipulation
+        //  Running calculations
         RotameterCalc(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
         
         printf("Buoyant force = %.3f Pa\n", dP);
@@ -247,37 +246,11 @@ void Rotameter()
         printf("Volumetric flow = %.3f m3/s\n", Q);
         printf("Mass flowrate = %.3f kg/s\n", m);
         
-        //Ask for file write (Remember while loop)
+        //  Ask for file write (Remember while loop)
         RotameterWriteCheck(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         
-        //Continue function
-        int whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

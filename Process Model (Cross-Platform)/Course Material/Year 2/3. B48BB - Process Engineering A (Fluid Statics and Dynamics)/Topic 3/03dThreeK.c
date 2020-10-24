@@ -6,12 +6,14 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+//  Standard header files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
+//  Custom header files
 #include "03dThreeK.h"
 #include "02dReyNo.h"
 
@@ -1239,6 +1241,7 @@ void ThreeK()
     //  Collecting data
     ThreeKTable = ThreeKVar(ThreeKTable, &DN, &rho, &u, &d, &mu);
     printf("\n");
+    
     //  Performing calculations
     ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
     

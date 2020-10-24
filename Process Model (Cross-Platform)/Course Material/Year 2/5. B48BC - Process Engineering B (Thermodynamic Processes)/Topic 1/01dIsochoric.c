@@ -14,6 +14,7 @@
 #include <time.h>
 
 //Custom Header Files
+#include "System.h"
 #include "01dIsochoric.h"
 #include "IdealGasLaw.h"
 
@@ -290,8 +291,6 @@ void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, do
 void Isochoric()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("Isochoric Process\n");
     
@@ -323,7 +322,6 @@ void Isochoric()
         }
         
         int whilmethod = 0;
-        int whilcont = 0;
         
         //Data Collection
         whilmethod = 1;
@@ -358,10 +356,10 @@ void Isochoric()
             }
         }
         if(method == 1 || method == 2){
-            //Data collection
+            //  Data collection
             IsocVariable(method, &P1, &P2, &V, &T1, &T2, &n, &cv);
             
-            //Data manipulation
+            //  Running calculations
             profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
             
             printf("P (kPa)\tV (m3)\tT(deg C)\tW_V (kW)\tQ (kW)\tQ (kW)\n");
@@ -374,40 +372,11 @@ void Isochoric()
                 total += profile.Q[i]*0.001;
                 printf("%f\n", total);
             }
-            //Ask for file write (Remember while loop)
+            //  Ask for file write (Remember while loop)
             IsocProcWriteCheck(P1, P2, V, T1, T2, n, cv, profile);
-            
-            //Continue function
-            whilcont = 1;
-            while(whilcont == 1)
-            {
-                printf("Do you want to continue? ");
-                fgets(ContCond, sizeof(ContCond), stdin);
-                switch(ContCond[0])
-                {
-                    case '1':
-                    case 'T':
-                    case 'Y':
-                    case 't':
-                    case 'y':
-                        whilcont = 0;
-                    break;
-                    case '0':
-                    case 'F':
-                    case 'N':
-                    case 'f':
-                    case 'n':
-                        whilcont = 0;
-                        whilmain = 0;
-                    break;
-                    default:
-                        printf("Input not recognised\n");
-                    break;
-                }
-            }
-        }else{
-            whilmain = 0;
         }
+        //Continue function
+        whilmain = Continue(whilmain);
         fflush(stdout);
     }
 }

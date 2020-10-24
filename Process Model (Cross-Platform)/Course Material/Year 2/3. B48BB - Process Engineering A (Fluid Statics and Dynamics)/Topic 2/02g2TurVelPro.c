@@ -207,8 +207,6 @@ void TurVelProWriteCheck(double umax, double d, int rows, TurVelProf profile)
 void TurVelPro()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Prandtl's One-Seventh Law Velocity Profile\n");
     
@@ -229,9 +227,10 @@ void TurVelPro()
         
         int rows = 0;
         
-        //Data collection
+        //  Data collection
         TurVelProVar(&vmax, &d);
-        //Data manipulation
+        
+        //  Running calculations
         profile = TurVelProfCalc(vmax, d, &rows);
         
         printf("r (mm)\tv_x (m/s)\tv/v_max\n");
@@ -241,35 +240,6 @@ void TurVelPro()
         
         //Ask for file write (Remember while loop)
         TurVelProWriteCheck(vmax, d, rows, profile);
-        
-        //Continue function
-        int whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
     }
     fflush(stdout);
 }

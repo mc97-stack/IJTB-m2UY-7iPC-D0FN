@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03cHydrDiam.h"
 
@@ -166,25 +167,21 @@ void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
 void HydrDiam()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Hydraulic diameter calculation\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Declaring variables
+        //  Declaring variables
         double A_F = 0.0; //Cross-sectional flow area
         double P_W = 0.0; //Wetted perimeter
-        
         double d_H = 0.0; //Hydraulic diameter
         
-        int whilcont = 0;
-        //Data collection
+        //  Data collection
         HydrDiamVar(&A_F, &P_W);
         
-        //Data manipulation
+        //  Running calculations
         d_H = HydrDiamCalc(A_F, P_W);
         
         printf("d_H = %.3f mm\n\n", d_H*1000);
@@ -193,33 +190,7 @@ void HydrDiam()
         HydrDiamWriteCheck(A_F, P_W, d_H);
         
         //Continue function
-        whilcont = 0;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

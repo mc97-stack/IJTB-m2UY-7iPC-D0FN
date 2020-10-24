@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03fOrifice.h"
 
@@ -237,8 +238,6 @@ void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, d
 void Orifice()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 1;
     printf("Orifice Plate Meter Calculator\n");
     
@@ -259,11 +258,10 @@ void Orifice()
         double P2 = 0.0;
         double h_f = 0.0;
         
-        int whilcont = 0;
-        
-        //Data collection
+        //  Data collection
         OrificeVar(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
-        //Data manipulation
+        
+        //  Running calculations
         OrificeCalc(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
         printf("Average fluid velocity = %.3f m/s\n", u);
         printf("Volumetric flow rate = %.3f m3/s\n", Q);
@@ -273,33 +271,7 @@ void Orifice()
         OrificeWriteCheck(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
         
         //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

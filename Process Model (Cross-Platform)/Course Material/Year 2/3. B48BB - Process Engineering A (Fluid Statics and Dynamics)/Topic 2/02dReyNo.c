@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02dReyNo.h"
 
@@ -170,8 +171,6 @@ void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum)
 void ReyNo()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     
     printf("Reynold's Number Calculator\n");
@@ -179,15 +178,13 @@ void ReyNo()
     whilmain = 1;
     while(whilmain == 1)
     {
-            //Function Output
+        //Function Output
         double ReyNum = 0.0;
-            //Calculation Variables
+        //Calculation Variables
         double rho = 0.0;
         double u = 0.0;
         double d = 0.0;
         double mu = 0.0;
-        
-        int whilcont = 0;
         
         //Data collection
         ReyNoVar(&rho, &u, &d, &mu);
@@ -197,7 +194,7 @@ void ReyNo()
         printf("d = %f \n", d);
         printf("mu = %f \n\n", mu);
         
-        //Data manipulation
+        //  Running calculations
         ReyNum = ReyNoCalc(rho, u, d, mu);
         
         printf("Reynolds Number = %.3f []\n", ReyNum);
@@ -216,33 +213,8 @@ void ReyNo()
         //Ask for file write (Remember while loop)
         ReyNoWriteCheck(rho, u, d, mu, ReyNum);
         
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        //  Continue function
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

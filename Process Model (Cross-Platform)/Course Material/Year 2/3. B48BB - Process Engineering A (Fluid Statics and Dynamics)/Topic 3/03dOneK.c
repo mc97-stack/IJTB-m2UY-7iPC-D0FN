@@ -6,14 +6,14 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//Standard Header Files
+//  Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//Custom Header Files
+//  Custom Header Files
 #include "03dOneK.h"
 
 #define maxstrlen 128

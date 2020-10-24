@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02hHagPois.h"
 
@@ -176,8 +177,6 @@ void HagPoisWriteCheck(double u, double mu, double L, double d, double dP)
 void HagPois()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Hagen-Poiseuille Equation\n");
     
@@ -195,7 +194,7 @@ void HagPois()
         //Data collection
         HagPoisVar(&u, &mu, &L, &d);
         
-        //Data manipulation
+        //  Running calculations
         dP = HagPoisCalc(u, mu, L, d);
         printf("Assuming fluid flow is isothermal\n");
         printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
@@ -204,33 +203,7 @@ void HagPois()
         HagPoisWriteCheck(u, mu, L, d, dP);
         
         //Continue function
-        int whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }

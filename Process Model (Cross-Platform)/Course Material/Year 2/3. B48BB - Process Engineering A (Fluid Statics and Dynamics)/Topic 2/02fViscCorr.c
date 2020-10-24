@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T2.h"
 #include "02fViscCorr.h"
 
@@ -247,8 +248,6 @@ void ViscWriteCheck(int method, double a, double b, double T, double rho, double
 void ViscCorr()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Viscosity Correlation Calculator\n");
     
@@ -258,10 +257,9 @@ void ViscCorr()
         //Variable declaration
         char input[maxstrlen];
         
-            //Function Output
         double mu = 0.0; //Fluid viscosity
         double upsi = 0.0; //Fluid kinematic viscosity
-            //Calculation Variables
+        
         double a = 0.0;
         double b = 0.0;
         double T = 0.0;
@@ -271,7 +269,7 @@ void ViscCorr()
         int whilmethod = 0;
         whilmethod = 1;
         
-        //Data collection
+        //  Data collection
         while(whilmethod == 1)
         {
             printf("Please select from the following types of calculation:\n");
@@ -308,7 +306,7 @@ void ViscCorr()
         printf("T = %f\n", T);
         printf("rho = %f\n", rho);
         printf("\n");
-        //Data manipulation
+        //  Running calculations
         mu = 0; //Initialising viscosity variable
         switch(method)
         {
@@ -329,34 +327,7 @@ void ViscCorr()
         ViscWriteCheck(method, a, b, T, rho, mu, upsi);
         
         //Continue function
-        int whilcont;
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     printf("\n");
     fflush(stdout);

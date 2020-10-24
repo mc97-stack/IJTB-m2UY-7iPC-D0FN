@@ -6,12 +6,15 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+//  Standard header files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
+//  Cusom header files
+#include "System.h"
 #include "B48BB_T4.h"
 #include "04bPumpSizing.h"
 
@@ -325,8 +328,6 @@ void PumpWriteCheck(head suction, head discharge, double Q, double rho, double P
 
 void PumpSizing()
 {
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     
     printf("Pump Sizing Calculator.\n");
@@ -349,8 +350,6 @@ void PumpSizing()
         double ppressure = 0.0;
         double ppower = 0.0;
         
-        int whilcont = 0;
-        
         head suction;
         head discharge;
         
@@ -370,7 +369,7 @@ void PumpSizing()
         suction = PumpHeadVar(1, suction);
         discharge = PumpHeadVar(2, discharge);
         
-        //  Calculations
+        //  Running calculations
         shead = HeadCalc(suction, rho);
         dhead = HeadCalc(discharge, rho);
         
@@ -386,32 +385,6 @@ void PumpSizing()
             printf("Insufficient Net Positive Suction Head. Ending calculations.\n");
         }
         //  Continue?
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
 }

@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "B48BB_T3.h"
 #include "03ePitot.h"
 #include "01cMano.h"
@@ -202,8 +203,6 @@ void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, 
 void Pitot()
 {
     //Main Function
-    char ContCond[maxstrlen];
-    
     int whilmain = 0;
     printf("Pitot static tube calculation\n");
     
@@ -222,12 +221,10 @@ void Pitot()
         double h2 = 0.0;
         double d = 0.0;
         
-        int whilcont = 0;
-        
-        //Data collection
+        //  Data collection
         PitotVar(&P2, &rho1, &rho2, &h1, &h2, &d);
         
-        //Data manipulation
+        //  Running calculations
         printf("Assuming skin friction losses can be ignored.\n");
         printf("tfr assuming that the impact connection is located on the pipe centreline\n\n");
         PitotCalc(P2, rho1, rho2, h1, h2, d, &P1, &v, &Q);
@@ -239,33 +236,7 @@ void Pitot()
         PitotWriteCheck(P1, P2, rho1, rho2, h1, h2, d, v, Q);
         
         //Continue function
-        whilcont = 1;
-        while(whilcont == 1)
-        {
-            printf("Do you want to continue? ");
-            fgets(ContCond, sizeof(ContCond), stdin);
-            switch(ContCond[0])
-            {
-                case '1':
-                case 'T':
-                case 'Y':
-                case 't':
-                case 'y':
-                    whilcont = 0;
-                break;
-                case '0':
-                case 'F':
-                case 'N':
-                case 'f':
-                case 'n':
-                    whilcont = 0;
-                    whilmain = 0;
-                break;
-                default:
-                    printf("Input not recognised\n");
-                break;
-            }
-        }
+        whilmain = Continue(whilmain);
     }
     fflush(stdout);
 }
