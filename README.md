@@ -26,3 +26,12 @@ Features currently available:
 2.  This repository is located at the URL: "https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN.git".
 3.  After allowing Xcode 11.6 to download and build repository, compile the project.
 4.  Locate project product in finder to run program within terminal.
+
+##  Known Bugs
+- Imported windows version will not properly compile the project.
+Resolution:
+- The program codebase will be finished before manually creating the Visual Studio solution file
+
+- Program on MacOS Terminal will not create a file output. N.B. File output still works as intended within the xcode environment.
+Resolution:
+- All subroutines where calculations are performed will have a display function which displays the same output as what would appear in the text file if the program is working as intended. The console output can then be copied into a text editing software (e.g. textedit) for import into Microsoft Excel using the data import from text file facilities.
