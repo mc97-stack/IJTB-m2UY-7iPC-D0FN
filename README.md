@@ -28,7 +28,10 @@ Features currently available:
 4.  Locate project product in finder to run program within terminal.
 
 ##  Known Bugs
-- Imported windows version will not properly compile the project.
+- Imported windows version will not properly compile the project. When using the file -> import -> xcode project, Visual Studio 2019 will crash and fail to recognise the main function in addition to linker errors not present within the xcode project.
+
+Cause:
+- Incompatible file structures.
 
 Resolution:
 - The program codebase will be finished before manually creating the Visual Studio solution file.
@@ -36,6 +39,9 @@ Resolution:
 ---
 - Program on MacOS Terminal will not create a file output. N.B. File output still works as intended within the xcode environment.
 
+Cause:
+- Sandboxing of the product disables the program from accessing the local file system.
+
 Resolution:
-- All subroutines where calculations are performed will have a display function which displays the same output as what would appear in the text file if the program is working as intended. The console output can then be copied into a text editing software (e.g. textedit) for import into Microsoft Excel using the data import from text file facilities.
+- All subroutines where calculations are performed will have a display function which displays the same output as what would appear in the text file if the program would working as intended (if sandboxing were not present). The console output can then be copied into a text editing software (e.g. textedit) for import into Microsoft Excel using the data import from text file facilities.
 ---
