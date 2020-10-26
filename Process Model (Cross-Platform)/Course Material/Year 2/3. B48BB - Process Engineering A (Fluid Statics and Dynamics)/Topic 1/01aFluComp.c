@@ -22,10 +22,10 @@
 #define R 8.31455
 #define BST (+1)
 
-void FluCompVar(double *P, double *V, double *n, double *T)
+void FluCompVariable(double *P, double *V, double *n, double *T)
 {
     //Input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     //Pressure
     printf("Absolute system pressure (kPa) = ");
@@ -48,17 +48,17 @@ void FluCompVar(double *P, double *V, double *n, double *T)
     
     *T = *T + 273.15; //Conversion to K
     
-    //printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T);
+    //printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T); // This line is commented out unless checking the variable allocations in this subroutine.
     fflush(stdout);
 }
 
-double FluCompCalc(double P, double V, double n, double T)
+double FluCompCalculation(double P, double V, double n, double T)
 {
-    double top = 0.0;
-    double bot = 0.0;
-    double frac = 0.0;
+    double top = 0.0;   // Numerator of the bracketed term.
+    double bot = 0.0;   // Denominator of the bracketed term.
+    double frac = 0.0;  // Initial fraction of start of formula.
     
-    double c = 0.0; // Fluid compressibility factor
+    double c = 0.0;     //  Fluid compressibility factor
     
     frac = (1.0)/V;
     frac = (-1.0)*(frac);
@@ -77,7 +77,7 @@ double FluCompCalc(double P, double V, double n, double T)
     return c;
 }
 
-void FluCompDisp(double P, double V, double n, double T, double c)
+void FluCompDisplay(double P, double V, double n, double T, double c)
 {
     printf("_Fluid_Coefficient_of_Compressibility_Results_\n");
     printf("P = %.3f kPa\n", P*0.001);
@@ -90,12 +90,13 @@ void FluCompDisp(double P, double V, double n, double T, double c)
 void FluCompWrite(double P, double V, double n, double T, double c)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;   // Pointer to the file location.
     //Set file name as timestamp + Fluid Coefficient of Compressibility
+    
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -107,14 +108,14 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename, " Fluid Coefficient of Compressibility Results");
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
-    /*
+    /* //  This code does not work
     //driveloc is not suitable when determining the file path for mac
     *filepath = (char)malloc(sizeof *filepath);
     
@@ -157,11 +158,12 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     printf("Write Complete\n");
 }
 
-void FluCompWriteCheck(double P, double V, double n, double T, double c)
+void FluCompWriteSwitch(double P, double V, double n, double T, double c)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;  // Variable used to control the following while loop.
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -175,14 +177,14 @@ void FluCompWriteCheck(double P, double V, double n, double T, double c)
             case 't':
             case 'y':
                 FluCompWrite(P, V, n, T, c);
-                SaveC = 0;
+                control = 0;
             break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
             break;
             default:
                 printf("Input not recognised\n");
@@ -191,8 +193,9 @@ void FluCompWriteCheck(double P, double V, double n, double T, double c)
     }
 }
 
-void FluComp()
+void CoefficientofCompressibility()
 {
+    //  "CoefficientofCompressibility" has been abbreviated to "FluComp" followed by the function intention.
     int whilmain = 0;
     
     printf("Fluid Coefficient of Compressibility\n");
@@ -208,18 +211,18 @@ void FluComp()
         double T = 0.0;
         
         //  Collecting data
-        FluCompVar(&P, &V, &n, &T);
+        FluCompVariable(&P, &V, &n, &T);
         //printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
         //  Running calculation
-        c = FluCompCalc(P, V, n, T);
+        c = FluCompCalculation(P, V, n, T);
         //printf("Function has outputted = %f m3/ Pa\n\n", c);
         
         //  Displaying data
-        FluCompDisp(P, V, n, T, c);
+        FluCompDisplay(P, V, n, T, c);
         
         //  Writing to file
-        FluCompWriteCheck(P, V, n, T, c);
+        FluCompWriteSwitch(P, V, n, T, c);
         
         //  Continue function
         whilmain = Continue(whilmain);

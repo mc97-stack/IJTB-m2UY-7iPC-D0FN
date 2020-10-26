@@ -11,7 +11,7 @@
 
 /// Subroutine used to provide dialogue on fluid characteristics based on the contact angle of the fluid with a solid, horizontrol surface.
 /// @param cang Contact angle (degrees).
-void wettfacts(double cang);
+void wettabilityfacts(double cang);
 
 #endif /* wettfacts_h */
 
@@ -23,7 +23,7 @@ void wettfacts(double cang);
 /// @param L Circumference of ring. This value is inferred from the ring radius (m).
 /// @param C_F Correction factor ([ ]).
 /// @param cang Contact angle (degrees).
-void duNouyVar(double *F, double *L, double *C_F, double *cang);
+void duNouyVariable(double *F, double *L, double *C_F, double *cang);
 
 #endif /* duNouyVar_h */
 
@@ -35,7 +35,7 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang);
 /// @param L Ring circumference (m).
 /// @param C_F Correction factor (C_F) ([ ]).
 /// @param cang Fluid contact angle with the ring (rad). 
-double duNouyCalc(double F, double L, double C_F, double cang);
+double duNouyCalculation(double F, double L, double C_F, double cang);
 
 #endif /* duNouyCalc_h */
 
@@ -48,7 +48,7 @@ double duNouyCalc(double F, double L, double C_F, double cang);
 /// @param C_F Correction factor (C_F) ([ ]).
 /// @param cang Fluid contact angle with the ring (rad). 
 /// @param sigma Surface tension (N/m).
-void duNouyDisp(double F, double L, double C_F, double cang, double sigma);
+void duNouyDisplay(double F, double L, double C_F, double cang, double sigma);
 
 #endif /* duNouyDisp_h */
 
@@ -69,6 +69,6 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma);
 /// @param C_F Correction factor (C_F) ([ ]).
 /// @param cang Fluid contact angle with the ring (rad). 
 /// @param sigma Surface tension (N/m).
-void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma);
+void duNouyWriteSwitch(double F, double L, double C_F, double cang, double sigma);
 
 #endif /* duNouyWrite_h */

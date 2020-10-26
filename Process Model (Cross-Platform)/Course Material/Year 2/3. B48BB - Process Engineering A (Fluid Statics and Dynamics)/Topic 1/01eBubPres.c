@@ -20,10 +20,10 @@
 
 #define maxstrlen 128
 
-void BubPresVar(double *sigma, double *r)
+void BubPresVariable(double *sigma, double *r)
 {
     //Declaring input variable
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Surface tension (N/m) = ");
     *sigma = atof(fgets(input, sizeof(input), stdin));
@@ -32,14 +32,14 @@ void BubPresVar(double *sigma, double *r)
     *r = atof(fgets(input, sizeof(input), stdin));
     
     *r = (*r)*0.001; //Conversion (mm to m)
-    printf("Function assignments:\nsigma = %f N/m\nr = %f m\n", *sigma, *r);
+    //printf("Function assignments:\nsigma = %f N/m\nr = %f m\n", *sigma, *r);
     fflush(stdout);
 }
 
-double BubPresCalc(double sigma, double r) 
+double BubPresCalculation(double sigma, double r) 
 {
     double top = 0.0;
-    double P = 0.0;
+    double P = 0.0; // Bubble pressure.
     
     top = 0.0; //Initialising variable
     
@@ -49,7 +49,7 @@ double BubPresCalc(double sigma, double r)
     return P;
 }
 
-void BubPresDisp(double sigma, double r, double P)
+void BubPresDisplay(double sigma, double r, double P)
 {
     printf("_Bubble_Pressure_Calculations_\n");
     printf("\tInput Parameters:\n");
@@ -65,11 +65,11 @@ void BubPresDisp(double sigma, double r, double P)
 void BubPresWrite(double sigma, double r, double P)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Bubble Pressure Results
         //Get current time
     time_t rawtime;
@@ -134,7 +134,7 @@ void BubPresWrite(double sigma, double r, double P)
      
     printf("Write Complete\n");
 }
-void BubPresWriteCheck(double sigma, double r, double P)
+void BubPresWriteSwitch(double sigma, double r, double P)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -168,8 +168,9 @@ void BubPresWriteCheck(double sigma, double r, double P)
     }
 }
 
-void BubPres()
+void BubblePressure()
 {
+    // "BubblePressure" is abbreviated to "BubPres" for this file.
     //Main Function
     int whilmain = 0;
     
@@ -184,18 +185,18 @@ void BubPres()
         double P = 0.0;
         
         //  Collecting data
-        BubPresVar(&sigma, &r);
+        BubPresVariable(&sigma, &r);
         printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         
         //  Running calculations
-        P = BubPresCalc(sigma, r);
+        P = BubPresCalculation(sigma, r);
         printf("Bubble pressure = %.3f Pa\n", P);
         
         //  Displaying results
-        BubPresDisp(sigma, r, P);
+        BubPresDisplay(sigma, r, P);
         
         //  Writing to file
-        BubPresWriteCheck(sigma, r, P);
+        BubPresWriteSwitch(sigma, r, P);
         
         //  Continue function
         whilmain = Continue(whilmain);

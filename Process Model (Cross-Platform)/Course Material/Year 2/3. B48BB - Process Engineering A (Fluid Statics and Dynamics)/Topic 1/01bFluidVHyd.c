@@ -19,39 +19,37 @@
 #include "01bFluidVHyd.h"
 
 //  Fixed variable definitions
-#define maxstrlen 128 //Max string length
-#define g 9.80665 // Acceleration due to gravity
+#define maxstrlen 128   // Max string length
+#define g 9.80665       // Acceleration due to gravity
 
-void FluidVHydVar(double *rho, double *h)
+void FluidVHydVariable(double *rho, double *h)
 {
     //Declaring input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Fluid Density (kg/m3) = ");
-    
     *rho = atof(fgets(input, sizeof(input), stdin));
     
     printf("Fluid height (m) = ");
-    
     *h = atof(fgets(input, sizeof(input), stdin));
     
     //Displaying function results
-    printf("rho = %f kg/m3\n", *rho);
-    printf("h = %f m\n", *h);
+    //printf("rho = %f kg/m3\n", *rho);
+    //printf("h = %f m\n", *h);
     fflush(stdout);
 }
 
-double FluidVHydCalc(double rho, double h) 
+double FluidVHydCalculation(double rho, double h) 
 {
-    double P = 0.0;
+    double P = 0.0; // Fluid hydrostatic pressure.
     
     P = rho * g;
-    P = P * h;
+    P = (P) * h;
     
     return P;
 }
 
-void FluidVHydDisp(double rho, double h, double P)
+void FluidVHydDisplay(double rho, double h, double P)
 {
     printf("_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
     printf("g = %.5f\tm/s2\n\n", g);
@@ -63,11 +61,11 @@ void FluidVHydDisp(double rho, double h, double P)
 void FluidVHydWrite(double rho, double h, double P)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Vertical Hydrostatic Pressure Theorem Results
         //Get current time
     time_t rawtime;
@@ -80,10 +78,10 @@ void FluidVHydWrite(double rho, double h, double P)
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename, " Vertical Hydrostatic Pressure Theorem Results");
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
@@ -129,11 +127,12 @@ void FluidVHydWrite(double rho, double h, double P)
     printf("Write Complete\n");
 }
 
-void FluidVHydWriteCheck(double rho, double h, double P)
+void FluidVHydWriteSwitch(double rho, double h, double P)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;    // Variable used to control the following while loop.
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -147,14 +146,14 @@ void FluidVHydWriteCheck(double rho, double h, double P)
             case 't':
             case 'y':
                 FluidVHydWrite(rho, h, P);
-                SaveC = 0;
+                control = 0;
             break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
             break;
             default:
                 printf("Input not recognised\n");
@@ -163,8 +162,9 @@ void FluidVHydWriteCheck(double rho, double h, double P)
     }
 }
 
-void FluidVHyd()
+void FluidVerticalHydrostaticPressure()
 {
+    // "FluidVerticalHydrostaticPressure" has been abbreviated to "FluidVHyd" followed by the subroutine function.
     //Main Function
     int whilmain = 0;
     
@@ -174,24 +174,24 @@ void FluidVHyd()
     while(whilmain == 1)
     {
         //  Declaring variables
-        double rho = 0.0;
-        double h = 0.0;
-        double P = 0.0;
+        double rho = 0.0;   // Fluid density.
+        double h = 0.0;     // Vertical height of fluid.
+        double P = 0.0;     // Hydrostatic pressure.
         
         //  Collecting data
-        FluidVHydVar(&rho, &h);
+        FluidVHydVariable(&rho, &h);
         //printf("rho = %f kg/m3\n", rho);
         //printf("h = %f m\n", h);
         
         //  Running calculation
-        P = FluidVHydCalc(rho, h);
+        P = FluidVHydCalculation(rho, h);
         //printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
         
         //  Displaying results
-        FluidVHydDisp(rho, h, P);
+        FluidVHydDisplay(rho, h, P);
         
         //  Writing to file
-        FluidVHydWriteCheck(rho, h, P);
+        FluidVHydWriteSwitch(rho, h, P);
         
         //  Continue function
         whilmain = Continue(whilmain);

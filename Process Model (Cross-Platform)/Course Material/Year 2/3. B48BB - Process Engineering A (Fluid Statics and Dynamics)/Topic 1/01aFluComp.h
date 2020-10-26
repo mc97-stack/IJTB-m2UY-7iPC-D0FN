@@ -14,7 +14,7 @@
 /// @param V System volume (m3).
 /// @param n Moles of component (mol).
 /// @param T Absolute system temperatre (K).
-void FluCompVar(double *P, double *V, double *n, double *T);
+void FluCompVariable(double *P, double *V, double *n, double *T);
 
 #endif /* FluCompVar_h */
 
@@ -26,7 +26,7 @@ void FluCompVar(double *P, double *V, double *n, double *T);
 /// @param V System volume (m3).
 /// @param n Moles of component (mol).
 /// @param T Absolute system temperatre (K).
-double FluCompCalc(double P, double V, double n, double T);
+double FluCompCalculation(double P, double V, double n, double T);
 
 #endif /* FluCompCalc_h */
 
@@ -39,7 +39,7 @@ double FluCompCalc(double P, double V, double n, double T);
 /// @param n Moles of component (mol).
 /// @param T Absolute system temperatre (K).
 /// @param c Fluid coefficient of compressibility.
-void FluCompDisp(double P, double V, double n, double T, double c);
+void FluCompDisplay(double P, double V, double n, double T, double c);
 
 #endif /* FluCompDisp_h */
 
@@ -59,6 +59,6 @@ void FluCompWrite(double P, double V, double n, double T, double c);
 /// @param n Moles of component (mol).
 /// @param T Absolute system temperatre (K).
 /// @param c Fluid coefficient of compressibility.
-void FluCompWriteCheck(double P, double V, double n, double T, double c);
+void FluCompWriteSwitch(double P, double V, double n, double T, double c);
 
 #endif /* FluCompWrite_h */

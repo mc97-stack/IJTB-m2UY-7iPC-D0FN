@@ -14,7 +14,7 @@
 /// @param cang Contact angle (deg).
 /// @param rho Fluid density (kg/m3).
 /// @param d Cappillary tube diameter (mm).
-void CappVar(double *sigma, double *cang, double *rho, double *d);
+void CappVariable(double *sigma, double *cang, double *rho, double *d);
 
 #endif /* _1fCapp_h */
 
@@ -26,7 +26,7 @@ void CappVar(double *sigma, double *cang, double *rho, double *d);
 /// @param cang Contact angle (rad).
 /// @param rho Fluid density (kg/m3).
 /// @param d Capillary tube diameter (m).
-double CappCalch(double sigma, double cang, double rho, double d);
+double CappCalculateHeight(double sigma, double cang, double rho, double d);
 
 #endif /* CappCalch_h */
 
@@ -37,7 +37,7 @@ double CappCalch(double sigma, double cang, double rho, double d);
 /// @param sigma Surface tension (N/m).
 /// @param cang Contact angle (rad).
 /// @param d Capillary tube diameter (m).
-double CappCalcP(double sigma, double cang, double d);
+double CappCalculatePressure(double sigma, double cang, double d);
 
 #endif /* CappCalcP_h */
 
@@ -50,7 +50,7 @@ double CappCalcP(double sigma, double cang, double d);
 /// @param d Capillary tube diameter.
 /// @param h Capillary rise (m).
 /// @param Pc Capillary pressure (Pa). 
-void CappDisp(double sigma, double cang, double d, double h, double Pc);
+void CappDisplay(double sigma, double cang, double d, double h, double Pc);
 
 #endif /* CappDisp_h */
 
@@ -70,6 +70,6 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc);
 /// @param d Capillary tube diameter (m)
 /// @param h Capillary rise (m).
 /// @param Pc Capillary pressure (Pa). 
-void CappWriteCheck(double sigma, double cang, double d, double h, double Pc);
+void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc);
 
 #endif /* CappWrite_h */

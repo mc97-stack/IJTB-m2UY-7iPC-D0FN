@@ -21,7 +21,7 @@
 #define maxstrlen 128
 #define PI 3.141592653
 
-void wettfacts(double cang)
+void wettabilityfacts(double cang)
 {
     //cang in degrees
     char selec[maxstrlen];
@@ -82,15 +82,15 @@ void wettfacts(double cang)
     }
 }
 
-void duNouyVar(double *F, double *L, double *C_F, double *cang)
+void duNouyVariable(double *F, double *L, double *C_F, double *cang)
 {
     //Input variable declaration
-    char input[maxstrlen];
-    char corcheck[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
+    char menu[maxstrlen];   // Variable used to store keyboard input for menus.
     
-    double r = 0.0;
+    double r = 0.0;         // Variable used to collect the ring radius to infer the ring circumference.
     
-    int whilvar = 0;
+    int whilvar = 0;        // Variable used to control menu input.
     
     //Collect F
     printf("Force required to break fluid surface (N) = ");
@@ -111,8 +111,8 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang)
     while(whilvar == 1)
     {
         printf("Use a correction factor? ");
-        fgets(corcheck, sizeof(corcheck), stdin);
-        switch(corcheck[0])
+        fgets(menu, sizeof(menu), stdin);
+        switch(menu[0])
         {
             case '1':
             case 'T':
@@ -142,8 +142,8 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang)
     while(whilvar == 1)
     {
         printf("Assume ring is made from platinum and treated properly? ");
-        fgets(corcheck, sizeof(corcheck), stdin);
-        switch(corcheck[0])
+        fgets(menu, sizeof(menu), stdin);
+        switch(menu[0])
         {
             case '1':
             case 'T':
@@ -168,18 +168,20 @@ void duNouyVar(double *F, double *L, double *C_F, double *cang)
         }
     }
     
-    wettfacts(*cang);
+    wettabilityfacts(*cang);
         //Conversion (deg to rad)
     *cang = (*cang)*(PI/ 180);
+    /*
     printf("Variable assignments:\n");
     printf("F = %f N\n", *F);
     printf("L = %f m\n", *L);
     printf("Correction factor = %f []\n", *C_F);
     printf("Contact angle = %f rad\n", *cang);
+     */
     fflush(stdout);
 }
 
-double duNouyCalc(double F, double L, double C_F, double cang)
+double duNouyCalculation(double F, double L, double C_F, double cang)
 {
     double top = 0.0;
     double bot = 0.0;
@@ -195,7 +197,7 @@ double duNouyCalc(double F, double L, double C_F, double cang)
     return sigma;
 }
 
-void duNouyDisp(double F, double L, double C_F, double cang, double sigma)
+void duNouyDisplay(double F, double L, double C_F, double cang, double sigma)
 {
     printf("_du_Nouy_Surface_Tension_\n");
     printf("\tInput Parameters:\n");
@@ -215,11 +217,11 @@ void duNouyDisp(double F, double L, double C_F, double cang, double sigma)
 void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + du Nouy
         //Get current time
     time_t rawtime;
@@ -288,11 +290,12 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     printf("Write Complete\n");
 }
 
-void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
+void duNouyWriteSwitch(double F, double L, double C_F, double cang, double sigma)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -306,14 +309,14 @@ void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
             case 't':
             case 'y':
                 duNouyWrite(F, L, C_F, cang, sigma);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -322,22 +325,15 @@ void duNouyWriteCheck(double F, double L, double C_F, double cang, double sigma)
     }
 }
 
-void SurfTens()
+void SurfaceTension()
 {
     //Main Function
-    int whilmain = 0;
+    int whilmain = 0;   // Variable used to control the while loop below
     
     whilmain = 1;
     
     while(whilmain == 1)
     {
-        /*
-        printf("Quick Experiment!\n");
-        printf("1. Get some newtonian fluid (e.g. water) in a glass/ bowl (something with some form of capacity and a spoon\n");
-        printf("2. Dip the spoon below the surface of the fluid\n");
-        printf("3. SLOWLY raise the spoon and closely watch the free liquid surface until it separates from the spoon\n");
-        printf("Q: How do you model this fluid behaviour?\n\n");
-         */
         //  Declaring variables
         double F = 0.0;
         double L = 0.0;
@@ -347,18 +343,18 @@ void SurfTens()
         double sigma = 0.0;
         
         //  Collecting data
-        duNouyVar(&F, &L, &C_F, &cang);
+        duNouyVariable(&F, &L, &C_F, &cang);
         //printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
         
         //  Running calculation
-        sigma = duNouyCalc(F, L, C_F, cang);
+        sigma = duNouyCalculation(F, L, C_F, cang);
         //printf("Surface tension = %.3f N/m\n", sigma);
         
         //  Displaying results
-        duNouyDisp(F, L, C_F, cang, sigma);
+        duNouyDisplay(F, L, C_F, cang, sigma);
         
         //  Writing to file
-        duNouyWriteCheck(F, L, C_F, cang, sigma);
+        duNouyWriteSwitch(F, L, C_F, cang, sigma);
         
         //  Continue function
         whilmain = Continue(whilmain);

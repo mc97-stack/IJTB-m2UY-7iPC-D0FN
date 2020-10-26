@@ -23,10 +23,10 @@
 #define PI 3.141592653
 #define g 9.80665
 
-void CappVar(double *sigma, double *cang, double *rho, double *d)
+void CappVariable(double *sigma, double *cang, double *rho, double *d)
 {
     //Declaring input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Surface Tension (N/m) = ");
     *sigma = atof(fgets(input, sizeof(input), stdin));
@@ -41,18 +41,18 @@ void CappVar(double *sigma, double *cang, double *rho, double *d)
     *d = atof(fgets(input, sizeof(input), stdin));
     
     //Extras ^.^
-    wettfacts(*cang); //Function located in 01dSurfTens
-    *cang = (*cang)*(PI/ 180); //Conversion to radians
+    wettabilityfacts(*cang);    //Function located in 01dSurfTens
+    *cang = (*cang)*(PI/ 180);  //Conversion to radians
     
     *d = (*d)*0.001;
     fflush(stdout);
 }
 
-double CappCalch(double sigma, double cang, double rho, double d)
+double CappCalculateHeight(double sigma, double cang, double rho, double d)
 {
     double top = 0.0;
     double bot = 0.0;
-    double h = 0.0;
+    double h = 0.0; // Capillary rise.
     
     top = 2*sigma;
     top = (top)*cos(cang);
@@ -65,10 +65,10 @@ double CappCalch(double sigma, double cang, double rho, double d)
     return h;
 }
 
-double CappCalcP(double sigma, double cang, double d)
+double CappCalculatePressure(double sigma, double cang, double d)
 {
     double top = 0.0;
-    double Pc = 0.0;
+    double Pc = 0.0;    // Capillary pressure.
     
     top = 2*sigma;
     top = (top)*cos(cang);
@@ -76,11 +76,10 @@ double CappCalcP(double sigma, double cang, double d)
     Pc = d/2;
     Pc = (top)/(Pc);
     
-    
     return Pc;
 }
 
-void CappDisp(double sigma, double cang, double d, double h, double Pc)
+void CappDisplay(double sigma, double cang, double d, double h, double Pc)
 {
     printf("_Capillarity_Calculations_\n");
     printf("\tInput Parameters:\n");
@@ -99,12 +98,13 @@ void CappDisp(double sigma, double cang, double d, double h, double Pc)
 void CappWrite(double sigma, double cang, double d, double h, double Pc)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
-    //Set file name as timestamp + Fluid Coefficient of Compressibility
+    FILE *fp;                   // Pointer to the file location.
+    
+    //Set file name as timestamp + Capillarity Calculation Results
         //Get current time
     time_t rawtime;
     struct tm *info;

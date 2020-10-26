@@ -15,7 +15,7 @@
 /// @param h1 Height of process fluid in the manometer arm (cm).
 /// @param rho2 Density of the manometer fluid (kg/ m3).
 /// @param h2 Height of the manometer fluid in the manometer arm (cm).
-void ManoMeasVar(double *P2, double *rho1, double *h1, double *rho2, double *h2);
+void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double *h2);
 
 #endif /* ManoMeasVar_h */
 
@@ -28,7 +28,7 @@ void ManoMeasVar(double *P2, double *rho1, double *h1, double *rho2, double *h2)
 /// @param rho1 Density of the process fluid (kg/ m3).
 /// @param rho2 Density of the manometer fluid (kg/ m3).
 /// @param h1 Height of the process fluid in the manometer arm (cm).
-void ManoEstiVar(double *P1, double *P2, double *rho1, double *rho2, double *h1);
+void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double *h1);
 
 #endif /* ManoEstiVar_h */
 
@@ -41,7 +41,7 @@ void ManoEstiVar(double *P1, double *P2, double *rho1, double *rho2, double *h1)
 /// @param h1 Height of process fluid in the manometer arm (m).
 /// @param rho2 Density of the manometer fluid (kg/ m3).
 /// @param h2 Height of the manometer fluid in the manometer arm (m)
-double ManoMeasCal(double P2, double rho1, double h1, double rho2, double h2);
+double ManoMeasCalculation(double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoMeasCal_h */
 
@@ -54,7 +54,7 @@ double ManoMeasCal(double P2, double rho1, double h1, double rho2, double h2);
 /// @param rho1 Density of the process fluid (kg/ m3).
 /// @param rho2 Density of the manometer fluid (kg/ m3).
 /// @param h1 Height of the process fluid in the manometer arm (cm).
-double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2);
+double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double rho2);
 
 #endif /* ManoEstiCal_h */
 
@@ -68,7 +68,7 @@ double ManoEstiCal(double P1, double P2, double rho1, double h1, double rho2);
 /// @param h1 Height of process fluid in manometer (m).
 /// @param rho2 Manometer fluid density (kg/m3).
 /// @param h2 Height of manometer fluid in manometer arm (m).
-void ManoMeasDisp(double P1, double P2, double rho1, double h1, double rho2, double h2);
+void ManoMeasDisplay(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 /// Subroutine used to output the results from the manometer estimation calculations to the user console.
 /// @param P1 Process fluid pressure (Pa).
@@ -77,7 +77,7 @@ void ManoMeasDisp(double P1, double P2, double rho1, double h1, double rho2, dou
 /// @param h1 Height of process fluid in manometer (m).
 /// @param rho2 Manometer fluid density (kg/m3).
 /// @param h2 Height of manometer fluid in manometer arm (m).
-void ManoEstiDisp(double P1, double P2, double rho1, double h1, double rho2, double h2);
+void ManoEstiDisplay(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoDisp_h */
 
@@ -100,7 +100,7 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
 /// @param h1 Height of process fluid in manometer (m).
 /// @param rho2 Manometer fluid density (kg/m3).
 /// @param h2 Height of manometer fluid in manometer arm (m).
-void ManoMeasWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2);
+void ManoMeasWriteSwitch(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoMeasWrite_h */
 
@@ -123,6 +123,6 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
 /// @param h1 Height of process fluid in manometer (m).
 /// @param rho2 Manometer fluid density (kg/m3).
 /// @param h2 Height of manometer fluid in manometer arm (m).
-void ManoEstiWriteCheck(double P1, double P2, double rho1, double h1, double rho2, double h2);
+void ManoEstiWriteSwitch(double P1, double P2, double rho1, double h1, double rho2, double h2);
 
 #endif /* ManoEstiWrite_h */

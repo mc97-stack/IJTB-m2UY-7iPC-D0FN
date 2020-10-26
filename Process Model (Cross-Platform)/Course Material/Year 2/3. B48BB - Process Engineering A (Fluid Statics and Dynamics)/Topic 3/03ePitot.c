@@ -63,7 +63,7 @@ void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double
     double pare = 0.0;
     
     //Manometer calculations - Get dP
-    *P1 = ManoMeasCal(P2, rho1, h1, rho2, h2);
+    *P1 = ManoMeasCalculation(P2, rho1, h1, rho2, h2);
     dP = P2 - (*P1);
     
     //Velocity calculation

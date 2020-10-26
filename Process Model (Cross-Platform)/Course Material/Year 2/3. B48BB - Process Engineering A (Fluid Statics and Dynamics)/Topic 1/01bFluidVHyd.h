@@ -12,7 +12,7 @@
 /// Subroutine used for collecting the data required for calculating the fluid hydrostatic pressure.
 /// @param rho Fluid density (kg/m3).
 /// @param h Height of fluid (m).
-void FluidVHydVar(double *rho, double *h);
+void FluidVHydVariable(double *rho, double *h);
 
 #endif /* FluidVHydVar_h */
 
@@ -22,7 +22,7 @@ void FluidVHydVar(double *rho, double *h);
 /// Subroutine used to calculate the fluid hydrostatic pressure. The value of fluid hydrostatic pressure is returned to the calling function.
 /// @param rho Fluid density (kg/m3).
 /// @param h Height of fluid (m).
-double FluidVHydCalc(double rho, double h);
+double FluidVHydCalculation(double rho, double h);
 
 #endif /* FluidVHydCalc_h */
 
@@ -33,7 +33,7 @@ double FluidVHydCalc(double rho, double h);
 /// @param rho Fluid density (kg/ m3).
 /// @param h Fluid depth from the free fluid surface (m).
 /// @param P Hydrostatic pressure (Pa).
-void FluidVHydDisp(double rho, double h, double P);
+void FluidVHydDisplay(double rho, double h, double P);
 
 #endif /* FluidVHydDisp_h */
 
@@ -49,6 +49,6 @@ void FluidVHydWrite(double rho, double h, double P);
 /// @param rho Fluid density (kg/ m3).
 /// @param h Fluid depth from the free fluid surface (m).
 /// @param P Hydrostatic pressure (Pa).
-void FluidVHydWriteCheck(double rho, double h, double P);
+void FluidVHydWriteSwitch(double rho, double h, double P);
 
 #endif /* FluidVHydWrite_h */

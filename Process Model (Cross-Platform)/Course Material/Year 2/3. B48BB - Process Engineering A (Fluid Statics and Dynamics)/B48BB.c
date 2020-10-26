@@ -54,22 +54,22 @@ void B48BBtopic1()
         switch(B48BBMenu[0])
         {
             case '1':
-                FluComp();
+                CoefficientofCompressibility();
             break;
             case '2':
-                FluidVHyd();
+                FluidVerticalHydrostaticPressure();
             break;
             case '3':
-                Mano();
+                Manometer();
             break;
             case '4':
-                SurfTens();
+                SurfaceTension();
             break;
             case '5':
-                BubPres();
+                BubblePressure();
             break;
             case '6':
-                Capp();
+                Cappilarity();
             break;
             case '7':
                 printf("This program isn't quite there yet, try something else meanwhile :) \n");
