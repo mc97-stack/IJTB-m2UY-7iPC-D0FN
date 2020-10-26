@@ -53,12 +53,16 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
     fflush(stdout);
 }
 
-double phicalc(double rho, double u, double d, double mu, double vareps)
+double phiCalculation(double rho, double u, double d, double mu, double vareps)
 {
     char rough[maxstrlen];
     
     double ReyNum = 0.0;
     double phi = 0.0;
+    
+    double phiTurb1 = 0.0;
+    double phiTurb2 = 0.0;
+    double phiTurb3 = 0.0;
     
     int roughcheck = 0;
     
@@ -91,19 +95,23 @@ double phicalc(double rho, double u, double d, double mu, double vareps)
                     case 'N':
                     case 'f':
                     case 'n':
-                        if(Turbulent1(rho, u, d, mu) > Turbulent2(rho, u, d, mu) && Turbulent1(rho, u, d, mu) > Turbulent3(rho, u, d, mu, vareps))
+                        phiTurb1 = Turbulent1(rho, u, d, mu);
+                        phiTurb2 = Turbulent2(rho, u, d, mu);
+                        phiTurb3 = Turbulent3(rho, u, d, mu, vareps);
+                        
+                        if(phiTurb1 > phiTurb2 && phiTurb1 > phiTurb3)
                         {
                             printf("Turbulent1(...) provides the highest friction factor\n");
-                            phi = Turbulent1(rho, u, d, mu);
+                            phi = phiTurb1;
                             vareps = 0.0;
                         }else{
-                            if(Turbulent2(rho, u, d, mu) > Turbulent3(rho, u, d, mu, vareps)){
+                            if(phiTurb2 > phiTurb3){
                                 printf("Turbulent2(...) provides the highest friction factor\n");
-                                phi = Turbulent2(rho, u, d, mu);
+                                phi = phiTurb2;
                                 vareps = 0.0;
                             }else{
                                 printf("Turbulent3(...) provides the highest friction factor\n");
-                                phi = Turbulent3(rho, u, d, mu, vareps);
+                                phi = phiTurb3;
                             }
                         }
                         roughcheck = 0;
@@ -138,7 +146,7 @@ double LossCalculation(double phi, double L, double d, double rho, double u)
     return dP;
 }
 
-void PressLossDisp(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
+void PressLossDisplay(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
     printf("_Pressure_Loss_Equation_Results_\n");
     printf("\tInput parameters:\n");
@@ -259,11 +267,12 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     printf("Write Complete\n");
 }
 
-void PressLossWriteCheck(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
+void PressLossWriteSwitch(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -277,14 +286,14 @@ void PressLossWriteCheck(double rho, double u, double d, double mu, double L, do
             case 't':
             case 'y':
                 PressLossWrite(rho, u, d, mu, L, vareps, phi, dP);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -293,7 +302,7 @@ void PressLossWriteCheck(double rho, double u, double d, double mu, double L, do
     }
 }
 
-void GenPressureLoss()
+void GeneralPressureLoss()
 {
     //Main Function
     int whilmain = 1;
@@ -316,16 +325,16 @@ void GenPressureLoss()
         PressLossVariable(&rho, &u, &d, &mu, &L, &vareps);
         
         //  Running calculations
-        phi = phicalc(rho, u, d, mu, vareps);
+        phi = phiCalculation(rho, u, d, mu, vareps);
         //printf("phi = %.5f [ ]\n", phi);
         dP = LossCalculation(phi, L, d, rho, u);
         //printf("dP = %.3f kPa\n", dP*0.001);
         
         //  Displaying results
-        PressLossDisp(rho, u, d, mu, L, vareps, phi, dP);
+        PressLossDisplay(rho, u, d, mu, L, vareps, phi, dP);
         
         //  Writing to File
-        PressLossWriteCheck(rho, u, d, mu, L, vareps, phi, dP);
+        PressLossWriteSwitch(rho, u, d, mu, L, vareps, phi, dP);
         
         //Continue function
         whilmain = Continue(whilmain);

@@ -29,7 +29,7 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
 /// @param d Pipe diameter (m).
 /// @param mu Fluid viscosity (Pa. s).
 /// @param vareps Absolute roughness (mm).
-double phicalc(double rho, double u, double d, double mu, double vareps);
+double phiCalculation(double rho, double u, double d, double mu, double vareps);
 
 #endif /* phi_h */
 
@@ -58,7 +58,7 @@ double LossCalculation(double phi, double L, double d, double rho, double u);
 /// @param vareps Pipe absolute roughness (m).
 /// @param phi Friction factor.
 /// @param dP Frictional Pressure Loss (Pa).
-void PressLossDisp(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
+void PressLossDisplay(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
 
 #endif /* PressLossDisp_h */
 
@@ -85,6 +85,6 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
 /// @param vareps Pipe absolute roughness (m).
 /// @param phi Friction factor.
 /// @param dP Frictional Pressure Loss (Pa).
-void PressLossWriteCheck(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
+void PressLossWriteSwitch(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP);
 
 #endif /* PressLossWrite_h */

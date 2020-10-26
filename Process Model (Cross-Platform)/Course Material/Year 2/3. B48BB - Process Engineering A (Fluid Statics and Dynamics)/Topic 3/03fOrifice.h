@@ -17,7 +17,7 @@
 /// @param P1 Initial system pressure (kPa).
 /// @param P2 Final system pressure (kPa).
 /// @param h_f Frictional head loss (m).
-void OrificeVar(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f);
+void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f);
 
 #endif /* OrificeVar_h */
 
@@ -35,7 +35,7 @@ void OrificeVar(double *C_d, double *d1, double *d2, double *rho, double *P1, do
 /// @param u Fluid velocity (m/s).
 /// @param Q Fluid volumetric flowrate (m3/ s).
 /// @param m Fluid mass flowrate (kg/ s).
-void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m);
+void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m);
 
 #endif /* OrificeCalc_h */
 
@@ -53,7 +53,7 @@ void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double
 /// @param u Fluid velocity (m/s).
 /// @param Q Fluid volumetric flowrate (m3/ s).
 /// @param m Fluid mass flowrate (kg/ s).
-void OrificeDisp(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
+void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
 
 #endif /* OrificeDisp_h */
 
@@ -84,6 +84,6 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
 /// @param u Fluid velocity (m/s).
 /// @param Q Fluid volumetric flowrate (m3/ s).
 /// @param m Fluid mass flowrate (kg/ s).
-void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
+void OrificeWriteSwitch(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m);
 
 #endif /* OrificeWrite_h */

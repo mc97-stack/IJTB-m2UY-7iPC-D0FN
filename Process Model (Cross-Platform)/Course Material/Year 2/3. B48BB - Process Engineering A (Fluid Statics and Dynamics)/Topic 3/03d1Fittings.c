@@ -56,7 +56,7 @@ void Fittings()
                     whilside = 0;
                     break;
                 case '4':
-                    EquivLeng();
+                    EquivalentLength();
                     whilside = 0;
                     break;
                 default:

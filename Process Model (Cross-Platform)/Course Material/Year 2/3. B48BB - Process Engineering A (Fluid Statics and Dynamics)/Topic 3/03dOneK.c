@@ -40,7 +40,7 @@ OneKFittings OneKData(OneKFittings input)
     return input;
 }
 
-OneKFittings OneKVar(OneKFittings table, double *u)
+OneKFittings OneKVariable(OneKFittings table, double *u)
 {
     char input[maxstrlen];
     
@@ -100,7 +100,7 @@ OneKFittings OneKVar(OneKFittings table, double *u)
     return table;
 }
 
-double OneKCalc(int count, double data, double u)
+double OneKCalculation(int count, double data, double u)
 {
     double hf = 0.0;
     
@@ -116,7 +116,7 @@ OneKFittings OneKFinalTable(OneKFittings data, double u)
 {
     // Counts and database should already be specified prior to this function being run
     for(int i = 0; i < 15; ++i){
-        data.headloss[i] = OneKCalc(data.count[i], data.data[i], u);
+        data.headloss[i] = OneKCalculation(data.count[i], data.data[i], u);
     }
     return data;
 }
@@ -388,11 +388,12 @@ void OneKWrite(OneKFittings table, double u, double total)
     printf("Write Complete\n");
 }
 
-void OneKWriteCheck(OneKFittings table, double u, double total)
+void OneKWriteSwitch(OneKFittings table, double u, double total)
 {
-    int SaveC;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -406,14 +407,14 @@ void OneKWriteCheck(OneKFittings table, double u, double total)
             case 't':
             case 'y':
                 OneKWrite(table, u, total);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -436,7 +437,7 @@ void OneK()
         OneKTable.headloss[i] = 0.0;
     }
     //  Collecting data
-    OneKTable = OneKVar(OneKTable, &u);
+    OneKTable = OneKVariable(OneKTable, &u);
     
     //  Performing calculations
     OneKTable = OneKFinalTable(OneKTable, u);
@@ -452,5 +453,5 @@ void OneK()
     OneKDisplay(OneKTable, u, total);
     
     // Writing data
-    OneKWriteCheck(OneKTable, u, total);
+    OneKWriteSwitch(OneKTable, u, total);
 }

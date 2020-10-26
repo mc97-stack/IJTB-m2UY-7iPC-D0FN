@@ -41,7 +41,7 @@ EquivLenFits EquivLengData(EquivLenFits input)
     return input;
 }
 
-EquivLenFits EquivLengVar(EquivLenFits data, double *rho, double *u, double *d, double *mu, double *vareps, double *phi)
+EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double *d, double *mu, double *vareps, double *phi)
 {
     char input[maxstrlen];
     
@@ -67,7 +67,7 @@ EquivLenFits EquivLengVar(EquivLenFits data, double *rho, double *u, double *d, 
     *vareps = atof(fgets(input, sizeof(input), stdin));
     *vareps = (*vareps)*0.001;
     
-    *phi = phicalc((*rho), (*u), (*d), (*mu), (*vareps));
+    *phi = phiCalculation((*rho), (*u), (*d), (*mu), (*vareps));
     
     //  Getting counts
     printf("\nPlease enter the counts of each fitting:\n");
@@ -119,7 +119,7 @@ EquivLenFits EquivLengVar(EquivLenFits data, double *rho, double *u, double *d, 
     return data;
 }
 
-double EquivLengCalcP(int count, double phi, double L_e, double rho, double u, double d)
+double EquivLengCalculateLoss(int count, double phi, double L_e, double rho, double u, double d)
 {
     double dP_f = 0.0;
     double term1 = 0.0;
@@ -141,7 +141,7 @@ double EquivLengCalcP(int count, double phi, double L_e, double rho, double u, d
     return dP_f;
 }
 
-double EquivLengCalcL(double input, double d)
+double EquivLengCalculateL_e(double input, double d)
 {
     return input*d;
 }
@@ -149,7 +149,7 @@ double EquivLengCalcL(double input, double d)
 EquivLenFits EquivLengFinalTable(EquivLenFits data, double rho, double u, double d, double phi)
 {
     for(int i = 0; i < 15; ++i){
-        data.dP_f[i] = EquivLengCalcP(data.count[i], phi, EquivLengCalcL(data.data[i], d), rho, u, d);
+        data.dP_f[i] = EquivLengCalculateLoss(data.count[i], phi, EquivLengCalculateL_e(data.data[i], d), rho, u, d);
         data.h_f[i] = (data.dP_f[i])/(rho*g);
     }
     return data;
@@ -488,11 +488,12 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     printf("Write Complete\n");
 }
 
-void EquivLengWriteCheck(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
+void EquivLengWriteSwitch(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
 {
-    int SaveC;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -506,14 +507,14 @@ void EquivLengWriteCheck(EquivLenFits table, double rho, double u, double d, dou
             case 't':
             case 'y':
                 EquivLengWrite(table, rho, u, d, mu, vareps, phi, totalP, totalh);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -522,7 +523,7 @@ void EquivLengWriteCheck(EquivLenFits table, double rho, double u, double d, dou
     }
 }
 
-void EquivLeng()
+void EquivalentLength()
 {
     double rho = 0.0;
     double u = 0.0;
@@ -546,7 +547,7 @@ void EquivLeng()
     }
     
     //  Collecting data
-    EquivLengTable = EquivLengVar(EquivLengTable, &rho, &u, &d, &mu, &vareps, &phi);
+    EquivLengTable = EquivLengVariable(EquivLengTable, &rho, &u, &d, &mu, &vareps, &phi);
     printf("\n");
     
     //  Performing calculations
@@ -563,6 +564,6 @@ void EquivLeng()
     EquivLengDisplay(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
     
     //  Writing data to file
-    EquivLengWriteCheck(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
+    EquivLengWriteSwitch(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
 }
 

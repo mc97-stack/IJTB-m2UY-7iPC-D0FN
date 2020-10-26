@@ -169,7 +169,7 @@ ThreeKFittings ThreeKData(ThreeKFittings input)
     return input;
 }
 
-ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu)
+ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu)
 {
     char input[maxstrlen];
     
@@ -316,7 +316,7 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
     return table;
 }
 
-double ThreeKCalcK(double Re, double DN, int k1, double kinf, double kd)
+double ThreeKCalculateK(double Re, double DN, int k1, double kinf, double kd)
 {
     double K = 0.0;
     double term1 = 0.0;
@@ -334,7 +334,7 @@ double ThreeKCalcK(double Re, double DN, int k1, double kinf, double kd)
     return K;
 }
 
-double ThreeKCalcH(double count, double K, double u)
+double ThreeKCalculateHead(double count, double K, double u)
 {
     double hf = 0.0;
     
@@ -347,7 +347,7 @@ double ThreeKCalcH(double count, double K, double u)
     return hf;
 }
 
-double ThreeKCalcP(double h, double rho)
+double ThreeKCalculatePLoss(double h, double rho)
 {
     double P = 0.0;
     
@@ -365,8 +365,8 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
     ReyNo = (*Re);
     
     for(int i = 0; i < 34; ++i){
-        data.headloss[i] = ThreeKCalcH(data.count[i], ThreeKCalcK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
-        data.dP_f[i] = ThreeKCalcP(data.headloss[i], rho);
+        data.headloss[i] = ThreeKCalculateHead(data.count[i], ThreeKCalculateK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
+        data.dP_f[i] = ThreeKCalculatePLoss(data.headloss[i], rho);
     }
     
     return data;
@@ -1178,11 +1178,12 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     printf("Write Complete\n");
 }
 
-void ThreeKWriteCheck(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
+void ThreeKWriteSwitch(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
 {
-    int SaveC;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -1196,14 +1197,14 @@ void ThreeKWriteCheck(ThreeKFittings data, double rho, double u, double d, doubl
             case 't':
             case 'y':
                 ThreeKWrite(data, rho, u, d, mu, Re, DN, TotalH, TotalP);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -1239,7 +1240,7 @@ void ThreeK()
     }
     
     //  Collecting data
-    ThreeKTable = ThreeKVar(ThreeKTable, &DN, &rho, &u, &d, &mu);
+    ThreeKTable = ThreeKVariable(ThreeKTable, &DN, &rho, &u, &d, &mu);
     printf("\n");
     
     //  Performing calculations
@@ -1255,5 +1256,5 @@ void ThreeK()
     ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
     
     //  Writing results
-    ThreeKWriteCheck(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
+    ThreeKWriteSwitch(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
 }

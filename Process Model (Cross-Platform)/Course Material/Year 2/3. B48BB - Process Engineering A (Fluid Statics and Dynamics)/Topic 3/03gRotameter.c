@@ -22,7 +22,7 @@
 #define g 9.80665
 #define PI 3.14159265
 
-void RotameterVar(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
+void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
 {
     char input[maxstrlen];
     
@@ -50,7 +50,7 @@ void RotameterVar(double *C_d, double *V_f, double *rho_f, double *rho, double *
     fflush(stdout);
 }
 
-void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u)
+void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u)
 {
     //Calculating pressure drop
     double top = 0.0;
@@ -81,7 +81,7 @@ void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f,
     //return [Function Output];
 }
 
-void RotameterDisp(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
+void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
     printf("_Rotameter_Results_\n");
     printf("\tInput parameters:\n");
@@ -210,11 +210,12 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     printf("Write Complete\n");
 }
 
-void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
+void RotameterWriteSwitch(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -228,14 +229,14 @@ void RotameterWriteCheck(double rho, double V_f, double rho_f, double A_f, doubl
             case 't':
             case 'y':
                 RotameterWrite(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -269,10 +270,10 @@ void Rotameter()
         double are2 = 0.0;
         
         //  Data collection
-        RotameterVar(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);
+        RotameterVariable(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);
         
         //  Running calculations
-        RotameterCalc(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
+        RotameterCalculation(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
         /*
         printf("Buoyant force = %.3f Pa\n", dP);
         printf("Fluid velocity = %.3f m/s\n", u);
@@ -280,10 +281,10 @@ void Rotameter()
         printf("Mass flowrate = %.3f kg/s\n", m);
         */
         //  Displaying results
-        RotameterDisp(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
+        RotameterDisplay(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         
         //  Writing to File
-        RotameterWriteCheck(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
+        RotameterWriteSwitch(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         
         //  Continue function
         whilmain = Continue(whilmain);

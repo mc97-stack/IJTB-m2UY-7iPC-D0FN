@@ -10,7 +10,7 @@
 #define GenPressLoss_h
 
 /// This subroutine guides the user through gathering the data and calculation of pressure losses for a moving fluid between Reynold's number of 0 < Re <= 10,000,000.
-void GenPressureLoss(void);
+void GeneralPressureLoss(void);
 
 #endif /* GenPressLoss_h */
 
@@ -18,7 +18,7 @@ void GenPressureLoss(void);
 #define HydrDiam_h
 
 /// This subroutine guides the user through gathering the data and calculation of hydraulic diameter for a non-circular pipe.
-void HydrDiam(void);
+void HydraulicDiameter(void);
 
 #endif /* HydrDiam_h */
 
@@ -34,7 +34,7 @@ void Fittings(void);
 #define Pitot_h
 
 /// This subroutine guides the user through gathering the data and calculation of pressure of a flowing fluid using a pitot static tube.
-void Pitot(void);
+void PitotStaticTube(void);
 
 #endif /* Pitot_h */
 
@@ -42,7 +42,7 @@ void Pitot(void);
 #define Orifice_h
 
 /// This subroutine guides the user through gathering the data and calculation of the mass flowrate of a flowing fluid through an orifice plate meter.
-void Orifice(void);
+void OrificePlateMeter(void);
 
 #endif /* Orifice_h */
 

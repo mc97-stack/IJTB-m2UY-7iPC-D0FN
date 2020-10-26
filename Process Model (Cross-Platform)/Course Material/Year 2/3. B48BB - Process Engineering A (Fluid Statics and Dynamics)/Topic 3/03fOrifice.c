@@ -22,7 +22,7 @@
 #define g 9.80665
 #define PI 3.14159265
 
-void OrificeVar(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
+void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
     char input[maxstrlen];
     
@@ -65,7 +65,7 @@ void OrificeVar(double *C_d, double *d1, double *d2, double *rho, double *P1, do
     fflush(stdout);
 }
 
-void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m)
+void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m)
 {
     //Preparing variables for calculation
     double are1 = 0.0;
@@ -111,7 +111,7 @@ void OrificeCalc(double C_d, double d1, double d2, double rho, double P1, double
     //return [Function Output];
 }
 
-void OrificeDisp(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
+void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
     printf("_Orifice_Plate_Flow_Measurement_Results_\n");
     printf("\tInput parameters:\n");
@@ -228,11 +228,12 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     printf("Write Complete\n");
 }
 
-void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
+void OrificeWriteSwitch(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -246,14 +247,14 @@ void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, d
             case 't':
             case 'y':
                 OrificeWrite(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -262,7 +263,7 @@ void OrificeWriteCheck(double P1, double P2, double rho, double d1, double d2, d
     }
 }
 
-void Orifice()
+void OrificePlateMeter()
 {
     //Main Function
     int whilmain = 1;
@@ -286,19 +287,19 @@ void Orifice()
         double h_f = 0.0;
         
         //  Data collection
-        OrificeVar(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
+        OrificeVariable(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
         
         //  Running calculations
-        OrificeCalc(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
+        OrificeCalculation(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
         //printf("Average fluid velocity = %.3f m/s\n", u);
         //printf("Volumetric flow rate = %.3f m3/s\n", Q);
         //printf("Mass flowrate = %.3f kg/s\n\n", m);
         
         //  Displaying results
-        OrificeDisp(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+        OrificeDisplay(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
         
         //  Writing to File
-        OrificeWriteCheck(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
+        OrificeWriteSwitch(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);
         
         //  Continue function
         whilmain = Continue(whilmain);

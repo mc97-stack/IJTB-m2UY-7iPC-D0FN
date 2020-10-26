@@ -20,7 +20,7 @@
 
 #define maxstrlen 128
 
-void HydrDiamVar(double *A_F, double *P_W)
+void HydrDiamVariable(double *A_F, double *P_W)
 {
     //Input variables
     char input[maxstrlen];
@@ -42,7 +42,7 @@ void HydrDiamVar(double *A_F, double *P_W)
     fflush(stdout);
 }
 
-double HydrDiamCalc(double A_F, double P_W)
+double HydrDiamCalculation(double A_F, double P_W)
 {
     double d_H = 0.0;
     double top = 0.0;
@@ -55,7 +55,7 @@ double HydrDiamCalc(double A_F, double P_W)
     return d_H;
 }
 
-void HydrDiamDisp(double A_F, double P_W, double d_H)
+void HydrDiamDisplay(double A_F, double P_W, double d_H)
 {
     printf("_Hydraulic_Diameter_Results_\n");
     printf("\tInput parameters:\n");
@@ -142,11 +142,12 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     printf("Write Complete\n");
 }
 
-void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
+void HydrDiamWriteSwitch(double A_F, double P_W, double d_H)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -160,14 +161,14 @@ void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
             case 't':
             case 'y':
                 HydrDiamWrite(A_F, P_W, d_H);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -176,7 +177,7 @@ void HydrDiamWriteCheck(double A_F, double P_W, double d_H)
     }
 }
 
-void HydrDiam()
+void HydraulicDiameter()
 {
     //Main Function
     int whilmain = 0;
@@ -191,18 +192,18 @@ void HydrDiam()
         double d_H = 0.0; //Hydraulic diameter
         
         //  Data collection
-        HydrDiamVar(&A_F, &P_W);
+        HydrDiamVariable(&A_F, &P_W);
         
         //  Running calculations
-        d_H = HydrDiamCalc(A_F, P_W);
+        d_H = HydrDiamCalculation(A_F, P_W);
         
         //printf("d_H = %.3f mm\n\n", d_H*1000);
         
         //  Displaying results
-        HydrDiamDisp(A_F, P_W, d_H);
+        HydrDiamDisplay(A_F, P_W, d_H);
         
         //  Writing to File
-        HydrDiamWriteCheck(A_F, P_W, d_H);
+        HydrDiamWriteSwitch(A_F, P_W, d_H);
         
         //  Continue function
         whilmain = Continue(whilmain);

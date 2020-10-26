@@ -208,18 +208,18 @@ void HagenPoiseuille()
         double dP = 0.0; //Frictional pressure loss
         
         //  Data collection
-        HagPoisVar(&u, &mu, &L, &d);
+        HagPoisVariable(&u, &mu, &L, &d);
         
         //  Running calculations
-        dP = HagPoisCalc(u, mu, L, d);
+        dP = HagPoisCalculation(u, mu, L, d);
         
         //printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
         
         //  Displaying results
-        HagPoisDisp(u, mu, L, d, dP);
+        HagPoisDisplay(u, mu, L, d, dP);
         
         //  Writing to File
-        HagPoisWriteCheck(u, mu, L, d, dP);
+        HagPoisWriteSwitch(u, mu, L, d, dP);
         
         //  Continue function
         whilmain = Continue(whilmain);

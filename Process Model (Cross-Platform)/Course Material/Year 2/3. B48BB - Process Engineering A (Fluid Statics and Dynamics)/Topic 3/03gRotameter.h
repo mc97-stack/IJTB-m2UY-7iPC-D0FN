@@ -17,7 +17,7 @@
 /// @param A_f Maximum cross-sectional area of the float (m2).
 /// @param are1 Cross-sectional area of tube at point of float (m2).
 /// @param are2 Annular area between float and tube at the point (m2).
-void RotameterVar(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2);
+void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2);
 
 #endif /* RotameterVar_h */
 
@@ -36,7 +36,7 @@ void RotameterVar(double *C_d, double *V_f, double *rho_f, double *rho, double *
 /// @param m Mass flowrate (kg/ s).
 /// @param Q Volumetric flowrate (m3/ s).
 /// @param u Fluid velocity (m/ s).
-void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u);
+void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u);
 
 #endif /* RotameterCalc_h */
 
@@ -55,7 +55,7 @@ void RotameterCalc(double C_d, double V_f, double rho_f, double rho, double A_f,
 /// @param m Mass flowrate (kg/ s).
 /// @param Q Volumetric flowrate (m3/ s).
 /// @param u Fluid velocity (m/ s).
-void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
+void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
 
 #endif /* RotameterDisp_h */
 
@@ -88,6 +88,6 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
 /// @param m Mass flowrate (kg/ s).
 /// @param Q Volumetric flowrate (m3/ s).
 /// @param u Fluid velocity (m/ s).
-void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
+void RotameterWriteSwitch(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
 
 #endif /* RotameterWrite_h */

@@ -12,7 +12,7 @@
 /// This subroutine is used for collecting the data required to calculate the hydraulic diameter of a non-cylindrical pipe.
 /// @param A_F Flow area (mm2).
 /// @param P_W Wetted perimeter (cm).
-void HydrDiamVar(double *A_F, double *P_W);
+void HydrDiamVariable(double *A_F, double *P_W);
 
 #endif /* HydrDiamVar_h */
 
@@ -22,7 +22,7 @@ void HydrDiamVar(double *A_F, double *P_W);
 /// This subroutine is used to calculate the hydraulic diameter of a non-cylindrical pipe.
 /// @param A_F Flow area (m2).
 /// @param P_W Wetted perimeter (m).
-double HydrDiamCalc(double A_F, double P_W);
+double HydrDiamCalculation(double A_F, double P_W);
 
 #endif /* HydrDiamCalc_h */
 
@@ -33,7 +33,7 @@ double HydrDiamCalc(double A_F, double P_W);
 /// @param A_F Cross-sectional flow area (m2).
 /// @param P_W Wetted perimeter (m).
 /// @param d_H Hydraulic diameter (m).
-void HydrDiamDisp(double A_F, double P_W, double d_H);
+void HydrDiamDisplay(double A_F, double P_W, double d_H);
 
 #endif /* HydrDiamDisp_h */
 

@@ -35,7 +35,7 @@ ThreeKFittings ThreeKData(ThreeKFittings input);
 /// @param u Fluid velocity (m/ s) - For Reynolds number and 3K.
 /// @param d Internal pipe diameter (mm) - For Reynolds number.
 /// @param mu Fluid viscosity (cP) - For Reynolds number.
-ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu);
+ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu);
 
 #endif /* ThreeKData_h */
 
@@ -48,13 +48,18 @@ ThreeKFittings ThreeKVar(ThreeKFittings table, double *DN, double *rho, double *
 /// @param k1 k_1 value from database
 /// @param kinf k_inf value from database
 /// @param kd k_d value from database (mm^0.3)
-double ThreeKCalcK(double Re, double DN, int k1, double kinf, double kd);
+double ThreeKCalculateK(double Re, double DN, int k1, double kinf, double kd);
 
 /// This subroutine is used to calculate the head loss associated with a singular fitting.
 /// @param count Number of fittings
 /// @param K Resistant Coefficient from "ThreeKCalcK(...)"
 /// @param u Fluid velocity (m/ s)
-double ThreeKCalcH(double count, double K, double u);
+double ThreeKCalculateHead(double count, double K, double u);
+
+/// This subroutine is used to calculate the pressure loss associated with the head loss attributed to a single fitting.
+/// @param h Head loss calculated from "ThreeKCalculateHead(...)".
+/// @param rho Fluid density (kg/m3)
+double ThreeKCalculatePLoss(double h, double rho);
 
 /// This subroutine is used to amalgamate the data into a single variable.
 /// @param data Struct where data was previously entered.
@@ -109,7 +114,7 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
 /// @param DN Diameter Nominal (mm)
 /// @param TotalH Total head loss (m)
 /// @param TotalP Total pressure loss (Pa)
-void ThreeKWriteCheck(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
+void ThreeKWriteSwitch(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
 
 #endif /* ThreeKWrite_h */
 

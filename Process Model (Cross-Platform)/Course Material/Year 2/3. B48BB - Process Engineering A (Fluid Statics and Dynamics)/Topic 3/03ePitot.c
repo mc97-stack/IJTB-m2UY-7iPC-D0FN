@@ -22,7 +22,7 @@
 #define maxstrlen 128
 #define PI 3.14159265
 
-void PitotVar(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
+void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
     char input[maxstrlen];
     
@@ -55,7 +55,7 @@ void PitotVar(double *P2, double *rho1, double *rho2, double *h1, double *h2, do
     fflush(stdout);
 }
 
-void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double d, double *P1, double *v, double *Q)
+void PitotCalculation(double P2, double rho1, double rho2, double h1, double h2, double d, double *P1, double *v, double *Q)
 {
     //P1 = Process fluid pressure
     double dP = 0.0;
@@ -81,7 +81,7 @@ void PitotCalc(double P2, double rho1, double rho2, double h1, double h2, double
     //return [Function Output];
 }
 
-void PitotDisp(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
+void PitotDisplay(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
     printf("_Pitot_Static_Tube_Results_\n");
     printf("\tInput parameters:\n");
@@ -194,11 +194,12 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     printf("Write Complete\n");
 }
 
-void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
+void PitotWriteSwitch(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -212,14 +213,14 @@ void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, 
             case 't':
             case 'y':
                 PitotWrite(P1, P2, rho1, rho2, h1, h2, d, v, Q);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -228,7 +229,7 @@ void PitotWriteCheck(double P1, double P2, double rho1, double rho2, double h1, 
     }
 }
 
-void Pitot()
+void PitotStaticTube()
 {
     //Main Function
     int whilmain = 0;
@@ -250,19 +251,19 @@ void Pitot()
         double d = 0.0;
         
         //  Data collection
-        PitotVar(&P2, &rho1, &rho2, &h1, &h2, &d);
+        PitotVariable(&P2, &rho1, &rho2, &h1, &h2, &d);
         
         //  Running calculations
-        PitotCalc(P2, rho1, rho2, h1, h2, d, &P1, &v, &Q);
+        PitotCalculation(P2, rho1, rho2, h1, h2, d, &P1, &v, &Q);
         //printf("P1 = %.3f kPa\n", P1*0.001); //Function will return pressure in Pa.
         //printf("v = %.3f m/s\n", v);
         //printf("Q = %.3f m3/s\n\n", Q);
         
         //  Displaying results
-        PitotDisp(P1, P2, rho1, rho2, h1, h2, d, v, Q);
+        PitotDisplay(P1, P2, rho1, rho2, h1, h2, d, v, Q);
         
         //  Writing to File
-        PitotWriteCheck(P1, P2, rho1, rho2, h1, h2, d, v, Q);
+        PitotWriteSwitch(P1, P2, rho1, rho2, h1, h2, d, v, Q);
         
         //  Continue function
         whilmain = Continue(whilmain);

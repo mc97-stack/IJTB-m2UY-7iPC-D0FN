@@ -111,7 +111,7 @@ TwoKFittings TwoKData(TwoKFittings input)
     return input;
 }
 
-TwoKFittings TwoKVar(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd)
+TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd)
 {
     char input[maxstrlen];
     
@@ -211,7 +211,7 @@ TwoKFittings TwoKVar(TwoKFittings table, double *rho, double *u, double *d, doub
     return table;
 }
 
-double TwoKCalcK(double Re, double d, double k1, double kinf)
+double TwoKCalculateK(double Re, double d, double k1, double kinf)
 {
     double term1 = 0.0;
     double term2 = 0.0;
@@ -225,7 +225,7 @@ double TwoKCalcK(double Re, double d, double k1, double kinf)
     return term1 + term2;
 }
 
-double TwoKCalcH(int count, double K, double u)
+double TwoKCalculateHead(int count, double K, double u)
 {
     double h = 0.0;
     
@@ -238,7 +238,7 @@ double TwoKCalcH(int count, double K, double u)
     return h;
 }
 
-double TwoKCalcP(double h, double rho)
+double TwoKCalculatePLoss(double h, double rho)
 {
     double P = 0.0;
     
@@ -257,8 +257,8 @@ TwoKFittings TwoKFinalTable(TwoKFittings data, double rho, double u, double d, d
     
     for(int i = 0; i < 32; ++i)
     {
-        data.headloss[i] = TwoKCalcH(data.count[i], TwoKCalcK(ReyNum, Impd, data.k1[i], data.kinf[i]), u);
-        data.dP_f[i] = TwoKCalcP(data.headloss[i], rho);
+        data.headloss[i] = TwoKCalculateHead(data.count[i], TwoKCalculateK(ReyNum, Impd, data.k1[i], data.kinf[i]), u);
+        data.dP_f[i] = TwoKCalculatePLoss(data.headloss[i], rho);
     }
     return data;
 }
@@ -916,11 +916,12 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     printf("Write Complete\n");
 }
 
-void TwoKWriteCheck(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
+void TwoKWriteSwitch(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
 {
-    int SaveC;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -934,14 +935,14 @@ void TwoKWriteCheck(TwoKFittings data, double rho, double u, double d, double mu
             case 't':
             case 'y':
                 TwoKWrite(data, rho, u, d, mu, Re, TotalP, TotalH);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -975,7 +976,7 @@ void TwoK()
     }
     
     //  Collecting data
-    TwoKTable = TwoKVar(TwoKTable, &rho, &u, &d, &mu, &impd);
+    TwoKTable = TwoKVariable(TwoKTable, &rho, &u, &d, &mu, &impd);
     
     //  Performing calculations
     TwoKTable = TwoKFinalTable(TwoKTable, rho, u, d, mu, impd, &Re);
@@ -991,5 +992,5 @@ void TwoK()
     TwoKDisplay(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
     
     //  Writing Results
-    TwoKWriteCheck(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
+    TwoKWriteSwitch(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
 }

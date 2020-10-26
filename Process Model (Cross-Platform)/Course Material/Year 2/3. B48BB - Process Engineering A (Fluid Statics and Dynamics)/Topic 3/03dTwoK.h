@@ -33,7 +33,7 @@ TwoKFittings TwoKData(TwoKFittings input);
 /// @param d Internal pipe diameter (mm)
 /// @param mu Fluid viscosity (cP)
 /// @param Impd Internal pipe diameter (inches)
-TwoKFittings TwoKVar(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd);
+TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd);
 
 #endif /* TwoKData_h */
 
@@ -45,18 +45,18 @@ TwoKFittings TwoKVar(TwoKFittings table, double *rho, double *u, double *d, doub
 /// @param d Internal pipe diameter (inches)
 /// @param k1 Resistance Coefficient at Re = 1.
 /// @param kinf Resistance Coefficeint at Re = \infty.
-double TwoKCalcK(double Re, double d, double k1, double kinf);
+double TwoKCalculateK(double Re, double d, double k1, double kinf);
 
 /// This subroutine is used to calculate the head loss associated with a specific fitting.
 /// @param count Number of fittings
 /// @param K Resistance coefficeint calculated with "TwoKCalcK(...)".
 /// @param u Fluid velocity (m/s)
-double TwoKCalcH(int count, double K, double u);
+double TwoKCalculateHead(int count, double K, double u);
 
 /// This subroutine is used to calculate the pressure loss associated with a specific fitting.
 /// @param h Head loss (m)
 /// @param rho Fluid density (kg/m3)
-double TwoKCalcP(double h, double rho);
+double TwoKCalculatePLoss(double h, double rho);
 
 /// This subroutine is used to perform the calculations for the head and pressure losses through the 2K method. 
 /// @param data Table containing collected data.
@@ -109,7 +109,7 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
 /// @param Re Reynold's number
 /// @param TotalP Total pressure loss (Pa)
 /// @param TotalH Total head loss (m)
-void TwoKWriteCheck(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH);
+void TwoKWriteSwitch(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH);
 
 #endif /* TwoKWrite_h */
 
