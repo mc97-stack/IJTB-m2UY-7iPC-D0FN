@@ -20,7 +20,7 @@
 
 #define maxstrlen 128
 
-void OpenFirstLawVarProc(double *q, double *w_s)
+void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
     char input[maxstrlen];
     
@@ -35,7 +35,7 @@ void OpenFirstLawVarProc(double *q, double *w_s)
     fflush(stdout);
 }
 
-T2StateEnergy OpenFirstLawVar(int ins)
+T2StateEnergy OpenFirstLawFluidVariable(int ins)
 {
     char input[maxstrlen];
     
@@ -67,7 +67,7 @@ T2StateEnergy OpenFirstLawVar(int ins)
     return state;
 }
 
-double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnergy state2)
+double OpenFirstLawCalculation(double q, double w_s, T2StateEnergy state1, T2StateEnergy state2)
 {
     double inequality = 0.0;
     
@@ -105,7 +105,7 @@ void OpenInitialValue(T2StateEnergy state, double *u, double *z)
     *z = (*z)/(9.80665);
 }
 
-void OpenFirstLawDisp(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
+void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
     double u1 = 0.0;
     double u2 = 0.0;
@@ -248,11 +248,12 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     printf("Write Complete\n");
 }
 
-void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
+void OpenFirstLawWriteSwitch(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -266,14 +267,14 @@ void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q,
             case 't':
             case 'y':
                 OpenFirstLawWrite(state1, state2, q, w_s, sysstate);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -309,18 +310,18 @@ void OpenFirstLaw()
         state2.potenergy = 0.0;
         
         //  Data collection
-        OpenFirstLawVarProc(&q, &w_s);
-        state1 = OpenFirstLawVar(1);
-        state2 = OpenFirstLawVar(2);
+        OpenFirstLawProcessVariable(&q, &w_s);
+        state1 = OpenFirstLawFluidVariable(1);
+        state2 = OpenFirstLawFluidVariable(2);
         
         //  Data manipulation
-        sysstate = OpenFirstLawCalc(q, w_s, state1, state2);
+        sysstate = OpenFirstLawCalculation(q, w_s, state1, state2);
         
         //  Displaying results
-        OpenFirstLawDisp(state1, state2, q, w_s, sysstate);
+        OpenFirstLawDisplay(state1, state2, q, w_s, sysstate);
         
         //  Writing to File
-        OpenFirstLawWriteCheck(state1, state2, q, w_s, sysstate);
+        OpenFirstLawWriteSwitch(state1, state2, q, w_s, sysstate);
         
         //  Continue function
         whilmain = Continue(whilmain);

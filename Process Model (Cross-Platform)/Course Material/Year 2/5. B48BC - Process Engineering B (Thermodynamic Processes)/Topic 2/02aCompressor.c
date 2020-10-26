@@ -25,7 +25,7 @@
 
 #define maxstrlen 128
 
-void CompressorVar(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha)
+void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha)
 {
     char input[maxstrlen];
     
@@ -173,7 +173,7 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     return profile;
 }
 
-void CompresDisp(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
+void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
 {
     printf("_Reciprocating_Compressor_Results_\n");
     printf("\tInput parameters:\n");
@@ -331,11 +331,11 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     printf("Write Complete\n");
 }
 
-void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
+void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -349,14 +349,14 @@ void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, do
             case 't':
             case 'y':
                 CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -435,7 +435,7 @@ void Compressor(void)
         }
         if(method == 1||method == 2){
             //  Collecting data
-            CompressorVar(method, &P1, &P2, &Vc, &V1, &T1, &T2, &n, &R, &alpha);
+            CompressorVariable(method, &P1, &P2, &Vc, &V1, &T1, &T2, &n, &R, &alpha);
             if(alpha == 1.0){
                 method = 1;
             }
@@ -444,10 +444,10 @@ void Compressor(void)
             profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
             
             //  Displaying results
-            CompresDisp(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+            CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
             
             //  Writing to File
-            CompresWriteCheck(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+            CompresWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
         }
         //  Continue function
         whilmain = Continue(whilmain);

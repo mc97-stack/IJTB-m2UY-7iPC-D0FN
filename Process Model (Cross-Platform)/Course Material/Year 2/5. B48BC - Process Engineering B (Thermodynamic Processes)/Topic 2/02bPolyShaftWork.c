@@ -20,7 +20,7 @@
 
 #define maxstrlen 128
 
-int PolyShaftVar(double *P1, double *P2, double *T1, double *n, double *R, double *alpha)
+int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, double *alpha)
 {
     char input[maxstrlen];
     int ideal = 0;
@@ -58,7 +58,7 @@ int PolyShaftVar(double *P1, double *P2, double *T1, double *n, double *R, doubl
     return ideal;
 }
 
-double IdealShaftCalc(double n, double R, double T1, double P1, double P2)
+double IdealShaftCalculation(double n, double R, double T1, double P1, double P2)
 {
     double W_S = 0.0;
     double frac = 0.0;
@@ -73,7 +73,7 @@ double IdealShaftCalc(double n, double R, double T1, double P1, double P2)
     return W_S;
 }
 
-double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double alpha)
+double PolyShaftCalculation(double n, double R, double T1, double P1, double P2, double alpha)
 {
     double W_S = 0.0;
     double power = 0.0;
@@ -96,7 +96,7 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
     return W_S;
 }
 
-void PolyShaftDisp(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
+void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
 {
     printf("_Polytropic_Shaft_Work_Results_\n");
     printf("\tInput parameters:\n");
@@ -215,11 +215,12 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     printf("Write Complete\n");
 }
 
-void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
+void PolyShaftWriteSwitch(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -233,14 +234,14 @@ void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, do
             case 't':
             case 'y':
                 PolyShaftWrite(n, R, T1, P1, P2, alpha, W_S);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -270,26 +271,26 @@ void PolyShaftWork()
         int ideal = 0;
         
         //  Data collection
-        ideal = PolyShaftVar(&P1, &P2, &T1, &n, &R, &alpha);
+        ideal = PolyShaftVariable(&P1, &P2, &T1, &n, &R, &alpha);
         
         //  Running calculations
         if(ideal == 1){
             // Ideal
             printf("Isothermal process has been specified.\n");
-            W_S = IdealShaftCalc(n, R, T1, P1, P2);
+            W_S = IdealShaftCalculation(n, R, T1, P1, P2);
         }
         if(ideal == 2){
             // Normal polytropic
             printf("Polytropic process has been specified.\n");
-            W_S = PolyShaftCalc(n, R, T1, P1, P2, alpha);
+            W_S = PolyShaftCalculation(n, R, T1, P1, P2, alpha);
         }
         //printf("Shaft work = %.3f kW\n", W_S*0.001);
         
         //  Displaying results
-        PolyShaftDisp(n, R, T1, P1, P2, alpha, W_S);
+        PolyShaftDisplay(n, R, T1, P1, P2, alpha, W_S);
         
         //  Writing to File
-        PolyShaftWriteCheck(n, R, T1, P1, P2, alpha, W_S);
+        PolyShaftWriteSwitch(n, R, T1, P1, P2, alpha, W_S);
         
         //  Continue function
         whilmain = Continue(whilmain);

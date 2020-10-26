@@ -16,7 +16,7 @@
 /// @param n Moles of component in system (kmol/s).
 /// @param R Specific gas constant (J/mol.K).
 /// @param alpha Polytropic index.
-int PolyShaftVar(double *P1, double *P2, double *T1, double *n, double *R, double *alpha);
+int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, double *alpha);
 
 #endif /* _2bPolyShaftWork_h */
 
@@ -29,7 +29,7 @@ int PolyShaftVar(double *P1, double *P2, double *T1, double *n, double *R, doubl
 /// @param T1 Initial system temperature (deg C).
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
-double IdealShaftCalc(double n, double R, double T1, double P1, double P2);
+double IdealShaftCalculation(double n, double R, double T1, double P1, double P2);
 
 #endif /* IdealShaftCalc_h */
 
@@ -43,7 +43,7 @@ double IdealShaftCalc(double n, double R, double T1, double P1, double P2);
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param alpha Polytropic index.
-double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double alpha);
+double PolyShaftCalculation(double n, double R, double T1, double P1, double P2, double alpha);
 
 #endif /* PolyShaftCalc_h */
 
@@ -58,7 +58,7 @@ double PolyShaftCalc(double n, double R, double T1, double P1, double P2, double
 /// @param P2 Final system pressure (Pa).
 /// @param alpha Polytropic index.
 /// @param W_S Shaft Work (kW).
-void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
+void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
 
 #endif /* PolyShaftDisp_h */
 
@@ -82,6 +82,6 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
 /// @param P2 Final system pressure (Pa).
 /// @param alpha Polytropic index.
 /// @param W_S Shaft Work (kW).
-void PolyShaftWriteCheck(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
+void PolyShaftWriteSwitch(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
 
 #endif /* PolyShaftWrite_h */

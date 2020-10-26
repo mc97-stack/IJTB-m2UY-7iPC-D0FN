@@ -23,7 +23,7 @@ typedef struct T2StateEnergy{
 /// This subroutine collects values associated with the unit operation under examination.
 /// @param q Specific process heat (kJ/ kmol).
 /// @param w_s Specific shaft work (kJ/ kmol).
-void OpenFirstLawVarProc(double *q, double *w_s);
+void OpenFirstLawProcessVariable(double *q, double *w_s);
 
 #endif /* OpenFirstLawVarProc_h */
 
@@ -32,7 +32,7 @@ void OpenFirstLawVarProc(double *q, double *w_s);
 
 /// This subroutine collects values associated with the fluid streams at a particular time state.
 /// @param ins Timestate indicator.
-T2StateEnergy OpenFirstLawVar(int ins);
+T2StateEnergy OpenFirstLawFluidVariable(int ins);
 
 #endif /* OpenFirstLawVar_h */
 
@@ -44,7 +44,7 @@ T2StateEnergy OpenFirstLawVar(int ins);
 /// @param w_s Specific shaft work (J/kmol).
 /// @param state1 Fluid energy content at state 1 (J/kmol).
 /// @param state2 Fluid energy content at state 2 (J/kmol).
-double OpenFirstLawCalc(double q, double w_s, T2StateEnergy state1, T2StateEnergy state2);
+double OpenFirstLawCalculation(double q, double w_s, T2StateEnergy state1, T2StateEnergy state2);
 
 #endif /* OpenFirstLawCalc_h */
 
@@ -68,7 +68,7 @@ void OpenInitialValue(T2StateEnergy state, double *u, double *z);
 /// @param q Process Heat (J/kmol).
 /// @param w_s Process shaft work (J/kmol).
 /// @param sysstate Inequality between process energy and fluid energy contributions (J/kmol).
-void OpenFirstLawDisp(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
+void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
 
 #endif /* OpenFirstLawDisp_h */
 
@@ -89,6 +89,6 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
 /// @param q Process Heat (J/kmol).
 /// @param w_s Process shaft work (J/kmol).
 /// @param sysstate Inequality between process energy and fluid energy contributions (J/kmol). 
-void OpenFirstLawWriteCheck(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
+void OpenFirstLawWriteSwitch(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
 
 #endif /* OpenFirstLawWrite_h */

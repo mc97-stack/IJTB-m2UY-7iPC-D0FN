@@ -33,7 +33,7 @@ typedef struct CompProfile{
 /// @param n Moles of component. (kmol/ s).
 /// @param R Specific gas constant. (J/ mol. K).
 /// @param alpha Polytropic index.
-void CompressorVar(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha);
+void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha);
 
 #endif /* _2aCompressor_h */
 
@@ -71,7 +71,7 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
 /// @param R Specific gas constant. (J/ mol. K).
 /// @param alpha Polytropic index.
 /// @param profile Compressor Profile.
-void CompresDisp(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
+void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
 
 #endif /* CompresDisp_h */
 
@@ -103,6 +103,6 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
 /// @param R Specific gas constant. (J/ mol. K).
 /// @param alpha Polytropic index.
 /// @param profile Compressor Profile.
-void CompresWriteCheck(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
+void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
 
 #endif /* CompresWrite_h */
