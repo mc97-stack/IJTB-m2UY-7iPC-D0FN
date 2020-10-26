@@ -145,7 +145,7 @@ T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, 
     return profile;
 }
 
-void IsobProcDisp(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
+void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
 {
     double total = 0.0;
     
@@ -284,11 +284,11 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     printf("Write Complete\n");
 }
 
-void IsobProcWriteCheck(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
+void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -302,14 +302,14 @@ void IsobProcWriteCheck(double P, double V1, double V2, double T1, double T2, do
             case 't':
             case 'y':
                 IsobProcWrite(P, V1, V2, T1, T2, n, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -393,10 +393,10 @@ void Isobaric()
             profile = IsobProfile(method, P, V1, V2, T1, T2, n);
             
             //  Displaying results
-            IsobProcDisp(P, V1, V2, T1, T2, n, profile);
+            IsobProcDisplay(P, V1, V2, T1, T2, n, profile);
             
             //  Writing to File
-            IsobProcWriteCheck(P, V1, V2, T1, T2, n, profile);
+            IsobProcWriteSwitch(P, V1, V2, T1, T2, n, profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

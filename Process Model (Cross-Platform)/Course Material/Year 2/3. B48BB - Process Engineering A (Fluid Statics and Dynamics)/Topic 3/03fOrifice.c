@@ -24,7 +24,7 @@
 
 void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Discharge coefficient (C_d) = ");
     *C_d = atof(fgets(input, sizeof(input), stdin));
@@ -143,11 +143,11 @@ void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, doub
 void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Orifice Plate Results
         //Get current time
     time_t rawtime;

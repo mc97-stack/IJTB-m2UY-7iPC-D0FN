@@ -113,7 +113,7 @@ TwoKFittings TwoKData(TwoKFittings input)
 
 TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     table = TwoKData(table);
     
@@ -562,11 +562,11 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
 void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + 2K Results
         //Get current time
     time_t rawtime;

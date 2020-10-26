@@ -24,7 +24,7 @@
 
 void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Static pressure on connection (kPa) = ");
     *P2 = atof(fgets(input, sizeof(input), stdin));
@@ -111,11 +111,11 @@ void PitotDisplay(double P1, double P2, double rho1, double rho2, double h1, dou
 void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Pitot Static Tube Results
         //Get current time
     time_t rawtime;

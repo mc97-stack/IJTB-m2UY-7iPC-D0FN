@@ -149,6 +149,6 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
 /// @param R Specific gas constant (J/ mol.K).
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
-void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
+void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
 
 #endif /* PolyProcWrite_h */

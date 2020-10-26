@@ -404,11 +404,12 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("Write Complete\n");
 }
 
-void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
+void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -422,14 +423,14 @@ void PolyProcWriteCheck(double P1, double P2, double V1, double V2, double T1, d
             case 't':
             case 'y':
                 PolyProcWrite(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -528,7 +529,7 @@ void Polytropic()
             PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
             
             // Writing to File
-            PolyProcWriteCheck(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+            PolyProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
         }
         //  Continue function
         whilmain = Continue(whilmain);

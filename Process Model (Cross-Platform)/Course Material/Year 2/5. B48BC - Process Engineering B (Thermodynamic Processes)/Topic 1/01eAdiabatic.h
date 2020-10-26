@@ -107,7 +107,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
 /// @param n Moles of component in system (mol/s).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Process profile.
-void AdiaProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
+void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
 
 #endif /* AdiaProcDisp_h */
 
@@ -136,6 +136,6 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
 /// @param n Moles of component in system (mol/s).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Process profile.
-void AdiaProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
+void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
 
 #endif /* AdiaProcWrite_h */

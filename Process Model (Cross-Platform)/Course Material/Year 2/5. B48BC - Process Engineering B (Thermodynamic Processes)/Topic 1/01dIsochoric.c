@@ -153,7 +153,7 @@ T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, 
     return profile;
 }
 
-void IsocProcDisp(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
+void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
     double total = 0.0;
     
@@ -293,11 +293,12 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     printf("Write Complete\n");
 }
 
-void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
+void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -311,14 +312,14 @@ void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, do
             case 't':
             case 'y':
                 IsocProcWrite(P1, P2, V, T1, T2, n, c_v, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -401,10 +402,10 @@ void Isochoric()
             profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
             
             //  Displaying results
-            IsocProcDisp(P1, P2, V, T1, T2, n, cv, profile);
+            IsocProcDisplay(P1, P2, V, T1, T2, n, cv, profile);
             
             //  Writing to File
-            IsocProcWriteCheck(P1, P2, V, T1, T2, n, cv, profile);
+            IsocProcWriteSwitch(P1, P2, V, T1, T2, n, cv, profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

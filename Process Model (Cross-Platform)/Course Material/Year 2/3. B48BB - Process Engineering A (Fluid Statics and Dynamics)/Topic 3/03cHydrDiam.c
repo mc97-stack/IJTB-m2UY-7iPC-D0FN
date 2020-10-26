@@ -23,7 +23,7 @@
 void HydrDiamVariable(double *A_F, double *P_W)
 {
     //Input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     double convfactor = 0.0;
     
@@ -72,11 +72,11 @@ void HydrDiamDisplay(double A_F, double P_W, double d_H)
 void HydrDiamWrite(double A_F, double P_W, double d_H)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Hydraulic Diameter Results
         //Get current time
     time_t rawtime;

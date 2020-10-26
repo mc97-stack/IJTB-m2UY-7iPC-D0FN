@@ -99,7 +99,7 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
 /// @param T System temperature (K).
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
-void IsotProcDisp(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
 
 #endif /* IsocProcDisp_h */
 
@@ -123,6 +123,6 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
 /// @param T System temperature (K).
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
-void IsotProcWriteCheck(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */

@@ -165,7 +165,7 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
     return profile;
 }
 
-void IsotProcDisp(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
+void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
 {
     double total = 0.0;
     
@@ -302,11 +302,12 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     printf("Write Complete\n");
 }
 
-void IsotProcWriteCheck(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
+void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -320,14 +321,14 @@ void IsotProcWriteCheck(double P1, double P2, double V1, double V2, double T, do
             case 't':
             case 'y':
                 IsotProcWrite(P1, P2, V1, V2, T, n, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -409,10 +410,10 @@ void Isothermal()
             profile = IsotProfile(method, n, T, P1, P2, V1, V2);
             
             //  Displaying results
-            IsotProcDisp(P1, P2, V1, V2, T, n, profile);
+            IsotProcDisplay(P1, P2, V1, V2, T, n, profile);
             
             //  Writing to File
-            IsotProcWriteCheck(P1, P2, V1, V2, T, n, profile);
+            IsotProcWriteSwitch(P1, P2, V1, V2, T, n, profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

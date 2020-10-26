@@ -79,7 +79,7 @@ T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, 
 /// @param n Moles of component in system (mol/ s).
 /// @param c_v Heat capacity at constant volume (J/mol.K).
 /// @param profile Isochoric process profile.
-void IsocProcDisp(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
+void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
 
 #endif /* IsocProcDisp_h */
 
@@ -106,6 +106,6 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
 /// @param n Moles of component in system (mol/ s).
 /// @param c_v Heat capacity at constant volume (J/mol.K).
 /// @param profile Isochoric process profile.
-void IsocProcWriteCheck(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
+void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */

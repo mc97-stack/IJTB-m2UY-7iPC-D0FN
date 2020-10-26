@@ -24,7 +24,7 @@
 
 void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L, double *vareps)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Fluid density (kg/m3) = ");
     *rho = atof(fgets(input, sizeof(input), stdin));
@@ -55,7 +55,7 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
 
 double phiCalculation(double rho, double u, double d, double mu, double vareps)
 {
-    char rough[maxstrlen];
+    char menu[maxstrlen];
     
     double ReyNum = 0.0;
     double phi = 0.0;
@@ -78,8 +78,8 @@ double phiCalculation(double rho, double u, double d, double mu, double vareps)
             roughcheck = 1;
             while(roughcheck == 1){
                 printf("Is the friction factor independent of Reynolds number? [Y/N] ");
-                fgets(rough, sizeof(rough), stdin);
-                switch(rough[0]){
+                fgets(menu, sizeof(menu), stdin);
+                switch(menu[0]){
                     case '1':
                     case 'T':
                     case 'Y':
@@ -180,11 +180,11 @@ void PressLossDisplay(double rho, double u, double d, double mu, double L, doubl
 void PressLossWrite(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Pressure Loss Equation Results
         //Get current time
     time_t rawtime;

@@ -24,7 +24,7 @@
 
 void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Discharge coefficient (C_d) = ");
     *C_d = atof(fgets(input, sizeof(input), stdin));
@@ -119,11 +119,11 @@ void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double a
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Rotameter Results
         //Get current time
     time_t rawtime;

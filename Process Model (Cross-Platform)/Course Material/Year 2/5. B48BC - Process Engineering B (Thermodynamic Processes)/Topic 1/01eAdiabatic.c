@@ -240,7 +240,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     return profile;
 }
 
-void AdiaProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
+void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
     double total = 0.0;
     
@@ -389,7 +389,7 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("Write Complete\n");
 }
 
-void AdiaProcWriteCheck(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
+void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -498,10 +498,10 @@ void Adiabatic()
             profile = AdiaProfile(method, P1, P2, V1, V2, T1, T2, n, gamma);
             
             //  Displaying results
-            AdiaProcDisp(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+            AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);
             
             //  Writing to File
-            AdiaProcWriteCheck(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+            AdiaProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, gamma, profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

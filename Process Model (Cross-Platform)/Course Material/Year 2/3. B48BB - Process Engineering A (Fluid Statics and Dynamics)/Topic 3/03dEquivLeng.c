@@ -43,7 +43,7 @@ EquivLenFits EquivLengData(EquivLenFits input)
 
 EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double *d, double *mu, double *vareps, double *phi)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     //  Loading database into the data struct
     data = EquivLengData(data);
@@ -294,11 +294,11 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
 void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Equivalent Length Results
         //Get current time
     time_t rawtime;
