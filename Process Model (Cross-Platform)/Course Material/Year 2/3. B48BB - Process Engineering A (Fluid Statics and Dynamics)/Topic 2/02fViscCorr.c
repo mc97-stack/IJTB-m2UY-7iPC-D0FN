@@ -21,14 +21,14 @@
 #define maxstrlen 128
 #define exp 2.718281828459045
 
-void ViscCorrVar(double *a, double *b, double *T, double *rho)
+void ViscCorrVariable(double *a, double *b, double *T, double *rho)
 {
     //How constants are used will vary on the correlation being utilised to estimate the fluid viscosity;
     //Declaring input variables
-    char input[maxstrlen];
-    char tempconv[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
+    char menu[maxstrlen];
     
-    int TempCheck = 0;
+    int control = 0;
     
     printf("a = ");
     *a = atof(fgets(input, sizeof(input), stdin));
@@ -39,12 +39,12 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho)
     printf("System temperature (deg C) = ");
     *T = atof(fgets(input, sizeof(input), stdin));
     
-    TempCheck = 1;
-    while(TempCheck == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Does temperature need converting to K? ");
-        fgets(tempconv, sizeof(tempconv), stdin);
-        switch(tempconv[0])
+        fgets(menu, sizeof(menu), stdin);
+        switch(menu[0])
         {
             case '1':
             case 'T':
@@ -52,14 +52,14 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho)
             case 't':
             case 'y':
                 *T = (*T) + 273.15;
-                TempCheck = 0;
+                control = 0;
             break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                TempCheck = 0;
+                control = 0;
             break;
             default:
                 printf("Input not recognised\n");
@@ -69,17 +69,17 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho)
     
     printf("Fluid density (kg/m3) = ");
     *rho = atof(fgets(input, sizeof(input), stdin));
-    
+    /*
     printf("Function assignments:\n");
     printf("a = %.3f\n", *a);
     printf("b = %.3f\n", *b);
     printf("T = %.3f\n", *T);
     printf("rho = %.3f kg/m3\n", *rho);
-    
+    */
     fflush(stdout);
 }
 
-double LiqViscCalc(double a, double b, double T)
+double LiquidViscCalculation(double a, double b, double T)
 {
     double frac = 0.0;
     double mu = 0.0;
@@ -93,7 +93,7 @@ double LiqViscCalc(double a, double b, double T)
     return mu;
 }
 
-double VapViscCalc(double a, double b, double T)
+double VapourViscCalculation(double a, double b, double T)
 {
     double top = 0.0;
     double bot = 0.0;
@@ -111,7 +111,7 @@ double VapViscCalc(double a, double b, double T)
     return mu;
 }
 
-double KinVisc(double mu, double rho)
+double KineticVisc(double mu, double rho)
 {
     double upsi = 0.0;
     
@@ -120,7 +120,7 @@ double KinVisc(double mu, double rho)
     return upsi;
 }
 
-void ViscDisp(int method, double a, double b, double T, double rho, double mu, double upsi)
+void ViscDisplay(int method, double a, double b, double T, double rho, double mu, double upsi)
 {
     if(method == 1){
         printf("_Liquid_Viscosity_Correlation_\n");
@@ -149,11 +149,11 @@ void ViscDisp(int method, double a, double b, double T, double rho, double mu, d
 void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + ... Viscosity Correlation Results
         //Get current time
     time_t rawtime;
@@ -237,11 +237,12 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     printf("Write Complete\n");
 }
 
-void ViscWriteCheck(int method, double a, double b, double T, double rho, double mu, double upsi)
+void ViscWriteSwitch(int method, double a, double b, double T, double rho, double mu, double upsi)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -255,14 +256,14 @@ void ViscWriteCheck(int method, double a, double b, double T, double rho, double
             case 't':
             case 'y':
                 ViscWrite(method, a, b, T, rho, mu, upsi);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -271,7 +272,7 @@ void ViscWriteCheck(int method, double a, double b, double T, double rho, double
     }
 }
 
-void ViscCorr()
+void ViscosityCorrelation()
 {
     //Main Function
     int whilmain = 0;
@@ -283,8 +284,8 @@ void ViscCorr()
         //Variable declaration
         char input[maxstrlen];
         
-        double mu = 0.0; //Fluid viscosity
-        double upsi = 0.0; //Fluid kinematic viscosity
+        double mu = 0.0;    //Fluid viscosity
+        double upsi = 0.0;  //Fluid kinematic viscosity
         
         double a = 0.0;
         double b = 0.0;
@@ -325,7 +326,7 @@ void ViscCorr()
         }
         printf("\n");
         
-        ViscCorrVar(&a, &b, &T, &rho);/*
+        ViscCorrVariable(&a, &b, &T, &rho);/*
         printf("Function returns:\n");
         printf("a = %f\n", a);
         printf("b = %f\n", b);
@@ -337,23 +338,23 @@ void ViscCorr()
         switch(method)
         {
             case '1':
-                mu = LiqViscCalc(a, b, T);
+                mu = LiquidViscCalculation(a, b, T);
                 //printf("Function returns: mu = %f [Units]\n", mu);
                 break;
             case '2':
-                mu = VapViscCalc(a, b, T);
+                mu = VapourViscCalculation(a, b, T);
                 //printf("Function returns: mu = %f [Units]\n", mu);
                 break;
             //Default case is not needed as input is checked earlier in function
         }
         printf("\n");
-        upsi = KinVisc(mu, rho);
+        upsi = KineticVisc(mu, rho);
         //printf("Function returns: upsi = %f [Units]\n", upsi);
         //  Displaying results
-        ViscDisp(method, a, b, T, rho, mu, upsi);
+        ViscDisplay(method, a, b, T, rho, mu, upsi);
         
         //  Writing to File
-        ViscWriteCheck(method, a, b, T, rho, mu, upsi);
+        ViscWriteSwitch(method, a, b, T, rho, mu, upsi);
         
         //  Continue function
         whilmain = Continue(whilmain);

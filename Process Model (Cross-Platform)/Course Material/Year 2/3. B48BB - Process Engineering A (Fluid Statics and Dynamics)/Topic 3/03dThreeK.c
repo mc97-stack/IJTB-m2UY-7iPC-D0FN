@@ -361,7 +361,7 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
 {
     double ReyNo = 0.0;
     
-    *Re = ReyNoCalc(rho, u, d, mu);
+    *Re = ReyNoCalculation(rho, u, d, mu);
     ReyNo = (*Re);
     
     for(int i = 0; i < 34; ++i){
@@ -1225,7 +1225,7 @@ void ThreeK()
     double TotalP = 0.0;
     
     printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
-    ThreeKFittings ThreeKTable;
+    static ThreeKFittings ThreeKTable;
     
     // Initialising all values in the struct
     for(int i = 0; i < 34; ++i){

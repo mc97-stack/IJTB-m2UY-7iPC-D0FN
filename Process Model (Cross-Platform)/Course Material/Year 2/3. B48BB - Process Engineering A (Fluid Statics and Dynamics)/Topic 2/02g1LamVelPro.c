@@ -18,14 +18,13 @@
 
 #define maxstrlen 128
 
-void LamVelProVar(double *dP, double *L, double *d, double *mu)
+void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 {
     //Declaring input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Pipe diameter (mm) = ");
     *d = atof(fgets(input, sizeof(input), stdin));
-    
     *d = (*d)*0.001;
     
     printf("Pipe length (m) = ");
@@ -36,13 +35,12 @@ void LamVelProVar(double *dP, double *L, double *d, double *mu)
     
     printf("Fluid viscosity (cP) = ");
     *mu = atof(fgets(input, sizeof(input), stdin));
-    
     *mu = (*mu)*0.001;
     
     fflush(stdout);
 }
 
-double LamVelCalc(double dP, double L, double d, double mu, double r) 
+double LamVelCalculation(double dP, double L, double d, double mu, double r) 
 {
     //Calculation of the theoretical velocity profile with the flow possessing laminar characteristics
     double frac1 = 0.0;
@@ -67,7 +65,7 @@ double LamVelCalc(double dP, double L, double d, double mu, double r)
     return v_x;
 }
 
-double LamGenCalc(double r, double d)
+double LamVelGeneralCalculation(double r, double d)
 {
     //Calculation of the general velocity profile with the flow possessing laminar characteristics
     double func = 0.0;
@@ -79,7 +77,7 @@ double LamGenCalc(double r, double d)
     return func; //Returns v/v_max
 }
 
-LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows) 
+LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *rows) 
 {
     double interval = 0.0; // Interval between radius data entries used to calculate the point velocities.
     double frad = 0.0; // Absolute pipe radius. (N.B. This is different to the variable 'r'.)
@@ -105,8 +103,8 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows)
     for(r = 0.0; r < (frad + (interval/2)); r += interval)
     {
         profile.r[i] = r; //Displaying point radius
-        profile.v_x[i] = LamVelCalc(dP, L, d, mu, r); //Calculating point velocity
-        profile.ratio[i] = LamGenCalc(r, d);
+        profile.v_x[i] = LamVelCalculation(dP, L, d, mu, r); //Calculating point velocity
+        profile.ratio[i] = LamVelGeneralCalculation(r, d);
         ++i;
     }
     printf("%i rows successfully generated\n\n", i);
@@ -115,7 +113,7 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rows)
     return profile;
 }
 
-void LamVelProDisp(double dP, double L, double d, double mu, int rows, LamVelProf profile)
+void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     printf("_Laminar_Velocity_Profile_Calculation_\n");
     printf("\tInput parameters:\n");
@@ -140,11 +138,11 @@ void LamVelProDisp(double dP, double L, double d, double mu, int rows, LamVelPro
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Laminar Velocity Profile Results
         //Get current time
     time_t rawtime;
@@ -218,7 +216,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     printf("Write Complete\n");
 }
 
-void LamVelProWriteCheck(double dP, double L, double d, double mu, int rows, LamVelProf profile)
+void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -252,7 +250,7 @@ void LamVelProWriteCheck(double dP, double L, double d, double mu, int rows, Lam
     }
 }
 
-void LamVelPro()
+void LaminarVelPro()
 {
     //Main Function
     int whilmain = 0;
@@ -279,16 +277,16 @@ void LamVelPro()
         int rows = 0;
         
         //  Data collection
-        LamVelProVar(&dP, &L, &d, &mu);
+        LamVelProVariable(&dP, &L, &d, &mu);
         
         //  Running calculations
-        profile = LamVelProfCalc(dP, L, d, mu, &rows);
+        profile = LamVelProfCalculation(dP, L, d, mu, &rows);
         
         //  Displaying results
-        LamVelProDisp(dP, L, d, mu, rows, profile);
+        LamVelProDisplay(dP, L, d, mu, rows, profile);
         
         //  Writing to File
-        LamVelProWriteCheck(dP, L, d, mu, rows, profile);
+        LamVelProWriteSwitch(dP, L, d, mu, rows, profile);
     }
     fflush(stdout);
 }

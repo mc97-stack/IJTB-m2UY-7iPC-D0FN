@@ -18,9 +18,9 @@
 
 #define maxstrlen 128
 
-void TurVelProVar(double *umax, double *d)
+void TurVelProVariable(double *umax, double *d)
 {
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     double u = 0.0;
     
@@ -37,7 +37,7 @@ void TurVelProVar(double *umax, double *d)
     fflush(stdout);
 }
 
-double TurVelProCalc(double vmax, double r, double d, double *gen) 
+double TurVelCalculation(double vmax, double r, double d, double *gen) 
 {
     //Calculated using Prandtl's one-seventh law
     double bot = 0.0;
@@ -59,7 +59,7 @@ double TurVelProCalc(double vmax, double r, double d, double *gen)
     return v_x;
 }
 
-TurVelProf TurVelProfCalc(double vmax, double d, int *rows) 
+TurVelProf TurVelProCalculation(double vmax, double d, int *rows) 
 {
     double interval = 0.0;
     double prad = 0.0;
@@ -83,7 +83,7 @@ TurVelProf TurVelProfCalc(double vmax, double d, int *rows)
     for(double r = 0.0; r < (prad + (interval/2)); r += interval)
     {
         profile.r[i] = r; //Displaying point radius
-        profile.v_x[i] = TurVelProCalc(vmax, r, d, &profile.ratio[i]);
+        profile.v_x[i] = TurVelCalculation(vmax, r, d, &profile.ratio[i]);
         ++i;
     }
     printf("%i rows successfully generated\n\n", i);
@@ -91,7 +91,7 @@ TurVelProf TurVelProfCalc(double vmax, double d, int *rows)
     return profile;
 }
 
-void TurVelProDisp(double umax, double d, int rows, TurVelProf profile)
+void TurVelProDisplay(double umax, double d, int rows, TurVelProf profile)
 {
     printf("_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
     
@@ -114,11 +114,11 @@ void TurVelProDisp(double umax, double d, int rows, TurVelProf profile)
 void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Turbulent Velocity Profile Results
         //Get current time
     time_t rawtime;
@@ -188,7 +188,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     printf("Write Complete\n");
 }
 
-void TurVelProWriteCheck(double umax, double d, int rows, TurVelProf profile)
+void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -222,7 +222,7 @@ void TurVelProWriteCheck(double umax, double d, int rows, TurVelProf profile)
     }
 }
 
-void TurVelPro()
+void TurbulentVelPro()
 {
     //Main Function
     int whilmain = 0;
@@ -234,6 +234,7 @@ void TurVelPro()
         //Variable declaration
         double vmax = 0;
         double d = 0;
+        
         TurVelProf profile;
         
         // Initialising all elements in the struct
@@ -246,16 +247,16 @@ void TurVelPro()
         int rows = 0;
         
         //  Data collection
-        TurVelProVar(&vmax, &d);
+        TurVelProVariable(&vmax, &d);
         
         //  Running calculations
-        profile = TurVelProfCalc(vmax, d, &rows);
+        profile = TurVelProCalculation(vmax, d, &rows);
         
         //  Displaying results
-        TurVelProDisp(vmax, d, rows, profile);
+        TurVelProDisplay(vmax, d, rows, profile);
         
         //  Writing to File
-        TurVelProWriteCheck(vmax, d, rows, profile);
+        TurVelProWriteSwitch(vmax, d, rows, profile);
     }
     fflush(stdout);
 }

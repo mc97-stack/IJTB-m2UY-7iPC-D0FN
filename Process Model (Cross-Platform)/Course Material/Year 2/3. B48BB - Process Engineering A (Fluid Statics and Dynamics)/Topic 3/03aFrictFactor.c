@@ -19,7 +19,7 @@ double Laminar(double rho, double u, double d, double mu)
 {
     double FrictFactor = 0.0;
     
-    FrictFactor = ReyNoCalc(rho, u, d, mu);
+    FrictFactor = ReyNoCalculation(rho, u, d, mu);
     FrictFactor = (8.0)/(FrictFactor);
     
     return FrictFactor;
@@ -29,7 +29,7 @@ double Turbulent1(double rho, double u, double d, double mu)
 {
     double FrictFactor = 0.0;
     
-    FrictFactor = ReyNoCalc(rho, u, d, mu);
+    FrictFactor = ReyNoCalculation(rho, u, d, mu);
     FrictFactor = pow(FrictFactor, (-0.25));
     FrictFactor = 0.0396*(FrictFactor);
     
@@ -58,7 +58,7 @@ double Turbulent2(double rho, double u, double d, double mu)
     for(i = 0; i < i_max; ++i){
         LHS = pow(FrictFactor, (-0.5));
         
-        RHS = ReyNoCalc(rho, u, d, mu);
+        RHS = ReyNoCalculation(rho, u, d, mu);
         RHS = (RHS)*pow(FrictFactor, 0.5);
         RHS = log(RHS);
         RHS = 2.5*(RHS);
@@ -113,7 +113,7 @@ double Turbulent3(double rho, double u, double d, double mu, double vareps)
         LHS = pow(FrictFactor, (-0.5));
         
         term2 = pow(FrictFactor, 0.5);
-        RHS = ReyNoCalc(rho, u, d, mu);
+        RHS = ReyNoCalculation(rho, u, d, mu);
         term2 = RHS*term2;
         term2 = 0.885/(term2);
         

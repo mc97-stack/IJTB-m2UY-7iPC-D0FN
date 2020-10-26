@@ -14,7 +14,7 @@
 /// @param u Fluid velocity (m/s).
 /// @param d Pipe diameter (mm).
 /// @param mu Fluid viscosity (cP).
-void ReyNoVar(double *rho, double *u, double *d, double *mu);
+void ReyNoVariable(double *rho, double *u, double *d, double *mu);
 
 #endif /* ReyNoVar_h */
 
@@ -26,7 +26,7 @@ void ReyNoVar(double *rho, double *u, double *d, double *mu);
 /// @param u Fluid velocity (m/s).
 /// @param d Pipe diameter (m).
 /// @param mu Fluid viscosity (Pa.s).
-double ReyNoCalc(double rho, double u, double d, double mu);
+double ReyNoCalculation(double rho, double u, double d, double mu);
 
 #endif /* ReyNoCalc_h */
 
@@ -39,7 +39,7 @@ double ReyNoCalc(double rho, double u, double d, double mu);
 /// @param d Pipe diameter (m).
 /// @param mu Fluid viscosity (Pa.s).
 /// @param ReyNum Reynold's Number.
-void ReyNoDisp(double rho, double u, double d, double mu, double ReyNum);
+void ReyNoDisplay(double rho, double u, double d, double mu, double ReyNum);
 
 #endif /* ReyNoDisp_h */
 
@@ -60,6 +60,6 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum);
 /// @param d Pipe diameter (m).
 /// @param mu Fluid viscosity (Pa.s).
 /// @param ReyNum Reynold's Number.
-void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum);
+void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum);
 
 #endif /* ReyNoWrite_h */

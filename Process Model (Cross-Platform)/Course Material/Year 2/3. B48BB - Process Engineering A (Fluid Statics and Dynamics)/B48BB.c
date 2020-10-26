@@ -115,28 +115,28 @@ void B48BBtopic2()
         switch(B48BBMenu[0])
         {
             case '1':
-                MassCon();
+                MassConservation();
             break;
             case '2':
-                EnerCon();
+                EnergyConservation();
             break;
             case '3':
-                BernEqn();
+                BernoulliEquation();
             break;
             case '4':
-                ReyNo();
+                ReynoldsNumber();
             break;
             case '5':
                 //NewVisc();
             break;
             case '6':
-                ViscCorr();
+                ViscosityCorrelation();
             break;
             case '7':
-                VelProfile();
+                VelocityProfileMenu();
             break;
             case '8':
-                HagPois();
+                HagenPoiseuille();
             break;
             case 'q':
                 whiltop = 0;

@@ -18,7 +18,7 @@
 
 #define maxstrlen 128
 
-void VelProfile()
+void VelocityProfileMenu()
 {
     //Main Function
     int whilmain;
@@ -40,13 +40,13 @@ void VelProfile()
                 case '1':
                 case 'L':
                 case 'l':
-                    LamVelPro();
+                    LaminarVelPro();
                     whilselec = 0;
                 break;
                 case '2':
                 case 'T':
                 case 't':
-                    TurVelPro();
+                    TurbulentVelPro();
                     whilselec = 0;
                 break;
                 default:

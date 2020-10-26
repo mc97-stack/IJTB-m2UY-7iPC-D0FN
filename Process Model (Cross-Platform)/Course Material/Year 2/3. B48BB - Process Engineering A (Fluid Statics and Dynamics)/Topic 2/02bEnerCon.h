@@ -13,7 +13,7 @@
 /// @param u Internal energy (kJ/ kg)
 /// @param P Fluid pressure (Pa)
 /// @param rho Fluid density (kg/m3)
-double EnthalpyConv(double u, double P, double rho);
+double EnthalpyConversion(double u, double P, double rho);
 
 #endif /* EnthalpyConv_h */
 
@@ -29,7 +29,7 @@ double EnthalpyConv(double u, double P, double rho);
 /// @param z2 Final fluid height. (m)
 /// @param q Process heat. (kJ/ kg)
 /// @param w Process work. (kJ/ kg)
-void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, double *z2, double *q, double *w);
+void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1, double *z2, double *q, double *w);
 
 #endif /* EnerConVar_h */
 
@@ -40,7 +40,7 @@ void EnerConVar(double *h1, double *h2, double *u1, double *u2, double *z1, doub
 /// @param h Enthalpy (kJ/kg)
 /// @param u Fluid velocity (m/s)
 /// @param z Relative height (m)
-double EnerConFluCalc(double h, double u, double z);
+double EnerConFluidCalculation(double h, double u, double z);
 
 #endif /* EnerConFluCalc_h */
 
@@ -50,7 +50,7 @@ double EnerConFluCalc(double h, double u, double z);
 /// This subroutine is used to determine the total energy input into the open system. The subroutine, after calculation, returns to sum of the heat and work inputted into the system.
 /// @param q Process heat. (kJ/kg)
 /// @param w Process work. (kJ/kg)
-double EnerConProCalc(double q, double w);
+double EnerConProcessCalculation(double q, double w);
 
 #endif /* EnerConProCalc_h */
 
@@ -67,7 +67,7 @@ double EnerConProCalc(double q, double w);
 /// @param q Process heat. (kJ/ kg)
 /// @param w Process work. (kJ/ kg)
 /// @param check Value of inequality
-void EnerConDisp(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check);
+void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check);
 
 #endif /* EnerConProDisp_h */
 
@@ -96,6 +96,6 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
 /// @param q Process heat. (kJ/ kg)
 /// @param w Process work. (kJ/ kg)
 /// @param check Value of inequality
-void EnerConWriteCheck(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check);
+void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check);
 
 #endif /* EnerConProWrite_h */

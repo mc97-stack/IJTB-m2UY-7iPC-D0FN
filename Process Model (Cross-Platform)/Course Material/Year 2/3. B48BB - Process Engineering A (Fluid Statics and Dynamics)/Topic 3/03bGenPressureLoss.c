@@ -43,7 +43,7 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
     printf("Pipe length (m) = ");
     *L = atof(fgets(input, sizeof(input), stdin));
     
-    if(ReyNoCalc(*rho, *u, *d, *mu) > 2500){
+    if(ReyNoCalculation(*rho, *u, *d, *mu) > 2500){
         printf("Pipe absolute roughness (mm) = ");
         *vareps = atof(fgets(input, sizeof(input), stdin));
         *vareps = (*vareps) * 0.001;
@@ -57,14 +57,17 @@ double phicalc(double rho, double u, double d, double mu, double vareps)
 {
     char rough[maxstrlen];
     
+    double ReyNum = 0.0;
     double phi = 0.0;
     
     int roughcheck = 0;
     
-    if(ReyNoCalc(rho, u, d, mu) < 2000){
+    ReyNum = ReyNoCalculation(rho, u, d, mu);
+    
+    if(ReyNum < 2000){
         phi = Laminar(rho, u, d, mu);
     }else{
-        if(ReyNoCalc(rho, u, d, mu) < 2500){
+        if(ReyNum < 2500){
             printf("2000 < Re < 2500: Correlations are unavailable. Assuming laminar friction factor.\n");
             phi = Laminar(rho, u, d, mu);
         }else{

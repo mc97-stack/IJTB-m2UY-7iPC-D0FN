@@ -14,7 +14,7 @@
 /// @param mu Fluid viscosity (cP).
 /// @param L Horizontal pipe length (m).
 /// @param d Pipe diameter  (mm).
-void HagPoisVar(double *u, double *mu, double *L, double *d);
+void HagPoisVariable(double *u, double *mu, double *L, double *d);
 
 #endif /* HagPoisVar_h */
 
@@ -26,7 +26,7 @@ void HagPoisVar(double *u, double *mu, double *L, double *d);
 /// @param mu Fluid viscosity (Pa. s).
 /// @param L Horizontal pipe length (m).
 /// @param d Pipe diameter  (m).
-double HagPoisCalc(double u, double mu, double L, double d);
+double HagPoisCalculation(double u, double mu, double L, double d);
 
 #endif /* HagPoisCalc_h */
 
@@ -39,7 +39,7 @@ double HagPoisCalc(double u, double mu, double L, double d);
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
 /// @param dP Fluid pressure loss (Pa).
-void HagPoisDisp(double u, double mu, double L, double d, double dP);
+void HagPoisDisplay(double u, double mu, double L, double d, double dP);
 
 #endif /* HagPoisDisp_h */
 
@@ -60,6 +60,6 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP);
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
 /// @param dP Fluid pressure loss (Pa).
-void HagPoisWriteCheck(double u, double mu, double L, double d, double dP);
+void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP);
 
 #endif /* HagPoisWrite_h */

@@ -20,17 +20,16 @@
 
 #define maxstrlen 128
 
-void HagPoisVar(double *u, double *mu, double *L, double *d)
+void HagPoisVariable(double *u, double *mu, double *L, double *d)
 {
     //Declaring input
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Pipe horizontal length (m) = ");
     *L = atof(fgets(input, sizeof(input), stdin));
     
     printf("Pipe diameter (mm) = ");
     *d = atof(fgets(input, sizeof(input), stdin));
-    
     *d = (*d)*0.001; //Conversion (mm to m)
     
     printf("Average fluid velocity (m/s) = ");
@@ -38,13 +37,12 @@ void HagPoisVar(double *u, double *mu, double *L, double *d)
     
     printf("Fluid viscosity (cP) = ");
     *mu = atof(fgets(input, sizeof(input), stdin));
-    
     *mu = *mu * 0.001; //Conversion (cP to Pa.s)
     
     fflush(stdout);
 }
 
-double HagPoisCalc(double u, double mu, double L, double d)
+double HagPoisCalculation(double u, double mu, double L, double d)
 {
     double top = 0.0;
     double bot = 0.0;
@@ -61,7 +59,7 @@ double HagPoisCalc(double u, double mu, double L, double d)
     return dP;
 }
 
-void HagPoisDisp(double u, double mu, double L, double d, double dP)
+void HagPoisDisplay(double u, double mu, double L, double d, double dP)
 {
     printf("_Hagen-Pouseuille_Equation_Results_\n");
     printf("\tInput parameters:\n");
@@ -83,11 +81,11 @@ void HagPoisDisp(double u, double mu, double L, double d, double dP)
 void HagPoisWrite(double u, double mu, double L, double d, double dP)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Hagen-Poiseuille Equation Results
         //Get current time
     time_t rawtime;
@@ -158,7 +156,7 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     printf("Write Complete\n");
 }
 
-void HagPoisWriteCheck(double u, double mu, double L, double d, double dP)
+void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -192,7 +190,7 @@ void HagPoisWriteCheck(double u, double mu, double L, double d, double dP)
     }
 }
 
-void HagPois()
+void HagenPoiseuille()
 {
     //Main Function
     int whilmain = 0;

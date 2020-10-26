@@ -21,10 +21,10 @@
 #define maxstrlen 128
 #define PI 3.141592653
 
-void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1)
+void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 {
     //Declaring input variables
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     printf("Initial fluid density (kg/m3) = ");
     *rho1 = atof(fgets(input, sizeof(input), stdin));
@@ -46,7 +46,7 @@ void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1)
     fflush(stdout);
 }
 
-double VelCalc(double u1, double d1, double d2)
+double FinalVelocityCalculation(double u1, double d1, double d2)
 {
     double frac = 0.0;
     double u2 = 0.0;
@@ -56,11 +56,11 @@ double VelCalc(double u1, double d1, double d2)
     
     u2 = u1*(frac);
     
-    printf("Final fluid velocity = %.3f m/s\n", u2);
+    //printf("Final fluid velocity = %.3f m/s\n", u2);
     return u2;
 }
 
-double VolFloCalc(double u, double d)
+double VolumetricFlowCalculation(double u, double d)
 {
     double A = 0.0; //Area of cross-section
     double q = 0.0; //Volumetric flow rate
@@ -74,7 +74,7 @@ double VolFloCalc(double u, double d)
     return q;
 }
 
-double MassFloCalc(double rho, double d, double u)
+double MassFlowCalculation(double rho, double d, double u)
 {
     double A = 0.0; //Area of cross-section
     double m = 0.0; //Mass flowrate
@@ -89,7 +89,7 @@ double MassFloCalc(double rho, double d, double u)
     return m;
 }
 
-void MassConDisp(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
+void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
 {
     printf("_Mass_Conservation_Principle_\n");
     printf("Assuming the fluid is incompressible. \n");
@@ -124,11 +124,11 @@ void MassConDisp(double rho1, double rho2, double d1, double d2, double u1, doub
 void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Mass Conservation Results
         //Get current time
     time_t rawtime;
@@ -201,7 +201,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     fprintf(fp, "q2 =\t%.3f\tm3/s\n", q2);
     fprintf(fp, "Initial mass flowrate:\n");
     fprintf(fp, "m1 =\t%.3f\tkg/s\n", m1);
-    fprintf(fp, "Final pipe diameter:\n");
+    fprintf(fp, "Final mass flowrate:\n");
     fprintf(fp, "m2 =\t%.3f\tkg/s\n\n", m2);
     
     fprintf(fp, "Mass difference:\n");
@@ -212,11 +212,12 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
      
     printf("Write Complete\n");
 }
-void MassConWriteCheck(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
+void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         printf("Do you want to save results to file? ");
@@ -229,14 +230,14 @@ void MassConWriteCheck(double rho1, double rho2, double d1, double d2, double u1
             case 't':
             case 'y':
                 MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -245,7 +246,7 @@ void MassConWriteCheck(double rho1, double rho2, double d1, double d2, double u1
     }
 }
 
-void MassCon()
+void MassConservation()
 {
     //Thought experiment
     /* Imagine pouring a fluid into a closed system and allowing it to flow freely 
@@ -254,7 +255,7 @@ void MassCon()
      then the weight of the total system (Ignoring the surroundings) should not change
      as there are no other inputs or outputs to/from the system*/
     //Main Function
-    int whilmain;
+    int whilmain = 0;
     printf("Mass Conservation Principle\n");
     whilmain = 1;
     
@@ -276,21 +277,21 @@ void MassCon()
         double error = 0.0;
         
         //  Data collection
-        MassConVar(&rho1, &rho2, &d1, &d2, &u1);
+        MassConVariable(&rho1, &rho2, &d1, &d2, &u1);
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
         
         //  Running calculations
-        u2 = VelCalc(u1, d1, d2);
+        u2 = FinalVelocityCalculation(u1, d1, d2);
         printf("Function returns: u2 = %f\n\n", u2);
         
-        q1 = VolFloCalc(u1, d1);
+        q1 = VolumetricFlowCalculation(u1, d1);
         printf("Volumetric flow rate = %.3f m3/s\n", q1);
-        q2 = VolFloCalc(u2, d2);
+        q2 = VolumetricFlowCalculation(u2, d2);
         printf("Volumetric flow rate = %.3f m3/s\n", q2);
         
-        m1 = MassFloCalc(rho1, d1, u1);
+        m1 = MassFlowCalculation(rho1, d1, u1);
         printf("Mass flow rate = %.3f kg/s\n", m1);
-        m2 = MassFloCalc(rho2, d2, u2);
+        m2 = MassFlowCalculation(rho2, d2, u2);
         printf("Mass flow rate = %.3f kg/s\n", m2);
         
         error = fabs(m1 - m2);
@@ -305,10 +306,10 @@ void MassCon()
             }
         }
         //  Displaying data
-        MassConDisp(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
+        MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
         
         //  Writing to file
-        MassConWriteCheck(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
+        MassConWriteSwitch(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
         
         //  Continue function
         whilmain = Continue(whilmain);

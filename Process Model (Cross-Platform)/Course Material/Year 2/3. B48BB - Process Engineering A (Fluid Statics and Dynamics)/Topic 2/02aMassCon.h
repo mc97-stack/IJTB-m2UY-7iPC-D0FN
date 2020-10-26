@@ -15,7 +15,7 @@
 /// @param d1 Initial pipe diameter (mm).
 /// @param d2 Final pipe diameter (mm).
 /// @param u1 Initial fluid velocity (m/ s).
-void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1);
+void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double *u1);
 
 #endif /* MasConVarCol_h */
 
@@ -26,7 +26,7 @@ void MassConVar(double *rho1, double *rho2, double *d1, double *d2, double *u1);
 /// @param u1 Initial fluid velocity (m/s).
 /// @param d1 Pipe diameter at starting point (m).
 /// @param d2 Pipe diameter at endpoint (m).
-double VelCalc(double u1, double d1, double d2);
+double FinalVelocityCalculation(double u1, double d1, double d2);
 
 #endif /* VeloCalc_h */
 
@@ -36,7 +36,7 @@ double VelCalc(double u1, double d1, double d2);
 /// This subroutine is used to calculate the volumetric flowrate from the fluid velocity and pipe diameter. This calculated value is then returned to the calling function.
 /// @param u Average fluid velocity (m/ s).
 /// @param d Pipe diameter (m).
-double VolFloCalc(double u, double d);
+double VolumetricFlowCalculation(double u, double d);
 
 #endif /* VoluFloCalc_h */
 
@@ -47,7 +47,7 @@ double VolFloCalc(double u, double d);
 /// @param rho fluid density (kg/m3).
 /// @param d Pipe diameter (m).
 /// @param u Fluid velocity (m/s).
-double MassFloCalc(double rho, double d, double u);
+double MassFlowCalculation(double rho, double d, double u);
 
 #endif /* MassFloCalc_h */
 
@@ -66,7 +66,7 @@ double MassFloCalc(double rho, double d, double u);
 /// @param m1 Initial volumetric flowrate (kg/s).
 /// @param m2 Final volumetric flowrate (kg/s).
 /// @param error Absolute difference between LHS and RHS (kg/s)
-void MassConDisp(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
+void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
 
 #endif /* MassFloDisp_h */
 
@@ -99,6 +99,6 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
 /// @param m1 Initial volumetric flowrate (kg/s).
 /// @param m2 Final volumetric flowrate (kg/s).
 /// @param error Absolute difference between LHS and RHS (kg/s).
-void MassConWriteCheck(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
+void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
 
 #endif /* MassFloWrite_h */

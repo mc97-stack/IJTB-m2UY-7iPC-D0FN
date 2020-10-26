@@ -20,7 +20,7 @@
 
 #define maxstrlen 128
 
-void ReyNoVar(double *rho, double *u, double *d, double *mu)
+void ReyNoVariable(double *rho, double *u, double *d, double *mu)
 {
     //Declaring input variables
     char input[maxstrlen];
@@ -49,7 +49,7 @@ void ReyNoVar(double *rho, double *u, double *d, double *mu)
     fflush(stdout);
 }
 
-double ReyNoCalc(double rho, double u, double d, double mu)
+double ReyNoCalculation(double rho, double u, double d, double mu)
 {
     double ReyNum = 0.0;
     
@@ -60,7 +60,7 @@ double ReyNoCalc(double rho, double u, double d, double mu)
     return ReyNum;
 }
 
-void ReyNoDisp(double rho, double u, double d, double mu, double ReyNum)
+void ReyNoDisplay(double rho, double u, double d, double mu, double ReyNum)
 {
     printf("_Reynold's_Number_Calculation_\n");
     printf("\tInput parameters:\n");
@@ -90,11 +90,11 @@ void ReyNoDisp(double rho, double u, double d, double mu, double ReyNum)
 void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Reynolds Number Results
         //Get current time
     time_t rawtime;
@@ -173,7 +173,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     printf("Write Complete\n");
 }
 
-void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum)
+void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -207,7 +207,7 @@ void ReyNoWriteCheck(double rho, double u, double d, double mu, double ReyNum)
     }
 }
 
-void ReyNo()
+void ReynoldsNumber()
 {
     //Main Function
     int whilmain = 0;
@@ -226,22 +226,24 @@ void ReyNo()
         double mu = 0.0;
         
         //Data collection
-        ReyNoVar(&rho, &u, &d, &mu);/*
+        ReyNoVariable(&rho, &u, &d, &mu);
+        /*
         printf("Function returns:\n");
         printf("rho = %f \n", rho);
         printf("u = %f \n", u);
         printf("d = %f \n", d);
-        printf("mu = %f \n\n", mu);*/
+        printf("mu = %f \n\n", mu);
+         */
         
         //  Running calculations
-        ReyNum = ReyNoCalc(rho, u, d, mu);
+        ReyNum = ReyNoCalculation(rho, u, d, mu);
         //printf("Function returns: ReyNum = %f \n", ReyNum);
         
         //  Displaying results
-        ReyNoDisp(rho, u, d, mu, ReyNum);
+        ReyNoDisplay(rho, u, d, mu, ReyNum);
         
         //  Writing to File
-        ReyNoWriteCheck(rho, u, d, mu, ReyNum);
+        ReyNoWriteSwitch(rho, u, d, mu, ReyNum);
         
         //  Continue function
         whilmain = Continue(whilmain);

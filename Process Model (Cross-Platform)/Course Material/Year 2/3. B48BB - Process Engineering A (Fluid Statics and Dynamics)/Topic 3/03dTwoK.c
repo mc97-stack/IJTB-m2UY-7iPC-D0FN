@@ -251,7 +251,7 @@ double TwoKCalcP(double h, double rho)
 TwoKFittings TwoKFinalTable(TwoKFittings data, double rho, double u, double d, double mu, double Impd, double *Re)
 {
     double ReyNum = 0.0;
-    *Re = ReyNoCalc(rho, u, d, mu);
+    *Re = ReyNoCalculation(rho, u, d, mu);
     
     ReyNum = (*Re);
     
@@ -962,7 +962,7 @@ void TwoK()
     double TotalP = 0.0;
     double TotalH = 0.0;
     
-    TwoKFittings TwoKTable;
+    static TwoKFittings TwoKTable;
     
     // Initialising the struct
     for(int i = 0; i < 32; ++i)

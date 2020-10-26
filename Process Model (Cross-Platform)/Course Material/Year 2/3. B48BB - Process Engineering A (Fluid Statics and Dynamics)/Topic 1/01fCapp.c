@@ -172,7 +172,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     printf("Write Complete\n");
 }
 
-void CappWriteCheck(double sigma, double cang, double d, double h, double Pc)
+void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc)
 {
     int SaveC = 0;
     SaveC = 1;
@@ -206,7 +206,7 @@ void CappWriteCheck(double sigma, double cang, double d, double h, double Pc)
     }
 }
 
-void Capp()
+void Cappilarity()
 {
     //Main Function
     int whilmain = 0;
@@ -226,20 +226,20 @@ void Capp()
         double d = 0.0; //Tube diameter
         
         //  Collecting data
-        CappVar(&sigma, &cang, &rho, &d);
+        CappVariable(&sigma, &cang, &rho, &d);
         //printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
         //  Running calculations
-        h = CappCalch(sigma, cang, rho, d);
+        h = CappCalculateHeight(sigma, cang, rho, d);
         //printf("Capillary rise = %.3f m\n", h);
-        Pc  = CappCalcP(sigma, cang, d);
+        Pc  = CappCalculatePressure(sigma, cang, d);
         //printf("Capillary pressure = %.3f Pa\n", Pc);
         
         //  Displaying results
-        CappDisp(sigma, cang, d, h, Pc);
+        CappDisplay(sigma, cang, d, h, Pc);
         
         //  Writing to file
-        CappWriteCheck(sigma, cang, d, h, Pc);
+        CappWriteSwitch(sigma, cang, d, h, Pc);
         
         //Continue function
         whilmain = Continue(whilmain);

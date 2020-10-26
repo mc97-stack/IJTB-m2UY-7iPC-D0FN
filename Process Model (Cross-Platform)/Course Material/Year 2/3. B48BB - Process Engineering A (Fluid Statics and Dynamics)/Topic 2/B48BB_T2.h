@@ -10,7 +10,7 @@
 #define MassCon_h
 
 /// This subroutine guides the user through gathering the data and calculation of volumetric and mass flowrates at a process endstate.
-void MassCon(void);
+void MassConservation(void);
 
 #endif /* MassCon_h */
 
@@ -18,7 +18,7 @@ void MassCon(void);
 #define EnerCon_h
 
 /// This subroutine guides the user through gathering the data and determining whether the first law for an open system at steady-state is being violated or not.
-void EnerCon(void);
+void EnergyConservation(void);
 
 #endif /* EnerCon_h */
 
@@ -26,7 +26,7 @@ void EnerCon(void);
 #define BernEqn_h
 
 /// This subroutine guides the user through gathering the data and calculation of the fluid pressure at a process endstate through Bernoulli's equation.
-void BernEqn(void);
+void BernoulliEquation(void);
 
 #endif /* BernEqn_h */
 
@@ -34,7 +34,7 @@ void BernEqn(void);
 #define ReyNo_h
 
 /// This subroutine guides the user through gathering the data and calculation of Reynold's number for a fluid
-void ReyNo(void);
+void ReynoldsNumber(void);
 
 #endif /* ReyNo_h */
 
@@ -51,7 +51,7 @@ void NewVisc(void);
 #define ViscCorr_h
 
 /// This subroutine guides the user through gathering the data and calculation of dynamic and kinematic viscosity from standard correlations.
-void ViscCorr(void);
+void ViscosityCorrelation(void);
 
 #endif /* ViscCorr_h */
 
@@ -59,7 +59,7 @@ void ViscCorr(void);
 #define VelProfile_h
 
 /// This subroutine guides the user through gathering the data and estimation of the velocity profile for a flowing fluid with either fully developed laminar or turbulent properties.
-void VelProfile(void);
+void VelocityProfileMenu(void);
 
 #endif /* VelProfile_h */
 
@@ -67,6 +67,6 @@ void VelProfile(void);
 #define HagPois_h
 
 /// This subroutine guides the user through gathering the data and calculation of the pressure losses incurred by a fluid flowing with fully developed laminar flow properties.
-void HagPois(void);
+void HagenPoiseuille(void);
 
 #endif /* HagPois_h */

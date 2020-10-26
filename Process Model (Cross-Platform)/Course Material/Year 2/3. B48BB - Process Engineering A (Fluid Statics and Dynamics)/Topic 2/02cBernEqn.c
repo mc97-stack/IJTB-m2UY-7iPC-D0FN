@@ -23,10 +23,10 @@
 #define PI 3.141592653
 #define g 9.80665
 
-void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf)
+void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf)
 {
     //Declaring input variable
-    char input[maxstrlen];
+    char input[maxstrlen];  // Variable used to store keyboard input.
     
     //Declaring and initialising local variables
     double d1 = 0.0;
@@ -50,7 +50,7 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
     d2 = atof(fgets(input, sizeof(input), stdin));
     d2 = d2*0.001; //Conversion (mm to m)
     
-    *u2 = VelCalc(*u1, d1, d2);
+    *u2 = FinalVelocityCalculation(*u1, d1, d2);
     
     printf("Initial fluid height from reference point (m) = ");
     *Z1 = atof(fgets(input, sizeof(input), stdin));
@@ -65,7 +65,7 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
     fflush(stdout);
 }
 
-double StatHeadCalc(double P, double rho)
+double StaticHeadCalculation(double P, double rho)
 {
     double stathead = 0.0;
     
@@ -76,7 +76,7 @@ double StatHeadCalc(double P, double rho)
     return stathead;
 }
 
-double DynHeadCalc(double u)
+double DynamicHeadCalculation(double u)
 {
     double frac = 0.0;
     double dynhead = 0.0;
@@ -90,7 +90,7 @@ double DynHeadCalc(double u)
     return dynhead;
 }
 
-double BernEqnCalc(double stathead, double dynhead, double Z)
+double BernEqnCalculation(double stathead, double dynhead, double Z)
 {
     double calc = 0.0;
     
@@ -100,7 +100,7 @@ double BernEqnCalc(double stathead, double dynhead, double Z)
     return calc;
 }
 
-void BernEqnDisp(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
+void BernEqnDisplay(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
     printf("_Bernoulli's_Equation_Results_\n");
     printf("Assuming the fluid is incompressible. \n");
@@ -129,11 +129,11 @@ void BernEqnDisp(double P1, double P2, double rho, double u1, double u2, double 
 void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
     //Function variables
-    char filename[maxstrlen];
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
-    //char driveloc[maxstrlen];
+    //char driveloc[4];
     
-    FILE *fp;
+    FILE *fp;                   // Pointer to the file location.
     //Set file name as timestamp + Bernoulli Equation Results
         //Get current time
     time_t rawtime;
@@ -211,11 +211,12 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     printf("Write Complete\n");
 }
 
-void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
+void BernEqnWriteSwitch(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -229,14 +230,14 @@ void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, d
             case 't':
             case 'y':
                 BernEqnWrite(P1, P2, rho, u1, u2, z1, z2, hf);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -245,13 +246,13 @@ void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, d
     }
 }
 
-void BernEqn()
+void BernoulliEquation()
 {
     //Main Function
     int whilmain = 0;
+    
     printf("Bernoulli's Equation\n");
     whilmain = 1;
-    
     while(whilmain == 1)
     {
         //Variable declaration
@@ -270,7 +271,7 @@ void BernEqn()
         double RHS = 0.0;
         
         //  Data collection
-        BernEqnVar(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);/*
+        BernEqnVariable(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);/*
         printf("Function assignments:\n");
         printf("P1 = %f\n", P1);
         printf("rho = %f\n", rho);
@@ -281,10 +282,10 @@ void BernEqn()
         printf("hf = %f\n\n", hf);*/
         
         //  Running calculations
-        LHS = BernEqnCalc(StatHeadCalc(P1, rho), DynHeadCalc(u1), Z1);
+        LHS = BernEqnCalculation(StaticHeadCalculation(P1, rho), DynamicHeadCalculation(u1), Z1);
         //printf("Function returns: LHS = %f\n", LHS);
         
-        RHS = BernEqnCalc(0, DynHeadCalc(u2), Z2);
+        RHS = BernEqnCalculation(0, DynamicHeadCalculation(u2), Z2);
         //printf("Function returns: RHS = %f\n\n", RHS);
         
         RHS = (RHS) + (hf);
@@ -296,10 +297,10 @@ void BernEqn()
         
         //printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
         //  Displaying results
-        BernEqnDisp(P1, P2, rho, u1, u2, Z1, Z2, hf);
+        BernEqnDisplay(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //  Writing to file
-        BernEqnWriteCheck(P1, P2, rho, u1, u2, Z1, Z2, hf);
+        BernEqnWriteSwitch(P1, P2, rho, u1, u2, Z1, Z2, hf);
         
         //Continue function
         whilmain = Continue(whilmain);

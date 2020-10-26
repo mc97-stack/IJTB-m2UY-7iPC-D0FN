@@ -14,7 +14,7 @@
 /// @param b Parameter 2 for correlation.
 /// @param T System temperature (Units dependent on correlation  being used).
 /// @param rho Fluid density.
-void ViscCorrVar(double *a, double *b, double *T, double *rho);
+void ViscCorrVariable(double *a, double *b, double *T, double *rho);
 
 #endif /* ViscCorrVar_h */
 
@@ -25,7 +25,7 @@ void ViscCorrVar(double *a, double *b, double *T, double *rho);
 /// @param a Parameter 1 for correlation.
 /// @param b Parameter 2 for correlation.
 /// @param T System temperature (Units dependent on correlation  being used).
-double LiqViscCalc(double a, double b, double T);
+double LiquidViscCalculation(double a, double b, double T);
 
 #endif /* LiqViscCalc_h */
 
@@ -36,7 +36,7 @@ double LiqViscCalc(double a, double b, double T);
 /// @param a Parameter 1 for correlation.
 /// @param b Parameter 2 for correlation.
 /// @param T System temperature (Units dependent on correlation  being used).
-double VapViscCalc(double a, double b, double T);
+double VapourViscCalculation(double a, double b, double T);
 
 #endif /* VapViscCalc_h */
 
@@ -46,7 +46,7 @@ double VapViscCalc(double a, double b, double T);
 /// This subroutine is used to calculate the kinematic viscosity given the declared arguments. This subroutine then returns the value of kinematic viscosity to the calling function prior to displaying the calculated value on the console..
 /// @param mu Dynamic viscosity.
 /// @param rho Fluid density.
-double KinVisc(double mu, double rho);
+double KineticVisc(double mu, double rho);
 
 #endif /* KinVisc_h */
 
@@ -61,7 +61,7 @@ double KinVisc(double mu, double rho);
 /// @param rho Fluid density.
 /// @param mu Fluid dynamic viscosity.
 /// @param upsi Fluid kinematic viscosity.
-void ViscDisp(int method, double a, double b, double T, double rho, double mu, double upsi);
+void ViscDisplay(int method, double a, double b, double T, double rho, double mu, double upsi);
 
 #endif /* ViscDisp_h */
 
@@ -86,6 +86,6 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
 /// @param rho Fluid density.
 /// @param mu Fluid dynamic viscosity.
 /// @param upsi Fluid kinematic viscosity.
-void ViscWriteCheck(int method, double a, double b, double T, double rho, double mu, double upsi);
+void ViscWriteSwitch(int method, double a, double b, double T, double rho, double mu, double upsi);
 
 #endif /* ViscWrite_h */

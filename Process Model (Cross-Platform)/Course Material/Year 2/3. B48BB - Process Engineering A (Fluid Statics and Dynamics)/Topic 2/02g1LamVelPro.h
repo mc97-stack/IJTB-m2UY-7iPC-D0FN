@@ -14,7 +14,7 @@
 /// @param L Pipe length (m)
 /// @param d Pipe diameter (mm)
 /// @param mu Fluid viscosity (cP)
-void LamVelProVar(double *dP, double *L, double *d, double *mu);
+void LamVelProVariable(double *dP, double *L, double *d, double *mu);
 
 #endif /* LamVelProVar_h */
 
@@ -27,7 +27,7 @@ void LamVelProVar(double *dP, double *L, double *d, double *mu);
 /// @param d Pipe diameter (m)
 /// @param mu Fluid viscosity (Pa.s)
 /// @param r Pipe point radius (m)
-double LamVelCalc(double dP, double L, double d, double mu, double r);
+double LamVelCalculation(double dP, double L, double d, double mu, double r);
 
 #endif /* LamVelCalc_h */
 
@@ -37,7 +37,7 @@ double LamVelCalc(double dP, double L, double d, double mu, double r);
 /// This subroutine is used to calculate the general velocity profile from the point radius and fixed pipe diameter. This subroutine returns the value of v/v_{max} to the calling function.
 /// @param r Point radius (m)
 /// @param d Fixed pipe diameter (m)
-double LamGenCalc(double r, double d);
+double LamVelGeneralCalculation(double r, double d);
 
 #endif /* LamGenCalc_h */
 
@@ -55,7 +55,7 @@ typedef struct LamVelProfile{
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (mm).
 /// @param mu Fluid viscosity (Pa.s).
-LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rowcount);
+LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *rowcount);
 
 #endif /* LamVelProfCalc_h */
 
@@ -69,7 +69,7 @@ LamVelProf LamVelProfCalc(double dP, double L, double d, double mu, int *rowcoun
 /// @param mu Fluid dynamic viscosity (Pa.s).
 /// @param rows Number of rows generated in "LamVelProfCalc".
 /// @param profile Velocity profile struct.
-void LamVelProDisp(double dP, double L, double d, double mu, int rows, LamVelProf profile);
+void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVelProf profile);
 
 #endif /* LamVelProDisp_h */
 
@@ -92,7 +92,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
 /// @param mu Fluid dynamic viscosity (Pa.s).
 /// @param rows Number of rows generated in "LamVelProfCalc".
 /// @param profile Velocity profile struct.
-void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile);
+void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, LamVelProf profile);
 
 #endif /* LamVelProWrite_h */
 
@@ -100,6 +100,6 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
 #define LamVelPro_h
 
 /// This is the main subroutine controlling the behaviour of the subroutines listed in the file.
-void LamVelPro(void);
+void LaminarVelPro(void);
 
 #endif /* LamVelPro_h */

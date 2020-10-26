@@ -17,7 +17,7 @@
 /// @param Z1 Initial fluid height (m).
 /// @param Z2 Final fluid height (m).
 /// @param hf Frictional head loss between points '1' and '2' (m).
-void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf);
+void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf);
  
 #endif /* BernEqnVar_h */
 
@@ -27,7 +27,7 @@ void BernEqnVar(double *P1, double *rho, double *u1, double *u2, double *Z1, dou
 /// This subroutine is used to calculate the static head of a fluid (m).
 /// @param P Vessel pressure (Pa).
 /// @param rho Fluid density (kg/ m3).
-double StatHeadCalc(double P, double rho);
+double StaticHeadCalculation(double P, double rho);
 
 #endif /* StatHeadCalc_h */
 
@@ -36,7 +36,7 @@ double StatHeadCalc(double P, double rho);
 
 /// This subroutine is used to calculate the dynamic head of a fluid (m).
 /// @param u Fluid velocity (m/ s).
-double DynHeadCalc(double u);
+double DynamicHeadCalculation(double u);
 
 #endif /* DynHeadCalc_h */
 
@@ -47,7 +47,7 @@ double DynHeadCalc(double u);
 /// @param stathead Static head (m).
 /// @param dynhead Dynamic head (m).
 /// @param Z Potential head (m).
-double BernEqnCalc(double stathead, double dynhead, double Z);
+double BernEqnCalculation(double stathead, double dynhead, double Z);
 
 #endif /* BernEqnCalc_h */
 
@@ -63,7 +63,7 @@ double BernEqnCalc(double stathead, double dynhead, double Z);
 /// @param z1 Initial fluid height (m).
 /// @param z2 Final fluid height (m).
 /// @param hf Frictional head loss between points '1' and '2' (m).
-void BernEqnDisp(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
+void BernEqnDisplay(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
 
 #endif /* BernEqnDisp_h */
 
@@ -90,6 +90,6 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
 /// @param z1 Initial fluid height (m).
 /// @param z2 Final fluid height (m).
 /// @param hf Frictional head loss between points '1' and '2' (m).
-void BernEqnWriteCheck(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
+void BernEqnWriteSwitch(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf);
 
 #endif /* BernEqnWrite_h */
