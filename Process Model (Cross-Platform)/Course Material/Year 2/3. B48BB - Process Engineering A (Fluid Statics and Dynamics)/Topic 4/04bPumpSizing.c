@@ -21,7 +21,7 @@
 #define maxstrlen 128
 #define g 9.80665
 
-void PumpVar(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
+void PumpVariable(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
 {
     char input[maxstrlen];
     
@@ -43,49 +43,49 @@ void PumpVar(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
     *eta = (*eta)*0.01; // Conversion to decimal
 }
 
-head PumpHeadVar(int type, head var)
+head PumpHeadVariable(int type, head var)
 {
     char input[maxstrlen];
     
-    if(type == 1){
-        printf("Suction head parameters\n");
+    switch(type)
+    {
+        case '1':
+            printf("Suction head parameters\n");
+            printf("Suction vessel pressure (kPa) = ");
+            var.P = atof(fgets(input, sizeof(input), stdin));
+            var.P = (var.P)*1000;
+            
+            printf("Liquid level in Suction-side vessel (m) = ");
+            var.h1 = atof(fgets(input, sizeof(input), stdin));
+            
+            printf("Liquid elevation above pump inlet (m) = ");
+            var.h2 = atof(fgets(input, sizeof(input), stdin));
+            break;
+        case '2':
+            printf("Discharge head parameters\n");
+            printf("Discharge vessel pressure (kPa) = ");
+            var.P = atof(fgets(input, sizeof(input), stdin));
+            var.P = (var.P)*1000;
+            
+            printf("Liquid level in Discharge-side vessel (m) = ");
+            var.h1 = atof(fgets(input, sizeof(input), stdin));
+            
+            printf("Liquid elevation above pump outlet (m) = ");
+            var.h2 = atof(fgets(input, sizeof(input), stdin));
+            
+            
+            break;
+        default:
+            printf("Type integer invalid\n");
+            break;
     }
-    if(type == 2){
-        printf("Discharge head parameters\n");
-    }
-    
-    if(type == 1){
-        printf("Suction vessel pressure (kPa) = ");
-    }
-    if(type == 2){
-        printf("Discharge vessel pressure (kPa) = ");
-    }
-    var.P = atof(fgets(input, sizeof(input), stdin));
-    var.P = (var.P)*1000;
-    
-    if(type == 1){
-        printf("Liquid level in Suction-side vessel (m) = ");
-    }
-    if(type == 2){
-        printf("Liquid level in Discharge-side vessel (m) = ");
-    }
-    var.h1 = atof(fgets(input, sizeof(input), stdin));
-    
-    if(type == 1){
-        printf("Liquid elevation above pump inlet (m) = ");
-    }
-    if(type == 2){
-        printf("Liquid elevation above pump outlet (m) = ");
-    }
-    var.h2 = atof(fgets(input, sizeof(input), stdin));
-    
     printf("Fluid frictional head loss (m) = ");
     var.hf = atof(fgets(input, sizeof(input), stdin));
     
     return var;
 }
 
-double HeadCalc(head var, double rho)
+double HeadCalculation(head var, double rho)
 {
     double output = 0.0;
     
@@ -99,7 +99,7 @@ double HeadCalc(head var, double rho)
     return output;
 }
 
-double NPSHCalc(head var, double Psat, double rho)
+double NPSHCalculation(head var, double Psat, double rho)
 {
     double output = 0.0;
     
@@ -113,12 +113,12 @@ double NPSHCalc(head var, double Psat, double rho)
     return output;
 }
 
-double PumpHeadCalc(double hs, double hd)
+double PumpHeadCalculation(double hs, double hd)
 {
     return hd - hs;
 }
 
-double PumpPressureCalc(double rho, double hp)
+double PumpPressureCalculation(double rho, double hp)
 {
     double pressure = 0.0;
     
@@ -292,7 +292,7 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     printf("Write Complete\n");
 }
 
-void PumpWriteCheck(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
+void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
 {
     int SaveC;
     SaveC = 1;
@@ -365,22 +365,24 @@ void PumpSizing()
         discharge.hf = 0.0;
         
         //  Data collection
-        PumpVar(&Q, &rho, &Psat, &NPSHr, &eta);
-        suction = PumpHeadVar(1, suction);
-        discharge = PumpHeadVar(2, discharge);
+        PumpVariable(&Q, &rho, &Psat, &NPSHr, &eta);
+        suction = PumpHeadVariable(1, suction);
+        discharge = PumpHeadVariable(2, discharge);
         
         //  Running calculations
-        shead = HeadCalc(suction, rho);
-        dhead = HeadCalc(discharge, rho);
+        shead = HeadCalculation(suction, rho);
+        dhead = HeadCalculation(discharge, rho);
         
-        NPSHa = NPSHCalc(suction, Psat, rho);
+        NPSHa = NPSHCalculation(suction, Psat, rho);
         if(NPSHa > NPSHr){
-            phead = PumpHeadCalc(shead, dhead);
-            ppressure = PumpPressureCalc(rho, phead);
+            phead = PumpHeadCalculation(shead, dhead);
+            ppressure = PumpPressureCalculation(rho, phead);
             ppower = PumpPower(ppressure, Q, eta);
             
             //  Display
             PumpDisplay(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
+            
+            PumpWriteSwitch(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
         }else{
             printf("Insufficient Net Positive Suction Head. Ending calculations.\n");
         }

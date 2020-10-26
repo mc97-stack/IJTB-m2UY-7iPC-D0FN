@@ -27,12 +27,12 @@ typedef struct head{
 /// @param Psat Saturated vapour pressure (kPa)
 /// @param NPSHr Required NPSH
 /// @param eta Pump efficiency (value between 0 and 100)
-void PumpVar(double *Q, double *rho, double *Psat, double *NPSHr, double *eta);
+void PumpVariable(double *Q, double *rho, double *Psat, double *NPSHr, double *eta);
 
 /// This subroutine is used to collect the data required to calculate either the suction or discharge head.
 /// @param type Integer value used to control the printf output. (1) = Suction descriptors. (2) = Discharge descriptors)
 /// @param var Struct where data should be inputted to.
-head PumpHeadVar(int type, head var);
+head PumpHeadVariable(int type, head var);
 
 #endif /* PumpVar_h */
 
@@ -42,23 +42,23 @@ head PumpHeadVar(int type, head var);
 /// This subroutine is used to calculate the head on either side of the pump
 /// @param var Struct containing variables specific to each side of the pump.
 /// @param rho Fluid density (kg/m3).
-double HeadCalc(head var, double rho);
+double HeadCalculate(head var, double rho);
 
 /// This subroutine is used to calculate the NPSH available.
 /// @param var Suction-side parameters.
 /// @param Psat Saturated vapour pressure (Pa).
 /// @param rho Fluid density (kg/m3).
-double NPSHCalc(head var, double Psat, double rho);
+double NPSHCalculation(head var, double Psat, double rho);
 
 /// This subroutine is used to calculate the pump head.
 /// @param hs Suction head.
 /// @param hd Discharge head.
-double PumpHeadCalc(double hs, double hd);
+double PumpHeadCalculation(double hs, double hd);
 
 /// This subroutine is used to calculate the pressure 'drop' across the pump.
 /// @param rho Fluid density (kg/m3).
 /// @param hp Pump head (m).
-double PumpPressureCalc(double rho, double hp);
+double PumpPressureCalculation(double rho, double hp);
 
 /// This subroutine is used to calculate the pump power requirement.
 /// @param dP_p Pressure 'drop' across the pump (Pa).
@@ -116,6 +116,6 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
 /// @param phead Pump head (m)
 /// @param ppressure Pump pressure 'drop' (Pa)
 /// @param ppower Pump power requirement (kW)
-void PumpWriteCheck(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
+void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower);
 
 #endif /* PumpWrite_h */
