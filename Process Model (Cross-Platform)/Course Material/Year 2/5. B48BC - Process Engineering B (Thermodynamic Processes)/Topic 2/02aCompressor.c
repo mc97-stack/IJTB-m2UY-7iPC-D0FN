@@ -144,14 +144,14 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
             profile.T[elem] = profile.T[5];
             profile.V[elem] = IsotFinalVolume(profile.V[elem - 1], profile.P[elem - 1], profile.P[elem]);
             profile.W_V[elem] = IsotPressure(n, profile.T[elem], profile.P[elem - 1], profile.P[elem]);
-            profile.W_S[elem] = IdealShaftCalc(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem]);
+            profile.W_S[elem] = IdealShaftCalculation(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem]);
         }
         if(method == 2){
             profile.P[elem] = profile.P[elem - 1] + incr;
             profile.V[elem] = PolyFinalVolume(profile.P[elem - 1], profile.P[elem], profile.V[elem - 1], alpha);
             profile.T[elem] = PolyFinalTemperature(profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
             profile.W_V[elem] = PolyVolume(profile.P[elem - 1], profile.P[elem], profile.V[elem - 1], alpha);
-            profile.W_S[elem] = PolyShaftCalc(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
+            profile.W_S[elem] = PolyShaftCalculation(n, R, profile.T[elem - 1], profile.P[elem - 1], profile.P[elem], alpha);
         }
     }
     *V2 = profile.V[505];
