@@ -85,9 +85,9 @@ int main()
     char MainSelect[maxstrlen];
     
     int whilmain = 0;
-    whilmain = 1;
     
     //Main menu for program
+    whilmain = 1;
     while(whilmain == 1)
     {
         printf("Please select from the following options:\n");
@@ -100,7 +100,6 @@ int main()
         printf("q. Exit Program\n\n");
         printf("Selection [1 - 6]: ");
         fflush(stdout);
-        *MainSelect = (char)malloc(sizeof(MainSelect));
         fgets(MainSelect, sizeof(MainSelect), stdin);
         switch(MainSelect[0])
         {

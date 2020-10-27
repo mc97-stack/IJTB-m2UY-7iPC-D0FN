@@ -6,6 +6,16 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+#ifndef Input_h
+#define Input_h
+
+/// This subroutine is used to force the entry of a non-zero value that will be assigned to a variable. 
+/// @param VariableName Variable descriptor.
+/// @param Units Units of the variable.
+double inputDouble(char VariableName[], char Units[]);
+
+#endif /* Input_h */
+
 #ifndef Continue_h
 #define Continue_h
 
