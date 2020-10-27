@@ -11,6 +11,8 @@
 		E8352319253B54DC00B0969A /* 02bPolyShaftWork.c in Sources */ = {isa = PBXBuildFile; fileRef = E8352318253B54DC00B0969A /* 02bPolyShaftWork.c */; };
 		E835231D253B54F100B0969A /* 02cOpenFirstLaw.c in Sources */ = {isa = PBXBuildFile; fileRef = E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */; };
 		E8361A7A2544501F00828DF0 /* System.c in Sources */ = {isa = PBXBuildFile; fileRef = E8361A792544501F00828DF0 /* System.c */; };
+		E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */ = {isa = PBXBuildFile; fileRef = E83F1D182548C5EC00683190 /* 03aJTEffect.c */; };
+		E83F1D1E2548C78C00683190 /* VdWEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E83F1D1D2548C78C00683190 /* VdWEOS.c */; };
 		E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */ = {isa = PBXBuildFile; fileRef = E8664D88252DE45B00022E45 /* 01eAdiabatic.c */; };
 		E8B15541251BEA9500808CE9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64224ECDBE1003F9D5E /* main.c */; };
 		E8B15543251BEAB500808CE9 /* Year1.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64124ECDBE0003F9D5E /* Year1.c */; };
@@ -88,6 +90,12 @@
 		E835231C253B54F100B0969A /* 02cOpenFirstLaw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02cOpenFirstLaw.c; sourceTree = "<group>"; };
 		E8361A782544501F00828DF0 /* System.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
 		E8361A792544501F00828DF0 /* System.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = System.c; sourceTree = "<group>"; };
+		E83F1D172548C5EC00683190 /* 03aJTEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03aJTEffect.h; sourceTree = "<group>"; };
+		E83F1D182548C5EC00683190 /* 03aJTEffect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03aJTEffect.c; sourceTree = "<group>"; };
+		E83F1D1B2548C6A000683190 /* B48BC_T3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B48BC_T3.h; sourceTree = "<group>"; };
+		E83F1D1C2548C78C00683190 /* VdWEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VdWEOS.h; sourceTree = "<group>"; };
+		E83F1D1D2548C78C00683190 /* VdWEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VdWEOS.c; sourceTree = "<group>"; };
+		E83F1D212548DB3300683190 /* Process Model (Cross-Platform).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Process Model (Cross-Platform).entitlements"; sourceTree = "<group>"; };
 		E8664D87252DE45B00022E45 /* 01eAdiabatic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eAdiabatic.h; sourceTree = "<group>"; };
 		E8664D88252DE45B00022E45 /* 01eAdiabatic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eAdiabatic.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
@@ -138,7 +146,7 @@
 		E8C43436252FA10900662F7C /* 01cIsobaric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01cIsobaric.c; sourceTree = "<group>"; };
 		E8C4343A252FAE1500662F7C /* 01dIsochoric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01dIsochoric.h; sourceTree = "<group>"; };
 		E8C4343B252FAE1500662F7C /* 01dIsochoric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01dIsochoric.c; sourceTree = "<group>"; };
-		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = archive.jar; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
 		E8FEA60E24ECDBE0003F9D5E /* Year4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Year4.c; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 		E8FEA5FF24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {
 			isa = PBXGroup;
 			children = (
+				E83F1D212548DB3300683190 /* Process Model (Cross-Platform).entitlements */,
 				E8FEA60824ECDBE0003F9D5E /* Course Material */,
 				E8FEA64324ECDBE1003F9D5E /* Dynamic Process Simulation */,
 				E8FEA64724ECDBE1003F9D5E /* Major Unit Operations */,
@@ -223,6 +232,8 @@
 			children = (
 				E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */,
 				E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */,
+				E83F1D1C2548C78C00683190 /* VdWEOS.h */,
+				E83F1D1D2548C78C00683190 /* VdWEOS.c */,
 			);
 			path = "Common subroutines";
 			sourceTree = "<group>";
@@ -408,6 +419,9 @@
 		E8FEA62424ECDBE0003F9D5E /* Topic 3 */ = {
 			isa = PBXGroup;
 			children = (
+				E83F1D172548C5EC00683190 /* 03aJTEffect.h */,
+				E83F1D182548C5EC00683190 /* 03aJTEffect.c */,
+				E83F1D1B2548C6A000683190 /* B48BC_T3.h */,
 			);
 			path = "Topic 3";
 			sourceTree = "<group>";
@@ -750,12 +764,14 @@
 				E8B1556F251BEB4400808CE9 /* 03dThreeK.c in Sources */,
 				E8B1556D251BEB3E00808CE9 /* 03d1Fittings.c in Sources */,
 				E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */,
+				E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */,
 				E8B1556B251BEB3800808CE9 /* 03cHydrDiam.c in Sources */,
 				E8C2C4422542396600822ED0 /* 03dTwoK.c in Sources */,
 				E8B15569251BEB2E00808CE9 /* 02hHagPois.c in Sources */,
 				E8B15567251BEB2900808CE9 /* 02g2TurVelPro.c in Sources */,
 				E8B15565251BEB2300808CE9 /* 02g1LamVelPro.c in Sources */,
 				E8B15563251BEB1D00808CE9 /* 02g0VelProfileMenu.c in Sources */,
+				E83F1D1E2548C78C00683190 /* VdWEOS.c in Sources */,
 				E8C43437252FA10900662F7C /* 01cIsobaric.c in Sources */,
 				E8352319253B54DC00B0969A /* 02bPolyShaftWork.c in Sources */,
 				E8361A7A2544501F00828DF0 /* System.c in Sources */,
@@ -901,6 +917,7 @@
 		E8FEA60524ECDAE9003F9D5E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Process Model (Cross-Platform)/Process Model (Cross-Platform).entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2R77NGC7T;
@@ -914,6 +931,7 @@
 		E8FEA60624ECDAE9003F9D5E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Process Model (Cross-Platform)/Process Model (Cross-Platform).entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2R77NGC7T;

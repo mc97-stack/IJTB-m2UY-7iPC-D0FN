@@ -15,6 +15,7 @@
 #include "B48BCMenu.h"
 #include "B48BC_T1.h"
 #include "B48BC_T2.h"
+#include "B48BC_T3.h"
 
 #define maxstrlen 128
 
@@ -29,7 +30,7 @@ void B48BCtopic1(){
     inputguard = 1;
     while(inputguard == 1){
         B48BCTopComm();
-        printf("1. General Volume Work (Polytropic Process)\n2. Isothermal Volume Work\n3. Isobaric Volume Work\n4. Isochoric Heat\n5. Adiabatic Volume Work\n");
+        printf("1. General Volume Work (Polytropic Process)\n2. Isothermal Volume Work\n3. Isobaric Volume Work\n4. Isochoric Heat\n5. Adiabatic Volume Work.\n");
         printf("q. Exit topic\n\n");
         printf("Selection [1-5]: ");
         
@@ -71,7 +72,7 @@ void B48BCtopic2(){
     inputguard = 1;
     while(inputguard == 1){
         B48BCTopComm();
-        printf("1. Reciprocating compressor.\n2. Polytropic process shaft work\n3. First law for open systems\n");
+        printf("1. Reciprocating compressor.\n2. Polytropic process shaft work\n3. First law for open systems.\n");
         printf("q. Exit topic. \n\n");
         printf("Selections [1 - 3]: ");
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
@@ -98,17 +99,35 @@ void B48BCtopic2(){
                 break;
         }
     }
-    //  Isothermal reciprocating compressor
-    
-    //  Shaft work for polytropic process
-    
-    //  First law for open systems (Different to the steady flow energy equation in B48BB)
-    
-    //  Irreversibilities are dealth with in Energy gen
 }
 
 void B48BCtopic3(){
-    B48BCTopComm();
+    inputguard = 1;
+    while(inputguard == 1){
+        B48BCTopComm();
+        printf("1. Joule-Thomson Effect.\n2. Multistage Gas Compression.\n");
+        printf("q. Exit topic. \n\n");
+        printf("Selections [1 - 2]: ");
+        fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
+        switch(B48BCTopMenu[0]){
+            case '1':
+                JouleThomsonEffect();
+                inputguard = 0;
+                break;
+            case '2':
+                //  Multistage Gas Compression
+                inputguard = 0;
+                break;
+            case '0':
+            case 'Q':
+            case 'q':
+                inputguard = 0;
+                break;
+            default:
+                printf("Input not recognised \n");
+                break;
+        }
+    }
 }
 
 void B48BCtopic4(){
