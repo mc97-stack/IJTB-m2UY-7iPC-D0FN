@@ -206,7 +206,7 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
-        printf("0%f\t\t", profile.T[i] - 273.15);
+        printf("%f\t\t", profile.T[i] - 273.15);
         printf("%f\t", profile.W_V[i]*0.001);
         printf("%f\n", profile.W_S[i]*0.001);
     }
@@ -310,7 +310,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
-        fprintf(fp, "0%f\t\t", profile.T[i] - 273.15);
+        fprintf(fp, "%f\t\t", profile.T[i] - 273.15);
         fprintf(fp, "%f\t", profile.W_V[i]*0.001);
         fprintf(fp, "%f\n", profile.W_S[i]*0.001);
     }
