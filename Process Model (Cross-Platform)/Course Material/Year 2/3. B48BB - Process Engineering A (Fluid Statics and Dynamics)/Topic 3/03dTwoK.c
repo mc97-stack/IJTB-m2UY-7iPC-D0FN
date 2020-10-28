@@ -577,10 +577,10 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename, " 2K Results");
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);

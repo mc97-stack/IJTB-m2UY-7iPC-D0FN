@@ -164,15 +164,15 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
     if(method == 1){
         strcat(filename, " Liquid Viscosity Correlation Results");
-        printf("File name: \"%s\"\n", filename);
+        //printf("File name: \"%s\"\n", filename);
     }
     if(method == 2){
         strcat(filename, " Vapour Viscosity Correlation Results");
-        printf("File name: \"%s\"\n", filename);
+        //printf("File name: \"%s\"\n", filename);
     }
     
     strcat(filename,".txt");
