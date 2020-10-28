@@ -12,7 +12,7 @@ Repository visibility status: Public.
 
 Features currently available:
 - Topics 1 - 4 of B48BB (Process Engineering A (Fluid Statics and Dynamics))
-- Topic 1 and 2 of B48BC (Process Engineering B (Thermodynamic Processes))
+- Topics 1 - 3 of B48BC (Process Engineering B (Thermodynamic Processes))
 
 ##  MacOS Install (Using Xcode 11.6)
 1.  On the "Welcome" window, click "Clone an Existing Project".
