@@ -24,29 +24,20 @@
 
 void FluCompVariable(double *P, double *V, double *n, double *T)
 {
-    //Input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     //Pressure
-    printf("Absolute system pressure (kPa) = ");
-    *P = atof(fgets(input, sizeof(input), stdin));
-    
+    *P = inputDouble(0, "absolute system pressure", "kPa_abs");
     *P = *P * 1000.0;
-    //Volume
-    printf("System volume (m3) = ");
-    *V = atof(fgets(input, sizeof(input), stdin));
-    
-    //moles
-    printf("Amount of Substance in System (kmol) = ");
-    *n = atof(fgets(input, sizeof(input), stdin));
-    
-    *n = *n * 1000.0; //Conversion to mol
     
     //Temperature
-    printf("System Temperature (deg C) = ");
-    *T = atof(fgets(input, sizeof(input), stdin));
-    
+    *T = inputDouble(1, "system temperature", "deg C");
     *T = *T + 273.15; //Conversion to K
+    
+    //Volume
+    *V = inputDouble(0, "system volume", "m3");
+    
+    //moles
+    *n = inputDouble(0, "moles of substance", "kmol");
+    *n = *n * 1000.0; //Conversion to mol
     
     //printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T); // This line is commented out unless checking the variable allocations in this subroutine.
     fflush(stdout);

@@ -25,41 +25,30 @@
 
 void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf)
 {
-    //Declaring input variable
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     //Declaring and initialising local variables
     double d1 = 0.0;
     double d2 = 0.0;
     
-    printf("Initial pressure (kPa) = ");
-    *P1 = atof(fgets(input, sizeof(input), stdin));
+    *P1 = inputDouble(0, "initial pressure", "kPa");
     *P1 = *P1*1000; //Conversion (kPa to Pa)
     
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Initial fluid velocity (m/s) = ");
-    *u1 = atof(fgets(input, sizeof(input), stdin));
+    *u1 = inputDouble(0, "initial fluid velocity", "m/s");
     
-    printf("Pipe diameter at state 1 (mm) = ");
-    d1 = atof(fgets(input, sizeof(input), stdin));
+    d1 = inputDouble(0, "Pipe diameter at state 1", "mm");
     d1 = d1*0.001; //Conversion (mm to m)
     
-    printf("Pipe diameter at state 2 (mm) = ");
-    d2 = atof(fgets(input, sizeof(input), stdin));
+    d2 = inputDouble(0, "Pipe diameter at state 2", "mm");
     d2 = d2*0.001; //Conversion (mm to m)
     
     *u2 = FinalVelocityCalculation(*u1, d1, d2);
     
-    printf("Initial fluid height from reference point (m) = ");
-    *Z1 = atof(fgets(input, sizeof(input), stdin));
+    *Z1 = inputDouble(0, "initial fluid height", "m");
     
-    printf("Final fluid height from reference point (m) = ");
-    *Z2 = atof(fgets(input, sizeof(input), stdin));
+    *Z2 = inputDouble(0, "final fluid height", "m");
     
-    printf("Frictional pressure loss (Pa) = ");
-    *hf = atof(fgets(input, sizeof(input), stdin));
+    *hf = inputDouble(0, "frictional pressure loss", "Pa");
     *hf = (*hf)/((*rho)*g);
     
     fflush(stdout);

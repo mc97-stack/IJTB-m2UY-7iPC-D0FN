@@ -22,30 +22,23 @@
 
 void ReyNoVariable(double *rho, double *u, double *d, double *mu)
 {
-    //Declaring input variables
-    char input[maxstrlen];
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid Density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "average fluid velocity", "m/s");
     
-    printf("Average fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
-    
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
     
-    printf("Fluid Viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
-    
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
     
+    /*
     printf("Function assignments:\n");
     printf("rho = %.3f kg/m3\n", *rho);
     printf("u = %.3f m/s\n", *u);
     printf("d = %.3f m\n", *d);
     printf("mu = %.3f Pa.s\n\n", *mu);
+     */
     fflush(stdout);
 }
 

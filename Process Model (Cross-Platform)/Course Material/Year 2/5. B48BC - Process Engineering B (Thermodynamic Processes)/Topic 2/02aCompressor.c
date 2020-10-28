@@ -27,21 +27,17 @@
 
 void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha)
 {
-    char input[maxstrlen];
-    
     int compcheck = 0;
     
     if(method == 1 || method == 2){
-        printf("Initial system pressure (kPa) = ");
-        *P1 = atof(fgets(input, sizeof(input), stdin));
+        *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
-    }
-    if(method == 1 || method == 2){
+        
         compcheck = 1;
         while(compcheck == 1)
         {
             printf("Final system pressure (kPa) = ");
-            *P2 = atof(fgets(input, sizeof(input), stdin));
+            *P2 = inputDouble(0, "final system pressure", "kPa");
             *P2 = (*P2)*1000;
             if((*P1) > (*P2))
             {
@@ -55,32 +51,26 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     }
     
     if(method == 1 || method == 2){
-        printf("Initial system temperature (deg C) = ");
-        *T1 = atof(fgets(input, sizeof(input), stdin));
+        *T1 = inputDouble(0, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
     }
     
     if(method == 1 || method == 2){
-        printf("Moles present in system (kmol/ s) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n) * 1000;
     }
     
     if(method == 1 || method == 2){
-        printf("Clearance volume (m3) = ");
-        *Vc = atof(fgets(input, sizeof(input), stdin));
+        *Vc = inputDouble(0, "clearance volume", "m3");
         
-        printf("Maximum system volume before compression (m3) = ");
-        *V1 = atof(fgets(input, sizeof(input), stdin));
+        *V1 = inputDouble(0, "maximum system volume before compression", "m3");
     }
-    
     
     if(method == 1){
         *R = 8.3145;
     }
     if(method == 2){
-        printf("Specific gas constant (J/ mol. K) = ");
-        *R = atof(fgets(input, sizeof(input), stdin));
+        *R = inputDouble(0, "specific gas constant", "J/mol.K");
     }
     
     if(method == 1){
@@ -88,7 +78,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     }
     if(method == 2){
         printf("Polytropic index ([ ]) = ");
-        *alpha = atof(fgets(input, sizeof(input), stdin));
+        *alpha = inputDouble(0, "polytropic index", "[ ]");
     }
     fflush(stdout);
 }

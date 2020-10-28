@@ -22,21 +22,14 @@
 
 void HagPoisVariable(double *u, double *mu, double *L, double *d)
 {
-    //Declaring input
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *L = inputDouble(0, "pipe horizontal length", "m");
     
-    printf("Pipe horizontal length (m) = ");
-    *L = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
     
-    printf("Average fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "average fluid velocity", "m/s");
     
-    printf("Fluid viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = *mu * 0.001; //Conversion (cP to Pa.s)
     
     fflush(stdout);

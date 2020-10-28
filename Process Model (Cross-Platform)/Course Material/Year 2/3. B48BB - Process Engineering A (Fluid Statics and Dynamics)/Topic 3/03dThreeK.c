@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "03dThreeK.h"
 #include "02dReyNo.h"
 
@@ -177,18 +178,13 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
     table = ThreeKData(table);
     
     //  Getting variables to calculate Reynolds number
-    printf("Fluid Density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Average fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "average fluid velocity", "m/s");
     
-    printf("Internal pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "internal pipe diameter", "mm");
     
-    printf("Fluid Viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
-    
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
     
     int check = 0;

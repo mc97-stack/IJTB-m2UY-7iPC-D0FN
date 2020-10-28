@@ -24,36 +24,23 @@
 
 void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *C_d = inputDouble(0, "discharge coefficient", "[ ]");
     
-    printf("Discharge coefficient (C_d) = ");
-    *C_d = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Pipe diameter (mm) = ");
-    *d1 = atof(fgets(input, sizeof(input), stdin));
-    
+    *d1 = inputDouble(0, "pipe diameter", "mm");
     *d1 = (*d1)*0.001; //Conversion (mm to m)
     
-    printf("Vena Contracta diameter (mm) = ");
-    *d2 = atof(fgets(input, sizeof(input), stdin));
-    
+    *d2 = inputDouble(0, "Vena Contracta diameter", "mm");
     *d2 = (*d2)*0.001; //Conversion (mm to m)
     
-    printf("Process fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "process fluid density", "kg/m3");
     
-    printf("Initial system pressure (kPa) = ");
-    *P1 = atof(fgets(input, sizeof(input), stdin));
-    
+    *P1 = inputDouble(0, "initial system pressure", "kPa");
     *P1 = (*P1)*1000;
     
-    printf("Final system pressure (kPa) = ");
-    *P2 = atof(fgets(input, sizeof(input), stdin));
-    
+    *P2 = inputDouble(0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    printf("Frictional head loss (m) = ");
-    *h_f = atof(fgets(input, sizeof(input), stdin));
+    *h_f = inputDouble(0, "frictional head loss", "m");
     /*
     printf("Function has assigned:\n");
     printf("C_d = %.6f\n", C_d);
@@ -61,8 +48,6 @@ void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P
     printf("d2 = %.6f m", d2);
     printf("rho = %.6f kg/m3\n", rho);
     */
-    
-    fflush(stdout);
 }
 
 void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m)

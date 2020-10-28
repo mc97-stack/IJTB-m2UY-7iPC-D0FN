@@ -25,9 +25,6 @@
 
 void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double *h2)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store the keyboard input.
-    
     //Misc function variables
     char menu[maxstrlen];   // Variable used to store character input into a menu.
     
@@ -58,8 +55,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
             case 'N':
             case 'f':
             case 'n':
-                printf("P_2 (kPa_{abs}) = ");
-                *P2 = atof(fgets(input, sizeof(input), stdin));
+                *P2 = inputDouble(0, "P_2", "kPa_{abs}");
             
                 if(*P2 == 0) // Double checking in case a gauge pressure is inputted
                 {
@@ -74,19 +70,13 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
     }
     
     *P2 = *P2 * 1000; //Conversion (kPa to Pa)
-    printf("\n");
     
-    printf("Density of process fluid (kg/m3) = ");
-    *rho1 = atof(fgets(input, sizeof(input), stdin));
+    *rho1 = inputDouble(0, "density of process fluid", "kg/m3");
     
-    printf("Height of process fluid in manometer (cm) = ");
-    *h1 = atof(fgets(input, sizeof(input), stdin));
-    
+    *h1 = inputDouble(0, "Height of process fluid in manometer", "cm");
     *h1 = *h1 * 0.01; //Conversion (cm to m)
     
-    printf("\n");
-    printf("Density of manometer fluid (kg/m3) = ");
-    *rho2 = atof(fgets(input, sizeof(input), stdin));
+    *rho2 = inputDouble(0, "manometer fluid density", "kg/m3");
     
     //Check for an inclined manometer
     InclCheck = 1;
@@ -102,12 +92,10 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
             case 't':
             case 'y':
                 //Length along arm
-                printf("Length of manometer fluid in inclined arm (cm) = ");
-                L = atof(fgets(input, sizeof(input), stdin));
+                L = inputDouble(0, "length of manometer fluid in inclined arm", "cm");
                 
                 //Degree of inclination
-                printf("Degree of inclination (deg) = ");
-                incl = atof(fgets(input, sizeof(input), stdin));
+                incl = inputDouble(0, "Degree of inclination", "deg");
                 
                 incl = (incl)*(PI/180); //Conversion to radians
                 *h2 = (L)*sin( (incl) );
@@ -120,7 +108,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
             case 'f':
             case 'n':
                 printf("Height of manometer fluid (cm) = ");
-                *h2 = atof(fgets(input, sizeof(input), stdin));
+                *h2 = inputDouble(0, "height of manometer fluid", "cm");
                 
                 InclCheck = 0;
                 break;
@@ -139,16 +127,12 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
 
 void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double *h1)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     //Misc function variables
     char menu[maxstrlen];  // Variable used to store character input into a menu.
     
     int PresCheck = 0;
     
-    printf("P_1 (kPa_{abs}) = ");
-    *P1 = atof(fgets(input, sizeof(input), stdin));
+    *P1 = inputDouble(0, "P_1", "kPa_{abs}");
     *P1 = (*P1)*1000; //Conversion (kPa to Pa)
     
     PresCheck = 1;
@@ -173,8 +157,7 @@ void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double
             case 'N':
             case 'f':
             case 'n':
-                printf("P_2 (kPa_{abs}) = ");
-                *P2 = atof(fgets(input, sizeof(input), stdin));
+                *P2 = inputDouble(0, "P_2", "kPa_{abs}");
                 
                 if(*P2 == 0)
                 {
@@ -189,17 +172,12 @@ void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double
     }
     *P2 = (*P2) *1000; //Conversion (kPa to Pa)
     
-    printf("\n");
-    printf("Density of process fluid (kg/m3) = ");
-    *rho1 = atof(fgets(input, sizeof(input), stdin));
+    *rho1 = inputDouble(0, "process fluid density", "kg/m3");
     
-    printf("Height of process fluid in manometer (cm) = ");
-    *h1 = atof(fgets(input, sizeof(input), stdin));
+    *h1 = inputDouble(0, "height of process fluid in manometer", "cm");
     *h1 = (*h1)*0.01; //Conversion (cm to m)
     
-    printf("\n");
-    printf("Density of manometer fluid (kg/m3) = ");
-    *rho2 = atof(fgets(input, sizeof(input), stdin));
+    *rho2 = inputDouble(0, "manometer fluid density", "kg/m3");
     
     fflush(stdout);
 }
@@ -223,7 +201,6 @@ double ManoMeasCalculation(double P2, double rho1, double h1, double rho2, doubl
 double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double rho2)
 {
     char inclcheck[maxstrlen];
-    char deg[maxstrlen];
     
     double dP = 0.0;
     double top = 0.0;
@@ -257,14 +234,13 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
             case 't':
             case 'y':
                 //Degree of inclination
-                printf("Degree of Inclination (deg) = ");
-                incl = atof(fgets(deg, sizeof(deg), stdin));
+                incl = inputDouble(0, "degree of inclination", "deg");
                 
                 incl = (incl)*(PI/180.0); //Conversion to radians
                 rad = sin(incl);
-                printf("Degree of inclination in radians = %f rad\n", rad);
+                //printf("Degree of inclination in radians = %f rad\n", rad);
                 h2 = (h2)/(rad);
-                printf("Length of manometer fluid in the inclined arm = %.3f cm\n", ((h2)*100));
+                //printf("Length of manometer fluid in the inclined arm = %.3f cm\n", ((h2)*100));
                 InclCheck = 0;
             break;
             case '0':
@@ -272,7 +248,7 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
             case 'N':
             case 'f':
             case 'n':
-                printf("Manometer fluid height = %.3f cm\n", ((h2)*100) ); //Conversion (cm to m)
+                //printf("Manometer fluid height = %.3f cm\n", ((h2)*100) ); //Conversion (cm to m)
                 InclCheck = 0;
             break;
             default:

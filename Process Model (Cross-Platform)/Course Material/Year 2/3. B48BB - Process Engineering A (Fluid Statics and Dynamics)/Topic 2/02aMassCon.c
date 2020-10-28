@@ -23,25 +23,17 @@
 
 void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *rho1 = inputDouble(0, "initial fluid density", "kg/m3");
     
-    printf("Initial fluid density (kg/m3) = ");
-    *rho1 = atof(fgets(input, sizeof(input), stdin));
+    *rho2 = inputDouble(0, "final fluid density", "kg/m3");
     
-    printf("Final fluid density (kg/m3) = ");
-    *rho2 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Initial pipe diameter (mm) = ");
-    *d1 = atof(fgets(input, sizeof(input), stdin));
+    *d1 = inputDouble(0, "initial pipe diameter", "mm");
     *d1 = (*d1)*0.001; //Conversion (mm to m)
     
-    printf("Final pipe diameter (mm) = ");
-    *d2 = atof(fgets(input, sizeof(input), stdin));
+    *d2 = inputDouble(0, "final pipe diameter", "mm");
     *d2 = (*d2)*0.001; //Conversion (mm to m)
     
-    printf("Initial fluid velocity (m/s) = ");
-    *u1 = atof(fgets(input, sizeof(input), stdin));
+    *u1 = inputDouble(0, "initial fluid velocity", "m/s");
     
     fflush(stdout);
 }

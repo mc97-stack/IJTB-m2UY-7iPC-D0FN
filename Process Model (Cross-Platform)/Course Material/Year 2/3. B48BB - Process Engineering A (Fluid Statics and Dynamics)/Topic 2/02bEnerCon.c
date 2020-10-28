@@ -34,9 +34,6 @@ double EnthalpyConversion(double u, double P, double rho)
 
 void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1, double *z2, double *q, double *w)
 {
-    //Main input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     double inteng1 = 0.0;   // Initial internal energy
     double inteng2 = 0.0;   // Final internal energy
     double pres1 = 0.0;     // Initial system pressure
@@ -62,27 +59,21 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'U':
             case 'i':
             case 'u':
-                printf("Initial internal energy (kJ/kg) = ");
-                inteng1 = atof(fgets(input, sizeof(input), stdin));
+                inteng1 = inputDouble(0, "initial internal energy", "kJ/kg");
                 inteng1 = inteng1*1000;
                 
-                printf("Final internal energy (kJ/kg) = ");
-                inteng2 = atof(fgets(input, sizeof(input), stdin));
+                inteng2 = inputDouble(0, "final internal energy", "kJ/kg");
                 inteng2 = inteng2*1000;
                 
-                printf("Initial pressure (kPa) = ");
-                pres1 = atof(fgets(input, sizeof(input), stdin));
+                pres1 = inputDouble(0, "initial pressure", "kPa");
                 pres1 = pres1*1000;
                 
-                printf("Final pressure (kPa) = ");
-                pres2 = atof(fgets(input, sizeof(input), stdin));
+                pres2 = inputDouble(0, "final pressure", "kPa");
                 pres2 = pres2*1000;
                 
-                printf("Initial density (kg/m3) = ");
-                rho1 = atof(fgets(input, sizeof(input), stdin));
+                rho1 = inputDouble(0, "initial density", "kg/m3");
                 
-                printf("Final density (kg/m3) = ");
-                rho2 = atof(fgets(input, sizeof(input), stdin));
+                rho2 = inputDouble(0, "final density", "kg/m3");
                 
                 //Converting through to enthalpy using definition
                 *h1 = EnthalpyConversion(inteng1, pres1, rho1);
@@ -95,12 +86,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'H':
             case 'e':
             case 'h':
-                printf("Initial enthalpy (kJ/kg) = ");
-                *h1 = atof(fgets(input, sizeof(input), stdin));
+                *h1 = inputDouble(0, "initial enthalpy", "kJ/kg");
                 *h1 = (*h1)*1000;
                 
-                printf("Final enthalpy (kJ/kg) = ");
-                *h2 = atof(fgets(input, sizeof(input), stdin));
+                *h2 = inputDouble(0, "final enthalpy", "kJ/kg");
                 *h2 = (*h2)*1000;
                 
                 whilmethod = 0;
@@ -112,30 +101,19 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
         fflush(stdout);
     }
     
-    printf("Initial velocity (m/s) = ");
-    *u1 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
+    *u1 = inputDouble(0, "initial velocity", "m/s");
     
-    printf("Final velocity (m/s) = ");
-    *u2 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
+    *u2 = inputDouble(0, "final velocity", "m/s");
     
-    printf("Initial height (m) = ");
-    *z1 = atof(fgets(input, sizeof(input), stdin));
+    *z1 = inputDouble(0, "initial fluid height", "m");
     
-    printf("Final height (m) = ");
-    *z2 = atof(fgets(input, sizeof(input), stdin));
-    fflush(stdout);
+    *z2 = inputDouble(0, "final fluid height", "m");
     
-    printf("Process heat (kJ/ kg) = ");
-    *q = atof(fgets(input, sizeof(input), stdin));
+    *q = inputDouble(0, "process heat", "kJ/kg");
     *q = (*q)*1000;
     
-    printf("Process work (kJ/ kg) = ");
-    *w = atof(fgets(input, sizeof(input), stdin));
+    *w = inputDouble(0, "process work", "kJ/kg");
     *w = (*w)*1000;
-    
-    fflush(stdout);
 }
 
 double EnerConFluidCalculation(double h, double u, double z)

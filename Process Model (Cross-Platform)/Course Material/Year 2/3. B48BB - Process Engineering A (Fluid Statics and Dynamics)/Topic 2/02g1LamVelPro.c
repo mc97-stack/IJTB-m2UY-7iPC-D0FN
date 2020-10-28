@@ -14,27 +14,21 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "02g1LamVelPro.h"
 
 #define maxstrlen 128
 
 void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d)*0.001;
     
-    printf("Pipe length (m) = ");
-    *L = atof(fgets(input, sizeof(input), stdin));
+    *L = inputDouble(0, "pipe length", "m");
     
-    printf("Fluid pressure loss (Pa) = ");
-    *dP = atof(fgets(input, sizeof(input), stdin));
+    *dP = inputDouble(0, "fluid pressure loss", "Pa");
     
-    printf("Fluid viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
     
     fflush(stdout);

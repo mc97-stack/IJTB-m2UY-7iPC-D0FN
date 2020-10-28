@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "02dReyNo.h"
 #include "03dTwoK.h"
 
@@ -117,19 +118,16 @@ TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d,
     
     table = TwoKData(table);
     
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "fluid velocity", "m/s");
     
-    printf("Fluid viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
     
-    printf("Internal pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "internal pipe diameter", "mm");
     *d = (*d)*0.1; // Conversion to cm
+    
     *Impd = (*d)/(2.54); // Conversion to inches
     *d = (*d)*0.01; // Conversion to m
     

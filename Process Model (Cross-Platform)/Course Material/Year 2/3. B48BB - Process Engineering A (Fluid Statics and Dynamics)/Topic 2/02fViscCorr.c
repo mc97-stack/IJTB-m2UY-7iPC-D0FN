@@ -25,19 +25,15 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
 {
     //How constants are used will vary on the correlation being utilised to estimate the fluid viscosity;
     //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
     char menu[maxstrlen];
     
     int control = 0;
     
-    printf("a = ");
-    *a = atof(fgets(input, sizeof(input), stdin));
+    *a = inputDouble(0, "a", "");
     
-    printf("b = ");
-    *b = atof(fgets(input, sizeof(input), stdin));
+    *b = inputDouble(0, "b", "");
     
-    printf("System temperature (deg C) = ");
-    *T = atof(fgets(input, sizeof(input), stdin));
+    *T = inputDouble(0, "system temperature", "deg C");
     
     control = 1;
     while(control == 1)
@@ -68,7 +64,8 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     }
     
     printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
+    
     /*
     printf("Function assignments:\n");
     printf("a = %.3f\n", *a);
@@ -76,6 +73,7 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     printf("T = %.3f\n", *T);
     printf("rho = %.3f kg/m3\n", *rho);
     */
+    
     fflush(stdout);
 }
 

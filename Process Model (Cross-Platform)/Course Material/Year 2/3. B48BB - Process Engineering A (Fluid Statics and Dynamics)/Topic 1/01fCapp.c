@@ -25,22 +25,14 @@
 
 void CappVariable(double *sigma, double *cang, double *rho, double *d)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *sigma = inputDouble(0, "Surface Tension", "N/m");
     
-    printf("Surface Tension (N/m) = ");
-    *sigma = atof(fgets(input, sizeof(input), stdin));
+    *cang = inputDouble(0, "contact angle", "deg");
     
-    printf("Contact angle (deg) = ");
-    *cang = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "Capillary tube diameter", "mm");
     
-    printf("Cappilary tube diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
-    
-    //Extras ^.^
     wettabilityfacts(*cang);    //Function located in 01dSurfTens
     *cang = (*cang)*(PI/ 180);  //Conversion to radians
     

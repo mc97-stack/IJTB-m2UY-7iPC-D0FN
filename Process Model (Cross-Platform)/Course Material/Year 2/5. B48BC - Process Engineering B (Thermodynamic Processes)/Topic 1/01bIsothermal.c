@@ -23,34 +23,26 @@
 
 void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T, double *n)
 {
-    char input[maxstrlen];
-    
     if(method == 1){
         // Volume definition
-        printf("Initial system volume (m3) = ");
-        *V1 = atof(fgets(input, sizeof(input), stdin));
+        *V1 = inputDouble(0, "initial system volume", "m3");
         
-        printf("Final system volume (m3) = ");
-        *V2 = atof(fgets(input, sizeof(input), stdin));
+        *V2 = inputDouble(0, "final system volume", "m3");
     }
     if(method == 2){
         // Pressure definition
-        printf("Initial system pressure (kPa) = ");
-        *P1 = atof(fgets(input, sizeof(input), stdin));
+        *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        printf("Final system pressure (kPa) = ");
-        *P2 = atof(fgets(input, sizeof(input), stdin));
+        *P2 = inputDouble(0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
     }
     if(method == 1 || method == 2){
         // Common variables
-        printf("System Temperature (deg C) = ");
-        *T = atof(fgets(input, sizeof(input), stdin));
+        *T = inputDouble(0, "system temperature", "deg C");
         *T = (*T) + 273.15;
         
-        printf("Moles of substance (kmol/s) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
     fflush(stdout);

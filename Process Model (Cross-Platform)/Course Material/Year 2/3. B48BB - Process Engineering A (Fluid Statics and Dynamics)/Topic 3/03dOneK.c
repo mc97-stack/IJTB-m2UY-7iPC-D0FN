@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom Header Files
+#include "System.h"
 #include "03dOneK.h"
 
 #define maxstrlen 128
@@ -48,8 +49,7 @@ OneKFittings OneKVariable(OneKFittings table, double *u)
     table = OneKData(table);
     
     //  Collecting fluid velocity
-    printf("Fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "fluid velocity", "m/s");
     
     //  Collecting table.count
     printf("Standard 45 deg elbow = ");

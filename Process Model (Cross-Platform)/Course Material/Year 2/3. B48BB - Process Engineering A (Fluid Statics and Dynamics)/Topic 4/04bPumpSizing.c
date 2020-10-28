@@ -23,64 +23,46 @@
 
 void PumpVariable(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *Q = inputDouble(0, "volumetric flowrate", "m3/s");
     
-    printf("Volumetric flowrate (m3/s) = ");
-    *Q = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Fluid vapour pressure (kPa) = ");
-    *Psat = atof(fgets(input, sizeof(input), stdin));
+    *Psat = inputDouble(0, "fluid vapour pressure", "kPa");
     *Psat = (*Psat)*1000;
     
-    printf("Required NPSH (m) = ");
-    *NPSHr = atof(fgets(input, sizeof(input), stdin));
+    *NPSHr = inputDouble(0, "required NPSH", "m");
     
-    printf("Pump efficiency (0 pct - 100 pct) = ");
-    *eta = atof(fgets(input, sizeof(input), stdin));
+    *eta = inputDouble(0, "pump efficiency", "0 %% - 100 %%");
     *eta = (*eta)*0.01; // Conversion to decimal
 }
 
 head PumpHeadVariable(int type, head var)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     switch(type)
     {
         case '1':
-            printf("Suction head parameters\n");
-            printf("Suction vessel pressure (kPa) = ");
-            var.P = atof(fgets(input, sizeof(input), stdin));
+            var.P = inputDouble(0, "suction vessel pressure", "kPa");
             var.P = (var.P)*1000;
             
-            printf("Liquid level in Suction-side vessel (m) = ");
-            var.h1 = atof(fgets(input, sizeof(input), stdin));
+            var.h1 = inputDouble(0, "liquid level in Suction-side vessel", "m");
             
-            printf("Liquid elevation above pump inlet (m) = ");
-            var.h2 = atof(fgets(input, sizeof(input), stdin));
+            var.h2 = inputDouble(0, "liquid elevation above pump inlet", "m");
             break;
         case '2':
             printf("Discharge head parameters\n");
-            printf("Discharge vessel pressure (kPa) = ");
-            var.P = atof(fgets(input, sizeof(input), stdin));
+            var.P = inputDouble(0, "discharge vessel pressure", "kPa");
             var.P = (var.P)*1000;
             
-            printf("Liquid level in Discharge-side vessel (m) = ");
-            var.h1 = atof(fgets(input, sizeof(input), stdin));
+            var.h1 = inputDouble(0, "Liquid level in Discharge-side vessel", "m");
             
-            printf("Liquid elevation above pump outlet (m) = ");
-            var.h2 = atof(fgets(input, sizeof(input), stdin));
-            
-            
+            var.h2 = inputDouble(0, "liquid elevation above pump outlet", "m");
             break;
         default:
             printf("Type integer invalid\n");
             break;
     }
     printf("Fluid frictional head loss (m) = ");
-    var.hf = atof(fgets(input, sizeof(input), stdin));
+    var.hf = inputDouble(0, "fluid frictional head loss", "m");
     
     return var;
 }

@@ -22,50 +22,35 @@
 
 void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,double *T2, double *n, double *R, double *alpha)
 {
-    char input[maxstrlen];
-    
     if(method == 2){
-        printf("Initial system semperature (deg C) = ");
-        *T1 = atof(fgets(input, sizeof(input), stdin));
+        *T1 = inputDouble(0, "initial system semperature", "deg C");
         *T1 = (*T1) + 273.15;
     }
     if(method == 2){
-        printf("Final system temperature (deg C) = ");
-        *T2 = atof(fgets(input, sizeof(input), stdin));
+        *T2 = inputDouble(0, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
-    if(method == 2 && fabs(*T2 - *T1) < 0.005){
+    if(method == 2 && fabs(*T2 - *T1) < 0.5){
         printf("You have stated an isothermal process. Changing to the Pressure-Volume equation.\n\n");
         method = 1;
     }
     if(method == 1){
-        printf("Initial system pressure (kPa) = ");
-        *P1 = atof(fgets(input, sizeof(input), stdin));
+        *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
-    }
-    if(method == 1){
-        printf("Final system pressure (kPa) = ");
-        *P2 = atof(fgets(input, sizeof(input), stdin));
+        
+        *P2 = inputDouble(0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
-    }
-    if(method == 1){
-        printf("Initial system volume (m3) = ");
-        *V1 = atof(fgets(input, sizeof(input), stdin));
+        
+        *V1 = inputDouble(0, "initial system volume", "m3");
     }
     if(method == 1 || method == 2){
-        printf("Moles in system (kmol/s) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
+        
+        *R = inputDouble(0, "gas constant (R)", "(kJ/(kmol.K))");
+        
+        *alpha = inputDouble(0, "polytropic index", "[ ]");
     }
-    if(method == 1 || method == 2){
-        printf("Gas constant (R) (kJ/(kmol.K)) = ");
-        *R = atof(fgets(input, sizeof(input), stdin));
-    }
-    if(method == 1 || method == 2){
-        printf("Polytropic index ([ ]) = ");
-        *alpha = atof(fgets(input, sizeof(input), stdin));
-    }
-    fflush(stdout);
 }
 
 double PolyVolume(double P1, double P2, double V1, double alpha)

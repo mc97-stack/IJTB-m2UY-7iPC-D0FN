@@ -14,24 +14,21 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "02g2TurVelPro.h"
 
 #define maxstrlen 128
 
 void TurVelProVariable(double *umax, double *d)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
     double u = 0.0;
     
-    printf("Average fluid velocity (m/s) = ");
-    u = atof(fgets(input, sizeof(input), stdin));
+    u = inputDouble(0, "average fluid velocity", "m/s");
     
     *umax = (49.0)/(60.0);
     *umax = (*umax) * u;
     
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d) * 0.001;
     
     fflush(stdout);

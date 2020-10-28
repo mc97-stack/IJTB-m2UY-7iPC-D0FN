@@ -23,34 +23,25 @@
 
 void IsobVariable(int method, double *P, double *V1,double *V2, double *T1, double *T2, double *n)
 {
-    char input[maxstrlen];
-    
     if(method == 1){
-        printf("System pressure (kPa) = ");
-        *P = atof(fgets(input, sizeof(input), stdin));
+        *P = inputDouble(0, "system pressure", "kPa");
         *P = (*P)*1000;
         
-        printf("Initial system volume (m3) = ");
-        *V1 = atof(fgets(input, sizeof(input), stdin));
+        *V1 = inputDouble(0, "initial system volume", "m3");
         
-        printf("Final system volume (m3) = ");
-        *V2 = atof(fgets(input, sizeof(input), stdin));
+        *V2 = inputDouble(0, "final system volume", "m3");
     }
     if(method == 2){
-        printf("Initial system temperature (deg C) = ");
-        *T1 = atof(fgets(input, sizeof(input), stdin));
+        *T1 = inputDouble(0, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
         
-        printf("Final system temperature (deg C) = ");
-        *T2 = atof(fgets(input, sizeof(input), stdin));
+        *T2 = inputDouble(0, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
     if(method == 1 || method == 2){
-        printf("Moles of substance (kmol/s) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
-    fflush(stdout);
 }
 
 double IsobVolume(double P, double V1, double V2)

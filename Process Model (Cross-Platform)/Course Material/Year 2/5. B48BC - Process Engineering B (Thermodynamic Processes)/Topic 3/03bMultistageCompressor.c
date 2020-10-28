@@ -1,70 +1,52 @@
 //
-//  01eBubPres.c
+//  03bMultistageCompressor.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 25/06/2020.
+//  Created by Matthew Cheung on 28/10/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//  Standard Header Files
+//Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//  Custom header files
+//Custom Header Files
 #include "System.h"
-#include "B48BB_T1.h"
-#include "01eBubPres.h"
+#include "03bMultistageCompressor.h"
 
 #define maxstrlen 128
 
-void BubPresVariable(double *sigma, double *r)
+void MSCompVariable(...)
 {
-    *sigma = inputDouble(0, "surface tension", "N/m");
     
-    *r = inputDouble(0, "radius of fluid droplet", "mm");
-    *r = (*r)*0.001; //Conversion (mm to m)
-    //printf("Function assignments:\nsigma = %f N/m\nr = %f m\n", *sigma, *r);
+    
     fflush(stdout);
 }
 
-double BubPresCalculation(double sigma, double r) 
+double MSCompCalculation(..)
 {
-    double top = 0.0;
-    double P = 0.0; // Bubble pressure.
     
-    top = 0.0; //Initialising variable
     
-    top = 2*sigma;
-    P = (top)/r;
-    
-    return P;
+    return [result];
 }
 
-void BubPresDisplay(double sigma, double r, double P)
+void MSCompDisplay(...)
 {
-    printf("_Bubble_Pressure_Calculations_\n");
-    printf("\tInput Parameters:\n");
-    printf("Surface tension:\n");
-    printf("sigma =\t%.3f\tN/m\n", sigma);
-    printf("Bubble radius:\n");
-    printf("r =\t%.3f\tmm\n\n", r*1000);
     
-    printf("\tOutput Parameters:\n");
-    printf("P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
 }
 
-void BubPresWrite(double sigma, double r, double P)
+void MSCompWrite(...)
 {
     //Function variables
-    char filename[maxstrlen];   // Character array used to store file name as it is built.
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Bubble Pressure Results
+    //Set file name as timestamp + Polytropic Process Results
         //Get current time
     time_t rawtime;
     struct tm *info;
@@ -76,10 +58,10 @@ void BubPresWrite(double sigma, double r, double P)
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
-    printf("File name: \"%s\"\n", filename);
+    //printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " Bubble Pressure Results");
-    printf("File name: \"%s\"\n", filename);
+    strcat(filename, " [Program Name] Results");
+    //printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
@@ -92,13 +74,12 @@ void BubPresWrite(double sigma, double r, double P)
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
@@ -113,26 +94,20 @@ void BubPresWrite(double sigma, double r, double P)
     fp = fopen(filename, "w+");
     
     //Write to file
-    fprintf(fp, "_Bubble_Pressure_Calculations_\n");
-    fprintf(fp, "\tInput Parameters:\n");
-    fprintf(fp, "Surface tension:\n");
-    fprintf(fp, "sigma =\t%.3f\tN/m\n", sigma);
-    fprintf(fp, "Bubble radius:\n");
-    fprintf(fp, "r =\t%.3f\tmm\n\n", r*1000);
-    
-    fprintf(fp, "\tOutput Parameters:\n");
-    fprintf(fp, "P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
+    fprintf(fp, "...");
     
     //Close file
     fclose(fp);
      
     printf("Write Complete\n");
 }
-void BubPresWriteSwitch(double sigma, double r, double P)
+
+void MSCompWriteSwitch()
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -145,15 +120,15 @@ void BubPresWriteSwitch(double sigma, double r, double P)
             case 'Y':
             case 't':
             case 'y':
-                BubPresWrite(sigma, r, P);
-                SaveC = 0;
+                MSCompWrite();
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -162,35 +137,27 @@ void BubPresWriteSwitch(double sigma, double r, double P)
     }
 }
 
-void BubblePressure()
+void MultistageCompressor(void)
 {
-    // "BubblePressure" is abbreviated to "BubPres" for this file.
-    //Main Function
     int whilmain = 0;
-    
-    printf("Bubble Pressure Calculator\n");
+    printf("Multistage Gas Compression (Adiabatic)\n");
     whilmain = 1;
-    
     while(whilmain == 1)
     {
-        //  Declaring variables
-        double sigma = 0.0;
-        double r = 0.0;
-        double P = 0.0;
+        //  Variable declaration
         
-        //  Collecting data
-        BubPresVariable(&sigma, &r);
-        printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         
-        //  Running calculations
-        P = BubPresCalculation(sigma, r);
-        printf("Bubble pressure = %.3f Pa\n", P);
+        //  Data Collection
+        
+        
+        //  Data Manipulation
+        
         
         //  Displaying results
-        BubPresDisplay(sigma, r, P);
         
-        //  Writing to file
-        BubPresWriteSwitch(sigma, r, P);
+        
+        //  Writing to File
+        
         
         //  Continue function
         whilmain = Continue(whilmain);

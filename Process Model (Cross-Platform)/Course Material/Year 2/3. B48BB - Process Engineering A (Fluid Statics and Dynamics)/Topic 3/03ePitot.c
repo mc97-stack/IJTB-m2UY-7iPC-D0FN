@@ -24,35 +24,21 @@
 
 void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
-    
-    printf("Static pressure on connection (kPa) = ");
-    *P2 = atof(fgets(input, sizeof(input), stdin));
-    
+    *P2 = inputDouble(0, "static pressure on connection", "kPa");
     *P2 = (*P2)*1000; //Conversion (kPa to Pa)
     
-    printf("Process fluid density (kg/m3) = ");
-    *rho1 = atof(fgets(input, sizeof(input), stdin));
+    *rho1 = inputDouble(0, "process fluid density", "kg/m3");
     
-    printf("Manometer fluid density (kg/m3) = ");
-    *rho2 = atof(fgets(input, sizeof(input), stdin));
+    *rho2 = inputDouble(0, "manometer fluid density", "kg/m3");
     
-    printf("Process fluid height in manometer (cm) = ");
-    *h1 = atof(fgets(input, sizeof(input), stdin));
-    
+    *h1 = inputDouble(0, "process fluid height in manometer", "cm");
     *h1 = (*h1)*0.01; //Conversion (cm to m)
     
-    printf("Manometer fluid height in manometer (cm) = ");
-    *h2 = atof(fgets(input, sizeof(input), stdin));
-    
+    *h2 = inputDouble(0, "manometer fluid height in manometer", "cm");
     *h2 = (*h2)*0.01; //Conversion (cm to m)
     
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
-    
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
-    
-    fflush(stdout);
 }
 
 void PitotCalculation(double P2, double rho1, double rho2, double h1, double h2, double d, double *P1, double *v, double *Q)

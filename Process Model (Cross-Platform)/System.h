@@ -10,9 +10,10 @@
 #define Input_h
 
 /// This subroutine is used to force the entry of a non-zero value that will be assigned to a variable. 
+/// @param allowZero Integer value used to control whether a zero value is permitted in the data entry. A value of 0 will force a non-zero value to be entered.
 /// @param VariableName Variable descriptor.
 /// @param Units Units of the variable.
-double inputDouble(char VariableName[], char Units[]);
+double inputDouble(int allowZero, char VariableName[], char Units[]);
 
 #endif /* Input_h */
 

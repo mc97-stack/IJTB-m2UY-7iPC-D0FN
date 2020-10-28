@@ -14,6 +14,7 @@
 #include <time.h>
 
 //  Custom header files
+#include "System.h"
 #include "03dEquivLeng.h"
 #include "03bGenPressureLoss.h"
 
@@ -49,22 +50,17 @@ EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double
     data = EquivLengData(data);
     
     //  Gathering data needed to calculate phi
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "fluid velocity", "m/s");
     
-    printf("Fluid viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
     
-    printf("Pipe internal diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "pipe internal diameter", "mm");
     *d = (*d)*0.001;
     
-    printf("Pipe absolute roughness (mm) = ");
-    *vareps = atof(fgets(input, sizeof(input), stdin));
+    *vareps = inputDouble(0, "pipe absolute roughness", "mm");
     *vareps = (*vareps)*0.001;
     
     *phi = phiCalculation((*rho), (*u), (*d), (*mu), (*vareps));

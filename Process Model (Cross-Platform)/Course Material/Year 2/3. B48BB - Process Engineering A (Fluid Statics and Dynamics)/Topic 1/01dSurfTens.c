@@ -85,7 +85,6 @@ void wettabilityfacts(double cang)
 void duNouyVariable(double *F, double *L, double *C_F, double *cang)
 {
     //Input variable declaration
-    char input[maxstrlen];  // Variable used to store keyboard input.
     char menu[maxstrlen];   // Variable used to store keyboard input for menus.
     
     double r = 0.0;         // Variable used to collect the ring radius to infer the ring circumference.
@@ -93,13 +92,11 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
     int whilvar = 0;        // Variable used to control menu input.
     
     //Collect F
-    printf("Force required to break fluid surface (N) = ");
-    *F = atof(fgets(input, sizeof(input), stdin));
+    *F = inputDouble(0, "force required to break fluid surface", "N");
     
     //Collect r
     printf("Radius of ring (cm) = ");
-    r = 0.0; //Initialising variable
-    r = atof(fgets(input, sizeof(input), stdin));
+    r = inputDouble(0, "ring radius", "cm");
     
     r = r*0.01; //Conversion (cm to m)
         //Calculating circumference of ring
@@ -119,8 +116,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
             case 'Y':
             case 't':
             case 'y':
-                printf("Correction factor = ");
-                *C_F = atof(fgets(input, sizeof(input), stdin));
+                *C_F = inputDouble(0, "Correction factor", "[]");
                 whilvar = 0;
             break;
             case '0':
@@ -158,8 +154,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
             case 'N':
             case 'f':
             case 'n':
-                printf("Contact angle (deg) = ");
-                *cang = atof(fgets(input, sizeof(input), stdin));
+                *cang = inputDouble(0, "Contact angle", "deg");
                 whilvar = 0;
             break;
             default:
@@ -167,7 +162,6 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
             break;
         }
     }
-    
     wettabilityfacts(*cang);
         //Conversion (deg to rad)
     *cang = (*cang)*(PI/ 180);

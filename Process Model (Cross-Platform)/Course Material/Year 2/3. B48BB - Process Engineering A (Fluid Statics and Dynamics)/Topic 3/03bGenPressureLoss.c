@@ -24,28 +24,20 @@
 
 void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L, double *vareps)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *u = inputDouble(0, "fluid velocity", "m/s");
     
-    printf("Fluid velocity (m/s) = ");
-    *u = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Fluid viscosity (cP) = ");
-    *mu = atof(fgets(input, sizeof(input), stdin));
+    *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu) * 0.001;
     
-    printf("Pipe diameter (mm) = ");
-    *d = atof(fgets(input, sizeof(input), stdin));
+    *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d) * 0.001;
     
-    printf("Pipe length (m) = ");
-    *L = atof(fgets(input, sizeof(input), stdin));
+    *L = inputDouble(0, "pipe length", "m");
     
     if(ReyNoCalculation(*rho, *u, *d, *mu) > 2500){
-        printf("Pipe absolute roughness (mm) = ");
-        *vareps = atof(fgets(input, sizeof(input), stdin));
+        *vareps = inputDouble(0, "pipe absolute roughness", "mm");
         *vareps = (*vareps) * 0.001;
     }else{ 
         *vareps = 0.0;

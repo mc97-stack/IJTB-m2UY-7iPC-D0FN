@@ -23,36 +23,27 @@
 
 void IsocVariable(int method, double *P1, double *P2, double *V, double *T1, double *T2, double *n, double *cv)
 {
-    char input[maxstrlen];
-    
     if(method == 1){
-        printf("Initial system pressure (kPa) = ");
-        *P1 = atof(fgets(input, sizeof(input), stdin));
+        *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        printf("Final system pressure (kPa) = ");
-        *P2 = atof(fgets(input, sizeof(input), stdin));
+        *P2 = inputDouble(0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
         
-        printf("System volume (m3) = ");
-        *V = atof(fgets(input, sizeof(input), stdin));
+        *V = inputDouble(0, "system volume", "m3");
     }
     if(method == 2){
-        printf("Initial system temperature (deg C) = ");
-        *T1 = atof(fgets(input, sizeof(input), stdin));
+        *T1 = inputDouble(0, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
         
-        printf("Final system temperature (deg C) = ");
-        *T2 = atof(fgets(input, sizeof(input), stdin));
+        *T2 = inputDouble(0, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
     if(method == 1 || method == 2){
-        printf("Moles of substance (kmol/s) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
         
-        printf("Heat capacity at constant volume (J/mol.K) = ");
-        *cv = atof(fgets(input, sizeof(input), stdin));
+        *cv = inputDouble(0, "heat capacity at constant volume", "J/mol.K");
     }
     fflush(stdout);
 }

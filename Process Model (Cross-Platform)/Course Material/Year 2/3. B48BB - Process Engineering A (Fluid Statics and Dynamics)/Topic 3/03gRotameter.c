@@ -24,30 +24,19 @@
 
 void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *C_d = inputDouble(0, "discharge coefficient", "[ ]");
     
-    printf("Discharge coefficient (C_d) = ");
-    *C_d = atof(fgets(input, sizeof(input), stdin));
+    *V_f = inputDouble(0, "float volume", "m3");
     
-    printf("Float Volume (m3) = ");
-    *V_f = atof(fgets(input, sizeof(input), stdin));
+    *rho_f = inputDouble(0, "float density", "kg/m3");
     
-    printf("Float density (kg/m3) = ");
-    *rho_f = atof(fgets(input, sizeof(input), stdin));
+    *rho = inputDouble(0, "process fluid density", "kg/m3");
     
-    printf("Process fluid density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
+    *A_f = inputDouble(0, "maximum Cross-sectional area of float", "m2");
     
-    printf("Maximum Cross-sectional area of float (m2) = ");
-    *A_f = atof(fgets(input, sizeof(input), stdin));
+    *are1 = inputDouble(0, "cross-sectional area of tube at point of float", "m2");
     
-    printf("Cross-sectional area of tube at point of float (m2) = ");
-    *are1 = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Annular area between float and tube at the point (m2) = ");
-    *are2 = atof(fgets(input, sizeof(input), stdin));
-    
-    fflush(stdout);
+    *are2 = inputDouble(0, "annular area between float and tube at the point", "m2");
 }
 
 void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u)

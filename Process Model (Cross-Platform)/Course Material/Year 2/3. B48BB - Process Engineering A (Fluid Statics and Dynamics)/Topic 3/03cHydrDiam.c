@@ -22,21 +22,15 @@
 
 void HydrDiamVariable(double *A_F, double *P_W)
 {
-    //Input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    double convfactor = 0.0;    // Conversion factor
     
-    double convfactor = 0.0;
-    
-    printf("Cross-sectional flow area (mm2) = ");
-    *A_F = atof(fgets(input, sizeof(input), stdin));
+    *A_F = inputDouble(0, "cross-sectional flow area", "mm2");
     
     convfactor = pow(1000,2);
     convfactor = 1/(convfactor);
     *A_F = (*A_F)*convfactor;
     
-    printf("Wetted perimeter (cm) = ");
-    *P_W = atof(fgets(input, sizeof(input), stdin));
-    
+    *P_W = inputDouble(0, "wetted perimeter", "cm");
     *P_W = (*P_W)*0.01;
     
     fflush(stdout);

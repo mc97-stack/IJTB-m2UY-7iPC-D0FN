@@ -13,7 +13,7 @@
 
 #define maxstrlen 128
 
-double inputDouble(char VariableName[], char Units[])
+double inputDouble(int allowZero, char VariableName[], char Units[])
 {
     char value[maxstrlen];  // Variable used to hold keyboard input.
     double input = 0.0;     // Variable used to store the double value before being returned to the calling function.
@@ -25,8 +25,7 @@ double inputDouble(char VariableName[], char Units[])
     {
         printf("Please enter a value for %s (%s): ", VariableName, Units);
         input = atof(fgets(value, sizeof(value), stdin));
-        if(input == 0.0)
-        {
+        if(allowZero == 0 && input == 0.0){
             printf("This variable must have a non-zero value. Please enter a different value.\n");
         }else{
             control = 0;    // Break the while loop.

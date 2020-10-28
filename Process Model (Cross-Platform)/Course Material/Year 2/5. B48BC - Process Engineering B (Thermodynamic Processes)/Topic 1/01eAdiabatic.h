@@ -16,10 +16,9 @@
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
 /// @param T1 Initial system temperature (deg C).
-/// @param T2 Final system temperature (deg C).
 /// @param n Moles of component in system (kmol/s).
 /// @param gamma Heat capacity ratio ([ ]).
-void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *T2, double *n, double *gamma);
+void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *n, double *gamma);
 
 #endif /* AdiaVariable_h */
 
@@ -84,10 +83,9 @@ double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
 /// @param T1 Initial system temperature (K).
-/// @param T2 Final system temperature (K).
 /// @param n Moles of component in system (mol/s).
 /// @param gamma Heat capacity ratio ([ ]).
-T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma);
+T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double n, double gamma);
 /* 
  Pressure|Volume|Temperature|Work|Work_Cum.
  */

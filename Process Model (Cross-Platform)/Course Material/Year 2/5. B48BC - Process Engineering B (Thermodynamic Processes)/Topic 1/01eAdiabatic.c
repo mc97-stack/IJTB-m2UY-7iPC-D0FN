@@ -21,41 +21,29 @@
 #define maxstrlen 128
 #define R 8.3145 // J/mol.K
 
-void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *T2, double *n, double *gamma)
+void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *n, double *gamma)
 {
     char input[maxstrlen];
     
     if(method == 1||method == 2){
-        printf("Initial Pressure (kPa) = ");
-        *P1 = atof(fgets(input, sizeof(input), stdin));
+        *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
     }
     if(method == 2){
-        printf("Final Pressure (kPa) = ");
-        *P2 = atof(fgets(input, sizeof(input), stdin));
+        *P2 = inputDouble(0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
     }
     if(method == 1){
-        printf("Initial volume (m3) = ");
-        *V1 = atof(fgets(input, sizeof(input), stdin));
+        *V1 = inputDouble(0, "initial system volume", "m3");
+        *V2 = inputDouble(0, "final system volume", "m3");
     }
-    if(method == 1){
-        printf("Final volume (m3) = ");
-        *V2 = atof(fgets(input, sizeof(input), stdin));
-    }
-    if(method == 2||method == 3){
-        printf("Initial Temperature (deg C) = ");
-        *T1 = atof(fgets(input, sizeof(input), stdin));
+    if(method == 2){
+        *T1 = inputDouble(1, "initial system temperature", "deg C");
         *T1 = (*T1)+273.15;
-    }
-    if(method == 0){
-        printf("Final Temperature (deg C) = ");
-        *T2 = atof(fgets(input, sizeof(input), stdin));
-        *T2 = (*T2)+273.15;
     }
     if(method == 1 || method == 2){
         printf("Moles of fluid in system (kmol) = ");
-        *n = atof(fgets(input, sizeof(input), stdin));
+        *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
     if(method == 1 || method == 2)
@@ -167,7 +155,7 @@ double AdiaFinalVol(double V1, double P1, double P2, double gamma)
     return V2;
 }
 
-T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma)
+T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double n, double gamma)
 {
     double incr = 0.0; // Difference between datapoints
     int reso = 249; // Resolution of dataset
@@ -391,9 +379,10 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
 
 void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -406,15 +395,15 @@ void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
             case 'Y':
             case 't':
             case 'y':
-                
-                SaveC = 0;
+                AdiaProcWrite(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -492,10 +481,12 @@ void Adiabatic()
         }
         if(method == 1||method == 2){
             //  Collecting data
-            AdiaVariable(method, &P1, &P2, &V1, &V2, &T1, &T2, &n, &gamma);
+            AdiaVariable(method, &P1, &P2, &V1, &V2, &T1, &n, &gamma);
             
             //  Running calculations
-            profile = AdiaProfile(method, P1, P2, V1, V2, T1, T2, n, gamma);
+            profile = AdiaProfile(method, P1, P2, V1, V2, T1, n, gamma);
+            
+            T2 = profile.T[249];
             
             //  Displaying results
             AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);

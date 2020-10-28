@@ -26,26 +26,26 @@ int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, 
     int ideal = 0;
     
     printf("Initial system pressure (kPa) = ");
-    *P1 = atof(fgets(input, sizeof(input), stdin));
+    *P1 = inputDouble(0, "initial system pressure", "kPa");
     *P1 = (*P1)*1000;
     
     printf("Final system pressure (kPa) = ");
-    *P2 = atof(fgets(input, sizeof(input), stdin));
+    *P2 = inputDouble(0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
     printf("Initial system temperature (deg C) = ");
-    *T1 = atof(fgets(input, sizeof(input), stdin));
+    *T1 = inputDouble(0, "initial system temperature", "deg C");
     *T1 = (*T1) + 273.15;
     
     printf("Moles of component in system (kmol/ s) = ");
-    *n = atof(fgets(input, sizeof(input), stdin));
+    *n = inputDouble(0, "molar flowrate", "kmol/s");
     *n = (*n) * 1000;
     
     printf("Gas constant, R (J/ mol.K) = ");
-    *R = atof(fgets(input, sizeof(input), stdin));
+    *R = inputDouble(0, "specific gas constant", "J/mol.K");
     
     printf("Polytropic Index ([ ]) = ");
-    *alpha = atof(fgets(input, sizeof(input), stdin));
+    *alpha = inputDouble(0, "polytropic index", "[ ]");
     
     if(fabs(*alpha - 1.0) < 0.05){
         // Polytropic index is pretty much 1

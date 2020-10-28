@@ -22,17 +22,11 @@
 
 void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
-    char input[maxstrlen];
-    
-    printf("Specific process heat (kJ/ kmol) = ");
-    *q = atof(fgets(input, sizeof(input), stdin));
+    *q = inputDouble(0, "Specific process heat", "kJ/kmol");
     *q = (*q)*1000;
     
-    printf("Specific shaft work (kJ/ kmol) = ");
-    *w_s = atof(fgets(input, sizeof(input), stdin));
+    *w_s = inputDouble(0, "specific shaft work", "kJ/kmol");
     *w_s = (*w_s)*1000;
-    
-    fflush(stdout);
 }
 
 T2StateEnergy OpenFirstLawFluidVariable(int ins)

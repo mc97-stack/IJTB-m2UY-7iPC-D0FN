@@ -46,6 +46,7 @@
 		E8B15583251BEBA000808CE9 /* B48BC.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA62924ECDBE0003F9D5E /* B48BC.c */; };
 		E8B15585251BEBA900808CE9 /* B48BB.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA65524ED6802003F9D5E /* B48BB.c */; };
 		E8B2ED82253084AB00AA3C54 /* 03aFrictFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */; };
+		E8B50A42254988F600546EA1 /* 03bMultistageCompressor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B50A41254988F600546EA1 /* 03bMultistageCompressor.c */; };
 		E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */; };
 		E8B6675A2530D29000D1ADB8 /* 03dOneK.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667592530D29000D1ADB8 /* 03dOneK.c */; };
 		E8C2C4422542396600822ED0 /* 03dTwoK.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C2C4412542396600822ED0 /* 03dTwoK.c */; };
@@ -117,6 +118,8 @@
 		E8B1553D251BE6BF00808CE9 /* 02aMassCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02aMassCon.h; sourceTree = "<group>"; };
 		E8B2ED80253084AB00AA3C54 /* 03aFrictFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03aFrictFactor.h; sourceTree = "<group>"; };
 		E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03aFrictFactor.c; sourceTree = "<group>"; };
+		E8B50A40254988F600546EA1 /* 03bMultistageCompressor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03bMultistageCompressor.h; sourceTree = "<group>"; };
+		E8B50A41254988F600546EA1 /* 03bMultistageCompressor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03bMultistageCompressor.c; sourceTree = "<group>"; };
 		E8B667532530C1E200D1ADB8 /* 03bGenPressureLoss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03bGenPressureLoss.h; sourceTree = "<group>"; };
 		E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03bGenPressureLoss.c; sourceTree = "<group>"; };
 		E8B667582530D29000D1ADB8 /* 03dOneK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03dOneK.h; sourceTree = "<group>"; };
@@ -419,8 +422,10 @@
 		E8FEA62424ECDBE0003F9D5E /* Topic 3 */ = {
 			isa = PBXGroup;
 			children = (
-				E83F1D172548C5EC00683190 /* 03aJTEffect.h */,
 				E83F1D182548C5EC00683190 /* 03aJTEffect.c */,
+				E83F1D172548C5EC00683190 /* 03aJTEffect.h */,
+				E8B50A41254988F600546EA1 /* 03bMultistageCompressor.c */,
+				E8B50A40254988F600546EA1 /* 03bMultistageCompressor.h */,
 				E83F1D1B2548C6A000683190 /* B48BC_T3.h */,
 			);
 			path = "Topic 3";
@@ -767,6 +772,7 @@
 				E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */,
 				E8B1556B251BEB3800808CE9 /* 03cHydrDiam.c in Sources */,
 				E8C2C4422542396600822ED0 /* 03dTwoK.c in Sources */,
+				E8B50A42254988F600546EA1 /* 03bMultistageCompressor.c in Sources */,
 				E8B15569251BEB2E00808CE9 /* 02hHagPois.c in Sources */,
 				E8B15567251BEB2900808CE9 /* 02g2TurVelPro.c in Sources */,
 				E8B15565251BEB2300808CE9 /* 02g1LamVelPro.c in Sources */,

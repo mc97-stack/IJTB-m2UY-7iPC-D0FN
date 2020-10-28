@@ -24,14 +24,9 @@
 
 void FluidVHydVariable(double *rho, double *h)
 {
-    //Declaring input variables
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    printf("Fluid Density (kg/m3) = ");
-    *rho = atof(fgets(input, sizeof(input), stdin));
-    
-    printf("Fluid height (m) = ");
-    *h = atof(fgets(input, sizeof(input), stdin));
+    *h = inputDouble(1, "fluid height", "m");
     
     //Displaying function results
     //printf("rho = %f kg/m3\n", *rho);
