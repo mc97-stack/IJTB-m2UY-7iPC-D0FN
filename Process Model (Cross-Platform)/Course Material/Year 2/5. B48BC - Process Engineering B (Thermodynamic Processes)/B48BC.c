@@ -118,6 +118,10 @@ void B48BCtopic3(){
                 MultistageCompressor();
                 inputguard = 0;
                 break;
+            case '3':
+                MultistageShaftWork();
+                inputguard = 0;
+                break;
             case '0':
             case 'Q':
             case 'q':

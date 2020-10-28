@@ -21,3 +21,11 @@ void JouleThomsonEffect(void);
 void MultistageCompressor(void);
 
 #endif /* MultistageCompressor_h */
+
+#ifndef MultistageShaftWork_h
+#define MultistageShaftWork_h
+
+/// This subroutine is used to estimate the total shaft work for a multistage gas compressor using the pressure-temperature statement of an adiabatic process assuming complete intercooling between stages.
+void MultistageShaftWork(void);
+
+#endif /* MultistageShaftWork_h */
