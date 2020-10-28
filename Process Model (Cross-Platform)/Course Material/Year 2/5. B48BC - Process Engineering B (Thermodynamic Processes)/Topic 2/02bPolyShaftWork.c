@@ -22,7 +22,6 @@
 
 int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, double *alpha)
 {
-    char input[maxstrlen];
     int ideal = 0;
     
     printf("Initial system pressure (kPa) = ");

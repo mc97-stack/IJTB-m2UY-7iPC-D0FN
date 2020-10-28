@@ -59,6 +59,18 @@ double AdiaFinalPress(double P1, double V1, double V2, double gamma);
 
 #endif /* AdiaFinalPress_h */
 
+#ifndef AdiaFinalVol_h
+#define AdiaFinalVol_h
+
+/// This subroutine is used to calculate the final volume using the Pressure-Temperature relationship for an adiabat.
+/// @param V1 Initial system volume (m3).
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param gamma Heat capacity ratio ([ ]).
+double AdiaFinalVol(double V1, double P1, double P2, double gamma);
+
+#endif /* AdiaFinalVol_h */
+
 #ifndef AdiaFinalTemp_h
 #define AdiaFinalTemp_h
 

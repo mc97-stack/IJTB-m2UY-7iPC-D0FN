@@ -13,3 +13,11 @@
 void JouleThomsonEffect(void);
 
 #endif /* JouleThomsonEffect_h */
+
+#ifndef MultistageCompressor_h
+#define MultistageCompressor_h
+
+/// This subroutine is used to calculate the work input for a multistage gas compressor using the pressure-temperature statement of an adiabatic process assuming complete intercooling between stages.
+void MultistageCompressor(void);
+
+#endif /* MultistageCompressor_h */

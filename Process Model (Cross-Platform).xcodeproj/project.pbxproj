@@ -96,7 +96,6 @@
 		E83F1D1B2548C6A000683190 /* B48BC_T3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B48BC_T3.h; sourceTree = "<group>"; };
 		E83F1D1C2548C78C00683190 /* VdWEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VdWEOS.h; sourceTree = "<group>"; };
 		E83F1D1D2548C78C00683190 /* VdWEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VdWEOS.c; sourceTree = "<group>"; };
-		E83F1D212548DB3300683190 /* Process Model (Cross-Platform).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Process Model (Cross-Platform).entitlements"; sourceTree = "<group>"; };
 		E8664D87252DE45B00022E45 /* 01eAdiabatic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eAdiabatic.h; sourceTree = "<group>"; };
 		E8664D88252DE45B00022E45 /* 01eAdiabatic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eAdiabatic.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
@@ -202,7 +201,6 @@
 		E8FEA5FF24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {
 			isa = PBXGroup;
 			children = (
-				E83F1D212548DB3300683190 /* Process Model (Cross-Platform).entitlements */,
 				E8FEA60824ECDBE0003F9D5E /* Course Material */,
 				E8FEA64324ECDBE1003F9D5E /* Dynamic Process Simulation */,
 				E8FEA64724ECDBE1003F9D5E /* Major Unit Operations */,

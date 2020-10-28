@@ -115,7 +115,7 @@ void B48BCtopic3(){
                 inputguard = 0;
                 break;
             case '2':
-                //  Multistage Gas Compression
+                MultistageCompressor();
                 inputguard = 0;
                 break;
             case '0':
