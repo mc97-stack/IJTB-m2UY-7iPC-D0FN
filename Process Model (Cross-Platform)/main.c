@@ -78,9 +78,8 @@ void NiceThings()
 
 int main()
 {
-    printf("_Process Model - alpha build_\n");
+    printf("_Just Another Model (JAM) - alpha build_\n");
     printf("Made by Matthew Cheung\n");
-    printf("With thanks to the Chemical Engineering department at Heriot-Watt University\n\n");
     
     char MainSelect[maxstrlen];
     
