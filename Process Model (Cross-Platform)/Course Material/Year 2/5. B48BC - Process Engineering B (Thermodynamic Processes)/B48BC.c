@@ -16,6 +16,7 @@
 #include "B48BC_T1.h"
 #include "B48BC_T2.h"
 #include "B48BC_T3.h"
+#include "B48BC_T4.h"
 
 #define maxstrlen 128
 
@@ -107,7 +108,7 @@ void B48BCtopic3(){
         B48BCTopComm();
         printf("1. Joule-Thomson Effect.\n2. Multistage Gas Compression.\n3. Multistage Gas Compression Shaft Work Estimation\n");
         printf("q. Exit topic. \n\n");
-        printf("Selections [1 - 2]: ");
+        printf("Selections [1 - 3]: ");
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
         switch(B48BCTopMenu[0]){
             case '1':
@@ -135,7 +136,40 @@ void B48BCtopic3(){
 }
 
 void B48BCtopic4(){
-    B48BCTopComm();
+    inputguard = 1;
+    while(inputguard == 1){
+        B48BCTopComm();
+        printf("1. Thermal Efficiency.\n2. Coefficient of Performance.\n3. Carnot Cycle\n4. The Clausius Inequality\n");
+        printf("q. Exit topic. \n\n");
+        printf("Selections [1 - 2]: ");
+        fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
+        switch(B48BCTopMenu[0]){
+            case '1':
+                ThermalEfficiency();
+                inputguard = 0;
+                break;
+            case '2':
+                //CoefficientofPerformance();
+                inputguard = 0;
+                break;
+            case '3':
+                //CarnotCycle();
+                inputguard = 0;
+                break;
+            case '4':
+                //ClausiusInequality();
+                inputguard = 0;
+                break;
+            case '0':
+            case 'Q':
+            case 'q':
+                inputguard = 0;
+                break;
+            default:
+                printf("Input not recognised \n");
+                break;
+        }
+    }
 }
 
 void B48BCtopic5(){

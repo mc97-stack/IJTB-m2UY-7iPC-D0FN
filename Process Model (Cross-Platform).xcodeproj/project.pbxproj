@@ -55,6 +55,7 @@
 		E8C43432252F926700662F7C /* 01bIsothermal.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C43431252F926700662F7C /* 01bIsothermal.c */; };
 		E8C43437252FA10900662F7C /* 01cIsobaric.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C43436252FA10900662F7C /* 01cIsobaric.c */; };
 		E8C4343C252FAE1500662F7C /* 01dIsochoric.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C4343B252FAE1500662F7C /* 01dIsochoric.c */; };
+		E8CE0ED4254CB5F200F1F03C /* 04aThermalEfficiency.c in Sources */ = {isa = PBXBuildFile; fileRef = E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -151,6 +152,9 @@
 		E8C43436252FA10900662F7C /* 01cIsobaric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01cIsobaric.c; sourceTree = "<group>"; };
 		E8C4343A252FAE1500662F7C /* 01dIsochoric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01dIsochoric.h; sourceTree = "<group>"; };
 		E8C4343B252FAE1500662F7C /* 01dIsochoric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01dIsochoric.c; sourceTree = "<group>"; };
+		E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B48BC_T4.h; sourceTree = "<group>"; };
+		E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04aThermalEfficiency.h; sourceTree = "<group>"; };
+		E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04aThermalEfficiency.c; sourceTree = "<group>"; };
 		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
@@ -437,6 +441,9 @@
 		E8FEA62524ECDBE0003F9D5E /* Topic 4 */ = {
 			isa = PBXGroup;
 			children = (
+				E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */,
+				E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */,
+				E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */,
 			);
 			path = "Topic 4";
 			sourceTree = "<group>";
@@ -799,6 +806,7 @@
 				E8B1554D251BEAD800808CE9 /* 01aFluComp.c in Sources */,
 				E8B1554B251BEACF00808CE9 /* IdealGasLaw.c in Sources */,
 				E8B15549251BEACA00808CE9 /* Year4.c in Sources */,
+				E8CE0ED4254CB5F200F1F03C /* 04aThermalEfficiency.c in Sources */,
 				E8C4342D252F713C00662F7C /* 01aPolytropic.c in Sources */,
 				E8B15547251BEAC400808CE9 /* Year3.c in Sources */,
 				E8B15545251BEABE00808CE9 /* Year2.c in Sources */,
