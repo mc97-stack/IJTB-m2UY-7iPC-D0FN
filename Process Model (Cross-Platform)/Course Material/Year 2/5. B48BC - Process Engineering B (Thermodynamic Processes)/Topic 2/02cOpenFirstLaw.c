@@ -22,10 +22,10 @@
 
 void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
-    *q = inputDouble(0, "Specific process heat", "kJ/kmol");
+    *q = inputDouble(0, "molar process heat", "kJ/kmol");
     *q = (*q)*1000;
     
-    *w_s = inputDouble(0, "specific shaft work", "kJ/kmol");
+    *w_s = inputDouble(0, "molar shaft work", "kJ/kmol");
     *w_s = (*w_s)*1000;
 }
 
@@ -44,7 +44,7 @@ T2StateEnergy OpenFirstLawFluidVariable(int ins)
     state.kinenergy = 0.0;
     state.potenergy = 0.0;
     
-    printf("Stream enthalpy at state %i (kJ/kmol) = ", ins);
+    printf("Stream molar enthalpy at state %i (kJ/kmol) = ", ins);
     state.enthalpy = atof(fgets(input, sizeof(input), stdin));
     state.enthalpy = (state.enthalpy)*1000;
     
@@ -126,9 +126,9 @@ void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, do
     printf("Final fluid height:\n");
     printf("z2 =\t%.3f\tm\n\n", z2);
     
-    printf("Specific process heat:\n");
+    printf("Molar process heat:\n");
     printf("q =\t%.3f\tkJ/kmol\n", q*0.001);
-    printf("Specific shaft work:\n");
+    printf("Molar shaft work:\n");
     printf("w =\t%.3f\tkJ/kmol\n\n", w_s*0.001);
     
     printf("\tOutput parameters:\n");
@@ -222,9 +222,9 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     fprintf(fp, "Final fluid height:\n");
     fprintf(fp, "z2 =\t%.3f\tm\n\n", z2);
     
-    fprintf(fp, "Specific process heat:\n");
+    fprintf(fp, "Molar process heat:\n");
     fprintf(fp, "q =\t%.3f\tkJ/kmol\n", q*0.001);
-    fprintf(fp, "Specific shaft work:\n");
+    fprintf(fp, "Molar shaft work:\n");
     fprintf(fp, "w =\t%.3f\tkJ/kmol\n\n", w_s*0.001);
     
     fprintf(fp, "\tOutput parameters:\n");

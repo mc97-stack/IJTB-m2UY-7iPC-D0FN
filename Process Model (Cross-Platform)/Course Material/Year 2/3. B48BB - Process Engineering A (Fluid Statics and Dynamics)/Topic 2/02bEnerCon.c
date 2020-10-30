@@ -59,10 +59,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'U':
             case 'i':
             case 'u':
-                inteng1 = inputDouble(0, "initial internal energy", "kJ/kg");
+                inteng1 = inputDouble(0, "initial specific internal energy", "kJ/kg");
                 inteng1 = inteng1*1000;
                 
-                inteng2 = inputDouble(0, "final internal energy", "kJ/kg");
+                inteng2 = inputDouble(0, "final specific internal energy", "kJ/kg");
                 inteng2 = inteng2*1000;
                 
                 pres1 = inputDouble(0, "initial pressure", "kPa");
@@ -86,10 +86,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'H':
             case 'e':
             case 'h':
-                *h1 = inputDouble(0, "initial enthalpy", "kJ/kg");
+                *h1 = inputDouble(0, "initial specific enthalpy", "kJ/kg");
                 *h1 = (*h1)*1000;
                 
-                *h2 = inputDouble(0, "final enthalpy", "kJ/kg");
+                *h2 = inputDouble(0, "final specific enthalpy", "kJ/kg");
                 *h2 = (*h2)*1000;
                 
                 whilmethod = 0;
@@ -109,10 +109,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
     
     *z2 = inputDouble(0, "final fluid height", "m");
     
-    *q = inputDouble(0, "process heat", "kJ/kg");
+    *q = inputDouble(0, "specific process heat", "kJ/kg");
     *q = (*q)*1000;
     
-    *w = inputDouble(0, "process work", "kJ/kg");
+    *w = inputDouble(0, "specific process work", "kJ/kg");
     *w = (*w)*1000;
 }
 

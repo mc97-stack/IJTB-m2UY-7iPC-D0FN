@@ -212,8 +212,6 @@
 				E8FEA64224ECDBE1003F9D5E /* main.c */,
 				E8FEA64824ECDBE2003F9D5E /* main.h */,
 				E8FEA64524ECDBE1003F9D5E /* README.md */,
-				E8361A782544501F00828DF0 /* System.h */,
-				E8361A792544501F00828DF0 /* System.c */,
 			);
 			path = "Process Model (Cross-Platform)";
 			sourceTree = "<group>";
@@ -236,8 +234,10 @@
 			children = (
 				E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */,
 				E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */,
-				E83F1D1C2548C78C00683190 /* VdWEOS.h */,
+				E8361A792544501F00828DF0 /* System.c */,
+				E8361A782544501F00828DF0 /* System.h */,
 				E83F1D1D2548C78C00683190 /* VdWEOS.c */,
+				E83F1D1C2548C78C00683190 /* VdWEOS.h */,
 			);
 			path = "Common subroutines";
 			sourceTree = "<group>";
