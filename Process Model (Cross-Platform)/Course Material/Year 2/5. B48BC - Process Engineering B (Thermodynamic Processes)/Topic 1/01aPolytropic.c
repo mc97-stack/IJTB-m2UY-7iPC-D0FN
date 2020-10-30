@@ -256,10 +256,10 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         printf("Universal Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         printf("Specific Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     printf("Polytropic Index:\n");
@@ -360,10 +360,10 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         fprintf(fp, "Universal Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         fprintf(fp, "Specific Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     fprintf(fp, "Polytropic Index:\n");
@@ -496,6 +496,7 @@ void Polytropic()
             PolyVariable(method, &P1, &P2, &V1, &T1, &T2, &n, &R, &alpha);
             
             // Running calculations
+            clock_t timer = clock();
             profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
             
                 //  Gathering unknown variables
@@ -510,6 +511,12 @@ void Polytropic()
                 V1 = profile.V[0];
                 V2 = profile.V[249];
             }
+            timer = clock() - timer;
+            
+            int calctime = 0;
+            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            
             //  Displaying Results
             PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
             

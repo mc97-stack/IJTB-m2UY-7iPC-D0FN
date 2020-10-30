@@ -262,6 +262,7 @@ void Rotameter()
         RotameterVariable(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);
         
         //  Running calculations
+        clock_t timer = clock();
         RotameterCalculation(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
         /*
         printf("Buoyant force = %.3f Pa\n", dP);
@@ -269,6 +270,12 @@ void Rotameter()
         printf("Volumetric flow = %.3f m3/s\n", Q);
         printf("Mass flowrate = %.3f kg/s\n", m);
         */
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        
         //  Displaying results
         RotameterDisplay(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);
         

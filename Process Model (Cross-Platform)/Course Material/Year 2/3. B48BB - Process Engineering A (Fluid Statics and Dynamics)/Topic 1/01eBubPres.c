@@ -183,8 +183,14 @@ void BubblePressure()
         printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         
         //  Running calculations
+        clock_t timer = clock();
         P = BubPresCalculation(sigma, r);
-        printf("Bubble pressure = %.3f Pa\n", P);
+        //printf("Bubble pressure = %.3f Pa\n", P);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         BubPresDisplay(sigma, r, P);

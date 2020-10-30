@@ -206,8 +206,14 @@ void CoefficientofCompressibility()
         //printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
         //  Running calculation
+        clock_t timer = clock();
         c = FluCompCalculation(P, V, n, T);
         //printf("Function has outputted = %f m3/ Pa\n\n", c);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying data
         FluCompDisplay(P, V, n, T, c);

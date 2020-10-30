@@ -38,12 +38,12 @@ double AdiaVolume(double P1, double V1, double V2, double gamma);
 #define AdiaTemperature_h
 
 /// This subroutine is used to calculate the adiabatic volume work from the system pressure and temperature.
+/// @param n Moles of component in system (mol/s).
 /// @param T1 Initial system temperature (K).
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
-/// @param n Moles of component in system (mol/s).
 /// @param gamma Heat capacity ratio ([ ]).
-double AdiaTemperature(double T1, double P1, double P2, double n, double gamma);
+double AdiaTemperature(double n, double T1, double P1, double P2, double gamma);
 
 #endif /* AdiaTemperature_h */
 

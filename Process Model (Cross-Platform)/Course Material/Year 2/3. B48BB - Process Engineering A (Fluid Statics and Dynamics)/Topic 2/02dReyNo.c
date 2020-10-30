@@ -229,8 +229,14 @@ void ReynoldsNumber()
          */
         
         //  Running calculations
+        clock_t timer = clock();
         ReyNum = ReyNoCalculation(rho, u, d, mu);
         //printf("Function returns: ReyNum = %f \n", ReyNum);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         ReyNoDisplay(rho, u, d, mu, ReyNum);

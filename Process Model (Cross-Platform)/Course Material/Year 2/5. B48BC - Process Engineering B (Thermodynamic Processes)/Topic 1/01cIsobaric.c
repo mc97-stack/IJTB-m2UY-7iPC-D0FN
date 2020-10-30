@@ -159,7 +159,7 @@ void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, doubl
     
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
-    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     printf("\tOutput parameters:\n");
     
@@ -253,7 +253,7 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
-    fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     fprintf(fp, "\tOutput parameters:\n");
     
@@ -381,7 +381,13 @@ void Isobaric()
             IsobVariable(method, &P, &V1, &V2, &T1, &T2, &n);
             
             //  Running calculations
+            clock_t timer = clock();
             profile = IsobProfile(method, P, V1, V2, T1, T2, n);
+            timer = clock() - timer;
+            
+            int calctime = 0;
+            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
             
             //  Displaying results
             IsobProcDisplay(P, V1, V2, T1, T2, n, profile);

@@ -271,6 +271,7 @@ void BernoulliEquation()
         printf("hf = %f\n\n", hf);*/
         
         //  Running calculations
+        clock_t timer = clock();
         LHS = BernEqnCalculation(StaticHeadCalculation(P1, rho), DynamicHeadCalculation(u1), Z1);
         //printf("Function returns: LHS = %f\n", LHS);
         
@@ -285,6 +286,12 @@ void BernoulliEquation()
         P2 = (P2)*0.001;
         
         //printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        
         //  Displaying results
         BernEqnDisplay(P1, P2, rho, u1, u2, Z1, Z2, hf);
         

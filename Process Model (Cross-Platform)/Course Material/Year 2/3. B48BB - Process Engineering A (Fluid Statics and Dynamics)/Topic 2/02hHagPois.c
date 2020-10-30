@@ -204,9 +204,15 @@ void HagenPoiseuille()
         HagPoisVariable(&u, &mu, &L, &d);
         
         //  Running calculations
+        clock_t timer = clock();
         dP = HagPoisCalculation(u, mu, L, d);
         
         //printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         HagPoisDisplay(u, mu, L, d, dP);

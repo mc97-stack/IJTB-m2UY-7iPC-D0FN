@@ -247,7 +247,13 @@ void TurbulentVelPro()
         TurVelProVariable(&vmax, &d);
         
         //  Running calculations
+        clock_t timer = clock();
         profile = TurVelProCalculation(vmax, d, &rows);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         TurVelProDisplay(vmax, d, rows, profile);

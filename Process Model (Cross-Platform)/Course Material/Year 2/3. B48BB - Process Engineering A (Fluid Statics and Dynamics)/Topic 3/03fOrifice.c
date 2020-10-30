@@ -275,10 +275,16 @@ void OrificePlateMeter()
         OrificeVariable(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
         
         //  Running calculations
+        clock_t timer = clock();
         OrificeCalculation(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
         //printf("Average fluid velocity = %.3f m/s\n", u);
         //printf("Volumetric flow rate = %.3f m3/s\n", Q);
         //printf("Mass flowrate = %.3f kg/s\n\n", m);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         OrificeDisplay(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);

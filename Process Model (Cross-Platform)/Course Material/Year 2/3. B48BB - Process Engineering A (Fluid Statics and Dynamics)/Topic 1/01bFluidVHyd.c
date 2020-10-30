@@ -179,8 +179,14 @@ void FluidVerticalHydrostaticPressure()
         //printf("h = %f m\n", h);
         
         //  Running calculation
+        clock_t timer = clock();
         P = FluidVHydCalculation(rho, h);
         //printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         FluidVHydDisplay(rho, h, P);

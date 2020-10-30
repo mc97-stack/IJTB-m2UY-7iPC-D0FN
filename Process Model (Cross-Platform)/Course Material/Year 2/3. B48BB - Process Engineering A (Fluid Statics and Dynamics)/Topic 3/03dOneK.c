@@ -440,6 +440,7 @@ void OneK()
     OneKTable = OneKVariable(OneKTable, &u);
     
     //  Performing calculations
+    clock_t timer = clock();
     OneKTable = OneKFinalTable(OneKTable, u);
     
     //  Calculating total head loss
@@ -448,6 +449,11 @@ void OneK()
     for(int i = 0; i < 15; ++i){
         total += OneKTable.headloss[i];
     }
+    timer = clock() - timer;
+    
+    int calctime = 0;
+    calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+    printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
     
     // Displaying data
     OneKDisplay(OneKTable, u, total);

@@ -193,7 +193,7 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
             profile.P[i] = profile.P[i - 1] + incr;
             profile.T[i] = AdiaFinalTemp(profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
             profile.V[i] = AdiaFinalVol(profile.V[i-1], profile.P[i-1], profile.P[i], gamma);
-            profile.W_V[i] = AdiaTemperature(profile.T[i - 1], profile.P[i - 1], profile.P[i], n, gamma);
+            profile.W_V[i] = AdiaTemperature(n, profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
             profile.W_S[i] = PolyShaftCalculation(n, R, profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma);
         }
         
@@ -234,7 +234,7 @@ void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double 
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
     printf("Universal Gas Constant:\n");
-    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     printf("Heat capacity ratio:\n");
     printf("gamma =\t%.3f\t[ ]\n\n", gamma);
@@ -411,7 +411,13 @@ void MultistageCompressor(void)
         MSCompVariable(&P1, &P2, &Vc, &T1, &n, &N, &gamma);
         
         //  Data Manipulation
+        clock_t timer = clock();
         profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         MSCompDisplay(P1, P2, Vc, T1, n, N, gamma, profile);

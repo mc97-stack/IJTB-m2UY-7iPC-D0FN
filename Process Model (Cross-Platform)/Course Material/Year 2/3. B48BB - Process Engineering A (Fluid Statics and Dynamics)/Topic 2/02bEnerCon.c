@@ -173,6 +173,12 @@ void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, doubl
     
     printf("\tOutput parameters:\n");
     printf("check =\t%.3f\tkJ/kg\n", check*0.001);
+    if(check <= 0.001)
+    {
+        printf("Your process should work in reality\n");
+    }else{
+        printf("Your process breaks the first law\n");
+    }
 }
 
 void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
@@ -256,6 +262,13 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "check =\t%.3f\tkJ/kg\n", check*0.001);
     
+    if(check <= 0.001)
+    {
+        fprintf(fp, "Your process should work in reality\n");
+    }else{
+        fprintf(fp, "Your process breaks the first law\n");
+    }
+    
     //Close file
     fclose(fp);
      
@@ -338,6 +351,7 @@ void EnergyConservation()
         printf("w = %f \n\n", w);*/
         
         //  Running calculations
+        clock_t timer = clock();
         state1 = EnerConFluidCalculation(h1, u1, z1);
         printf("Function returns: state1 = %f\n", state1);
         
@@ -350,12 +364,12 @@ void EnergyConservation()
             //  Checking for a violation of the first law
         check = state2 - state1;
         check = fabs(process - check);
-        if(check <= 0.001)
-        {
-            printf("Your process should work in reality\n");
-        }else{
-            printf("Your process breaks the first law\n");
-        }
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        
         //  Displaying results
         EnerConDisplay(h1, h2, u1, u2, z1, z2, q, w, check);
         

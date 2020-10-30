@@ -111,6 +111,17 @@ void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, d
     
     printf("Mass difference:\n");
     printf("error =\t%.3f\tkg/s\n\n", error);
+    
+    if(error < 0.001)
+    {
+        printf("Mass balances.\n\n");
+    }else{
+        printf("Mass does not balance.\n\n");
+        if(rho1 != rho2)
+        {
+            printf("This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
+        }
+    }
 }
 
 void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
@@ -199,6 +210,17 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     fprintf(fp, "Mass difference:\n");
     fprintf(fp, "error =\t%.3f\tkg/s\n\n", error);
     
+    if(error < 0.001)
+    {
+        fprintf(fp, "Mass balances.\n\n");
+    }else{
+        fprintf(fp, "Mass does not balance.\n\n");
+        if(rho1 != rho2)
+        {
+            fprintf(fp, "This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
+        }
+    }
+    
     //Close file
     fclose(fp);
      
@@ -273,30 +295,27 @@ void MassConservation()
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
         
         //  Running calculations
+        clock_t timer = clock();
         u2 = FinalVelocityCalculation(u1, d1, d2);
-        printf("Function returns: u2 = %f\n\n", u2);
+        //printf("Function returns: u2 = %f\n\n", u2);
         
         q1 = VolumetricFlowCalculation(u1, d1);
-        printf("Volumetric flow rate = %.3f m3/s\n", q1);
+        //printf("Volumetric flow rate = %.3f m3/s\n", q1);
         q2 = VolumetricFlowCalculation(u2, d2);
-        printf("Volumetric flow rate = %.3f m3/s\n", q2);
+        //printf("Volumetric flow rate = %.3f m3/s\n", q2);
         
         m1 = MassFlowCalculation(rho1, d1, u1);
-        printf("Mass flow rate = %.3f kg/s\n", m1);
+        //printf("Mass flow rate = %.3f kg/s\n", m1);
         m2 = MassFlowCalculation(rho2, d2, u2);
-        printf("Mass flow rate = %.3f kg/s\n", m2);
+        //printf("Mass flow rate = %.3f kg/s\n", m2);
         
         error = fabs(m1 - m2);
-        if(error < 0.001)
-        {
-            printf("Mass balances.\n\n");
-        }else{
-            printf("Mass does not balance.\n\n");
-            if(rho1 != rho2)
-            {
-                printf("This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
-            }
-        }
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        
         //  Displaying data
         MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
         

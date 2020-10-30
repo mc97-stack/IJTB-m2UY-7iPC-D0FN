@@ -240,10 +240,16 @@ void PitotStaticTube()
         PitotVariable(&P2, &rho1, &rho2, &h1, &h2, &d);
         
         //  Running calculations
+        clock_t timer = clock();
         PitotCalculation(P2, rho1, rho2, h1, h2, d, &P1, &v, &Q);
         //printf("P1 = %.3f kPa\n", P1*0.001); //Function will return pressure in Pa.
         //printf("v = %.3f m/s\n", v);
         //printf("Q = %.3f m3/s\n\n", Q);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         PitotDisplay(P1, P2, rho1, rho2, h1, h2, d, v, Q);

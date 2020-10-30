@@ -253,7 +253,7 @@ void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, doub
     
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
-    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     printf("Adiabatic Index:\n");
     printf("gamma =\t%.3f\t[ ]\n\n", gamma);
@@ -352,7 +352,7 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
-    fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     fprintf(fp, "Adiabatic Index:\n");
     fprintf(fp, "gamma =\t%.3f\t[ ]\n\n", gamma);
@@ -484,9 +484,15 @@ void Adiabatic()
             AdiaVariable(method, &P1, &P2, &V1, &V2, &T1, &n, &gamma);
             
             //  Running calculations
+            clock_t timer = clock();
             profile = AdiaProfile(method, P1, P2, V1, V2, T1, n, gamma);
             
             T2 = profile.T[249];
+            timer = clock() - timer;
+            
+            int calctime = 0;
+            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
             
             //  Displaying results
             AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);

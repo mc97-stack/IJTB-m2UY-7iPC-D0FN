@@ -105,7 +105,7 @@ void B48BCtopic3(){
     inputguard = 1;
     while(inputguard == 1){
         B48BCTopComm();
-        printf("1. Joule-Thomson Effect.\n2. Multistage Gas Compression.\n");
+        printf("1. Joule-Thomson Effect.\n2. Multistage Gas Compression.\n3. Multistage Gas Compression Shaft Work Estimation\n");
         printf("q. Exit topic. \n\n");
         printf("Selections [1 - 2]: ");
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);

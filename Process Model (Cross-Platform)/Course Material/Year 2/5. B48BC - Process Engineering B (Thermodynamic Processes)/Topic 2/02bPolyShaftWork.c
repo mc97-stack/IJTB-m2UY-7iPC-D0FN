@@ -24,26 +24,20 @@ int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, 
 {
     int ideal = 0;
     
-    printf("Initial system pressure (kPa) = ");
     *P1 = inputDouble(0, "initial system pressure", "kPa");
     *P1 = (*P1)*1000;
     
-    printf("Final system pressure (kPa) = ");
     *P2 = inputDouble(0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    printf("Initial system temperature (deg C) = ");
     *T1 = inputDouble(0, "initial system temperature", "deg C");
     *T1 = (*T1) + 273.15;
     
-    printf("Moles of component in system (kmol/ s) = ");
     *n = inputDouble(0, "molar flowrate", "kmol/s");
     *n = (*n) * 1000;
     
-    printf("Gas constant, R (J/ mol.K) = ");
-    *R = inputDouble(0, "specific gas constant", "J/mol.K");
+    *R = inputDouble(0, "gas constant", "J/mol.K");
     
-    printf("Polytropic Index ([ ]) = ");
     *alpha = inputDouble(0, "polytropic index", "[ ]");
     
     if(fabs(*alpha - 1.0) < 0.05){
@@ -111,10 +105,10 @@ void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, doubl
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         printf("Universal Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         printf("Specific Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     printf("Polytropic Index:\n");
@@ -122,7 +116,7 @@ void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, doubl
     
     printf("\tOutput parameters:\n");
     printf("Shaft Work:\n");
-    printf("W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]", W_S*0.001);
+    printf("W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]\n", W_S*0.001);
 }
 
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
@@ -195,10 +189,10 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         fprintf(fp, "Universal Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         fprintf(fp, "Specific Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     fprintf(fp, "Polytropic Index:\n");
@@ -273,17 +267,25 @@ void PolyShaftWork()
         ideal = PolyShaftVariable(&P1, &P2, &T1, &n, &R, &alpha);
         
         //  Running calculations
+        clock_t timer = 0;
         if(ideal == 1){
             // Ideal
             printf("Isothermal process has been specified.\n");
+            timer = clock();
             W_S = IdealShaftCalculation(n, R, T1, P1, P2);
         }
         if(ideal == 2){
             // Normal polytropic
             printf("Polytropic process has been specified.\n");
+            timer = clock();
             W_S = PolyShaftCalculation(n, R, T1, P1, P2, alpha);
         }
         //printf("Shaft work = %.3f kW\n", W_S*0.001);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         PolyShaftDisplay(n, R, T1, P1, P2, alpha, W_S);

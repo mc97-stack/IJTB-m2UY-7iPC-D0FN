@@ -167,7 +167,7 @@ void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, doubl
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
     printf("c_v =\t%.3f\tJ/(mol. K)\n", c_v);
-    printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+    printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     printf("\tOutput parameters:\n");
     
@@ -262,7 +262,7 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n\n", n*0.001);
     fprintf(fp, "c_v =\t%.3f\tJ/(mol. K)\n", c_v);
-    fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+    fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     
     fprintf(fp, "\tOutput parameters:\n");
     
@@ -390,7 +390,13 @@ void Isochoric()
             IsocVariable(method, &P1, &P2, &V, &T1, &T2, &n, &cv);
             
             //  Running calculations
+            clock_t timer = clock();
             profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
+            timer = clock() - timer;
+            
+            int calctime = 0;
+            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
             
             //  Displaying results
             IsocProcDisplay(P1, P2, V, T1, T2, n, cv, profile);

@@ -315,11 +315,17 @@ void JouleThomsonEffect(void)
         JTEffectVariable(&Tc, &Pc, &T, &P, &v, &c_p);
         
         //  Data Manipulation
+        clock_t timer = clock();
         a = VdWcalculateA(Tc, Pc);
         b = VdWcalculateB(Tc, Pc);
         
         mu_JT = JTCoefficientCalculation(v, c_p, T, P, a, b);
         Tinv = JTInvTemperatureCalculation(P, v, a, b);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         JTEffectDisplay(Tc, Pc, T, P, v, c_p, a, b, mu_JT, Tinv);

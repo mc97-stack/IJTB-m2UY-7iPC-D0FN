@@ -309,7 +309,13 @@ void OpenFirstLaw()
         state2 = OpenFirstLawFluidVariable(2);
         
         //  Data manipulation
+        clock_t timer = clock();
         sysstate = OpenFirstLawCalculation(q, w_s, state1, state2);
+        timer = clock() - timer;
+        
+        int calctime = 0;
+        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
         
         //  Displaying results
         OpenFirstLawDisplay(state1, state2, q, w_s, sysstate);

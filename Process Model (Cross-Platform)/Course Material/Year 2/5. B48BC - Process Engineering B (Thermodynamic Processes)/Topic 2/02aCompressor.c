@@ -189,10 +189,10 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         printf("Universal Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         printf("Specific Gas Constant:\n");
-        printf("R =\t%.3f\tJ/(mol. K)\n\n", R);
+        printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     printf("Polytropic Index:\n");
@@ -293,10 +293,10 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
     if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
         fprintf(fp, "Universal Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
         fprintf(fp, "Specific Gas Constant:\n");
-        fprintf(fp, "R =\t%.3f\tJ/(mol. K)\n\n", R);
+        fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }
     
     fprintf(fp, "Polytropic Index:\n");
@@ -431,7 +431,13 @@ void Compressor(void)
             }
             
             //  Data Manipulation
+            clock_t timer = clock();
             profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
+            timer = clock() - timer;
+            
+            int calctime = 0;
+            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
             
             //  Displaying results
             CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
