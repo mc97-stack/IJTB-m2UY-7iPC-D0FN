@@ -21,6 +21,7 @@
 #include "B48BC_T4.h"
 #include "04aThermalEfficiency.h"
 #include "04cCarnotCycle.h"
+#include "04dClausiusInequality.h"
 
 #define maxstrlen 128
 
@@ -87,7 +88,9 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
 T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, double *worknet, double *qhot, double *qcold)
 {
     static T4CarnotProfile profile;
+    
     double incr = 0.0;  // Variable used to hold the increment between data points
+    double AvgTemp = 0.0;
     
     //  Setting initial values
     profile.P[0] = P1;
@@ -110,7 +113,13 @@ T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, do
         profile.T[i] = AdiaFinalTemp(profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma1);
         profile.work[i] = AdiaTemperature(n, profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma1);
         profile.heat[i] = 0.0;  // By definition.
+        
         *worknet += profile.work[i];
+        
+        AvgTemp = profile.T[i] + profile.T[i - 1];
+        AvgTemp = (AvgTemp)/2;
+        
+        profile.entropy[i] = EntropyCalc(profile.heat[i], AvgTemp);
     }
     
     //  Isothermal expansion (Boiling) (P2 -> P3)
@@ -124,8 +133,14 @@ T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, do
         profile.V[i] = IsotFinalVolume(profile.V[i - 1], profile.P[i - 1], profile.P[i]);
         profile.work[i] = IsotPressure(n, profile.T[i], profile.P[i - 1], profile.P[i]);
         profile.heat[i] = (-1) * (profile.work[i]); // From first law.
+        
         *worknet += profile.work[i];
         *qhot += profile.heat[i];
+        
+        AvgTemp = profile.T[i] + profile.T[i - 1];
+        AvgTemp = (AvgTemp)/2;
+        
+        profile.entropy[i] = EntropyCalc(profile.heat[i], AvgTemp);
     }
     
     //  Adiabatic expansion (Turbine) (P3 -> P4)
@@ -139,7 +154,13 @@ T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, do
         profile.T[i] = AdiaFinalTemp(profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma1);
         profile.work[i] = AdiaTemperature(n, profile.T[i - 1], profile.P[i - 1], profile.P[i], gamma1);
         profile.heat[i] = 0.0;  // By definition.
+        
         *worknet += profile.work[i];
+        
+        AvgTemp = profile.T[i] + profile.T[i - 1];
+        AvgTemp = (AvgTemp)/2;
+        
+        profile.entropy[i] = EntropyCalc(profile.heat[i], AvgTemp);
     }
     
     //  Isothermal Compression (Condensation) (P4 -> P1)
@@ -153,8 +174,14 @@ T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, do
         profile.V[i] = IsotFinalVolume(profile.V[i - 1], profile.P[i - 1], profile.P[i]);
         profile.work[i] = IsotPressure(n, profile.T[i], profile.P[i - 1], profile.P[i]);
         profile.heat[i] = (-1) * (profile.work[i]); // From first law.
+        
         *worknet += profile.work[i];
         *qcold += profile.heat[i];
+        
+        AvgTemp = profile.T[i] + profile.T[i - 1];
+        AvgTemp = (AvgTemp)/2;
+        
+        profile.entropy[i] = EntropyCalc(profile.heat[i], AvgTemp);
     }
     return profile;
 }
@@ -200,9 +227,9 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
     etarev = ThermEffCarnotCalculation(THot, TCold);
     
     printf("Thermal efficiency of cycle:\n");
-    printf("eta =\t%.3f\t%%\n", etaproc);
+    printf("eta =\t%.3f\t%%\n", etaproc*100);
     printf("Thermal efficiency from reservoir temperatures:\n");
-    printf("eta =\t%.3f\t%%\n", etarev);
+    printf("eta =\t%.3f\t%%\n", etarev*100);
     
     if(etaproc == etarev)
     {
@@ -219,8 +246,11 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
     printf("\tOutput parameters:\n");
     double totalwork = 0.0;
     double totalheat = 0.0;
-    printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\t\tQ (kW)\tQ (kW)\n");
-    for(int i = 0; i < 1500; ++i){
+    double totalchaos = 0.0;
+    
+    printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\t\tQ (kW)\tQ (kW)\t\tS (kJ/K(.s))\tS (kJ/K(.s))\n");
+    for(int i = 0; i < 1500; ++i)
+    {
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
@@ -232,7 +262,11 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
         
         printf("%f\t", profile.heat[i]*0.001);
         totalheat += profile.heat[i];
-        printf("%f\n", totalheat);
+        printf("%f\t\t", totalheat);
+        
+        printf("%f\t", profile.entropy[i]*0.001);
+        totalchaos += profile.entropy[i];
+        printf("%f\n", totalchaos);
     }
 }
 
@@ -331,9 +365,9 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     etarev = ThermEffCarnotCalculation(THot, TCold);
     
     fprintf(fp, "Thermal efficiency of cycle:\n");
-    fprintf(fp, "eta =\t%.3f\t%%\n", etaproc);
+    fprintf(fp, "eta =\t%.3f\t%%\n", etaproc*100);
     fprintf(fp, "Thermal efficiency from reservoir temperatures:\n");
-    fprintf(fp, "eta =\t%.3f\t%%\n", etarev);
+    fprintf(fp, "eta =\t%.3f\t%%\n", etarev*100);
     
     if(etaproc == etarev)
     {
@@ -350,7 +384,9 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     fprintf(fp, "\tOutput parameters:\n");
     double totalwork = 0.0;
     double totalheat = 0.0;
-    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\t\tQ (kW)\tQ (kW)\n");
+    double totalchaos = 0.0;
+    
+    fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\t\tQ (kW)\tQ (kW)\t\tS (kJ/K(.s))\tS (kJ/K(.s))\n");
     for(int i = 0; i < 1500; ++i){
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
@@ -363,7 +399,11 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
         
         fprintf(fp, "%f\t", profile.heat[i]*0.001);
         totalheat += profile.heat[i];
-        fprintf(fp, "%f\n", totalheat*0.001);
+        fprintf(fp, "%f\t\t", totalheat*0.001);
+        
+        fprintf(fp, "%f\t", profile.entropy[i]*0.001);
+        totalchaos += profile.entropy[i];
+        fprintf(fp, "%f\n", totalchaos);
     }
     
     //Close file

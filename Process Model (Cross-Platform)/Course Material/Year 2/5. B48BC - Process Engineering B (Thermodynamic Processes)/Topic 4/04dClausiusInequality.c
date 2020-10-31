@@ -37,6 +37,15 @@ T4EntropyDef EntropyCalculation(int i, T4EntropyDef data)
     return data;
 }
 
+double EntropyCalc(double q, double T)
+{
+    double s = 0.0;
+    
+    s = q/T;
+    
+    return s;
+}
+
 void EntropyDisplay(int imax, T4EntropyDef data)
 {
     printf("_Clausius_Inequality_Results_\n");
@@ -49,7 +58,7 @@ void EntropyDisplay(int imax, T4EntropyDef data)
         printf("%.3f\n", data.sum[i]);
         if( i == (imax - 1))    // Testing for final element
         {
-            if(data.sum[i] > 0)
+            if(data.sum[i] < 0)
             {
                 printf("This process does not violate the second law of thermodynamics.\n");
             }else{

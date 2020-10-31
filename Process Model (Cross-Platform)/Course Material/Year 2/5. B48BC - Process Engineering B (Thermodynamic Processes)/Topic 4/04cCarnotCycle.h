@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+
 #ifndef _4cCarnotCycleStruct_h
 #define _4cCarnotCycleStruct_h
 
@@ -15,6 +16,7 @@ typedef struct T4CarnotCycle{
     double T[1500];
     double work[1500];
     double heat[1500];
+    double entropy[1500];
 } T4CarnotProfile;
 
 #endif /* _4cCarnotCycleStruct_h */
