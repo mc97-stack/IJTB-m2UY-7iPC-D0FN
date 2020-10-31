@@ -403,7 +403,7 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
         
         fprintf(fp, "%f\t", profile.entropy[i]*0.001);
         totalchaos += profile.entropy[i];
-        fprintf(fp, "%f\n", totalchaos);
+        fprintf(fp, "%f\n", totalchaos*0.001);
     }
     
     //Close file

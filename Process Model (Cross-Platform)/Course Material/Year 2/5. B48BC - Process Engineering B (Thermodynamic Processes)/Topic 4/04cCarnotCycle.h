@@ -6,7 +6,6 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-
 #ifndef _4cCarnotCycleStruct_h
 #define _4cCarnotCycleStruct_h
 
