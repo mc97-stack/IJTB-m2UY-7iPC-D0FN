@@ -193,6 +193,7 @@ void B48BBtopic3()
             case '7':
                 Rotameter();
             break;
+            case '0':
             case 'q':
                 whiltop = 0;
             break;

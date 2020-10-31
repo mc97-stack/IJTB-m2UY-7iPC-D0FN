@@ -49,6 +49,7 @@ void CourseSelection()
             case '4':
                 Year4();
             break;
+            case '0':
             case 'q':
                 whilcourse = 0;
             break;
@@ -120,6 +121,7 @@ int main()
             case '6':
                 NiceThings();
             break;
+            case '0':
             case 'q':
                 whilmain = 0;
             break;

@@ -210,6 +210,7 @@ void B48BC(){
             case '6':
                 B48BCtopic6();
             break;
+            case '0':
             case 'q':
                 ConM = 0;
             break;
