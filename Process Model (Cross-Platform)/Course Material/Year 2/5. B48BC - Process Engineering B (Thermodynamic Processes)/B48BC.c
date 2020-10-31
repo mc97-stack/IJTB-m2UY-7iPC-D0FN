@@ -149,7 +149,7 @@ void B48BCtopic4(){
                 inputguard = 0;
                 break;
             case '2':
-                //CoefficientofPerformance();
+                CoefficientofPerformance();
                 inputguard = 0;
                 break;
             case '3':

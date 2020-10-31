@@ -14,6 +14,7 @@
 		E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */ = {isa = PBXBuildFile; fileRef = E83F1D182548C5EC00683190 /* 03aJTEffect.c */; };
 		E83F1D1E2548C78C00683190 /* VdWEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E83F1D1D2548C78C00683190 /* VdWEOS.c */; };
 		E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */ = {isa = PBXBuildFile; fileRef = E8664D88252DE45B00022E45 /* 01eAdiabatic.c */; };
+		E871B997254D8E9C00B76802 /* 04bCoefficientofPerformance.c in Sources */ = {isa = PBXBuildFile; fileRef = E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */; };
 		E8A23798254A03520001B678 /* 03cMultistageEstimation.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A23797254A03520001B678 /* 03cMultistageEstimation.c */; };
 		E8B15541251BEA9500808CE9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64224ECDBE1003F9D5E /* main.c */; };
 		E8B15543251BEAB500808CE9 /* Year1.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64124ECDBE0003F9D5E /* Year1.c */; };
@@ -100,6 +101,8 @@
 		E83F1D1D2548C78C00683190 /* VdWEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VdWEOS.c; sourceTree = "<group>"; };
 		E8664D87252DE45B00022E45 /* 01eAdiabatic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01eAdiabatic.h; sourceTree = "<group>"; };
 		E8664D88252DE45B00022E45 /* 01eAdiabatic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eAdiabatic.c; sourceTree = "<group>"; };
+		E871B995254D8E9C00B76802 /* 04bCoefficientofPerformance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04bCoefficientofPerformance.h; sourceTree = "<group>"; };
+		E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04bCoefficientofPerformance.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
 		E8A23796254A03520001B678 /* 03cMultistageEstimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03cMultistageEstimation.h; sourceTree = "<group>"; };
 		E8A23797254A03520001B678 /* 03cMultistageEstimation.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03cMultistageEstimation.c; sourceTree = "<group>"; };
@@ -441,9 +444,11 @@
 		E8FEA62524ECDBE0003F9D5E /* Topic 4 */ = {
 			isa = PBXGroup;
 			children = (
-				E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */,
-				E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */,
 				E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */,
+				E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */,
+				E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */,
+				E871B995254D8E9C00B76802 /* 04bCoefficientofPerformance.h */,
+				E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */,
 			);
 			path = "Topic 4";
 			sourceTree = "<group>";
@@ -793,6 +798,7 @@
 				E8361A7A2544501F00828DF0 /* System.c in Sources */,
 				E8B15561251BEB1700808CE9 /* 02fViscCorr.c in Sources */,
 				E8B1555F251BEB0900808CE9 /* 02dReyNo.c in Sources */,
+				E871B997254D8E9C00B76802 /* 04bCoefficientofPerformance.c in Sources */,
 				E8B1555D251BEB0300808CE9 /* 02cBernEqn.c in Sources */,
 				E8B1555B251BEAFB00808CE9 /* 02bEnerCon.c in Sources */,
 				E8B15559251BEAF500808CE9 /* 02aMassCon.c in Sources */,
