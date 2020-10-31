@@ -157,7 +157,7 @@ void B48BCtopic4(){
                 inputguard = 0;
                 break;
             case '4':
-                //ClausiusInequality();
+                ClausiusInequality();
                 inputguard = 0;
                 break;
             case '0':
