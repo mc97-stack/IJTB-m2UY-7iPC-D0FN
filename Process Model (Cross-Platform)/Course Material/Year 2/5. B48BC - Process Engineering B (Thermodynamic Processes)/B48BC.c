@@ -141,7 +141,7 @@ void B48BCtopic4(){
         B48BCTopComm();
         printf("1. Thermal Efficiency.\n2. Coefficient of Performance.\n3. Carnot Cycle\n4. The Clausius Inequality\n");
         printf("q. Exit topic. \n\n");
-        printf("Selections [1 - 2]: ");
+        printf("Selection [1 - 3]: ");
         fgets(B48BCTopMenu, sizeof(B48BCTopMenu), stdin);
         switch(B48BCTopMenu[0]){
             case '1':
@@ -153,7 +153,7 @@ void B48BCtopic4(){
                 inputguard = 0;
                 break;
             case '3':
-                //CarnotCycle();
+                CarnotCycle();
                 inputguard = 0;
                 break;
             case '4':

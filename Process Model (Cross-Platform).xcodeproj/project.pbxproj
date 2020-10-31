@@ -15,6 +15,8 @@
 		E83F1D1E2548C78C00683190 /* VdWEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E83F1D1D2548C78C00683190 /* VdWEOS.c */; };
 		E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */ = {isa = PBXBuildFile; fileRef = E8664D88252DE45B00022E45 /* 01eAdiabatic.c */; };
 		E871B997254D8E9C00B76802 /* 04bCoefficientofPerformance.c in Sources */ = {isa = PBXBuildFile; fileRef = E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */; };
+		E871B99C254DBCF300B76802 /* 04cCarnotCycle.c in Sources */ = {isa = PBXBuildFile; fileRef = E871B99B254DBCF300B76802 /* 04cCarnotCycle.c */; };
+		E871B9A6254DDE5400B76802 /* 04dClausiusInequality.c in Sources */ = {isa = PBXBuildFile; fileRef = E871B9A5254DDE5400B76802 /* 04dClausiusInequality.c */; };
 		E8A23798254A03520001B678 /* 03cMultistageEstimation.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A23797254A03520001B678 /* 03cMultistageEstimation.c */; };
 		E8B15541251BEA9500808CE9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64224ECDBE1003F9D5E /* main.c */; };
 		E8B15543251BEAB500808CE9 /* Year1.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA64124ECDBE0003F9D5E /* Year1.c */; };
@@ -103,6 +105,10 @@
 		E8664D88252DE45B00022E45 /* 01eAdiabatic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01eAdiabatic.c; sourceTree = "<group>"; };
 		E871B995254D8E9C00B76802 /* 04bCoefficientofPerformance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04bCoefficientofPerformance.h; sourceTree = "<group>"; };
 		E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04bCoefficientofPerformance.c; sourceTree = "<group>"; };
+		E871B99A254DBCF300B76802 /* 04cCarnotCycle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04cCarnotCycle.h; sourceTree = "<group>"; };
+		E871B99B254DBCF300B76802 /* 04cCarnotCycle.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04cCarnotCycle.c; sourceTree = "<group>"; };
+		E871B9A4254DDE5400B76802 /* 04dClausiusInequality.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04dClausiusInequality.h; sourceTree = "<group>"; };
+		E871B9A5254DDE5400B76802 /* 04dClausiusInequality.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04dClausiusInequality.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
 		E8A23796254A03520001B678 /* 03cMultistageEstimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03cMultistageEstimation.h; sourceTree = "<group>"; };
 		E8A23797254A03520001B678 /* 03cMultistageEstimation.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03cMultistageEstimation.c; sourceTree = "<group>"; };
@@ -448,6 +454,10 @@
 				E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */,
 				E871B996254D8E9C00B76802 /* 04bCoefficientofPerformance.c */,
 				E871B995254D8E9C00B76802 /* 04bCoefficientofPerformance.h */,
+				E871B99B254DBCF300B76802 /* 04cCarnotCycle.c */,
+				E871B99A254DBCF300B76802 /* 04cCarnotCycle.h */,
+				E871B9A5254DDE5400B76802 /* 04dClausiusInequality.c */,
+				E871B9A4254DDE5400B76802 /* 04dClausiusInequality.h */,
 				E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */,
 			);
 			path = "Topic 4";
@@ -772,6 +782,7 @@
 			files = (
 				E8B15585251BEBA900808CE9 /* B48BB.c in Sources */,
 				E8B15583251BEBA000808CE9 /* B48BC.c in Sources */,
+				E871B9A6254DDE5400B76802 /* 04dClausiusInequality.c in Sources */,
 				E8B15579251BEB6700808CE9 /* 04bPumpSizing.c in Sources */,
 				E8664D89252DE45B00022E45 /* 01eAdiabatic.c in Sources */,
 				E8B15577251BEB5D00808CE9 /* 03gRotameter.c in Sources */,
@@ -819,6 +830,7 @@
 				E8A23798254A03520001B678 /* 03cMultistageEstimation.c in Sources */,
 				E8B15543251BEAB500808CE9 /* Year1.c in Sources */,
 				E8B15541251BEA9500808CE9 /* main.c in Sources */,
+				E871B99C254DBCF300B76802 /* 04cCarnotCycle.c in Sources */,
 				E8C43432252F926700662F7C /* 01bIsothermal.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
