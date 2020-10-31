@@ -295,7 +295,11 @@ void MassConservation()
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
         
         //  Running calculations
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         u2 = FinalVelocityCalculation(u1, d1, d2);
         //printf("Function returns: u2 = %f\n\n", u2);
         
@@ -309,12 +313,10 @@ void MassConservation()
         m2 = MassFlowCalculation(rho2, d2, u2);
         //printf("Mass flow rate = %.3f kg/s\n", m2);
         
-        error = fabs(m1 - m2);
-        timer = clock() - timer;
+        end = clock();
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying data
         MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);

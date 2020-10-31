@@ -341,14 +341,18 @@ void SurfaceTension()
         //printf("Function returns:\nF = %f\nL = %f\nC_F = %f\ncang = %f\n", F, L, C_F, cang);
         
         //  Running calculation
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         sigma = duNouyCalculation(F, L, C_F, cang);
         //printf("Surface tension = %.3f N/m\n", sigma);
-        timer = clock() - timer;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         duNouyDisplay(F, L, C_F, cang, sigma);

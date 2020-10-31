@@ -566,14 +566,18 @@ void Manometer()
                     printf("\n");
                     ManoMeasVariable(&P2, &rho1, &h1, &rho2, &h2);
                     //printf("Function returns:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", P2, rho1, h1, rho2, h2);
-                    clock_t timer = clock();
+                    clock_t start, end;
+                    double timeTaken = 0.0;
+                    
+                    start = clock();
+                    
                     P1 = ManoMeasCalculation(P2, rho1, h1, rho2, h2);
                     //printf("Function returns: %f\n", P1);
-                    timer = clock() - timer;
                     
-                    int calctime = 0;
-                    calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-                    printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+                    end = clock();
+                    
+                    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+                    printf("Process completed in %.3f seconds.\n\n", timeTaken);
                     
                     ManoMeasDisplay(P1, P2, rho1, h1, rho2, h2);
                     

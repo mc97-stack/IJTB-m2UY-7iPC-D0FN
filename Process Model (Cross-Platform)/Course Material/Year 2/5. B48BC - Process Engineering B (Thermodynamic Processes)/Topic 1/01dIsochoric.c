@@ -390,13 +390,17 @@ void Isochoric()
             IsocVariable(method, &P1, &P2, &V, &T1, &T2, &n, &cv);
             
             //  Running calculations
-            clock_t timer = clock();
-            profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
-            timer = clock() - timer;
+            clock_t start, end;
+            double timeTaken = 0.0;
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            start = clock();
+            
+            profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
+            
+            end = clock();
+            
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying results
             IsocProcDisplay(P1, P2, V, T1, T2, n, cv, profile);

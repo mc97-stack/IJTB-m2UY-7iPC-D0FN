@@ -977,7 +977,11 @@ void TwoK()
     TwoKTable = TwoKVariable(TwoKTable, &rho, &u, &d, &mu, &impd);
     
     //  Performing calculations
-    clock_t timer = clock();
+    clock_t start, end;
+    double timeTaken = 0.0;
+    
+    start = clock();
+    
     TwoKTable = TwoKFinalTable(TwoKTable, rho, u, d, mu, impd, &Re);
     
     //  Calculating total head and pressure losses
@@ -986,11 +990,10 @@ void TwoK()
         TotalH += TwoKTable.headloss[i];
         TotalP += TwoKTable.dP_f[i];
     }
-    timer = clock() - timer;
+    end = clock();
     
-    int calctime = 0;
-    calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-    printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+    printf("Process completed in %.3f seconds.\n\n", timeTaken);
     
     //  Displaying Results
     TwoKDisplay(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);

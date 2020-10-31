@@ -352,7 +352,11 @@ void PumpSizing()
         discharge = PumpHeadVariable(2, discharge);
         
         //  Running calculations
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         shead = HeadCalculation(suction, rho);
         dhead = HeadCalculation(discharge, rho);
         
@@ -362,22 +366,21 @@ void PumpSizing()
             ppressure = PumpPressureCalculation(rho, phead);
             ppower = PumpPower(ppressure, Q, eta);
             
-            timer = clock() - timer;
+            end = clock();
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Display
             PumpDisplay(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
             
             PumpWriteSwitch(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
         }else{
-            timer = clock() - timer;
+            end = clock();
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            
             printf("Insufficient Net Positive Suction Head. Ending calculations.\n");
         }
         //  Continue?

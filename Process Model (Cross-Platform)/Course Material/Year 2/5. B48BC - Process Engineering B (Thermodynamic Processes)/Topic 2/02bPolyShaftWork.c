@@ -267,25 +267,30 @@ void PolyShaftWork()
         ideal = PolyShaftVariable(&P1, &P2, &T1, &n, &R, &alpha);
         
         //  Running calculations
-        clock_t timer = 0;
+        clock_t start = 0, end = 0;
+        double timeTaken = 0.0;
+        
+        
         if(ideal == 1){
             // Ideal
             printf("Isothermal process has been specified.\n");
-            timer = clock();
+            start = clock();
+            
             W_S = IdealShaftCalculation(n, R, T1, P1, P2);
         }
         if(ideal == 2){
             // Normal polytropic
             printf("Polytropic process has been specified.\n");
-            timer = clock();
+            start = clock();
+            
             W_S = PolyShaftCalculation(n, R, T1, P1, P2, alpha);
         }
         //printf("Shaft work = %.3f kW\n", W_S*0.001);
-        timer = clock() - timer;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         PolyShaftDisplay(n, R, T1, P1, P2, alpha, W_S);

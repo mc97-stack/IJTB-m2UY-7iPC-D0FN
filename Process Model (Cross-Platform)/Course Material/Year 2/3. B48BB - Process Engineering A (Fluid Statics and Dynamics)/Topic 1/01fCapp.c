@@ -222,16 +222,20 @@ void Cappilarity()
         //printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
         //  Running calculations
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         h = CappCalculateHeight(sigma, cang, rho, d);
         //printf("Capillary rise = %.3f m\n", h);
         Pc  = CappCalculatePressure(sigma, cang, d);
         //printf("Capillary pressure = %.3f Pa\n", Pc);
-        timer = clock() - timer;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         CappDisplay(sigma, cang, d, h, Pc);

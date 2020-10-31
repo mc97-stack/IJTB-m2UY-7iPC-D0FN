@@ -496,7 +496,11 @@ void Polytropic()
             PolyVariable(method, &P1, &P2, &V1, &T1, &T2, &n, &R, &alpha);
             
             // Running calculations
-            clock_t timer = clock();
+            clock_t start, end;
+            double timeTaken = 0.0;
+            
+            start = clock();
+            
             profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
             
                 //  Gathering unknown variables
@@ -511,11 +515,10 @@ void Polytropic()
                 V1 = profile.V[0];
                 V2 = profile.V[249];
             }
-            timer = clock() - timer;
+            end = clock();
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying Results
             PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);

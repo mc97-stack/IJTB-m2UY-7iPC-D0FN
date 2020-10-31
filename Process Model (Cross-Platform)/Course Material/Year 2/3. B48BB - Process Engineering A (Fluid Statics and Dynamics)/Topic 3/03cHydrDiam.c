@@ -189,15 +189,19 @@ void HydraulicDiameter()
         HydrDiamVariable(&A_F, &P_W);
         
         //  Running calculations
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         d_H = HydrDiamCalculation(A_F, P_W);
         
         //printf("d_H = %.3f mm\n\n", d_H*1000);
-        timer = clock() - timer;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         HydrDiamDisplay(A_F, P_W, d_H);

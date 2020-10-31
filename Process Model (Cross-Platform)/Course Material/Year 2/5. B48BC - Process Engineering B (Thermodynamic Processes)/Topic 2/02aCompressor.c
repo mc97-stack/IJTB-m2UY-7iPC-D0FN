@@ -431,13 +431,17 @@ void Compressor(void)
             }
             
             //  Data Manipulation
-            clock_t timer = clock();
-            profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
-            timer = clock() - timer;
+            clock_t start, end;
+            double timeTaken = 0.0;
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            start = clock();
+            
+            profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
+            
+            end = clock();
+            
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying results
             CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);

@@ -351,7 +351,11 @@ void EnergyConservation()
         printf("w = %f \n\n", w);*/
         
         //  Running calculations
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         state1 = EnerConFluidCalculation(h1, u1, z1);
         printf("Function returns: state1 = %f\n", state1);
         
@@ -361,14 +365,10 @@ void EnergyConservation()
         process = EnerConProcessCalculation(q, w);
         printf("Function returns: Process = %f\n\n", process);
         
-            //  Checking for a violation of the first law
-        check = state2 - state1;
-        check = fabs(process - check);
-        timer = clock() - timer;
+        end = clock();
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         EnerConDisplay(h1, h2, u1, u2, z1, z2, q, w, check);

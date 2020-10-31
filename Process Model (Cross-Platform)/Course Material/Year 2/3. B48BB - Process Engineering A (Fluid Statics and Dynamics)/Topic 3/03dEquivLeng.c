@@ -547,7 +547,11 @@ void EquivalentLength()
     printf("\n");
     
     //  Performing calculations
-    clock_t timer = clock();
+    clock_t start, end;
+    double timeTaken = 0.0;
+    
+    start = clock();
+    
     EquivLengTable = EquivLengFinalTable(EquivLengTable, rho, u, d, phi);
     
     //  Calculating total pressure and head loss
@@ -556,11 +560,10 @@ void EquivalentLength()
         totalP += EquivLengTable.dP_f[i];
         totalH += EquivLengTable.h_f[i];
     }
-    timer = clock() - timer;
+    end = clock();
     
-    int calctime = 0;
-    calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-    printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+    printf("Process completed in %.3f seconds.\n\n", timeTaken);
     
     //  Displaying data
     EquivLengDisplay(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);

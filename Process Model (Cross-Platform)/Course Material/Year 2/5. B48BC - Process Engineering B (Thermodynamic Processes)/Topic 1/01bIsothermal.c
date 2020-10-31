@@ -399,13 +399,17 @@ void Isothermal()
             IsotVariable(method, &P1, &P2, &V1, &V2, &T, &n);
             
             //  Running calculations
-            clock_t timer = clock();
-            profile = IsotProfile(method, n, T, P1, P2, V1, V2);
-            timer = clock() - timer;
+            clock_t start, end;
+            double timeTaken = 0.0;
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            start = clock();
+            
+            profile = IsotProfile(method, n, T, P1, P2, V1, V2);
+            
+            end = clock();
+            
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying results
             IsotProcDisplay(P1, P2, V1, V2, T, n, profile);

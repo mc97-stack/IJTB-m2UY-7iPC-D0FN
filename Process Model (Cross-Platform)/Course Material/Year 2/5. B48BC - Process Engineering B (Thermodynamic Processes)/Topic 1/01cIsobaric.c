@@ -381,13 +381,17 @@ void Isobaric()
             IsobVariable(method, &P, &V1, &V2, &T1, &T2, &n);
             
             //  Running calculations
-            clock_t timer = clock();
-            profile = IsobProfile(method, P, V1, V2, T1, T2, n);
-            timer = clock() - timer;
+            clock_t start, end;
+            double timeTaken = 0.0;
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            start = clock();
+            
+            profile = IsobProfile(method, P, V1, V2, T1, T2, n);
+            
+            end = clock();
+            
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying results
             IsobProcDisplay(P, V1, V2, T1, T2, n, profile);

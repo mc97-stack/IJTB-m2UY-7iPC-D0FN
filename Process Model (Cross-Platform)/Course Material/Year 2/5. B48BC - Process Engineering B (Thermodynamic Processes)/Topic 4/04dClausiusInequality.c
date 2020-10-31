@@ -211,7 +211,11 @@ void ClausiusInequality(void)
             data.T[i] = 0.0;
             data.s[i] = 0.0;
         }
-        clock_t timer = clock();
+        clock_t start, end;
+        double timeTaken = 0.0;
+        
+        start = clock();
+        
         int i = 0;
         int control = 0;
         control = 1;
@@ -235,12 +239,11 @@ void ClausiusInequality(void)
                 control = Continue(control);
             }
         }
-        timer = clock() - timer;
+        end = clock();
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
         printf("%d entries were made.\n", i);
-        printf("Process completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         EntropyDisplay(i, data);

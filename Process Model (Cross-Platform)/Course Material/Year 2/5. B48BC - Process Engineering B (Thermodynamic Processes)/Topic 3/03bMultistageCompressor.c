@@ -411,13 +411,17 @@ void MultistageCompressor(void)
         MSCompVariable(&P1, &P2, &Vc, &T1, &n, &N, &gamma);
         
         //  Data Manipulation
-        clock_t timer = clock();
-        profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
-        timer = clock() - timer;
+        clock_t start, end;
+        double timeTaken = 0.0;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        start = clock();
+        
+        profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
+        
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         MSCompDisplay(P1, P2, Vc, T1, n, N, gamma, profile);

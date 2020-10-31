@@ -485,13 +485,17 @@ void CarnotCycle(void)
         CarnotVariable(&P1, &P2, &P3, &P4, &THot, &TCold, &n, &gamma1, &gamma2);
         
         //  Data Manipulation
-        clock_t timer = clock();
-        profile = CarnotProfileCalc(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, &worknet, &qhot, &qcold);
-        timer = clock() - timer;
+        clock_t start, end;
+        double timeTaken = 0.0;
         
-        int calctime = 0;
-        calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-        printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+        start = clock();
+        
+        profile = CarnotProfileCalc(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, &worknet, &qhot, &qcold);
+        
+        end = clock();
+        
+        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+        printf("Process completed in %.3f seconds.\n\n", timeTaken);
         
         //  Displaying results
         CarnotDisplay(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
