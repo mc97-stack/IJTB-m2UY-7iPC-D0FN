@@ -531,7 +531,7 @@ void EquivalentLength()
     double totalP = 0.0;
     double totalH = 0.0;
     
-    static EquivLenFits EquivLengTable;
+    EquivLenFits EquivLengTable = {0.0};
     
     // Initialising the struct
     for(int i = 0; i < 15; ++i)

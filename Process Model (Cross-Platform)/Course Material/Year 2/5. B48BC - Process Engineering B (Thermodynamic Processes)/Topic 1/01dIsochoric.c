@@ -340,16 +340,7 @@ void Isochoric()
         
         int method = 0;
         
-        T1ThermoProf profile;
-        
-        // Initialising profile to arrays on zeros
-        for(int j = 0; j < 250; ++j){
-            profile.P[j] = 0.0;
-            profile.V[j] = 0.0;
-            profile.T[j] = 0.0;
-            profile.W_V[j] = 0.0;
-            profile.Q[j] = 0.0;
-        }
+        T1ThermoProf profile = {0.0};
         
         int whilmethod = 0;
         

@@ -377,18 +377,9 @@ void Compressor(void)
         double alpha = 0.0;
         
         int method = 0;
-        
         int whilmethod = 0;
-        T2CompProfile profile;
         
-        // Initialising profile to arrays on zeros
-        for(int j = 0; j < 250; ++j){
-            profile.P[j] = 0.0;
-            profile.V[j] = 0.0;
-            profile.T[j] = 0.0;
-            profile.W_V[j] = 0.0;
-            profile.W_S[j] = 0.0;
-        }
+        T2CompProfile profile = {0.0};
         
         //Data Collection
         whilmethod = 1;

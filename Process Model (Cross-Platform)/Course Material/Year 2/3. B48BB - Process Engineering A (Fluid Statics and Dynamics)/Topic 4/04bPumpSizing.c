@@ -332,19 +332,8 @@ void PumpSizing()
         double ppressure = 0.0;
         double ppower = 0.0;
         
-        head suction;
-        head discharge;
-        
-        //Initialising struct values
-        suction.P = 0.0;
-        suction.h1 = 0.0;
-        suction.h2 = 0.0;
-        suction.hf = 0.0;
-        
-        discharge.P = 0.0;
-        discharge.h1 = 0.0;
-        discharge.h2 = 0.0;
-        discharge.hf = 0.0;
+        head suction = {0.0};
+        head discharge = {0.0};
         
         //  Data collection
         PumpVariable(&Q, &rho, &Psat, &NPSHr, &eta);

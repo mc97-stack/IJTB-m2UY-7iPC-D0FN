@@ -427,7 +427,7 @@ void OneK()
 {
     double u = 0.0;
     
-    static OneKFittings OneKTable;
+    OneKFittings OneKTable = {0.0};
     
     // Initializing the struct
     for(int i = 0; i < 15; ++i)

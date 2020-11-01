@@ -202,15 +202,8 @@ void ClausiusInequality(void)
     while(whilmain == 1)
     {
         //  Variable declaration
-        static T4EntropyDef data;
+        T4EntropyDef data = {0.0};
         
-        //  Initialising all values in the struct
-        for(int i = 0; i < 2500; ++i)
-        {
-            data.q[i] = 0.0;
-            data.T[i] = 0.0;
-            data.s[i] = 0.0;
-        }
         clock_t start, end;
         double timeTaken = 0.0;
         

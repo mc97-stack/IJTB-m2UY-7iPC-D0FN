@@ -469,17 +469,7 @@ void CarnotCycle(void)
         double qhot = 0.0;
         double qcold = 0.0;
         
-        T4CarnotProfile profile;
-        
-        // Initialising struct
-        for(int i = 0; i < 1500; ++i)
-        {
-            profile.P[i] = 0.0;
-            profile.V[i] = 0.0;
-            profile.T[i] = 0.0;
-            profile.work[i] = 0.0;
-            profile.heat[i] = 0.0;
-        }
+        T4CarnotProfile profile = {0.0};
         
         //  Data Collection
         CarnotVariable(&P1, &P2, &P3, &P4, &THot, &TCold, &n, &gamma1, &gamma2);

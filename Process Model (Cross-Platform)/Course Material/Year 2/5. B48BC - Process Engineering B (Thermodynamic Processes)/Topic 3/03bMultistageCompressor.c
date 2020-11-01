@@ -396,16 +396,7 @@ void MultistageCompressor(void)
         int N = 0.0;
         double gamma = 0.0;
         
-        T3CompProfile profile;
-        
-        for(int i = 0; i < 1500; ++i){
-            profile.P[i] = 0.0;
-            profile.V[i] = 0.0;
-            profile.T[i] = 0.0;
-            profile.W_V[i] = 0.0;
-            profile.W_S[i] = 0.0;
-            // 7500 total double elements = 60 000 bytes = 60 KB required. Struct is fine living on the stack.
-        }
+        T3CompProfile profile = {0.0};
         
         //  Data Collection
         MSCompVariable(&P1, &P2, &Vc, &T1, &n, &N, &gamma);

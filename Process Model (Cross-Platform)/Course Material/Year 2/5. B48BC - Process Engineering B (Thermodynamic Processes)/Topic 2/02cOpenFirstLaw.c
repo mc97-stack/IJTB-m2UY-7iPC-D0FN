@@ -291,8 +291,8 @@ void OpenFirstLaw()
         
         double sysstate = 0.0;
         
-        T2StateEnergy state1;
-        T2StateEnergy state2;
+        T2StateEnergy state1 = {0.0};
+        T2StateEnergy state2 = {0.0};
         
         // Initialising structs
         state1.enthalpy = 0.0;

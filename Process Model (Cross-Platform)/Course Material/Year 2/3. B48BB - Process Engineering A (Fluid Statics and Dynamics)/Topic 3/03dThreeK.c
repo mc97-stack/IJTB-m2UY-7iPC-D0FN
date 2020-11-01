@@ -1222,7 +1222,7 @@ void ThreeK()
     double TotalP = 0.0;
     
     printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
-    static ThreeKFittings ThreeKTable;
+    ThreeKFittings ThreeKTable = {0.0};
     
     // Initialising all values in the struct
     for(int i = 0; i < 34; ++i){

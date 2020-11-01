@@ -961,7 +961,7 @@ void TwoK()
     double TotalP = 0.0;
     double TotalH = 0.0;
     
-    static TwoKFittings TwoKTable;
+    TwoKFittings TwoKTable = {0.0};
     
     // Initialising the struct
     for(int i = 0; i < 32; ++i)
