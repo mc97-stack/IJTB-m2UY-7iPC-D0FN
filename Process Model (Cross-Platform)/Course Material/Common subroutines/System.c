@@ -38,7 +38,7 @@ double inputDouble(int allowZero, char VariableName[], char Units[])
 int Continue(int ControlVariable)
 {
     char input[maxstrlen];
-    int ContCond;
+    int ContCond = 0;
     
     ContCond = 1;
     while(ContCond == 1)
@@ -59,8 +59,8 @@ int Continue(int ControlVariable)
             case 'N':
             case 'f':
             case 'n':
-                ContCond = 0;
                 ControlVariable = 0;
+                ContCond = 0;
             break;
             default:
                 printf("Input not recognised\n");

@@ -20,8 +20,9 @@ void Year3()
 {
     char selec[maxstrlen];
     //Memory Allocation
-    int whilc = 1;
+    int whilc = 0;
     
+    whilc = 1;
     while(whilc == 1){
         printf("Year 3 Courses\n");
         printf("1. B18OA - Organic Structural Identification, Stereochemistry and Reaction Mechanisms\n");

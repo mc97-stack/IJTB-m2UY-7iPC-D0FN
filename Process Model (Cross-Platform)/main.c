@@ -6,9 +6,11 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+//  Standard header files
 #include <stdio.h>
 #include <stdlib.h>
 
+//  Custom header files
 #include "main.h"
 #include "ThermophysicalProperties.h"
 

@@ -20,8 +20,7 @@ void Year2()
 {
     char selec[maxstrlen];
     
-    //Memory Allocation
-    int whilc;
+    int whilc = 0;
     
     whilc = 1;
     while(whilc == 1){
