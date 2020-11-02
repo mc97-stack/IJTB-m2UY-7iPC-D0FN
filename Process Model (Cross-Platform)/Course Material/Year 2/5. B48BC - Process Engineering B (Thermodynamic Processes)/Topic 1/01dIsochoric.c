@@ -184,6 +184,7 @@ void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, doubl
         total += profile.Q[i]*0.001;
         printf("%f\n", total);
     }
+    fflush(stdout);
 }
 
 void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)

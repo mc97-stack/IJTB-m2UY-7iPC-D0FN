@@ -110,6 +110,7 @@ void MSShaftWorkDisplay(double P1, double P2, double T1, double mol, double gamm
     printf("\tOutput parameters:\n");
     printf("Total shaft work:\n");
     printf("shaftWork =\t%.3f\tkW\n\n", shaftwork*0.001);
+    fflush(stdout);
 }
 
 void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma, double N, double shaftwork)

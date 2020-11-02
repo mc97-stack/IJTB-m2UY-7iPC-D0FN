@@ -268,6 +268,7 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
         totalchaos += profile.entropy[i];
         printf("%f\n", totalchaos);
     }
+    fflush(stdout);
 }
 
 void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold)

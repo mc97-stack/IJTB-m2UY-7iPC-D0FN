@@ -72,6 +72,7 @@ void IdealEOSDisplay(double T, EOSIsotherm data)
         printf("%.3f\t", data.T[i]);
         printf("%.3f\n", ( (data.P[i])*(data.V[i]) )/( R*(data.T[i]) ));
     }
+    fflush(stdout);
 }
 
 void IdealEOSWrite(double T, EOSIsotherm data)

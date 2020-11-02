@@ -269,6 +269,7 @@ void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, doub
         total += profile.W_V[i]*0.001;
         printf("%f\n", total);
     }
+    fflush(stdout);
 }
 
 void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)

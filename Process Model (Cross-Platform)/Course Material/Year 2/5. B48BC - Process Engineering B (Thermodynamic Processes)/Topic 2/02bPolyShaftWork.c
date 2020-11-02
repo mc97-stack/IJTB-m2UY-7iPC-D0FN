@@ -116,7 +116,8 @@ void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, doubl
     
     printf("\tOutput parameters:\n");
     printf("Shaft Work:\n");
-    printf("W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]\n", W_S*0.001);
+    printf("W_S =\t%.3f\tkW\n", W_S*0.001);
+    fflush(stdout);
 }
 
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S)

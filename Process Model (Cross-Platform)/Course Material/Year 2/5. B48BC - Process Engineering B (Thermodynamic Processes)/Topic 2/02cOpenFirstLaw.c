@@ -132,6 +132,7 @@ void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, do
     }else{
         printf("This unit operation is operating at unsteady-state conditions.\n");
     }
+    fflush(stdout);
 }
 
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)

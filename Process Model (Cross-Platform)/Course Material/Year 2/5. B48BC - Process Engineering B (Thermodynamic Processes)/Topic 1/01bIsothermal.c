@@ -191,6 +191,7 @@ void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, doubl
         total += profile.W_V[i]*0.001;
         printf("%f\n", total);
     }
+    fflush(stdout);
 }
 
 void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)

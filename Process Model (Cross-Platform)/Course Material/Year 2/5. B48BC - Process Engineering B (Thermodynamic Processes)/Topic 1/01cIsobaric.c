@@ -174,6 +174,7 @@ void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, doubl
         total += profile.W_V[i]*0.001;
         printf("%f\n", total);
     }
+    fflush(stdout);
 }
 
 void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)

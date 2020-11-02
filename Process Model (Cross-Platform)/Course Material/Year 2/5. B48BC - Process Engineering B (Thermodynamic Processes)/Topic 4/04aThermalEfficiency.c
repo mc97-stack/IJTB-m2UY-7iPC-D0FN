@@ -118,6 +118,7 @@ void ThermEffDisplay(int method, double wnet, double qhot, double qcold, double 
             printf("Your process violates the second law.\n");
         }
     }
+    fflush(stdout);
 }
 
 void ThermEffWrite(int method, double wnet, double qhot, double qcold, double THot, double TCold, double eta, double etac)

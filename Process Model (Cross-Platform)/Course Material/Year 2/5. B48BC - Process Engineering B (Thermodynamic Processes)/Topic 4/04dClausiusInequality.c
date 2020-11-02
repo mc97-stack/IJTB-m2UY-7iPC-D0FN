@@ -71,6 +71,7 @@ void EntropyDisplay(int imax, T4EntropyDef data)
             }
         }
     }
+    fflush(stdout);
 }
 
 void EntropyWrite(int imax, T4EntropyDef data)

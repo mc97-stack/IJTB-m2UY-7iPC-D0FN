@@ -522,6 +522,7 @@ void VirialEOS(void)
         char input[maxstrlen];      // Variable used to store character input.
         int control = 0;            // Variable used to control user input and number of isotherms calculated.
         int polar = 0;              // Variable used to control subroutine behaviour dependent on whether the molecule is polar or not.
+        int ContCond = 0;           // Variable used to control whether the while loop generating the isotherm should be broken or not.
         
         double B = 0.0;             // Second virial coefficient.
         double C = 0.0;             // Third virial coefficient.
@@ -603,9 +604,6 @@ void VirialEOS(void)
             
             //  Writing to File
             VirialEOSWriteSwitch(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
-            
-            char input[maxstrlen];
-            int ContCond;
             
             ContCond = 1;
             while(ContCond == 1)

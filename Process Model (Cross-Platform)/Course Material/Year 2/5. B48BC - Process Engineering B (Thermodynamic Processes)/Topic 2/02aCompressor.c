@@ -205,6 +205,7 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
         printf("%f\t", profile.W_V[i]*0.001);
         printf("%f\n", profile.W_S[i]*0.001);
     }
+    fflush(stdout);
 }
 
 void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)

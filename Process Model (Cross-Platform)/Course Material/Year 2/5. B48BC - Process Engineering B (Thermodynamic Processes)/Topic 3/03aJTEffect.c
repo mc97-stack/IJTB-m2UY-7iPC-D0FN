@@ -150,6 +150,7 @@ void JTEffectDisplay(double Tc, double Pc, double T, double P, double v, double 
     }
     printf("Inversion Temperature:\n");
     printf("T_i =\t%.2f\tK\n", Tinv);
+    fflush(stdout);
 }
 
 void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_p, double a, double b, double mu_JT, double Tinv)

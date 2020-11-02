@@ -162,6 +162,7 @@ void CoPDisplay(int method, double wnet, double qhot, double qcold, double THot,
             printf("This process violates the second law.\n");
         }
     }
+    fflush(stdout);
 }
 
 void CoPWrite(int method, double wnet, double qhot, double qcold, double THot, double TCold, double CoP, double CoPRev, double eta, double etac)

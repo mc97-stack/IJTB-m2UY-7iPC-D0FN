@@ -242,6 +242,7 @@ void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double
         printf("%f\t", profile.W_V[i]*0.001);
         printf("%f\n", profile.W_S[i]*0.001);
     }
+    fflush(stdout);
 }
 
 void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
