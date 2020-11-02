@@ -27,7 +27,7 @@ void statePropertyRelations()
     printf("6. Peng-Robinson equation of state.\n");
     printf("7. General Benedict-Webb-Rubin equation of state.\n");
     printf("8. Estimation of normal saturated liquid volume.\n\n");
-    printf("Selection [2]: ");
+    printf("Selection [1 - 2]: ");
     fgets(input, sizeof(input), stdin);
     switch(input[0])
     {
