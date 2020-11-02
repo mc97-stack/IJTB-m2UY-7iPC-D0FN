@@ -34,7 +34,7 @@ void MSCompVariable(double *P1, double *P2, double *Vc, double *T1, double *n, i
     
     *Vc = inputDouble(0, "clearance volume", "m3");
     
-    *T1 = inputDouble(1, "system temperature before compression", "kPa");
+    *T1 = inputDouble(1, "system temperature before compression", "deg C");
     *T1 = (*T1) + 273.15;
     
     *n = inputDouble(0, "molar flowrate", "kmol/s");
@@ -106,20 +106,9 @@ int stageDischarge(int elements, int stage, int stages)
 
 T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n, int N, double gamma)
 {
-    static T3CompProfile profile;
+    T3CompProfile profile = {0.0};
     
-    // Initialising values in the struct
-    for(int i = 0; i < 1500; ++i){
-        profile.P[i] = 0.0;
-        profile.V[i] = 0.0;
-        profile.T[i] = 0.0;
-        profile.W_V[i] = 0.0;
-        profile.W_S[i] = 0.0;
-        // 7500 total double elements = 60 000 bytes = 60 KB required. Struct is fine living on the stack.
-    }
-    
-    // Declaring variables to be used throughout the process;
-    double ratio = 0.0;
+    double ratio = 0.0; // Optimum pressure ratio.
     double PInt = 0.0;  // Intermediate pressure
     double VInt = 0.0;  // Intermediate volume
     double incr = 0.0;  // Increment between pressure values
@@ -134,9 +123,6 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
     PInt = P1*ratio;
     
     //  Loading initial values
-    elem = 0;
-    
-    
     double Vstart = 0.0;
     
     for(int stage = 0; stage < N; ++stage)
@@ -146,14 +132,14 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
             elem = 0;
             profile.P[elem] = P1;
             profile.V[elem] = Vc;
-            profile.T[elem] = IdealTemperature(n, profile.P[elem], profile.V[elem]);
+            profile.T[elem] = T1;
             profile.W_V[elem] = 0.0;
             profile.W_S[elem] = 0.0;
         }else{
             elem = stageIntake(1500, stage, N);
             profile.P[elem] = profile.P[elem-1];
             profile.V[elem] = Vc;
-            profile.T[elem] = IdealTemperature(n, profile.P[elem], profile.V[elem]);
+            profile.T[elem] = profile.T[elem - 1];
             profile.W_V[elem] = 0.0;
             profile.W_S[elem] = 0.0;
         }
@@ -168,13 +154,13 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
         {
             profile.P[i] = profile.P[i - 1];
             profile.V[i] = profile.V[i - 1] + incr;
-            profile.T[i] = IsobFinalTemperature(profile.V[i - 1], profile.V[i], profile.T[i-1]);
+            profile.T[i] = profile.T[i - 1];
             profile.W_V[i] = IsobVolume(profile.P[i - 1], profile.V[i - 1], profile.V[i]);
             profile.W_S[i] = 0.0;
         }
         
         // Adiabatic Process
-            // Finding intermediate pressure and pressure increment.
+            // Finding intermediate pressure and calculating consequent pressure increment.
         if(stage == 0){
             PInt = ratio*(profile.P[0]);
             
@@ -206,9 +192,10 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
         for(int i = stageDischarge(1500, stage, N); i < stageIntake(1500, stage +1, N); ++i)
         {
             profile.P[i] = profile.P[i - 1];
-            profile.V[i] = profile.V[i-1] + incr;
-            profile.T[i] = IsobFinalTemperature(profile.V[i-1], profile.V[i], profile.T[i-1]);
+            profile.V[i] = profile.V[i - 1] + incr;
+            profile.T[i] = profile.T[i - 1];
             profile.W_V[i] = IsobVolume(profile.P[i], profile.V[i-1], profile.V[i]);
+            elem = i;
         }
         printf("Stage successfully calculated\n\n");
     }
@@ -216,7 +203,7 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
     return profile;
 }
 
-void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile)
+void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
     printf("_Multistage_Compressor_Results_\n");
     printf("\tInput parameters:\n");
@@ -226,10 +213,16 @@ void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double 
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     printf("Clearance volume:\n");
-    printf("Vc =\t%.3f\tm3\n\n", Vc);
+    printf("Vc =\t%.3f\tm3\n", Vc);
+    printf("Initial system volume before compression: ");
+    printf("V1 =\t%.3f\tm3\n", V1);
+    printf("Final system volume after compression: ");
+    printf("V2 =\t%.3f\tm3\n\n", V2);
     
     printf("Initial system temperature: ");
-    printf("T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
+    printf("Final system temperature: ");
+    printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
@@ -251,7 +244,7 @@ void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double 
     }
 }
 
-void MSCompWrite(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile)
+void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
     //Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
@@ -280,18 +273,14 @@ void MSCompWrite(double P1, double P2, double Vc, double T1, double n, double N,
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -315,10 +304,16 @@ void MSCompWrite(double P1, double P2, double Vc, double T1, double n, double N,
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     fprintf(fp, "Clearance volume:\n");
-    fprintf(fp, "Vc =\t%.3f\tm3\n\n", Vc);
+    fprintf(fp, "Vc =\t%.3f\tm3\n", Vc);
+    fprintf(fp, "Initial system volume before compression: ");
+    fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
+    fprintf(fp, "Final system volume after compression: ");
+    fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
     fprintf(fp, "Initial system temperature: ");
-    fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
+    fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
+    fprintf(fp, "Final system temperature: ");
+    fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
@@ -345,7 +340,7 @@ void MSCompWrite(double P1, double P2, double Vc, double T1, double n, double N,
     printf("Write Complete\n");
 }
 
-void MSCompWriteSwitch(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile)
+void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
     int control = 0;
     
@@ -363,7 +358,7 @@ void MSCompWriteSwitch(double P1, double P2, double Vc, double T1, double n, dou
             case 'Y':
             case 't':
             case 'y':
-                MSCompWrite(P1, P2, Vc, T1, n, N, gamma, profile);
+                MSCompWrite(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
                 control = 0;
                 break;
             case '0':
@@ -388,37 +383,48 @@ void MultistageCompressor(void)
     while(whilmain == 1)
     {
         //  Variable declaration
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double Vc = 0.0;
-        double T1 = 0.0;
-        double n = 0.0;
-        int N = 0.0;
-        double gamma = 0.0;
+        T3CompProfile profile = {0.0};  // Struct where the generated multistage adiabat is stored.
+        double V1 = 0.0;                // Initial system volume before compression.
+        double V2 = 0.0;                // Final system volume after multistage compression.
+        double T2 = 0.0;                // Final system temperature after multistage compression.
         
-        T3CompProfile profile = {0.0};
+        double P1 = 0.0;                // Initial system pressure.
+        double P2 = 0.0;                // Final system temperature.
+        double Vc = 0.0;                // Clearance volume.
+        double T1 = 0.0;                // Initial system temperature of each stage before compression.
+        double n = 0.0;                 // Moles of component in system.
+        int N = 0.0;                    // Number of compression stages (Max. 6)
+        double gamma = 0.0;             // Heat capacity ratio.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         MSCompVariable(&P1, &P2, &Vc, &T1, &n, &N, &gamma);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
         
-        end = clock();
+        V1 = profile.V[9];
+        V2 = profile.V[1489];
+        T2 = profile.T[1499];
         
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        MSCompDisplay(P1, P2, Vc, T1, n, N, gamma, profile);
+        MSCompDisplay(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
         
         //  Writing to File
-        MSCompWriteSwitch(P1, P2, Vc, T1, n, N, gamma, profile);
+        MSCompWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
         
         //  Continue function
         whilmain = Continue(whilmain);

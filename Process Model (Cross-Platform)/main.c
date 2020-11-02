@@ -14,7 +14,7 @@
 #include "main.h"
 #include "ThermophysicalProperties.h"
 
-#define maxstrlen 64
+#define maxstrlen 128
 
 void MinorUnitOps()
 {
@@ -28,37 +28,37 @@ void MajorUnitOps()
 
 void CourseSelection()
 {
-    char yearselect[maxstrlen];
+    char input[maxstrlen];
+    int control = 0;
     
-    int whilcourse = 0;
-    whilcourse = 1;
-    
-    while(whilcourse == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Which year would you like to enter or 'q' to exit selection? [1 - 4]\n\n");
         printf("Year ");
-        fgets(yearselect, sizeof(yearselect), stdin);
-        switch(yearselect[0])
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
         {
             case '1':
                 Year1();
-            break;
+                break;
             case '2':
                 Year2();
-            break;
+                break;
             case '3':
                 Year3();
-            break;
+                break;
             case '4':
                 Year4();
-            break;
+                break;
             case '0':
+            case 'Q':
             case 'q':
-                whilcourse = 0;
-            break;
+                control = 0;
+                break;
             default:
-                printf("Input not recognised\n\n");
-            break;
+                printf("Input not recognised. Please enter an integer between 1 and 4.\n");
+                break;
         }
         fflush(stdout);
     }
@@ -69,73 +69,84 @@ void ThermoProps()
 {
     char input[maxstrlen];
     int selection = 0;
+    int control = 0;
     
-    printf("Primary source where information was collected from:\n");
-    printf("The Properties of Gases && Liquids (4th Ed.) - Reid, Prausnitz and Poling.\n\n");
-    printf("Thermophysical Properties\n\n");
-    printf("Please make a selection from the following areas:\n");
-    printf("1. Pure component constants.\n");
-    printf("2. P-V-T relations for pure component gas or liquid.\n");
-    printf("3. Volumetric properties applied to mixtures.\n");
-    printf("4. Thermodynamic properties.\n");
-    printf("5. Ideal gas thermodynamic properties.\n");
-    printf("6. Vapour pressure and vapourisation enthalpies.\n");
-    printf("7. Multicomponent phase equilibria.\n");
-    printf("8. Viscosity.\n");
-    printf("9. Thermal conductivity.\n");
-    printf("10. Diffusion coefficients.\n");
-    printf("11. Surface tension.\n\n");
-    
-    printf("Selection [1 - 11]: ");
-    selection = atoi(fgets(input, sizeof(input), stdin));
-    switch(selection){
-        case 1:
-            //pureComponentConstants();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 2:
-            statePropertyRelations();
-            break;
-        case 3:
-            //mixtures();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 4:
-            //thermodynamicProperties();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 5:
-            //idealGasThermodynamicProperties();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 6:
-            //Vaporisation();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 7:
-            //multiphaseEquilibria();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 8:
-            //Viscosity();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 9:
-            //thermalConductivity();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 10:
-            //diffusivity();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        case 11:
-            //surfaceTension();
-            printf("Bear with me, this is still being written...\n");
-            break;
-        default:
-            printf("Input not recognised. Please enter an integer value between 1 and 11.\n");
-            break;
+    control = 1;
+    while(control == 1)
+    {
+        printf("Primary source where information was collected from:\n");
+        printf("The Properties of Gases && Liquids (4th Ed.) - Reid, Prausnitz and Poling.\n\n");
+        printf("Thermophysical Properties\n\n");
+        printf("Please make a selection from the following areas:\n");
+        printf("1. Pure component constants.\n");
+        printf("2. P-V-T relations for pure component gas or liquid.\n");
+        printf("3. Volumetric properties applied to mixtures.\n");
+        printf("4. Thermodynamic properties.\n");
+        printf("5. Ideal gas thermodynamic properties.\n");
+        printf("6. Vapour pressure and vapourisation enthalpies.\n");
+        printf("7. Multicomponent phase equilibria.\n");
+        printf("8. Viscosity.\n");
+        printf("9. Thermal conductivity.\n");
+        printf("10. Diffusion coefficients.\n");
+        printf("11. Surface tension.\n");
+        printf("0. Exit menu.\n\n");
+        
+        printf("Selection [1 - 11]: ");
+        selection = atoi(fgets(input, sizeof(input), stdin));
+        switch(selection){
+            case 1:
+                //pureComponentConstants();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 2:
+                statePropertyRelations();
+                break;
+            case 3:
+                //mixtures();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 4:
+                //thermodynamicProperties();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 5:
+                //idealGasThermodynamicProperties();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 6:
+                //Vaporisation();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 7:
+                //multiphaseEquilibria();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 8:
+                //Viscosity();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 9:
+                //thermalConductivity();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 10:
+                //diffusivity();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 11:
+                //surfaceTension();
+                printf("Bear with me, this is still being written...\n");
+                break;
+            case 0:
+                control = 0;
+                break;
+            default:
+                printf("Input not recognised. Please enter an integer value between 1 and 11.\n");
+                break;
+        }
     }
+    
+    
 }
 
 void DynProcessSim()
@@ -169,7 +180,7 @@ int main()
         printf("5. Dynamic Process Simulation\n");
         printf("6. Other nice things\n");
         printf("q. Exit Program\n\n");
-        printf("Selection [1 - 6]: ");
+        printf("Selection [3 - 4]: ");
         fflush(stdout);
         fgets(MainSelect, sizeof(MainSelect), stdin);
         switch(MainSelect[0])
@@ -197,7 +208,7 @@ int main()
                 whilmain = 0;
             break;
             default:
-                printf("Input not recognised\n");
+                printf("Input not recognised. Please enter either '3' or '4'.\n");
             break;
         }
     }

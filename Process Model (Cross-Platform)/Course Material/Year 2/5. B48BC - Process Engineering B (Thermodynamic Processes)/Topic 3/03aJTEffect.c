@@ -181,18 +181,14 @@ void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -293,32 +289,36 @@ void JTEffectWriteSwitch(double Tc, double Pc, double T, double P, double v, dou
 
 void JouleThomsonEffect(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Joule-Thomson Effect\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        double Tc = 0.0;
-        double Pc = 0.0;
-        double T = 0.0;
-        double P = 0.0;
-        double v = 0.0;
-        double c_p = 0.0;
+        double a = 0.0;     // First van der Waals equation constant.
+        double b = 0.0;     // Second van der Waals equation constant.
+        double mu_JT = 0.0; // Joule-Thomson Coefficient.
+        double Tinv = 0.0;  // Inversion temperature.
         
-        double a = 0.0;
-        double b = 0.0;
-        double mu_JT = 0.0;
-        double Tinv = 0.0;
+        double Tc = 0.0;    // Critical temperature.
+        double Pc = 0.0;    // Critical pressure.
+        double T = 0.0;     // System temperature.
+        double P = 0.0;     // System pressure.
+        double v = 0.0;     // System molar volume.
+        double c_p = 0.0;   // Heat capacity at constant pressure.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         JTEffectVariable(&Tc, &Pc, &T, &P, &v, &c_p);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         a = VdWcalculateA(Tc, Pc);
         b = VdWcalculateB(Tc, Pc);
@@ -326,10 +326,12 @@ void JouleThomsonEffect(void)
         mu_JT = JTCoefficientCalculation(v, c_p, T, P, a, b);
         Tinv = JTInvTemperatureCalculation(P, v, a, b);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         JTEffectDisplay(Tc, Pc, T, P, v, c_p, a, b, mu_JT, Tinv);

@@ -41,13 +41,6 @@ void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P
     *P2 = (*P2)*1000;
     
     *h_f = inputDouble(0, "frictional head loss", "m");
-    /*
-    printf("Function has assigned:\n");
-    printf("C_d = %.6f\n", C_d);
-    printf("d1 = %.6f m", d1);
-    printf("d2 = %.6f m", d2);
-    printf("rho = %.6f kg/m3\n", rho);
-    */
 }
 
 void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m)
@@ -59,12 +52,10 @@ void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1,
     are1 = d1/2;
     are1 = pow(are1, 2);
     are1 = PI*(are1);
-    printf("are1 = %f\n", are1);
     
     are2 = d2/2;
     are2 = pow(are2, 2);
     are2 = PI*(are2);
-    printf("are2 = %f\n", are2);
     
     double top = 0.0;
     double bot = 0.0;
@@ -73,27 +64,20 @@ void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1,
     top = P1 - P2;
     top = 2 * (top);
     top = top - g*h_f;
-    printf("top = %f\n", top);
     
     bot = pow(are1, 2);
     bot = (bot)/(pow(are2, 2));
     bot = (bot) - 1;
     bot = rho * (bot);
-    printf("bot = %f\n", bot);
     
     frac = (top)/(bot);
-    printf("frac = %f\n", frac);
     
     *u = pow(frac, 0.5);
     *u = C_d * (*u); //Average fluid velocity solved
-    printf("u = %f\n", *u);
     
     *Q = (*u) * are1;
-    printf("Q = %f\n", *Q);
     
     *m = rho * (*Q);
-    printf("m = %f\n", *m);
-    //return [Function Output];
 }
 
 void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
@@ -123,6 +107,7 @@ void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, doub
     printf("Q =\t%.3f\tm3/s\n", Q);
     printf("Process fluid mass flowrate:\n");
     printf("m =\t%.3f\tkg/s\n", m);
+    fflush(stdout);
 }
 
 void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
@@ -154,18 +139,14 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -251,44 +232,44 @@ void OrificeWriteSwitch(double P1, double P2, double rho, double d1, double d2, 
 void OrificePlateMeter()
 {
     //Main Function
-    int whilmain = 1;
+    int whilmain = 0;
     printf("Orifice Plate Meter Calculator\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-            //Function Output
-        double u = 0.0;
-        double Q = 0.0;
-        double m = 0.0;
-            //Calculation Variables
-        double C_d = 0.0;
-        double d1 = 0.0;
-        double d2 = 0.0;
-        double rho = 0.0;
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double h_f = 0.0;
+        //  Variable declaration
+        double u = 0.0;     // Fluid velocity.
+        double Q = 0.0;     // Fluid volumetric flowrate.
+        double m = 0.0;     // Mass flowrate.
+        
+        double C_d = 0.0;   // Discharge coefficient.
+        double d1 = 0.0;    // Internal pipe diameter.
+        double d2 = 0.0;    // Diameter of vena contracta.
+        double rho = 0.0;   // Fluid density.
+        double P1 = 0.0;    // Initial fluid pressure.
+        double P2 = 0.0;    // Fluid pressure at vena contracta.
+        double h_f = 0.0;   // Frictional head loss.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         OrificeVariable(&C_d, &d1, &d2, &rho, &P1, &P2, &h_f);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         OrificeCalculation(C_d, d1, d2, rho, P1, P2, h_f, &u, &Q, &m);
-        //printf("Average fluid velocity = %.3f m/s\n", u);
-        //printf("Volumetric flow rate = %.3f m3/s\n", Q);
-        //printf("Mass flowrate = %.3f kg/s\n\n", m);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         OrificeDisplay(P1, P2, rho, d1, d2, C_d, h_f, u, Q, m);

@@ -19,6 +19,7 @@
 #include "02cOpenFirstLaw.h"
 
 #define maxstrlen 128
+#define g 9.80665
 
 void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
@@ -33,16 +34,12 @@ T2StateEnergy OpenFirstLawFluidVariable(int ins)
 {
     char input[maxstrlen];
     
-    double g = 9.80665;
+    double u = 0.0;     // Fluid velocity.
+    double z = 0.0;     // Fluid elevation.
     
-    double u = 0.0;
-    double z = 0.0;
+    T2StateEnergy state = {0.0};
     
-    T2StateEnergy state;
-    // Initialising the struct
-    state.enthalpy = 0.0;
-    state.kinenergy = 0.0;
-    state.potenergy = 0.0;
+    //  Input function is not being used since the text outputted to console varies depending on 'ins'.
     
     printf("Stream molar enthalpy at state %i (kJ/kmol) = ", ins);
     state.enthalpy = atof(fgets(input, sizeof(input), stdin));
@@ -73,14 +70,10 @@ double OpenFirstLawCalculation(double q, double w_s, T2StateEnergy state1, T2Sta
     process = q + w_s;
     
     final = state2.enthalpy + state2.kinenergy;
-    //printf("final = %f\n", final);
     final = (final) + state2.potenergy;
-    //printf("final = %f\n\n", final);
     
     initial = state1.enthalpy + state1.kinenergy;
-    //printf("initial = %f\n", initial);
     initial = (initial) + state1.potenergy;
-    //printf("initial = %f\n\n", initial);
     
     fluid = final - initial;
     
@@ -96,15 +89,15 @@ void OpenInitialValue(T2StateEnergy state, double *u, double *z)
     *u = pow((*u), 0.5);
     
     *z = state.potenergy*1000;
-    *z = (*z)/(9.80665);
+    *z = (*z)/g;
 }
 
 void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
-    double u1 = 0.0;
-    double u2 = 0.0;
-    double z1 = 0.0;
-    double z2 = 0.0;
+    double u1 = 0.0;    // Initial fluid velocity.
+    double u2 = 0.0;    // Final fluid velocity.
+    double z1 = 0.0;    // Initial fluid elevation.
+    double z2 = 0.0;    // Final fluid elevation.
     
     OpenInitialValue(state1, &u1, &z1);
     OpenInitialValue(state2, &u2, &z2);
@@ -170,18 +163,14 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -197,10 +186,10 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     fp = fopen(filename, "w+");
     
     //Write to file
-    double u1 = 0.0;
-    double u2 = 0.0;
-    double z1 = 0.0;
-    double z2 = 0.0;
+    double u1 = 0.0;    // Initial fluid velocity.
+    double u2 = 0.0;    // Final fluid velocity.
+    double z1 = 0.0;    // Initial fluid elevation.
+    double z2 = 0.0;    // Final fluid elevation.
     
     OpenInitialValue(state1, &u1, &z1);
     OpenInitialValue(state2, &u2, &z2);
@@ -279,29 +268,23 @@ void OpenFirstLawWriteSwitch(T2StateEnergy state1,T2StateEnergy state2, double q
 
 void OpenFirstLaw()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 1;
     printf("First Law for Open Systems\nN.B. This is very similar to B48BB's Steady-flow energy equation but with some improvements\n\n");
     
     while(whilmain == 1)
     {
         //Variable declaration
-        double q = 0.0;
-        double w_s = 0.0;
+        double q = 0.0;                 // Total heat inputted into process.
+        double w_s = 0.0;               // Total shaft work done on process.
+        double sysstate = 0.0;          // Total energy differential in system.
         
-        double sysstate = 0.0;
+        T2StateEnergy state1 = {0.0};   // Struct used to store user input.
+        T2StateEnergy state2 = {0.0};   // Struct used to store user input.
         
-        T2StateEnergy state1 = {0.0};
-        T2StateEnergy state2 = {0.0};
-        
-        // Initialising structs
-        state1.enthalpy = 0.0;
-        state1.kinenergy = 0.0;
-        state1.potenergy = 0.0;
-        
-        state2.enthalpy = 0.0;
-        state2.kinenergy = 0.0;
-        state2.potenergy = 0.0;
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         OpenFirstLawProcessVariable(&q, &w_s);
@@ -309,17 +292,17 @@ void OpenFirstLaw()
         state2 = OpenFirstLawFluidVariable(2);
         
         //  Data manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         sysstate = OpenFirstLawCalculation(q, w_s, state1, state2);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         OpenFirstLawDisplay(state1, state2, q, w_s, sysstate);

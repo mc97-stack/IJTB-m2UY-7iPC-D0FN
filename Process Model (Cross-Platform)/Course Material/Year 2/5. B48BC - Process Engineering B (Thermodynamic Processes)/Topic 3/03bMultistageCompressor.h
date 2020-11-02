@@ -79,12 +79,15 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param Vc Clearance volume (m3).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
 /// @param T1 System temperature before compression (K).
+/// @param T2 System temperature after compression (K).
 /// @param n Molar flowrate through the compressor (mol/s).
 /// @param N Number of compression stages (up to and including 6 stages).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Table generated from "MSCompProfile(...)".
-void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile);
+void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
 
 #endif /* _3bMultistageCompressorDisplay_h */
 
@@ -95,22 +98,28 @@ void MSCompDisplay(double P1, double P2, double Vc, double T1, double n, double 
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param Vc Clearance volume (m3).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
 /// @param T1 System temperature before compression (K).
+/// @param T2 System temperature after compression (K).
 /// @param n Molar flowrate through the compressor (mol/s).
 /// @param N Number of compression stages (up to and including 6 stages).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Table generated from "MSCompProfile(...)".
-void MSCompWrite(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile);
+void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
 
 /// This subroutine is used to ask the user whether they would like to write the results of this entire subroutine to a .txt file.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param Vc Clearance volume (m3).
+/// @param V1 Initial system volume (m3).
+/// @param V2 Final system volume (m3).
 /// @param T1 System temperature before compression (K).
+/// @param T2 System temperature after compression (K).
 /// @param n Molar flowrate through the compressor (mol/s).
 /// @param N Number of compression stages (up to and including 6 stages).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Table generated from "MSCompProfile(...)".
-void MSCompWriteSwitch(double P1, double P2, double Vc, double T1, double n, double N, double gamma, T3CompProfile profile);
+void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
 
 #endif /* _3bMultistageCompressorWrite_h */

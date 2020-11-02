@@ -27,11 +27,6 @@ void FluidVHydVariable(double *rho, double *h)
     *rho = inputDouble(0, "fluid density", "kg/m3");
     
     *h = inputDouble(1, "fluid height", "m");
-    
-    //Displaying function results
-    //printf("rho = %f kg/m3\n", *rho);
-    //printf("h = %f m\n", *h);
-    fflush(stdout);
 }
 
 double FluidVHydCalculation(double rho, double h) 
@@ -47,10 +42,11 @@ double FluidVHydCalculation(double rho, double h)
 void FluidVHydDisplay(double rho, double h, double P)
 {
     printf("_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
-    printf("g = %.5f\tm/s2\n\n", g);
-    printf("rho = %.3f\tkg/m3\n", rho);
-    printf("h = %.3f\t m\n", h);
-    printf("P\t%.3f\tPa\t= \\rho * g * h =\n", P);
+    printf("g =\t%.5f\tm/s2\n\n", g);
+    printf("rho =\t%.3f\tkg/m3\n", rho);
+    printf("h =\t%.3f\tm\n", h);
+    printf("P =\t%.3f\tPa\n", P);
+    fflush(stdout);
 }
 
 void FluidVHydWrite(double rho, double h, double P)
@@ -111,10 +107,10 @@ void FluidVHydWrite(double rho, double h, double P)
     
     //Write to file
     fprintf(fp, "_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
-    fprintf(fp, "g = %.5f\tm/s2\n\n", g);
-    fprintf(fp, "rho = %.3f\tkg/m3\n", rho);
-    fprintf(fp, "h = %.3f\t m\n", h);
-    fprintf(fp, "P\t%.3f\tPa\t= \\rho * g * h =\n", P);
+    fprintf(fp, "g =\t%.5f\tm/s2\n\n", g);
+    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
+    fprintf(fp, "h =\t%.3f\t m\n", h);
+    fprintf(fp, "P =\t%.3f\tPa\n", P);
     
     //Close file
     fclose(fp);
@@ -124,7 +120,7 @@ void FluidVHydWrite(double rho, double h, double P)
 
 void FluidVHydWriteSwitch(double rho, double h, double P)
 {
-    int control = 0;    // Variable used to control the following while loop.
+    int control = 0;    // Variable used to control user input.
     
     control = 1;
     while(control == 1)
@@ -159,8 +155,7 @@ void FluidVHydWriteSwitch(double rho, double h, double P)
 
 void FluidVerticalHydrostaticPressure()
 {
-    // "FluidVerticalHydrostaticPressure" has been abbreviated to "FluidVHyd" followed by the subroutine function.
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     
     printf("Vertical Hydrostatic Pressure Gradient\n");
@@ -169,28 +164,30 @@ void FluidVerticalHydrostaticPressure()
     while(whilmain == 1)
     {
         //  Declaring variables
+        double P = 0.0;     // Hydrostatic pressure.
+        
         double rho = 0.0;   // Fluid density.
         double h = 0.0;     // Vertical height of fluid.
-        double P = 0.0;     // Hydrostatic pressure.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Collecting data
         FluidVHydVariable(&rho, &h);
-        //printf("rho = %f kg/m3\n", rho);
-        //printf("h = %f m\n", h);
         
         //  Running calculation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         P = FluidVHydCalculation(rho, h);
-        //printf("P|_{h = %.1f m} = %.3f kPa\n", h, P * 0.001);
         
-        end = clock();
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
         
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        printf("Calculations completed in %.6f seconds.\n\n", elapsed);
         
         //  Displaying results
         FluidVHydDisplay(rho, h, P);

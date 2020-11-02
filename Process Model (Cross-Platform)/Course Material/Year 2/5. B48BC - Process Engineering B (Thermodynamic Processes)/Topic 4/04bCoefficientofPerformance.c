@@ -193,18 +193,14 @@ void CoPWrite(int method, double wnet, double qhot, double qcold, double THot, d
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -322,25 +318,31 @@ void CoPWriteSwitch(int method, double wnet, double qhot, double qcold, double T
 
 void CoefficientofPerformance(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
-    printf("(Program name)\n");
+    printf("Coefficient of Performance Calculation\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        char input[maxstrlen];
+        char input[maxstrlen];  // Variable store to receive character input.
+        int method = 0;         // Variable used to both control system behaviour and control user input.
         
-        double wnet = 0.0;
-        double qhot = 0.0;
-        double qcold = 0.0;
-        double THot = 0.0;
-        double TCold = 0.0;
-        double CoP = 0.0;
-        double CoPRev = 0.0;
-        double eta = 0.0;
-        double etac = 0.0;
+        double CoP = 0.0;       // Process Coefficient of Performance.
+        double CoPRev = 0.0;    // Equivalent reversible process Coefficient of Performance.
+        double eta = 0.0;       // Thermal efficiency.
+        double etac = 0.0;      // Reversible thermal efficiency.
         
-        int method = 0;
+        double wnet = 0.0;      // Net work done.
+        double qhot = 0.0;      // Heat received to system from hot reservoir.
+        double qcold = 0.0;     // Heat sent from system to cold reservoir.
+        double THot = 0.0;      // Temperature of hot reservoir.
+        double TCold = 0.0;     // Temperature of cold reservoir.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         while(method == 0)
@@ -363,10 +365,8 @@ void CoefficientofPerformance(void)
         CoPVariable(method, &wnet, &qhot, &qcold, &THot, &TCold);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         if(method == 1)
         {
@@ -384,10 +384,12 @@ void CoefficientofPerformance(void)
             eta = etaHeatPump(CoP);
             etac = etaHeatPump(CoPRev);
         }
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         CoPDisplay(method, wnet, qhot, qcold, THot, TCold, CoP, CoPRev, eta, etac);

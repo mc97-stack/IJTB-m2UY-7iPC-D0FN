@@ -48,11 +48,10 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
 /// @param V1 Initial system volume. (m3).
 /// @param V2 System volume after compression. (m3).
 /// @param T1 Initial system temperature. For the isothermal equation, this variable is the constant temperature. (K).
-/// @param T2 Final system temperature. (K).
 /// @param n Moles of component. (mol/ s).
 /// @param R Specific gas constant. (J/ mol. K).
 /// @param alpha Polytropic index.
-T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double V1, double T1, double T2, double n, double R, double alpha, double *V2);
+T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double *V1, double *V2, double T1, double n, double R, double alpha);
 
 #endif /* CompressorProfile_h */
 

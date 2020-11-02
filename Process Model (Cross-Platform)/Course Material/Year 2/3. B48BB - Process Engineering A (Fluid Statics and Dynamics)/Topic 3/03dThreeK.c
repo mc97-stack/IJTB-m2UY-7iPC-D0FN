@@ -173,6 +173,8 @@ ThreeKFittings ThreeKData(ThreeKFittings input)
 ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu)
 {
     char input[maxstrlen];  // Variable used to store keyboard input.
+    int control = 0;          // Variable used to control user input.
+    
     
     //  Loading in the 3K database
     table = ThreeKData(table);
@@ -187,17 +189,15 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
     *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
     
-    int check = 0;
-    
-    check = 1;
-    while(check == 1){
+    control = 1;
+    while(control == 1){
         printf("Diameter Nominal (mm) = DN");
         *DN = atoi(fgets(input, sizeof(input), stdin));
         
         // Check that Nominal pipe size is smaller than internal diameter
         if((*DN) < (*d)){
-            // Pipe internal diameter is bigger than DN size. Subroutine allowed to proceed
-            check = 0;
+            // Pipe internal diameter is bigger than DN size. Subroutine allowed to proceed.
+            control = 0;
         }else{
             // DN size is bigger than pipe internal diameter. Not possible.
             printf("Given diameter nominal exceeds internal pipe diameter. Please re-enter DN size.\n");
@@ -360,7 +360,8 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
     *Re = ReyNoCalculation(rho, u, d, mu);
     ReyNo = (*Re);
     
-    for(int i = 0; i < 34; ++i){
+    for(int i = 0; i < 34; ++i)
+    {
         data.headloss[i] = ThreeKCalculateHead(data.count[i], ThreeKCalculateK(ReyNo, DN, data.k1[i], data.kinf[i], data.Metkd[i]), u);
         data.dP_f[i] = ThreeKCalculatePLoss(data.headloss[i], rho);
     }
@@ -738,6 +739,7 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
     printf("%.3f\t", data.headloss[i]);
     printf("%.3f\t", data.dP_f[i]);
     printf("N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
+    fflush(stdout);
 }
 
 void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
@@ -769,18 +771,14 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -1211,39 +1209,31 @@ void ThreeKWriteSwitch(ThreeKFittings data, double rho, double u, double d, doub
 
 void ThreeK()
 {
-    double rho = 0.0;
-    double u = 0.0;
-    double d = 0.0;
-    double mu = 0.0;
-    double DN = 0.0;
-    double Re = 0.0;
+    //  Variable declaration
+    double Re = 0.0;                    // Reynolds number
+    ThreeKFittings ThreeKTable = {0.0}; // Struct used to store collected data and individual head losses.
+    double TotalH = 0.0;                // Total head loss.
+    double TotalP = 0.0;                // Total pressure loss.
     
-    double TotalH = 0.0;
-    double TotalP = 0.0;
+    double rho = 0.0;                   // Fluid density.
+    double u = 0.0;                     // Fluid velocity.
+    double d = 0.0;                     // Internal pipe diameter.
+    double mu = 0.0;                    // Fluid viscosity.
+    double DN = 0.0;                    // Diameter nominal (Metric equivalent of NPS)
+    
+        //  Variables for timing function
+    struct timespec start, end;
+    double elapsed = 0.0;
     
     printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
-    ThreeKFittings ThreeKTable = {0.0};
-    
-    // Initialising all values in the struct
-    for(int i = 0; i < 34; ++i){
-        ThreeKTable.k1[i] = 0;
-        ThreeKTable.kinf[i] = 0.0;
-        ThreeKTable.Impkd[i] = 0.0;
-        ThreeKTable.Metkd[i] = 0.0;
-        ThreeKTable.count[i] = 0;
-        ThreeKTable.headloss[i] = 0.0;
-        ThreeKTable.dP_f[i] = 0.0;
-    }
     
     //  Collecting data
     ThreeKTable = ThreeKVariable(ThreeKTable, &DN, &rho, &u, &d, &mu);
     printf("\n");
     
     //  Performing calculations
-    clock_t start, end;
-    double timeTaken = 0.0;
-    
-    start = clock();
+    clock_getres(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     
     ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
     
@@ -1252,10 +1242,12 @@ void ThreeK()
         TotalH += ThreeKTable.headloss[i];
         TotalP += ThreeKTable.dP_f[i];
     }
-    end = clock();
-    
-    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-    printf("Process completed in %.3f seconds.\n\n", timeTaken);
+    clock_getres(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    elapsed = timer(start, end);
+
+    printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying results
     ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);

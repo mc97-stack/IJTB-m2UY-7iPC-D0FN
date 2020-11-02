@@ -69,6 +69,7 @@ void HagPoisDisplay(double u, double mu, double L, double d, double dP)
     printf("Assuming fluid flow is isothermal\n");
     printf("Fluid pressure loss:\n");
     printf("dP =\t%.3f\tPa\t= \\frac{32u\\mu L}{d^2}", dP);
+    fflush(stdout);
 }
 
 void HagPoisWrite(double u, double mu, double L, double d, double dP)
@@ -100,18 +101,14 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -151,9 +148,9 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
 
 void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -167,14 +164,14 @@ void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP)
             case 't':
             case 'y':
                 HagPoisWrite(u, mu, L, d, dP);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -185,7 +182,7 @@ void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP)
 
 void HagenPoiseuille()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Hagen-Poiseuille Equation\n");
     
@@ -193,30 +190,32 @@ void HagenPoiseuille()
     while(whilmain == 1)
     {
         //  Variable declaration
-        double u = 0.0; //Average fluid velocity
-        double mu = 0.0; //Fluid viscosity
-        double L = 0.0; //Horizontal pipe length
-        double d = 0.0; //Pipe diameter
+        double dP = 0.0; //Frictional pressure loss.
         
-        double dP = 0.0; //Frictional pressure loss
+        double u = 0.0; //Average fluid velocity.
+        double mu = 0.0; //Fluid viscosity.
+        double L = 0.0; //Horizontal pipe length.
+        double d = 0.0; //Pipe diameter.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         HagPoisVariable(&u, &mu, &L, &d);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         dP = HagPoisCalculation(u, mu, L, d);
         
-        //printf("Frictional pressure loss = %.3f kPa\n", dP*0.001);
-        
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         HagPoisDisplay(u, mu, L, d, dP);

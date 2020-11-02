@@ -33,8 +33,6 @@ double Turbulent1(double rho, double u, double d, double mu)
     FrictFactor = pow(FrictFactor, (-0.25));
     FrictFactor = 0.0396*(FrictFactor);
     
-    //printf("phi1 = %f \n\n", FrictFactor);
-    
     return FrictFactor;
 }
 
@@ -64,8 +62,6 @@ double Turbulent2(double rho, double u, double d, double mu)
         RHS = 2.5*(RHS);
         RHS = (RHS)+0.3;
         
-        // printf("LHS = %f\tRHS = %f\n\n", LHS, RHS);
-        
         error[i] = fabs(RHS - LHS);
         
         FrictFactor += incr;
@@ -80,9 +76,7 @@ double Turbulent2(double rho, double u, double d, double mu)
             // Do nothing
         }
     }
-    //printf("Minimum value has been found at i = %d\n", i);
     FrictFactor = 0.001 + (i-1)*(incr);
-    //printf("phi2 = %f \n\n", FrictFactor);
     
     return FrictFactor;
 }
@@ -122,8 +116,6 @@ double Turbulent3(double rho, double u, double d, double mu, double vareps)
         RHS = 2.5*(RHS);
         RHS = -1*(RHS);
         
-        //printf("LHS = %f\tRHS = %f\n\n", LHS, RHS);
-        
         error[i] = fabs(RHS - LHS);
         
         FrictFactor += incr;
@@ -137,9 +129,7 @@ double Turbulent3(double rho, double u, double d, double mu, double vareps)
             // Do nothing
         }
     }
-    //printf("Minimum value has been found at i = %d\n", i-1);
     FrictFactor = 0.001 + (i-1)*(incr);
-    //printf("phi3 = %f \n\n", FrictFactor);
     
     return FrictFactor;
 }
@@ -149,18 +139,12 @@ double Turbulent4(double d, double vareps)
     double FrictFactor = 0.0;
     
     FrictFactor = vareps/d;
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = log(FrictFactor);
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = 2.5*(FrictFactor);
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = 3.2 - (FrictFactor);
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     
     FrictFactor = 1/(FrictFactor);
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     FrictFactor = pow(FrictFactor, 2);
-    //printf("FrictFactor = %.8f\n", FrictFactor);
     
     return FrictFactor;
 }

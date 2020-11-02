@@ -15,6 +15,7 @@
 
 // Custom header files
 #include "System.h"
+#include "IdealGasLaw.h"
 #include "B48BC_T2.h"
 #include "02aCompressor.h"
 #include "02bPolyShaftWork.h"
@@ -27,16 +28,15 @@
 
 void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha)
 {
-    int compcheck = 0;
+    int control = 0;    // Variable used to control user input.
     
     if(method == 1 || method == 2){
         *P1 = inputDouble(0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        compcheck = 1;
-        while(compcheck == 1)
+        control = 1;
+        while(control == 1)
         {
-            printf("Final system pressure (kPa) = ");
             *P2 = inputDouble(0, "final system pressure", "kPa");
             *P2 = (*P2)*1000;
             if((*P1) > (*P2))
@@ -45,7 +45,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
                 printf("Expansion process has been stated, please re-enter value for P2.\n");
             }else{
                 // P2 > P1 indicated a compression is indeed happening
-                compcheck = 0;
+                control = 0;
             }
         }
     }
@@ -69,6 +69,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     if(method == 1){
         *R = 8.3145;
     }
+    
     if(method == 2){
         *R = inputDouble(0, "specific gas constant", "J/mol.K");
     }
@@ -77,32 +78,24 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
         *alpha = 1;
     }
     if(method == 2){
-        printf("Polytropic index ([ ]) = ");
         *alpha = inputDouble(0, "polytropic index", "[ ]");
     }
-    fflush(stdout);
 }
 
-T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double V1, double T1, double T2, double n, double R, double alpha, double *V2)
+T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double *V1, double *V2, double T1, double n, double R, double alpha)
 {
-    T2CompProfile profile;
+    T2CompProfile profile = {0.0};
+    //  2560 total double elements -> 2560 * 8 bytes = 20 480 bytes = 20.480 KB required.
+    //  Automatic memory allocation should be able to handle this struct. Assuming typical cache size for a modern computer is about 32 KB. Some computers with a core CPU cache less than 17 KB may struggle with this program. Intel Core i3 - 6100E has a cache size of 3MB so this program should run fine on intel machines.
     
-    // Initialising all values in the struct
-    for(int i = 0; i < 512; ++i){
-        profile.P[i] = 0.0;
-        profile.V[i] = 0.0;
-        profile.T[i] = 0.0;
-        profile.W_V[i] = 0.0;
-        profile.W_S[i] = 0.0;
-        //  2560 total double elements -> 2560 * 8 bytes = 20 480 bytes = 20.480 KB required.
-        //  Automatic memory allocation should be able to handle this struct. Assuming typical cache size for a modern computer is about 32 KB. Some computers with a core CPU cache less than 17 KB may struggle with this program. Intel Core i3 - 6100E has a cache size of 3MB so this program should run fine on intel machines.
-    }
-    double incr = 0.0; // Increment between datapoints
-    int elem = 0; // Element counter
+    double incr = 0.0;  // Increment between datapoints
+    int elem = 0;       // Element counter
+    
     // Stage 1: Isobaric Expansion (Volume increases)
         // This process must occur between elements 0 to 5
     // Expansion from Vc to V1 (Only variable that is changing in this process)
-    incr = V1 - Vc;
+    *V1 = IdealVolume(n, P1, T1);
+    incr = (*V1) - Vc;
     incr = (incr)/5; // Vc will go into element 0 process into 1 to 5
     
     // Loading initial values
@@ -116,10 +109,11 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     for(elem = 1; elem < 6; ++ elem){
         profile.P[elem] = P1; // Isobaric process, pressure will stay constant
         profile.V[elem] = profile.V[elem - 1] + incr;
-        profile.T[elem] = IsobFinalTemperature(profile.V[elem - 1], profile.V[elem], profile.T[elem - 1]);
+        profile.T[elem] = T1;
         profile.W_V[elem] = IsobVolume(profile.P[elem], profile.V[elem - 1], profile.V[elem]);
         profile.W_S[elem] = profile.V[elem]*(profile.P[elem] - profile.P[elem - 1]); // Pressure is not changing so no shaft work is being done. Calculation is being performed just in case.
     }
+    
     // Stage 2: Isothermal/ Polytropic Compression
         // This process must occur between elements 6 to 505
     if(method == 1 || method == 2){
@@ -153,9 +147,9 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     incr = (incr)/6;
     
     for(elem = 506; elem < 512; ++elem){
-        profile.P[elem] = profile.P[505]; // Isobaric process, pressure will stay constant
+        profile.P[elem] = profile.P[elem - 1]; // Isobaric process, pressure will stay constant
         profile.V[elem] = profile.V[elem - 1] + incr;
-        profile.T[elem] = IsobFinalTemperature(profile.V[elem - 1], profile.V[elem], profile.T[elem - 1]);
+        profile.T[elem] = profile.T[elem - 1];
         profile.W_V[elem] = IsobVolume(profile.P[elem], profile.V[elem - 1], profile.V[elem]);
         profile.W_S[elem] = profile.V[elem]*(profile.P[elem] - profile.P[elem - 1]); // Pressure is not changing so no shaft work is being done. Calculation is being performed just in case.
     }
@@ -202,7 +196,8 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
     
     // Profile (Two Temperature columns (K and deg C))
     printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_S (kW)\n");
-    for(int i = 0; i < 512; ++i){
+    for(int i = 0; i < 512; ++i)
+    {
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
@@ -241,18 +236,14 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -306,7 +297,8 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_S (kW)\n");
-    for(int i = 0; i < 512; ++i){
+    for(int i = 0; i < 512; ++i)
+    {
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
@@ -357,29 +349,33 @@ void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, d
 
 void Compressor(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Reciprocating Compressor\n");
     whilmain = 1;
     while(whilmain == 1)
     {
         // Variable declaration
-        char methodinput[maxstrlen];
+        char methodinput[maxstrlen];    // Variable used to store character input.
+        int method = 0;                 // Variable used to control subroutine behaviour.
+        int whilmethod = 0;             // Variable used to control user input.
         
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double Vc = 0.0;
-        double V1 = 0.0;
-        double V2 = 0.0;
-        double T1 = 0.0;
-        double T2 = 0.0;
-        double n = 0.0;
-        double R = 0.0;
-        double alpha = 0.0;
+        T2CompProfile profile = {0.0};  // Struct used to store the process profile for a reciprocating compressor.
+        double T2 = 0.0;                // Final compressor temperature.
         
-        int method = 0;
-        int whilmethod = 0;
+        double P1 = 0.0;                // Initial system pressure.
+        double P2 = 0.0;                // Final system pressure.
+        double Vc = 0.0;                // Clearance volume.
+        double V1 = 0.0;                // Maximum compressor volume.
+        double V2 = 0.0;                // Compressor volume when discharge starts.
+        double T1 = 0.0;                // Initial compressor temperature.
+        double n = 0.0;                 // Moles of component in system.
+        double R = 0.0;                 // Gas constant.
+        double alpha = 0.0;             // Polytropic index.
         
-        T2CompProfile profile = {0.0};
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //Data Collection
         whilmethod = 1;
@@ -404,6 +400,7 @@ void Compressor(void)
                     method = 2;
                     whilmethod = 0;
                     break;
+                case '0':
                 case 'Q':
                 case 'q':
                     whilmethod = 0;
@@ -422,17 +419,19 @@ void Compressor(void)
             }
             
             //  Data Manipulation
-            clock_t start, end;
-            double timeTaken = 0.0;
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
-            start = clock();
+            profile = CompressorProfile(method, P1, P2, Vc, &V1, &V2, T1, n, R, alpha);
             
-            profile = CompressorProfile(method, P1, P2, Vc, V1, T1, T2, n, R, alpha, &V2);
+            T2 = profile.T[505];
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);

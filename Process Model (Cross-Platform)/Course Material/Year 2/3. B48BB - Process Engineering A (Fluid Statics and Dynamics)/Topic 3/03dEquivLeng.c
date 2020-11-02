@@ -285,6 +285,7 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
     printf("%i\t", table.count[i]);
     printf("%.3f\t", table.dP_f[i]);
     printf("%.3f\n", table.h_f[i]);
+    fflush(stdout);
 }
 
 void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
@@ -316,18 +317,14 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -521,36 +518,30 @@ void EquivLengWriteSwitch(EquivLenFits table, double rho, double u, double d, do
 
 void EquivalentLength()
 {
-    double rho = 0.0;
-    double u = 0.0;
-    double d = 0.0;
-    double mu = 0.0;
-    double vareps = 0.0;
-    double phi = 0.0;
+    //  Variable declaration
+    double totalP = 0.0;    // Total pressure loss through all stated fittings.
+    double totalH = 0.0;    // Total head loss through all stated fittings.
     
-    double totalP = 0.0;
-    double totalH = 0.0;
+    double rho = 0.0;       // Fluid density.
+    double u = 0.0;         // Fluid velocity.
+    double d = 0.0;         // Internal pipe diameter.
+    double mu = 0.0;        // Fluid viscosity.
+    double vareps = 0.0;    // Pipe absolute roughness.
+    double phi = 0.0;       // Friction factor.
     
     EquivLenFits EquivLengTable = {0.0};
     
-    // Initialising the struct
-    for(int i = 0; i < 15; ++i)
-    {
-        EquivLengTable.data[i] = 0.0;
-        EquivLengTable.count[i] = 0;
-        EquivLengTable.dP_f[i] = 0.0;
-        EquivLengTable.h_f[i] = 0.0;
-    }
+        //  Variables for timing function
+    struct timespec start, end;
+    double elapsed = 0.0;
     
     //  Collecting data
     EquivLengTable = EquivLengVariable(EquivLengTable, &rho, &u, &d, &mu, &vareps, &phi);
     printf("\n");
     
     //  Performing calculations
-    clock_t start, end;
-    double timeTaken = 0.0;
-    
-    start = clock();
+    clock_getres(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     
     EquivLengTable = EquivLengFinalTable(EquivLengTable, rho, u, d, phi);
     
@@ -560,10 +551,12 @@ void EquivalentLength()
         totalP += EquivLengTable.dP_f[i];
         totalH += EquivLengTable.h_f[i];
     }
-    end = clock();
-    
-    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-    printf("Process completed in %.3f seconds.\n\n", timeTaken);
+    clock_getres(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    elapsed = timer(start, end);
+
+    printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying data
     EquivLengDisplay(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);

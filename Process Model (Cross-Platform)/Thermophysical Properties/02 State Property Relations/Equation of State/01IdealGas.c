@@ -107,18 +107,14 @@ void IdealEOSWrite(double T, EOSIsotherm data)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -193,34 +189,43 @@ void IdealEOSWriteSwitch(double T, EOSIsotherm data)
 void IdealEOS(void)
 {
     int whilmain = 0;
-    int control = 0;
     printf("Ideal Gas Equation of State\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
+        int control = 0;    // Variable used to control the generation of multiple isotherms.
+        
         control = 1;
         while(control == 1)
         {
             //  Variable declaration
-            double T = 0.0;
+            char input[maxstrlen];      // Variable where character input is stored.
+            int control2 = 0;           // Variable used to control user input.
             
-            EOSIsotherm data = {0.0};
+            double T = 0.0;             // Isotherm temperature.
+            
+            EOSIsotherm data = {0.0};   // Struct where isotherm data is stored.
+            
+                //  Variables for timing function
+            struct timespec start, end;
+            double elapsed = 0.0;
             
             //  Data Collection
             IdealEOSVariable(&T);
             
             //  Data Manipulation
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             data = IdealEOSIsotherm(T);
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             IdealEOSDisplay(T, data);
@@ -228,11 +233,8 @@ void IdealEOS(void)
             //  Writing to File
             IdealEOSWriteSwitch(T, data);
             
-            char input[maxstrlen];
-            int ContCond;
-            
-            ContCond = 1;
-            while(ContCond == 1)
+            control2 = 1;
+            while(control2 == 1)
             {
                 printf("Do you want to create another isotherm? ");
                 fgets(input, sizeof(input), stdin);
@@ -243,7 +245,7 @@ void IdealEOS(void)
                     case 'Y':
                     case 't':
                     case 'y':
-                        ContCond = 0;
+                        control2 = 0;
                     break;
                     case '0':
                     case 'F':
@@ -251,7 +253,7 @@ void IdealEOS(void)
                     case 'f':
                     case 'n':
                         control = 0;
-                        ContCond = 0;
+                        control2 = 0;
                     break;
                     default:
                         printf("Input not recognised\n");
@@ -259,7 +261,6 @@ void IdealEOS(void)
                 }
             }
         }
-        
         //  Continue function
         whilmain = Continue(whilmain);
     }

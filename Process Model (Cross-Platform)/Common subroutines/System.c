@@ -6,9 +6,13 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+//  Standard header files
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
+//  Custom header files.
 #include "System.h"
 
 #define maxstrlen 128
@@ -33,6 +37,23 @@ double inputDouble(int allowZero, char VariableName[], char Units[])
     }
     fflush(stdout);
     return input;
+}
+
+double timer(struct timespec start, struct timespec end)
+{
+    double seconds = 0.0;
+    double nanos = 0.0;
+    double elapsed = 0.0;
+    
+    seconds = end.tv_sec - start.tv_sec;
+    seconds = (seconds)*pow(10, 9);
+    
+    nanos = end.tv_nsec - start.tv_nsec;
+    
+    elapsed = seconds + nanos;
+    elapsed = (elapsed)*pow(10, -9);
+    
+    return elapsed;
 }
 
 int Continue(int ControlVariable)
@@ -67,6 +88,6 @@ int Continue(int ControlVariable)
             break;
         }
     }
-    
+    fflush(stdout);
     return ControlVariable;
 }

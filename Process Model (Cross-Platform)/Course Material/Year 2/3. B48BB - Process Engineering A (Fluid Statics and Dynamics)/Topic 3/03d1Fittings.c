@@ -21,7 +21,7 @@
 
 void Fittings()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 1;
     printf("Pressure Loss through Pipe Fittings\n");
     

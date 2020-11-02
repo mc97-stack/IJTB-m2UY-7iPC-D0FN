@@ -37,7 +37,6 @@ void CappVariable(double *sigma, double *cang, double *rho, double *d)
     *cang = (*cang)*(PI/ 180);  //Conversion to radians
     
     *d = (*d)*0.001;
-    fflush(stdout);
 }
 
 double CappCalculateHeight(double sigma, double cang, double rho, double d)
@@ -85,6 +84,7 @@ void CappDisplay(double sigma, double cang, double d, double h, double Pc)
     printf("h =\t%.3f\tcm\t=\\frac{2\\sigma\\cos\\theta}{\\rho gr}\n",h*0.01);
     printf("Capillary pressure:\n");
     printf("Pc =\t%.3f\tPa\t=\\frac{2\\sigma\\cos\\theta}{r}\n",Pc);
+    fflush(stdout);
 }
 
 void CappWrite(double sigma, double cang, double d, double h, double Pc)
@@ -166,9 +166,10 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
 
 void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -182,14 +183,14 @@ void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc)
             case 't':
             case 'y':
                 
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -200,42 +201,42 @@ void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc)
 
 void Cappilarity()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
-    
     printf("Capillarity Calculator\n");
-    whilmain = 1;
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //  Declaring variables
-        double h = 0.0; //Capillary rise
-        double Pc = 0.0; //Capillary pressure
+        double h = 0.0;     //Capillary rise.
+        double Pc = 0.0;    //Capillary pressure.
         
-        double sigma = 0.0; //Surface tension
-        double cang = 0.0; //Contact angle
-        double rho = 0.0; //Fluid density
-        double d = 0.0; //Tube diameter
+        double sigma = 0.0; //Surface tension.
+        double cang = 0.0;  //Contact angle.
+        double rho = 0.0;   //Fluid density.
+        double d = 0.0;     //Tube diameter.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Collecting data
         CappVariable(&sigma, &cang, &rho, &d);
-        //printf("Function returns:\nsigma = %f\ncang = %f\nrho = %f\nd = %f\n", sigma, cang, rho, d);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         h = CappCalculateHeight(sigma, cang, rho, d);
-        //printf("Capillary rise = %.3f m\n", h);
         Pc  = CappCalculatePressure(sigma, cang, d);
-        //printf("Capillary pressure = %.3f Pa\n", Pc);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         CappDisplay(sigma, cang, d, h, Pc);

@@ -149,18 +149,14 @@ void ThermEffWrite(int method, double wnet, double qhot, double qcold, double TH
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -261,32 +257,38 @@ void ThermEffWriteSwitch(int method, double wnet, double qhot, double qcold, dou
 
 void ThermalEfficiency(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Thermal Efficiency\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        char menu[maxstrlen];
+        char input[maxstrlen];  // Variable used to store character input.
+        int method = 0;         // Variable used to control subroutine behaviour.
+        int control = 0;        // Variable used to control user input.
         
-        double wnet = 0.0;
-        double qhot = 0.0;
-        double qcold = 0.0;
-        double Thot = 0.0;
-        double Tcold = 0.0;
-        double eta = 0.0;
-        double etacarnot = 0.0;
+        double eta = 0.0;       // Proess thermal efficiency.
+        double etacarnot = 0.0; // Reversible thermal efficiency of equivalent Carnot cycle.
         
-        int method = 0;
-        int control = 0;
+        double wnet = 0.0;      // Net work done.
+        double qhot = 0.0;      // Heat received into system from hot reservoir.
+        double qcold = 0.0;     // Heat sent from system to cold reservoir.
+        double Thot = 0.0;      // Hot reservoir temperature.
+        double Tcold = 0.0;     // Cold reservoir temperature.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         control = 1;
         while(control == 1){
             printf("How do you want to calculate the process' thermal efficiency?\n");
             printf("1. Heat and work.\n2. Heat\nSelection [1, 2]: ");
-            fgets(menu, sizeof(menu), stdin);
-            switch(menu[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                     method = 1;
@@ -304,10 +306,8 @@ void ThermalEfficiency(void)
         ThermEffVariable(method, &wnet, &qhot, &qcold, &Thot, &Tcold);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         if(method == 1)
         {
@@ -321,10 +321,12 @@ void ThermalEfficiency(void)
         {
             etacarnot = ThermEffCarnotCalculation(Thot, Tcold);
         }
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         ThermEffDisplay(method, wnet, qhot, qcold, Thot, Tcold, eta, etacarnot);

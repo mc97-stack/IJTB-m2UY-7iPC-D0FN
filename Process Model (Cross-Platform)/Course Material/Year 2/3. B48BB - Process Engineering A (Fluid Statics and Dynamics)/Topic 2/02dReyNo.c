@@ -26,20 +26,11 @@ void ReyNoVariable(double *rho, double *u, double *d, double *mu)
     
     *u = inputDouble(0, "average fluid velocity", "m/s");
     
-    *d = inputDouble(0, "pipe diameter", "mm");
+    *d = inputDouble(0, "internal pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
     
     *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
-    
-    /*
-    printf("Function assignments:\n");
-    printf("rho = %.3f kg/m3\n", *rho);
-    printf("u = %.3f m/s\n", *u);
-    printf("d = %.3f m\n", *d);
-    printf("mu = %.3f Pa.s\n\n", *mu);
-     */
-    fflush(stdout);
 }
 
 double ReyNoCalculation(double rho, double u, double d, double mu)
@@ -78,6 +69,7 @@ void ReyNoDisplay(double rho, double u, double d, double mu, double ReyNum)
             printf("Flow regime is turbulent. \n");
         }
     }
+    fflush(stdout);
 }
 
 void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
@@ -109,18 +101,14 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -168,9 +156,10 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
 
 void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -184,14 +173,14 @@ void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum)
             case 't':
             case 'y':
                 ReyNoWrite(rho, u, d, mu, ReyNum);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -202,7 +191,7 @@ void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum)
 
 void ReynoldsNumber()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     
     printf("Reynold's Number Calculator\n");
@@ -210,37 +199,33 @@ void ReynoldsNumber()
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Function Output
-        double ReyNum = 0.0;
-        //Calculation Variables
-        double rho = 0.0;
-        double u = 0.0;
-        double d = 0.0;
-        double mu = 0.0;
+        //  Variable declaration
+        double ReyNum = 0.0;    // Reynolds number.
+        
+        double rho = 0.0;       // Fluid density.
+        double u = 0.0;         // Fluid velocity.
+        double d = 0.0;         // Pipe internal diameter.
+        double mu = 0.0;        // Fluid viscosity.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //Data collection
         ReyNoVariable(&rho, &u, &d, &mu);
-        /*
-        printf("Function returns:\n");
-        printf("rho = %f \n", rho);
-        printf("u = %f \n", u);
-        printf("d = %f \n", d);
-        printf("mu = %f \n\n", mu);
-         */
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         ReyNum = ReyNoCalculation(rho, u, d, mu);
-        //printf("Function returns: ReyNum = %f \n", ReyNum);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         ReyNoDisplay(rho, u, d, mu, ReyNum);

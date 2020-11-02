@@ -50,8 +50,6 @@ void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1
     
     *hf = inputDouble(0, "frictional pressure loss", "Pa");
     *hf = (*hf)/((*rho)*g);
-    
-    fflush(stdout);
 }
 
 double StaticHeadCalculation(double P, double rho)
@@ -61,7 +59,6 @@ double StaticHeadCalculation(double P, double rho)
     stathead = (rho*g);
     stathead = P/(stathead);
     
-    //printf("Static head = %.3f m\n", stathead);
     return stathead;
 }
 
@@ -75,7 +72,6 @@ double DynamicHeadCalculation(double u)
     dynhead = pow(u, 2);
     dynhead = (frac)*(dynhead);
     
-    //printf("Dynamic head = %.3f m\n", dynhead);
     return dynhead;
 }
 
@@ -113,6 +109,7 @@ void BernEqnDisplay(double P1, double P2, double rho, double u1, double u2, doub
     printf("\tOutput parameters:\n");
     printf("Final fluid pressure:\n");
     printf("P2 =\t%.3f\tkPa\n", P2*0.001);
+    fflush(stdout);
 }
 
 void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
@@ -144,18 +141,14 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -237,50 +230,41 @@ void BernEqnWriteSwitch(double P1, double P2, double rho, double u1, double u2, 
 
 void BernoulliEquation()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
-    
     printf("Bernoulli's Equation\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-            //Function Output
-        double P2 = 0.0;
-            //Calculation Variables
-        double P1 = 0.0;
-        double rho = 0.0; //Remains constant as process is assumed to be isothermal
-        double u1 = 0.0;
-        double u2 = 0.0;
-        double Z1 = 0.0;
-        double Z2 = 0.0;
-        double hf = 0.0;
+        //  Variable declaration
+        double P2 = 0.0;    // Fluid pressure at point 2.
         
-        double LHS = 0.0;
-        double RHS = 0.0;
+        double P1 = 0.0;    // Fluid pressure at point 1.
+        double rho = 0.0;   // Fluid density.
+        double u1 = 0.0;    // Fluid velocity at point 2.
+        double u2 = 0.0;    // Fluid velocity at point 2.
+        double Z1 = 0.0;    // Fluid elevation at point 1.
+        double Z2 = 0.0;    // Fluid elevation at point 2.
+        double hf = 0.0;    // Head loss due to friction.
+        
+        double LHS = 0.0;   // Calculation variable used to store the variables related to state 1.
+        double RHS = 0.0;   // Calculation variable used to store the variables related to state 2.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
-        BernEqnVariable(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);/*
-        printf("Function assignments:\n");
-        printf("P1 = %f\n", P1);
-        printf("rho = %f\n", rho);
-        printf("u1 = %f\n", u1);
-        printf("u2 = %f\n", u2);
-        printf("Z1 = %f\n", Z1);
-        printf("Z2 = %f\n", Z2);
-        printf("hf = %f\n\n", hf);*/
+        BernEqnVariable(&P1, &rho, &u1, &u2, &Z1, &Z2, &hf);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         LHS = BernEqnCalculation(StaticHeadCalculation(P1, rho), DynamicHeadCalculation(u1), Z1);
-        //printf("Function returns: LHS = %f\n", LHS);
         
         RHS = BernEqnCalculation(0, DynamicHeadCalculation(u2), Z2);
-        //printf("Function returns: RHS = %f\n\n", RHS);
         
         RHS = (RHS) + (hf);
         P2 = (LHS) - (RHS);
@@ -289,12 +273,12 @@ void BernoulliEquation()
         
         P2 = (P2)*0.001;
         
-        //printf("Bernoulli's equation estimates P2 = %.3f kPa\n\n", P2);
-        
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         BernEqnDisplay(P1, P2, rho, u1, u2, Z1, Z2, hf);

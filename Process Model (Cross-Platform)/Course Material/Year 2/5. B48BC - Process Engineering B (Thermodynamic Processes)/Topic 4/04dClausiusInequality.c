@@ -102,18 +102,14 @@ void EntropyWrite(int imax, T4EntropyDef data)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -196,21 +192,26 @@ void EntropyWriteSwitch(int imax, T4EntropyDef data)
 
 void ClausiusInequality(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Clausius Inequality Calculation\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        T4EntropyDef data = {0.0};
+        int i = 0;                  // Variable used to control the maximum number of data entries (Max. 2500)
+        int control = 0;            // Variable used to control data collection and calculation steps. 
         
-        clock_t start, end;
-        double timeTaken = 0.0;
+        T4EntropyDef data = {0.0};  // Struct used to store both the inputted parameters and calculated entropy.
         
-        start = clock();
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
-        int i = 0;
-        int control = 0;
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        
         control = 1;
         while(control == 1)
         {
@@ -232,11 +233,12 @@ void ClausiusInequality(void)
                 control = Continue(control);
             }
         }
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("%d entries were made.\n", i);
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         EntropyDisplay(i, data);

@@ -157,11 +157,11 @@ double PolyFinalTemperature(double T1, double P1, double P2, double alpha)
 
 T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
 {
-    double incr = 0.0; // Increment between data points
-    int reso = 0; // Resolution of generated plot
-    int i = 0; // Row controller
+    double incr = 0.0;  // Increment between data points
+    int reso = 0;       // Resolution of generated plot
+    int i = 0;          // Row controller
     
-    T1ThermoProf profile;
+    T1ThermoProf profile = {0.0};
     double total = 0.0;
     
     reso = 249;
@@ -269,7 +269,8 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
     
     // Profile (Two Temperature columns (K and deg C))
     printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
@@ -278,6 +279,7 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
         total += profile.W_V[i]*0.001;
         printf("%f\n", total);
     }
+    fflush(stdout);
 }
 
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
@@ -309,18 +311,14 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -373,7 +371,8 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
@@ -432,24 +431,25 @@ void Polytropic()
     while(whilmain == 1)
     {
         // Variable declaration
-        char methodinput[maxstrlen];
+        char methodinput[maxstrlen];    // Variable used for character input.
+        int method = 0;                 // Variable used to control subroutine behaviour.
+        int whilmethod = 0;             // Variable used to control user input.
         
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double V1 = 0.0;
-        double T1 = 0.0;
-        double T2 = 0.0;
-        double n = 0.0;
-        double R = 0.0;
-        double alpha = 0.0;
+        T1ThermoProf profile = {0.0};   // Struct used to store the polytropic process profile.
+        double V2 = 0.0;                // Final process volume.
         
-        double V2 = 0.0;
+        double P1 = 0.0;                // Initial system pressure.
+        double P2 = 0.0;                // Final system pressure.
+        double V1 = 0.0;                // Initial system volume.
+        double T1 = 0.0;                // Initial system temperature.
+        double T2 = 0.0;                // Final system temperature.
+        double n = 0.0;                 // Moles of component in system.
+        double R = 0.0;                 // Gas constant.
+        double alpha = 0.0;             // Polytropic index.
         
-        int method = 0;
-        
-        int whilmethod = 0;
-        
-        T1ThermoProf profile = {0.0};
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         whilmethod = 1;
@@ -476,7 +476,9 @@ void Polytropic()
                     break;
                 case 'Q':
                 case 'q':
+                case '0':
                     whilmethod = 0;
+                    whilmain = 0;
                     break;
                 default:
                     printf("Invalid input, please try again");
@@ -487,10 +489,8 @@ void Polytropic()
             PolyVariable(method, &P1, &P2, &V1, &T1, &T2, &n, &R, &alpha);
             
             // Running calculations
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
             
@@ -506,10 +506,12 @@ void Polytropic()
                 V1 = profile.V[0];
                 V2 = profile.V[249];
             }
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying Results
             PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);

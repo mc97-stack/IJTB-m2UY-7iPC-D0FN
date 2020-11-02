@@ -410,16 +410,12 @@ void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+     
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
@@ -518,28 +514,31 @@ void VirialEOS(void)
 {
     int whilmain = 0;
     printf("Virial Equation of State\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        char input[maxstrlen];
+        char input[maxstrlen];      // Variable used to store character input.
+        int control = 0;            // Variable used to control user input and number of isotherms calculated.
+        int polar = 0;              // Variable used to control subroutine behaviour dependent on whether the molecule is polar or not.
         
-        double Pc = 0.0;
-        double Tc = 0.0;
-        double Vc = 0.0;
-        double T = 0.0;
-        double omega = 0.0; // Accentric factor
-        double a = 0.0;
-        double b = 0.0;
+        double B = 0.0;             // Second virial coefficient.
+        double C = 0.0;             // Third virial coefficient.
+        EOSIsotherm data = {0.0};   // Struct where the isotherm data is stored.
         
-        double B = 0.0;
-        double C = 0.0;
+        double Pc = 0.0;            // Critical pressure.
+        double Tc = 0.0;            // Critical temperature.
+        double Vc = 0.0;            // Critical molar volume.
+        double T = 0.0;             // System temperature.
+        double omega = 0.0;         // Accentric factor
+        double a = 0.0;             // Constant required for calculation of B^(2)
+        double b = 0.0;             // Constant required for calculation of B^(2)
         
-        int control = 0;
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
-        EOSIsotherm data = {0.0};
-        
-        int polar = 0;
         //  Data Collection
         control = 1;
         while(control == 1)
@@ -579,10 +578,8 @@ void VirialEOS(void)
             T = (T) + 273.15;
             
             //  Data Manipulation
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             // Calculation function(s)
             if(polar == 0)
@@ -594,10 +591,12 @@ void VirialEOS(void)
                 data = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
             }
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             VirialEOSDisplay(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
@@ -636,7 +635,6 @@ void VirialEOS(void)
                 }
             }
         }
-        
         //  Continue function
         whilmain = Continue(whilmain);
     }

@@ -42,7 +42,6 @@ void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, do
         *T1 = (*T1)+273.15;
     }
     if(method == 1 || method == 2){
-        printf("Moles of fluid in system (kmol) = ");
         *n = inputDouble(0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
@@ -110,6 +109,7 @@ double AdiaFinalPress(double P1, double V1, double V2, double gamma)
     double V1f = 0.0;
     double V2f = 0.0;
     double P = 0.0;
+    
     // Used for the Pressure-Volume relation
     V1f = pow(V1, gamma);
     V2f = pow(V2, gamma);
@@ -123,18 +123,16 @@ double AdiaFinalPress(double P1, double V1, double V2, double gamma)
 double AdiaFinalTemp(double T1, double P1, double P2, double gamma)
 {
     double power = 0.0;
-    double P1f = 0.0;
-    double P2f = 0.0;
+    double PRatio = 0.0;
     double T = 0.0;
     // Calculated from Pressure-Temperature relation
     power = gamma - 1;
     power = (power)/gamma;
     
-    P1f = pow(P1, power);
-    P2f = pow(P2, power);
+    PRatio = P2/P1;
     
-    T = T1*P1f;
-    T = (T)/P2f;
+    T = pow(PRatio, power);
+    T = T1*(T);
     
     return T;
 }
@@ -157,11 +155,11 @@ double AdiaFinalVol(double V1, double P1, double P2, double gamma)
 
 T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double n, double gamma)
 {
-    double incr = 0.0; // Difference between datapoints
-    int reso = 249; // Resolution of dataset
-    int i = 0;
+    double incr = 0.0;  // Difference between datapoints.
+    int reso = 249;     // Resolution of dataset.
+    int i = 0;          // Row controller.
     
-    static T1ThermoProf profile;
+    T1ThermoProf profile = {0.0};
     // Initialising profile to arrays on zeros
     for(int j = 0; j < 250; ++j){
         profile.P[j] = 0.0;
@@ -302,18 +300,14 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -415,8 +409,6 @@ void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
 void Adiabatic()
 {
     //Main Function
-    char methodinput[maxstrlen];
-    
     int whilmain = 0;
     
     printf("Adiabatic Volume Work\n");
@@ -424,28 +416,33 @@ void Adiabatic()
     while(whilmain == 1)
     {
         //Variable declaration
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double V1 = 0.0;
-        double V2 = 0.0;
-        double T1 = 0.0;
-        double T2 = 0.0;
-        double n = 0.0;
-        double gamma = 0.0;
+        char input[maxstrlen];          // Variable used to store character input.
+        int method = 0;                 // Variable used to control subroutine behaviour.
+        int whilmethod = 0;             // Variable used to control user input.
         
-        T1ThermoProf profile = {0.0};
+        T1ThermoProf profile = {0.0};   // Struct used to store the generated adiabatic process profile.
+        double T2 = 0.0;                // Final system temperature.
+        
+        double P1 = 0.0;                // Initial system pressure.
+        double P2 = 0.0;                // Final system pressure.
+        double V1 = 0.0;                // Initial system volume.
+        double V2 = 0.0;                // Final system volume.
+        double T1 = 0.0;                // Initial system temperature.
+        double n = 0.0;                 // Moles of component in system.
+        double gamma = 0.0;             // Heat capacity ratio.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //Data collection
-        int whilmethod = 0;
-        int method = 0;
-        
         whilmethod = 1;
         while(whilmethod == 1)
         {
             printf("Please select from the following calculation methods:\n1. Pressure-Volume\n2. Pressure-Temperature\n");
             printf("Selection [1 - 2]: ");
-            fgets(methodinput, sizeof(methodinput), stdin);
-            switch(methodinput[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                 case 'V':
@@ -464,6 +461,7 @@ void Adiabatic()
                 case 'Q':
                 case 'q':
                     whilmethod = 0;
+                    whilmain = 0;
                     break;
                 default:
                     printf("Invalid input, please try again");
@@ -475,19 +473,19 @@ void Adiabatic()
             AdiaVariable(method, &P1, &P2, &V1, &V2, &T1, &n, &gamma);
             
             //  Running calculations
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             profile = AdiaProfile(method, P1, P2, V1, V2, T1, n, gamma);
             
             T2 = profile.T[249];
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);

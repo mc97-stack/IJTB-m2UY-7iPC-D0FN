@@ -141,18 +141,14 @@ void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma,
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -233,36 +229,42 @@ void MSShaftWorkWriteSwitch(double P1, double P2, double T1, double mol, double 
 
 void MultistageShaftWork(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Multistage Gas Compression Shaft Work\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double T1 = 0.0;
-        double mol = 0.0;
-        int N = 0;
-        double gamma = 0.0;
+        double shaftWork = 0.0;     // Estimated shaft work for a N-stage compression.
         
-        double shaftWork = 0.0;
+        double P1 = 0.0;            // Initial system pressure before compression.
+        double P2 = 0.0;            // Final system pressure after multistage compression.
+        double T1 = 0.0;            // Initial system temperature
+        double mol = 0.0;           // Moles of component in system.
+        int N = 0;                  // Number of stages.
+        double gamma = 0.0;         // Heat capacity ratio.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         MSShaftWorkVariable(&P1, &P2, &T1, &mol, &N, &gamma);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         shaftWork = MSShaftWorkCalculation(P1, P2, T1, mol, gamma, N);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         MSShaftWorkDisplay(P1, P2, T1, mol, gamma, N, shaftWork);

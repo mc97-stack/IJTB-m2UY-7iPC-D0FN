@@ -31,7 +31,7 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
     *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu) * 0.001;
     
-    *d = inputDouble(0, "pipe diameter", "mm");
+    *d = inputDouble(0, "internal pipe diameter", "mm");
     *d = (*d) * 0.001;
     
     *L = inputDouble(0, "pipe length", "m");
@@ -166,7 +166,8 @@ void PressLossDisplay(double rho, double u, double d, double mu, double L, doubl
     
     printf("\tOutput parameters:\n");
     printf("Fluid pressure loss:\n");
-    printf("dP =\t%.3f\tPa\t= 8\\phi\\frac{L}{d}\\frac{\\rho u^2}{2}", dP);
+    printf("dP =\t%.3f\tPa\n", dP);
+    fflush(stdout);
 }
 
 void PressLossWrite(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
@@ -198,18 +199,14 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -251,7 +248,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Fluid pressure loss:\n");
-    fprintf(fp, "dP =\t%.3f\tPa\t= 8\\phi\\frac{L}{d}\\frac{\\rho u^2}{2}", dP);
+    fprintf(fp, "dP =\t%.3f\tPa\n", dP);
     
     //Close file
     fclose(fp);
@@ -296,41 +293,43 @@ void PressLossWriteSwitch(double rho, double u, double d, double mu, double L, d
 
 void GeneralPressureLoss()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 1;
     printf("General Pressure Loss\n");
     
     while(whilmain == 1)
     {
         //  Variable declaration
-        double rho = 0.0;
-        double u = 0.0;
-        double d = 0.0;
-        double mu = 0.0;
-        double L = 0.0;
-        double vareps = 0.0;
+        double phi = 0.0;   // Friction factor.
+        double dP = 0.0;    // Frictional pressure loss.
         
-        double phi = 0.0;
-        double dP = 0.0;
+        double rho = 0.0;   // Fluid density.
+        double u = 0.0;     // Fluid velocity.
+        double d = 0.0;     // Internal pipe diameter.
+        double mu = 0.0;    // Fluid viscosity.
+        double L = 0.0;     // Pipe length.
+        double vareps = 0.0;// Absolute surface roughness of pipe.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         PressLossVariable(&rho, &u, &d, &mu, &L, &vareps);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         phi = phiCalculation(rho, u, d, mu, vareps);
-        //printf("phi = %.5f [ ]\n", phi);
         dP = LossCalculation(phi, L, d, rho, u);
-        //printf("dP = %.3f kPa\n", dP*0.001);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         PressLossDisplay(rho, u, d, mu, L, vareps, phi, dP);

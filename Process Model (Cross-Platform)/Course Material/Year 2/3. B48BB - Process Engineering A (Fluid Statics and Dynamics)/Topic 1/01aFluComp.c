@@ -38,9 +38,6 @@ void FluCompVariable(double *P, double *V, double *n, double *T)
     //moles
     *n = inputDouble(0, "moles of substance", "kmol");
     *n = *n * 1000.0; //Conversion to mol
-    
-    //printf("You have entered:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", *P, *V, *n, *T); // This line is commented out unless checking the variable allocations in this subroutine.
-    fflush(stdout);
 }
 
 double FluCompCalculation(double P, double V, double n, double T)
@@ -64,18 +61,18 @@ double FluCompCalculation(double P, double V, double n, double T)
     
     c = (frac)*(c);
     
-    //printf("c = %f m3/ Pa \n", c);
     return c;
 }
 
 void FluCompDisplay(double P, double V, double n, double T, double c)
 {
     printf("_Fluid_Coefficient_of_Compressibility_Results_\n");
-    printf("P = %.3f kPa\n", P*0.001);
-    printf("V = %.3f m3\n", V);
-    printf("n = %.3f mol\n", n);
-    printf("T = %.3f deg C\n\n", (T - 273.15));
-    printf("c = $$-\\frac{1}{V}\\left(\\frac{\\delta{V}}{\\delta{P}}\\right))_T$$ = %.6f m3/Pa\n", c);
+    printf("P =\t%.3f\tkPa\n", P*0.001);
+    printf("V =\t%.3f\tm3\n", V);
+    printf("n =\t%.3f\tmol\n", n);
+    printf("T =\t%.3f\tdeg C\n\n", (T - 273.15));
+    printf("c =\t%.6f\tm3/Pa\n", c);
+    fflush(stdout);
 }
 
 void FluCompWrite(double P, double V, double n, double T, double c)
@@ -108,23 +105,18 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     printf("File name: \"%s\"\n", filename);
     /* //  This code does not work
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
-    strcpy(filepath, "~/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+
     strcat(filepath, filename);
-    void free(void *filename);
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
-        strcpy(filepath, "~/Documents/");
+        strcpy(filepath, "/Users/user/Documents/");
         printf("File is now being outputted to: %s\n", filepath);
     }
     */
@@ -137,11 +129,11 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     
     //Write to file
     fprintf(fp, "_Fluid_Coefficient_of_Compressibility_Results_\n");
-    fprintf(fp, "P = %.3f kPa\n", P*0.001);
-    fprintf(fp, "V = %.3f m3\n", V);
-    fprintf(fp, "n = %.3f mol\n", n);
-    fprintf(fp, "T = %.3f deg C\n\n", (T - 273.15));
-    fprintf(fp, "c = $$-\\frac{1}{V}\\left(\\frac{\\delta{V}}{\\delta{P}}\\right))_T$$ = %.6f m3/Pa\n", c);
+    fprintf(fp, "P =\t%.3f\tkPa\n", P*0.001);
+    fprintf(fp, "V =\t%.3f\tm3\n", V);
+    fprintf(fp, "n =\t%.3f\tmol\n", n);
+    fprintf(fp, "T =\t%.3f\tdeg C\n\n", (T - 273.15));
+    fprintf(fp, "c =\t%.6f\tm3/Pa\n", c);
     
     //Close file
     fclose(fp);
@@ -151,7 +143,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
 
 void FluCompWriteSwitch(double P, double V, double n, double T, double c)
 {
-    int control = 0;  // Variable used to control the following while loop.
+    int control = 0;    // Variable used to control user input.
     
     control = 1;
     while(control == 1)
@@ -186,7 +178,7 @@ void FluCompWriteSwitch(double P, double V, double n, double T, double c)
 
 void CoefficientofCompressibility()
 {
-    //  "CoefficientofCompressibility" has been abbreviated to "FluComp" followed by the function intention.
+    //  Pseudo-main function.
     int whilmain = 0;
     
     printf("Fluid Coefficient of Compressibility\n");
@@ -195,29 +187,32 @@ void CoefficientofCompressibility()
     while(whilmain == 1)
     {
         //  Declaring variables
-        double c = 0.0;
-        double P = 0.0;
-        double V = 0.0;
-        double n = 0.0;
-        double T = 0.0;
+        double c = 0.0; // Fluid coefficient of compressibility.
+        
+        double P = 0.0; // System pressure.
+        double V = 0.0; // System volume.
+        double n = 0.0; // Moles of component.
+        double T = 0.0; // System temperature.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Collecting data
         FluCompVariable(&P, &V, &n, &T);
-        //printf("Function has outputted:\n%f Pa\n%f m3\n%f mol\n%f K\n\n", P, V, n, T);
         
         //  Running calculation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         c = FluCompCalculation(P, V, n, T);
-        //printf("Function has outputted = %f m3/ Pa\n\n", c);
         
-        end = clock();
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
         
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        elapsed = timer(start, end);
+        
+        printf("Calculations completed in %.3f seconds.\n\n", elapsed);
         
         //  Displaying data
         FluCompDisplay(P, V, n, T, c);

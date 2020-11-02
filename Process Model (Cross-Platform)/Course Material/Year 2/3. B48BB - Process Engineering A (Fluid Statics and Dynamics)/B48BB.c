@@ -17,13 +17,9 @@
 #include "B48BB_T2.h"
 #include "B48BB_T3.h"
 #include "B48BB_T4.h"
-#include "03aFrictFactor.h"
 //#include "B48BB_T5.h"
 
 #define maxstrlen 16
-
-char B48BBMenu[maxstrlen];
-int whiltop;
 
 void B48BBTopComm()
 {
@@ -32,9 +28,11 @@ void B48BBTopComm()
 
 void B48BBtopic1()
 {
-    int whiltop = 0;
-    whiltop = 1;
-    while(whiltop == 1)
+    char input[maxstrlen];
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         B48BBTopComm();
         printf("1. Fluid Coefficient of Compressibility\n");
@@ -43,44 +41,52 @@ void B48BBtopic1()
         printf("4. Surface tension and Capillary action\n");
         printf("5. Bubble Pressure\n");
         printf("6. Capillarity\n");
-        printf("7. Pendant Drop Method\n");
+        //printf("7. Pendant Drop Method\n");
         printf("q. Exit topic\n");
-        printf("Selection [1 - 4]: ");
-        //Allocating memory for the menu
+        printf("Selection [1 - 6]: ");
         
-        fgets(B48BBMenu,sizeof(B48BBMenu),stdin);
+        fgets(input,sizeof(input),stdin);
         fflush(stdout);
         printf("\n");
-        switch(B48BBMenu[0])
+        switch(input[0])
         {
             case '1':
                 CoefficientofCompressibility();
-            break;
+                control = 0;
+                break;
             case '2':
                 FluidVerticalHydrostaticPressure();
-            break;
+                control = 0;
+                break;
             case '3':
                 Manometer();
-            break;
+                control = 0;
+                break;
             case '4':
                 SurfaceTension();
+                control = 0;
             break;
             case '5':
                 BubblePressure();
-            break;
+                control = 0;
+                break;
             case '6':
                 Cappilarity();
-            break;
+                control = 0;
+                break;
             case '7':
-                printf("This program isn't quite there yet, try something else meanwhile :) \n");
+                printf("This program isn't quite there yet, try something else meanwhile.\n");
                 //PenDrop();
-            break;
+                control = 0;
+                break;
+            case '0':
+            case 'Q':
             case 'q':
-                whiltop = 0;
-            break;
+                control = 0;
+                break;
             default:
-                printf("Invalid input\n");
-            break;
+                printf("Input not recognised. Please enter an integer between 1 and 6.\n");
+                break;
         }
         printf("\n");
         fflush(stdout);
@@ -90,60 +96,64 @@ void B48BBtopic1()
 
 void B48BBtopic2()
 {
-    int whiltop;
-    whiltop = 1;
+    char input[maxstrlen];
+    int control = 0;
     
-    while(whiltop == 1)
+    control = 1;
+    while(control == 1)
     {
         B48BBTopComm();
         printf("1. Mass Continuity Equation\n");
         printf("2. Steady-Flow energy equation\n");
         printf("3. Bernoulli's Equation\n");
         printf("4. Reynolds Number\n");
-        printf("5. Newton's Law of Viscosity (Description)\n");
-        printf("6. Dynamic and Kinematic Viscosity Correlations\n");
-        printf("7. Velocity Profiles (Laminar and Turbulent Flow)\n");
-        printf("8. Hagen-Poiseuille Equation\n");
+        printf("5. Dynamic and Kinematic Viscosity Correlations\n");
+        printf("6. Velocity Profiles (Laminar and Turbulent Flow)\n");
+        printf("7. Hagen-Poiseuille Equation\n");
         printf("q. Exit topic\n");
-        printf("Selection [1 - 8]: ");
+        printf("Selection [1 - 7]: ");
         
-        //Allocating memory for the menu variable
-        
-        fgets(B48BBMenu,sizeof(B48BBMenu),stdin);
+        fgets(input,sizeof(input),stdin);
         fflush(stdout);
         printf("\n");
-        switch(B48BBMenu[0])
+        switch(input[0])
         {
             case '1':
                 MassConservation();
-            break;
+                control = 0;
+                break;
             case '2':
                 EnergyConservation();
-            break;
+                control = 0;
+                break;
             case '3':
                 BernoulliEquation();
-            break;
+                control = 0;
+                break;
             case '4':
                 ReynoldsNumber();
-            break;
+                control = 0;
+                break;
             case '5':
-                //NewVisc();
-            break;
-            case '6':
                 ViscosityCorrelation();
-            break;
-            case '7':
+                control = 0;
+                break;
+            case '6':
                 VelocityProfileMenu();
-            break;
-            case '8':
+                control = 0;
+                break;
+            case '7':
                 HagenPoiseuille();
-            break;
+                control = 0;
+                break;
+            case '0':
+            case 'Q':
             case 'q':
-                whiltop = 0;
-            break;
+                control = 0;
+                break;
             default:
-            printf("Invalid input\n");
-            break;
+                printf("Input not recognised. Please enter an integer between 1 and 7.\n");
+                break;
         }
         
         fflush(stdout);
@@ -152,10 +162,11 @@ void B48BBtopic2()
 
 void B48BBtopic3()
 {
-    int whiltop;
-    whiltop = 1;
+    char input[maxstrlen];
+    int control = 0;
     
-    while(whiltop == 1){
+    control = 1;
+    while(control == 1){
         B48BBTopComm();
         printf("1. Laminar flow Frictional Pressure Loss\n");
         printf("2. General Frictional Pressure Loss\n");
@@ -163,43 +174,49 @@ void B48BBtopic3()
         printf("4. Pressure loss through Pipe fittings\n");
         printf("5. Pitot Static Tube\n");
         printf("6. Orifice plate meter/ Venturi Meter\n");
+        printf("7. Rotameter\n");
         printf("q. Exit topic\n\n");
-        printf("Selection [1-6]: ");
+        printf("Selection [1 - 7]: ");
         
-        fgets(B48BBMenu,sizeof(B48BBMenu),stdin);
+        fgets(input,sizeof(input),stdin);
         printf("\n");
-        switch(B48BBMenu[0]){
+        switch(input[0]){
             case '1':
                 HagenPoiseuille();
-            break;
+                control = 0;
+                break;
             case '2':
-                //printf("Currently under construction\n");
-                //Turbulent2(1000, 0.041, 16.2, 0.01);
-                //Turbulent3(1000, 0.041, 16.2, 0.01, 0.0015);
                 GeneralPressureLoss();
-            break;
+                control = 0;
+                break;
             case '3':
                 HydraulicDiameter();
-            break;
+                control = 0;
+                break;
             case '4':
                 Fittings();
-            break;
+                control = 0;
+                break;
             case '5':
                 PitotStaticTube();
-            break;
+                control = 0;
+                break;
             case '6':
                 OrificePlateMeter();
-            break;
+                control = 0;
+                break;
             case '7':
                 Rotameter();
-            break;
+                control = 0;
+                break;
             case '0':
+            case 'Q':
             case 'q':
-                whiltop = 0;
-            break;
+                control = 0;
+                break;
             default:
-                printf("Input not recognised\n");
-            break;
+                printf("Input not recognised. Please enter an integer between 1 and 7.\n");
+                break;
         }
         fflush(stdout);
     }
@@ -207,23 +224,7 @@ void B48BBtopic3()
 
 void B48BBtopic4()
 {
-    B48BBTopComm();
-    printf("1. Pump Selector\n");
-    printf("2. Pump Sizing\n");
-    printf("Selection [1 - 2]: ");
-    fgets(B48BBMenu,sizeof(B48BBMenu),stdin);
-    printf("\n");
-    switch(B48BBMenu[0]){
-        case '1':
-            //Code
-            break;
-        case '2':
-            PumpSizing();
-            break;
-        default:
-            printf("Input not recognised\n");
-            break;
-    }
+    PumpSizing();
 }
 /*
 void B48BBtopic5()
@@ -234,38 +235,45 @@ void B48BBtopic5()
 
 */
 void B48BB(){
-    char topi[maxstrlen];
-    int ConM; //While condition
+    char input[maxstrlen];
+    int control = 0;        // Variable used to control user input.
     
     printf("Process Engineering A - Fluid Dynamics\n\n");
-    ConM = 1;
-    while(ConM == 1){
+    control = 1;
+    while(control == 1){
         printf("Please select which topic you want to access:\n");
         printf("T1: Fluid Statics\nT2: Fluid Dynamics\nT3: Frictional Pressure Loss and Flow Measurement\nT4: Pumping Systems and Pump Sizing\nT5: Non-Newtonian Fluids\nq. Exit course\n\n");
         printf("Topic ");
-        fgets(topi,sizeof(topi),stdin);
-        switch(topi[0]){
+        fgets(input,sizeof(input),stdin);
+        switch(input[0]){
             case '1':
                 B48BBtopic1();
-            break;
+                control = 0;
+                break;
             case '2':
                 B48BBtopic2();
-            break;
+                control = 0;
+                break;
             case '3':
                 B48BBtopic3();
-            break;
+                control = 0;
+                break;
             case '4':
                 B48BBtopic4();
-            break;
+                control = 0;
+                break;
             case '5':
                 //B48BBtopic5();
-            break;
+                control = 0;
+                break;
+            case '0':
+            case 'Q':
             case 'q':
-                ConM = 0;
-            break;
+                control = 0;
+                break;
             default:
-                printf("Input not recognised\n");
-            break;
+                printf("Input not recognised. Please enter an integer between 1 and 5.\n");
+                break;
         }
         fflush(stdout);
     }

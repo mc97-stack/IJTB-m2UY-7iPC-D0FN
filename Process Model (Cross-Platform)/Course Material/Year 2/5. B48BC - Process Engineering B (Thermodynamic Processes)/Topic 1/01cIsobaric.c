@@ -78,11 +78,11 @@ double IsobFinalTemperature(double V1, double V2, double T1)
 
 T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, double T2, double n)
 {
-    double incr = 0.0; // Increment between data points
-    int reso = 0; // Resolution of generated plot
-    int i = 0; // Row controller
+    double incr = 0.0;  // Increment between data points
+    int reso = 0;       // Resolution of generated plot
+    int i = 0;          // Row controller
     
-    T1ThermoProf profile;
+    T1ThermoProf profile = {0.0};
     double total = 0.0;
     
     reso = 249;
@@ -132,7 +132,6 @@ T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, 
         printf("Total Volume work done = %.3f kW\n", total*0.001);
         printf("Profile calculated in %d rows\n\n", i);
     }
-    fflush(stdout);
     return profile;
 }
 
@@ -165,7 +164,8 @@ void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, doubl
     
     // Profile (Two Temperature columns (K and deg C))
     printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
@@ -205,18 +205,14 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -259,7 +255,8 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
@@ -278,6 +275,7 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
 void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
 {
     int control = 0;
+    
     control = 1;
     while(control == 1)
     {
@@ -312,7 +310,6 @@ void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, d
 void Isobaric()
 {
     //Main Function
-    
     int whilmain = 0;
     printf("Isobaric Process\n");
     
@@ -320,20 +317,22 @@ void Isobaric()
     while(whilmain == 1)
     {
         //Variable declaration
-        char methodinput[maxstrlen];
+        char methodinput[maxstrlen];    // Variable used to store character input.
+        int method = 0;                 // Variable used to control subroutine behaviour.
+        int whilmethod = 0;             // Variable used to control user input.
         
-        double P = 0.0;
-        double V1 = 0.0;
-        double V2 = 0.0;
-        double T1 = 0.0;
-        double T2 = 0.0;
-        double n = 0.0;
+        T1ThermoProf profile = {0.0};   // Struct used to store the generated isobaric process profile.
         
-        int method = 0;
+        double P = 0.0;                 // System pressure.
+        double V1 = 0.0;                // Initial system volume.
+        double V2 = 0.0;                // Final system volume.
+        double T1 = 0.0;                // Initial system temperature.
+        double T2 = 0.0;                // Final system temperature.
+        double n = 0.0;                 // Moles of component present in system.
         
-        T1ThermoProf profile = {0.0};
-        
-        int whilmethod = 0;
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         whilmethod = 1;
@@ -360,7 +359,9 @@ void Isobaric()
                     break;
                 case 'Q':
                 case 'q':
+                case '0':
                     whilmethod = 0;
+                    whilmain = 0;
                     break;
                 default:
                     printf("Invalid input, please try again");
@@ -372,17 +373,17 @@ void Isobaric()
             IsobVariable(method, &P, &V1, &V2, &T1, &T2, &n);
             
             //  Running calculations
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             profile = IsobProfile(method, P, V1, V2, T1, T2, n);
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             IsobProcDisplay(P, V1, V2, T1, T2, n, profile);

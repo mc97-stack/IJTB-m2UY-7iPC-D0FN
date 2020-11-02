@@ -27,15 +27,13 @@ void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double 
     
     *rho2 = inputDouble(0, "final fluid density", "kg/m3");
     
-    *d1 = inputDouble(0, "initial pipe diameter", "mm");
+    *d1 = inputDouble(0, "initial internal pipe diameter", "mm");
     *d1 = (*d1)*0.001; //Conversion (mm to m)
     
-    *d2 = inputDouble(0, "final pipe diameter", "mm");
+    *d2 = inputDouble(0, "final internal pipe diameter", "mm");
     *d2 = (*d2)*0.001; //Conversion (mm to m)
     
     *u1 = inputDouble(0, "initial fluid velocity", "m/s");
-    
-    fflush(stdout);
 }
 
 double FinalVelocityCalculation(double u1, double d1, double d2)
@@ -48,7 +46,6 @@ double FinalVelocityCalculation(double u1, double d1, double d2)
     
     u2 = u1*(frac);
     
-    //printf("Final fluid velocity = %.3f m/s\n", u2);
     return u2;
 }
 
@@ -122,6 +119,7 @@ void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, d
             printf("This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
         }
     }
+    fflush(stdout);
 }
 
 void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
@@ -153,20 +151,15 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
@@ -262,13 +255,7 @@ void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u
 
 void MassConservation()
 {
-    //Thought experiment
-    /* Imagine pouring a fluid into a closed system and allowing it to flow freely 
-     around the system capacity. Does the mass contained within the system fluctuate
-     about or does it remain constant? Assuming that temperature is being held constant
-     then the weight of the total system (Ignoring the surroundings) should not change
-     as there are no other inputs or outputs to/from the system*/
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Mass Conservation Principle\n");
     whilmain = 1;
@@ -276,29 +263,31 @@ void MassConservation()
     while(whilmain == 1)
     {
         //  Variable declaration
-        double rho1 = 0.0;
-        double rho2 = 0.0;
-        double d1 = 0.0;
-        double d2 = 0.0;
-        double u1 = 0.0;
-        double u2 = 0.0;
+        double u2 = 0.0;    // Final fluid velocity.
+        double m1 = 0.0;    // Initial mass flowrate.
+        double m2 = 0.0;    // Final mass flowrate.
+        double q1 = 0.0;    // Initial volumetric flowrate.
+        double q2 = 0.0;    // Final volumetric flowrate.
         
-        double m1 = 0.0;
-        double m2 = 0.0;
-        double q1 = 0.0;
-        double q2 = 0.0;
+        double rho1 = 0.0;  // Initial fluid density.
+        double rho2 = 0.0;  // Final fluid density.
+        double d1 = 0.0;    // Initial internal pipe diameter.
+        double d2 = 0.0;    // Final internal pipe diameter.
+        double u1 = 0.0;    // Initial fluid velocity.
         
         double error = 0.0;
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         MassConVariable(&rho1, &rho2, &d1, &d2, &u1);
         printf("Function returns:\nrho1 = %f\nrho2 = %f\nd1 = %f\nd2 = %f\nu1 = %f\n\n", rho1, rho2, d1, d2, u1);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         u2 = FinalVelocityCalculation(u1, d1, d2);
         //printf("Function returns: u2 = %f\n\n", u2);
@@ -313,10 +302,12 @@ void MassConservation()
         m2 = MassFlowCalculation(rho2, d2, u2);
         //printf("Mass flow rate = %.3f kg/s\n", m2);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying data
         MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);

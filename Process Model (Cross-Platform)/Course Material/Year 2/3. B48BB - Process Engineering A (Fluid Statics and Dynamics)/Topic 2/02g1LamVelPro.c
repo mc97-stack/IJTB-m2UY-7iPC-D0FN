@@ -21,7 +21,7 @@
 
 void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 {
-    *d = inputDouble(0, "pipe diameter", "mm");
+    *d = inputDouble(0, "internal pipe diameter", "mm");
     *d = (*d)*0.001;
     
     *L = inputDouble(0, "pipe length", "m");
@@ -30,13 +30,10 @@ void LamVelProVariable(double *dP, double *L, double *d, double *mu)
     
     *mu = inputDouble(0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
-    
-    fflush(stdout);
 }
 
 double LamVelCalculation(double dP, double L, double d, double mu, double r) 
 {
-    //Calculation of the theoretical velocity profile with the flow possessing laminar characteristics
     double frac1 = 0.0;
     double frac2 = 0.0;
     double frac3 = 0.0;
@@ -61,7 +58,6 @@ double LamVelCalculation(double dP, double L, double d, double mu, double r)
 
 double LamVelGeneralCalculation(double r, double d)
 {
-    //Calculation of the general velocity profile with the flow possessing laminar characteristics
     double func = 0.0;
     
     func = 2*r;
@@ -116,11 +112,13 @@ void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVel
     
     printf("\tOutput Parameters:\n");
     printf("r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
-    for(int i = 0; i < rows; ++i){
+    for(int i = 0; i < rows; ++i)
+    {
         printf("%.3f\t", 1000*profile.r[i]);
         printf("%.3f\t", profile.v_x[i]);
         printf("%.3f\n", profile.ratio[i]);
     }
+    fflush(stdout);
 }
 
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile)
@@ -152,18 +150,14 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -192,7 +186,8 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
-    for(int i = 0; i < ++rows; ++i){
+    for(int i = 0; i < ++rows; ++i)
+    {
         fprintf(fp, "%.3f\t", 1000*profile.r[i]);
         fprintf(fp, "%.3f\t", profile.v_x[i]);
         fprintf(fp, "%.3f\n", profile.ratio[i]);
@@ -206,9 +201,9 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
 
 void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -222,14 +217,14 @@ void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, La
             case 't':
             case 'y':
                 LamVelProWrite(dP, L, d, mu, rows, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -240,20 +235,24 @@ void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, La
 
 void LaminarVelPro()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Laminar flow velocity profile\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-        double dP = 0.0;
-        double L = 0.0;
-        double d = 0.0;
-        double mu = 0.0;
+        //  Variable declaration
+        LamVelProf profile; // Struct used to store the generated velocity profile.
         
-        LamVelProf profile;
+        double dP = 0.0;    // Fluid pressure loss.
+        double L = 0.0;     // Pipe length.
+        double d = 0.0;     // Internal pipe diameter.
+        double mu = 0.0;    // Fluid viscosity.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         // Initialising all elements in the struct
         for(int i = 0; i < 5000; ++i){
@@ -268,17 +267,17 @@ void LaminarVelPro()
         LamVelProVariable(&dP, &L, &d, &mu);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         profile = LamVelProfCalculation(dP, L, d, mu, &rows);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         LamVelProDisplay(dP, L, d, mu, rows, profile);

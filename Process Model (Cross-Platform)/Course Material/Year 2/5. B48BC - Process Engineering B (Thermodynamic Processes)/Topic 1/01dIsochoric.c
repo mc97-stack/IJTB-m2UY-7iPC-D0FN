@@ -86,10 +86,11 @@ double IsocFinalTemperature(double T1, double P1, double P2)
 
 T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv)
 {
-    double incr = 0.0; // Increment between data points
-    int reso = 0; // Resolution of the generated plot
-    int i = 0; // Row controller
-    T1ThermoProf profile;
+    double incr = 0.0;  // Increment between data points
+    int reso = 0;       // Resolution of the generated plot
+    int i = 0;          // Row controller
+    
+    T1ThermoProf profile = {0.0};
     double total = 0.0;
     
     reso = 249;
@@ -173,7 +174,8 @@ void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, doubl
     
     // Profile (Two Temperature columns (K and deg C))
     printf("P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tQ (kW)\tQ (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         printf("%f\t", profile.P[i]*0.001);
         printf("%f\t", profile.V[i]);
         printf("%f\t", profile.T[i]);
@@ -213,18 +215,14 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -268,7 +266,8 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     
     // Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tQ (kW)\tQ (kW)\n");
-    for(int i = 0; i < 250; ++i){
+    for(int i = 0; i < 250; ++i)
+    {
         fprintf(fp, "%f\t", profile.P[i]*0.001);
         fprintf(fp, "%f\t", profile.V[i]);
         fprintf(fp, "%f\t", profile.T[i]);
@@ -328,21 +327,23 @@ void Isochoric()
     while(whilmain == 1)
     {
         //Variable declaration
-        char methodinput[maxstrlen];
+        char methodinput[maxstrlen];    // Variable used to store character input.
+        int method = 0;                 // Variable used to control subroutine behaviour.
+        int whilmethod = 0;             // Variable used to control user input.
         
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double V = 0.0;
-        double T1 = 0.0;
-        double T2 = 0.0;
-        double n = 0.0;
-        double cv = 0.0;
+        T1ThermoProf profile = {0.0};   // Struct used to store the generated isochoric profile.
         
-        int method = 0;
+        double P1 = 0.0;                // Initial system pressure.
+        double P2 = 0.0;                // Final system pressure.
+        double V = 0.0;                 // System volume.
+        double T1 = 0.0;                // Initial system temperature.
+        double T2 = 0.0;                // Final system temperature.
+        double n = 0.0;                 // Moles of component in system.
+        double cv = 0.0;                // Heat capacity at constant volume.
         
-        T1ThermoProf profile = {0.0};
-        
-        int whilmethod = 0;
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //Data Collection
         whilmethod = 1;
@@ -369,7 +370,9 @@ void Isochoric()
                     break;
                 case 'Q':
                 case 'q':
+                case '0':
                     whilmethod = 0;
+                    whilmain = 0;
                     break;
                 default:
                     printf("Invalid input, please try again");
@@ -381,17 +384,17 @@ void Isochoric()
             IsocVariable(method, &P1, &P2, &V, &T1, &T2, &n, &cv);
             
             //  Running calculations
-            clock_t start, end;
-            double timeTaken = 0.0;
-            
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
             IsocProcDisplay(P1, P2, V, T1, T2, n, cv, profile);
@@ -401,6 +404,5 @@ void Isochoric()
         }
         //Continue function
         whilmain = Continue(whilmain);
-        fflush(stdout);
     }
 }

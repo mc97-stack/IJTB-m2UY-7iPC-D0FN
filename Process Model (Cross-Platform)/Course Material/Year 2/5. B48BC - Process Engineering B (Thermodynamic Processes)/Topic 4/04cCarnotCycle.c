@@ -299,18 +299,14 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -449,43 +445,49 @@ void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, 
 
 void CarnotCycle(void)
 {
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Carnot Cycle\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double P3 = 0.0;
-        double P4 = 0.0;
-        double THot = 0.0;
-        double TCold = 0.0;
-        double n = 0.0;
-        double gamma1 = 0.0;
-        double gamma2 = 0.0;
+        double worknet = 0.0;   // Net work on/by system.
+        double qhot = 0.0;      // Total heat received to system from hot reservoir.
+        double qcold = 0.0;     // Total heat sent from system to cold reservoir.
         
-        double worknet = 0.0;
-        double qhot = 0.0;
-        double qcold = 0.0;
+        double P1 = 0.0;        // System pressure before adiabatic compression (Pump).
+        double P2 = 0.0;        // System pressure before isothermal expansion (Boiler).
+        double P3 = 0.0;        // System pressure before adiabatic expansion (Turbine).
+        double P4 = 0.0;        // System pressure before isothermal compression (Condenser).
+        double THot = 0.0;      // Hot reservoir temperature (Boiler temperature).
+        double TCold = 0.0;     // Cold reservoir temperature (Condenser temperature)
+        double n = 0.0;         // Moles present in system.
+        double gamma1 = 0.0;    // Heat capacity ratio for the pump.
+        double gamma2 = 0.0;    // Heat capacity ratio for the turbine.
         
         T4CarnotProfile profile = {0.0};
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data Collection
         CarnotVariable(&P1, &P2, &P3, &P4, &THot, &TCold, &n, &gamma1, &gamma2);
         
         //  Data Manipulation
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         profile = CarnotProfileCalc(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, &worknet, &qhot, &qcold);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         CarnotDisplay(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);

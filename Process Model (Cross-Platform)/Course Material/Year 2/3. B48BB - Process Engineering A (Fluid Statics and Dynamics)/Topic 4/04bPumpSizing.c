@@ -41,6 +41,7 @@ head PumpHeadVariable(int type, head var)
     switch(type)
     {
         case '1':
+            printf("Suction head parameters\n");
             var.P = inputDouble(0, "suction vessel pressure", "kPa");
             var.P = (var.P)*1000;
             
@@ -61,7 +62,6 @@ head PumpHeadVariable(int type, head var)
             printf("Type integer invalid\n");
             break;
     }
-    printf("Fluid frictional head loss (m) = ");
     var.hf = inputDouble(0, "fluid frictional head loss", "m");
     
     return var;
@@ -164,6 +164,7 @@ void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat
     printf("dP_P =\t%.3f\tkPa\n", ppressure*0.001);
     printf("Pump power:\n");
     printf("W_h =\t%.3f\tkW\n", ppower*0.001);
+    fflush(stdout);
 }
 
 void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
@@ -195,18 +196,14 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -276,9 +273,10 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
 
 void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
 {
-    int SaveC;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -292,14 +290,14 @@ void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double 
             case 't':
             case 'y':
                 
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -311,29 +309,30 @@ void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double 
 void PumpSizing()
 {
     int whilmain = 0;
-    
     printf("Pump Sizing Calculator.\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        double Q = 0.0;
-        double rho = 0.0;
-        double Psat = 0.0;
-        double NPSHr = 0.0;
-        double eta = 0.0;
+        head suction = {0.0};   // Struct used to store the variables related to the suction head.
+        head discharge = {0.0}; // Struct used to store the variables related to the discharge head.
+        double shead = 0.0;     // Suction head.
+        double dhead = 0.0;     // Discharge head.
+        double NPSHa = 0.0;     // Net Positive Suction Head (NPSH) available.
+        double phead = 0.0;     // Pump head.
+        double ppressure = 0.0; // Pressure 'drop'(sic) through pump. 
+        double ppower = 0.0;    // Pump power requirement.
         
-        double shead = 0.0;
-        double dhead = 0.0;
-        double NPSHa = 0.0;
+        double Q = 0.0;         // Volumetric flowrate.
+        double rho = 0.0;       // Fluid density.
+        double Psat = 0.0;      // Saturated vapour pressure.
+        double NPSHr = 0.0;     // Pump required NPSH.
+        double eta = 0.0;       // Pump efficiency.
         
-        double phead = 0.0;
-        double ppressure = 0.0;
-        double ppower = 0.0;
-        
-        head suction = {0.0};
-        head discharge = {0.0};
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         PumpVariable(&Q, &rho, &Psat, &NPSHr, &eta);
@@ -341,10 +340,8 @@ void PumpSizing()
         discharge = PumpHeadVariable(2, discharge);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         shead = HeadCalculation(suction, rho);
         dhead = HeadCalculation(discharge, rho);
@@ -355,20 +352,24 @@ void PumpSizing()
             ppressure = PumpPressureCalculation(rho, phead);
             ppower = PumpPower(ppressure, Q, eta);
             
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Display
             PumpDisplay(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
             
             PumpWriteSwitch(suction, discharge, Q, rho, Psat, NPSHr, NPSHa, eta, phead, ppressure, ppower);
         }else{
-            end = clock();
-            
-            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-            printf("Process completed in %.3f seconds.\n\n", timeTaken);
+            clock_getres(CLOCK_MONOTONIC, &end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
+
+            elapsed = timer(start, end);
+
+            printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             printf("Insufficient Net Positive Suction Head. Ending calculations.\n");
         }

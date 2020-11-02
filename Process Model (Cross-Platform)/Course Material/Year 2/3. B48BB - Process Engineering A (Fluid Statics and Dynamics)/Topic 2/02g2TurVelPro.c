@@ -22,7 +22,6 @@
 void TurVelProVariable(double *umax, double *d)
 {
     double u = 0.0;
-    
     u = inputDouble(0, "average fluid velocity", "m/s");
     
     *umax = (49.0)/(60.0);
@@ -30,8 +29,6 @@ void TurVelProVariable(double *umax, double *d)
     
     *d = inputDouble(0, "pipe diameter", "mm");
     *d = (*d) * 0.001;
-    
-    fflush(stdout);
 }
 
 double TurVelCalculation(double vmax, double r, double d, double *gen) 
@@ -61,13 +58,7 @@ TurVelProf TurVelProCalculation(double vmax, double d, int *rows)
     double interval = 0.0;
     double prad = 0.0;
     
-    static TurVelProf profile;
-    // Initialising all elements in the struct
-    for(int i = 0; i < 5000; ++i){
-        profile.r[i] = 0.0;
-        profile.v_x[i] = 0.0;
-        profile.ratio[i] = 0.0;
-    }
+    TurVelProf profile = {0.0};
     
     interval = 0.001;
     prad = d/2;
@@ -101,7 +92,8 @@ void TurVelProDisplay(double umax, double d, int rows, TurVelProf profile)
     
     printf("\tOutput parameters:\n");
     printf("r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
-    for(int i = 0; i < ++rows; ++i){
+    for(int i = 0; i < ++rows; ++i)
+    {
         printf("%.3f\t", 1000*profile.r[i]);
         printf("%.3f\t", profile.v_x[i]);
         printf("%.3f\n", profile.ratio[i]);
@@ -137,18 +129,14 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -173,7 +161,8 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "r (mm)\tv_x (m/s)\tv_x/v_{max}\n");
-    for(int i = 0; i < ++rows; ++i){
+    for(int i = 0; i < ++rows; ++i)
+    {
         fprintf(fp, "%.3f\t", 1000*profile.r[i]);
         fprintf(fp, "%.3f\t", profile.v_x[i]);
         fprintf(fp, "%.3f\n", profile.ratio[i]);
@@ -187,9 +176,10 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 
 void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -203,14 +193,14 @@ void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
             case 't':
             case 'y':
                 TurVelProWrite(umax, d, rows, profile);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -221,18 +211,22 @@ void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
 
 void TurbulentVelPro()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Prandtl's One-Seventh Law Velocity Profile\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-        double vmax = 0;
-        double d = 0;
+        //  Variable declaration
+        TurVelProf profile = {0.0}; // Struct used to store the velocity profile.
         
-        TurVelProf profile = {0.0};
+        double vmax = 0;            // Maximum fluid velocity.
+        double d = 0;               // Internal pipe diameter.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         int rows = 0;
         
@@ -240,17 +234,17 @@ void TurbulentVelPro()
         TurVelProVariable(&vmax, &d);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         profile = TurVelProCalculation(vmax, d, &rows);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         TurVelProDisplay(vmax, d, rows, profile);

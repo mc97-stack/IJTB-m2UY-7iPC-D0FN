@@ -148,18 +148,14 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -200,7 +196,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Shaft Work:\n");
-    fprintf(fp, "W_S =\t%.3f\tkW\t= -\\frac{\\gamma}{\\gamma - 1}P_1V_1\\left[1 - \\left(\\frac{P_2}{P_1}\\right)^{\\frac{\\gamma - 1}{\\gamma}}\\right]", W_S*0.001);
+    fprintf(fp, "W_S =\t%.3f\tkW\n", W_S*0.001);
     
     //Close file
     fclose(fp);
@@ -245,52 +241,55 @@ void PolyShaftWriteSwitch(double n, double R, double T1, double P1, double P2, d
 
 void PolyShaftWork()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 1;
     printf("Polytropic Shaft Work\n");
     
     while(whilmain == 1)
     {
         //Variable declaration
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double T1 = 0.0;
-        double n = 0.0;
-        double R = 0.0;
-        double alpha = 0.0;
+        int ideal = 0;      // Variable used to control system behaviour based on whether the ideal gas constant was given in the variable input or not.
         
-        double W_S = 0.0;
+        double W_S = 0.0;   // Shaft work.
         
-        int ideal = 0;
+        double P1 = 0.0;    // Initial system pressure.
+        double P2 = 0.0;    // Final system pressure.
+        double T1 = 0.0;    // Initial system temperature.
+        double n = 0.0;     // Moles of component in system.
+        double R = 0.0;     // Gas constant.
+        double alpha = 0.0; // Polytropic index.
+        
+            //  Variables for timing function
+        struct timespec start = {0.0}, end = {0.0};
+        double elapsed = 0.0;
         
         //  Data collection
         ideal = PolyShaftVariable(&P1, &P2, &T1, &n, &R, &alpha);
         
         //  Running calculations
-        clock_t start = 0, end = 0;
-        double timeTaken = 0.0;
-        
-        
         if(ideal == 1){
             // Ideal
             printf("Isothermal process has been specified.\n");
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             W_S = IdealShaftCalculation(n, R, T1, P1, P2);
         }
         if(ideal == 2){
             // Normal polytropic
             printf("Polytropic process has been specified.\n");
-            start = clock();
+            clock_getres(CLOCK_MONOTONIC, &start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             
             W_S = PolyShaftCalculation(n, R, T1, P1, P2, alpha);
         }
-        //printf("Shaft work = %.3f kW\n", W_S*0.001);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         PolyShaftDisplay(n, R, T1, P1, P2, alpha, W_S);

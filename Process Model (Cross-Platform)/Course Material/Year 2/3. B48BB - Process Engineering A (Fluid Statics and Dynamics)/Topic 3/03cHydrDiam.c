@@ -60,7 +60,8 @@ void HydrDiamDisplay(double A_F, double P_W, double d_H)
     
     printf("\tOutput parameters:\n");
     printf("Hydraulic diameter:\n");
-    printf("d_H =\t%.3f\tmm\t= \\frac{4A_F}{P_W}", d_H*1000);
+    printf("d_H =\t%.3f\tmm\n", d_H*1000);
+    fflush(stdout);
 }
 
 void HydrDiamWrite(double A_F, double P_W, double d_H)
@@ -92,18 +93,14 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -128,7 +125,7 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     
     fprintf(fp, "\tOutput parameters:\n");
     fprintf(fp, "Hydraulic diameter:\n");
-    fprintf(fp, "d_H =\t%.3f\tmm\t= \\frac{4A_F}{P_W}", d_H*1000);
+    fprintf(fp, "d_H =\t%.3f\tmm\n", d_H*1000);
     
     //Close file
     fclose(fp);
@@ -173,35 +170,38 @@ void HydrDiamWriteSwitch(double A_F, double P_W, double d_H)
 
 void HydraulicDiameter()
 {
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Hydraulic diameter calculation\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //  Declaring variables
-        double A_F = 0.0; //Cross-sectional flow area
-        double P_W = 0.0; //Wetted perimeter
-        double d_H = 0.0; //Hydraulic diameter
+        //  Variable declaration
+        double d_H = 0.0;   // Hydraulic diameter
+        
+        double A_F = 0.0;   // Wetted perimeter
+        double P_W = 0.0;   // Cross-sectional flow area
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         HydrDiamVariable(&A_F, &P_W);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         d_H = HydrDiamCalculation(A_F, P_W);
         
-        //printf("d_H = %.3f mm\n\n", d_H*1000);
-        
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         HydrDiamDisplay(A_F, P_W, d_H);

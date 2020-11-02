@@ -26,8 +26,6 @@ void BubPresVariable(double *sigma, double *r)
     
     *r = inputDouble(0, "radius of fluid droplet", "mm");
     *r = (*r)*0.001; //Conversion (mm to m)
-    //printf("Function assignments:\nsigma = %f N/m\nr = %f m\n", *sigma, *r);
-    fflush(stdout);
 }
 
 double BubPresCalculation(double sigma, double r) 
@@ -54,6 +52,7 @@ void BubPresDisplay(double sigma, double r, double P)
     
     printf("\tOutput Parameters:\n");
     printf("P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
+    fflush(stdout);
 }
 
 void BubPresWrite(double sigma, double r, double P)
@@ -130,9 +129,10 @@ void BubPresWrite(double sigma, double r, double P)
 }
 void BubPresWriteSwitch(double sigma, double r, double P)
 {
-    int SaveC = 0;
-    SaveC = 1;
-    while(SaveC == 1)
+    int control = 0;
+    
+    control = 1;
+    while(control == 1)
     {
         char input[maxstrlen];
         
@@ -146,14 +146,14 @@ void BubPresWriteSwitch(double sigma, double r, double P)
             case 't':
             case 'y':
                 BubPresWrite(sigma, r, P);
-                SaveC = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                SaveC = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -164,37 +164,38 @@ void BubPresWriteSwitch(double sigma, double r, double P)
 
 void BubblePressure()
 {
-    // "BubblePressure" is abbreviated to "BubPres" for this file.
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
-    
     printf("Bubble Pressure Calculator\n");
-    whilmain = 1;
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         //  Declaring variables
-        double sigma = 0.0;
-        double r = 0.0;
-        double P = 0.0;
+        double P = 0.0;     // Pressure inside a spherical droplet.
+        
+        double sigma = 0.0; // Surface tension.
+        double r = 0.0;     // Radius of spherical droplet.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Collecting data
         BubPresVariable(&sigma, &r);
-        printf("Function returns:\nsigma = %f\nr = %f\n", sigma, r);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         P = BubPresCalculation(sigma, r);
-        //printf("Bubble pressure = %.3f Pa\n", P);
         
-        end = clock();
-        
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         BubPresDisplay(sigma, r, P);

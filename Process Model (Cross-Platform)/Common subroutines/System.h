@@ -17,6 +17,13 @@ double inputDouble(int allowZero, char VariableName[], char Units[]);
 
 #endif /* Input_h */
 
+#ifndef Timer_h
+#define Timer_h
+
+double timer(struct timespec start, struct timespec end);
+
+#endif /* Timer_h */
+
 #ifndef Continue_h
 #define Continue_h
 

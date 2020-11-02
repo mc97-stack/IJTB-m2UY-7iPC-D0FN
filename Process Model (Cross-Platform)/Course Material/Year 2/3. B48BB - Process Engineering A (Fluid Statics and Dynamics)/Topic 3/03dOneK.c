@@ -115,7 +115,8 @@ double OneKCalculation(int count, double data, double u)
 OneKFittings OneKFinalTable(OneKFittings data, double u)
 {
     // Counts and database should already be specified prior to this function being run
-    for(int i = 0; i < 15; ++i){
+    for(int i = 0; i < 15; ++i)
+    {
         data.headloss[i] = OneKCalculation(data.count[i], data.data[i], u);
     }
     return data;
@@ -139,89 +140,90 @@ void OneKDisplay(OneKFittings table, double u, double total)
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
     
-    i = 1;
+    
     printf("90 deg elbow standard radius\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 2;
     printf("90 deg square elbow\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 3;
     printf("Entry from leg T-piece\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 4;
     printf("Entry into leg T-piece\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 5;
     printf("Sudden Reduction (Tank outlet)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 6;
     printf("Sudden Expansion (Tank Inlet)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 7;
     printf("Unions and Couplings\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 8;
     printf("Globe valve fully open\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 9;
     printf("Gate valve (100 pct)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 10;
     printf("Gate valve (75 pct)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 11;
     printf("Gate valve (50 pct)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 12;
     printf("Gate valve (25 pct)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 13;
     printf("Ball valve (100 pct)\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    ++i;
     
-    i = 14;
     printf("Plug valve open\t");
     printf("%.2f\t", table.data[i]);
     printf("%i\t", table.count[i]);
     printf("%.3f\n", table.headloss[i]);
+    fflush(stdout);
 }
 
 void OneKWrite(OneKFittings table, double u, double total)
@@ -253,18 +255,14 @@ void OneKWrite(OneKFittings table, double u, double total)
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -425,42 +423,40 @@ void OneKWriteSwitch(OneKFittings table, double u, double total)
 
 void OneK()
 {
-    double u = 0.0;
+    //  Variable declaration
+    OneKFittings OneKTable = {0.0}; // Struct used to store collected
+    double totalHead = 0.0;         // Total head loss through stated fittings.
     
-    OneKFittings OneKTable = {0.0};
+    double u = 0.0;                 // Fluid velocity.
     
-    // Initializing the struct
-    for(int i = 0; i < 15; ++i)
-    {
-        OneKTable.count[i] = 0;
-        OneKTable.data[i] = 0.0;
-        OneKTable.headloss[i] = 0.0;
-    }
+        //  Variables for timing function
+    struct timespec start, end;
+    double elapsed = 0.0;
+    
     //  Collecting data
     OneKTable = OneKVariable(OneKTable, &u);
     
     //  Performing calculations
-    clock_t start, end;
-    double timeTaken = 0.0;
-    
-    start = clock();
+    clock_getres(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     
     OneKTable = OneKFinalTable(OneKTable, u);
     
     //  Calculating total head loss
-    double total = 0.0;
-    
-    for(int i = 0; i < 15; ++i){
-        total += OneKTable.headloss[i];
+    for(int i = 0; i < 15; ++i)
+    {
+        totalHead += OneKTable.headloss[i];
     }
-    end = clock();
-    
-    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-    printf("Process completed in %.3f seconds.\n\n", timeTaken);
+    clock_getres(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    elapsed = timer(start, end);
+
+    printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     // Displaying data
-    OneKDisplay(OneKTable, u, total);
+    OneKDisplay(OneKTable, u, totalHead);
     
     // Writing data
-    OneKWriteSwitch(OneKTable, u, total);
+    OneKWriteSwitch(OneKTable, u, totalHead);
 }

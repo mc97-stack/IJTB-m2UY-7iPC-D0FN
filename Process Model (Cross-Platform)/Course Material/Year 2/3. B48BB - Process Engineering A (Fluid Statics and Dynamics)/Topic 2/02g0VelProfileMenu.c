@@ -20,11 +20,10 @@
 
 void VelocityProfileMenu()
 {
-    //Main Function
-    int whilmain;
+    int whilmain = 0;
     printf("Velocity Profile Selection\n");
-    whilmain = 1;
     
+    whilmain = 1;
     while(whilmain == 1)
     {
         char CalcCheck[maxstrlen];

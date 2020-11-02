@@ -112,6 +112,7 @@
 		E871B99B254DBCF300B76802 /* 04cCarnotCycle.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04cCarnotCycle.c; sourceTree = "<group>"; };
 		E871B9A4254DDE5400B76802 /* 04dClausiusInequality.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04dClausiusInequality.h; sourceTree = "<group>"; };
 		E871B9A5254DDE5400B76802 /* 04dClausiusInequality.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04dClausiusInequality.c; sourceTree = "<group>"; };
+		E879322725502D63005BEECE /* Clipboard.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Clipboard.c; sourceTree = "<group>"; };
 		E88C639F2535EFF500DA6722 /* 02g0VelProfileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 02g0VelProfileMenu.h; sourceTree = "<group>"; };
 		E8A23796254A03520001B678 /* 03cMultistageEstimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03cMultistageEstimation.h; sourceTree = "<group>"; };
 		E8A23797254A03520001B678 /* 03cMultistageEstimation.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03cMultistageEstimation.c; sourceTree = "<group>"; };
@@ -329,6 +330,7 @@
 				E8FEA64224ECDBE1003F9D5E /* main.c */,
 				E8FEA64824ECDBE2003F9D5E /* main.h */,
 				E8FEA64524ECDBE1003F9D5E /* README.md */,
+				E879322725502D63005BEECE /* Clipboard.c */,
 			);
 			path = "Process Model (Cross-Platform)";
 			sourceTree = "<group>";

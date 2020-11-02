@@ -67,7 +67,6 @@ void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, doub
     
     *Q = (*m)/rho;
     *u = (*Q)/(are1);
-    //return [Function Output];
 }
 
 void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
@@ -103,6 +102,7 @@ void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double a
     printf("Q =\t%.3f\tm3/s\n", Q);
     printf("Process fluid velocity:\n");
     printf("u =\t%.3f\tm/s\n", u);
+    fflush(stdout);
 }
 
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
@@ -134,18 +134,14 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -243,41 +239,39 @@ void Rotameter()
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-            //Function Output
-        double dP = 0.0;
-        double m = 0.0;
-        double Q = 0.0;
-        double u = 0.0;
-            //Calculation Variables
-        double C_d = 0.0;
-        double V_f = 0.0;
-        double rho_f = 0.0;
-        double rho = 0.0;
-        double A_f = 0.0;
-        double are1 = 0.0;
-        double are2 = 0.0;
+        //  Variable declaration
+        double dP = 0.0;    // Fluid pressure loss through the rotameter.
+        double m = 0.0;     // Fluid mass flow rate.
+        double Q = 0.0;     // Fluid volumetric flow rate.
+        double u = 0.0;     // Fluid velocity.
+        
+        double C_d = 0.0;   // Discharge coefficient.
+        double V_f = 0.0;   // Float volume.
+        double rho_f = 0.0; // Float density.
+        double rho = 0.0;   // Process fluid density.
+        double A_f = 0.0;   // Maximum cross-sectional area of float.
+        double are1 = 0.0;  // Cross-sectional area of tube at the point where the float is located.
+        double are2 = 0.0;  // Annular area between the tube and float.
+        
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         RotameterVariable(&C_d, &V_f, &rho_f, &rho, &A_f, &are1, &are2);
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         RotameterCalculation(C_d, V_f, rho_f, rho, A_f, are1, are2, &dP, &m, &Q, &u);
-        /*
-        printf("Buoyant force = %.3f Pa\n", dP);
-        printf("Fluid velocity = %.3f m/s\n", u);
-        printf("Volumetric flow = %.3f m3/s\n", Q);
-        printf("Mass flowrate = %.3f kg/s\n", m);
-        */
-        end = clock();
         
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
         RotameterDisplay(rho, V_f, rho_f, A_f, are1, are2, C_d, dP, m, Q, u);

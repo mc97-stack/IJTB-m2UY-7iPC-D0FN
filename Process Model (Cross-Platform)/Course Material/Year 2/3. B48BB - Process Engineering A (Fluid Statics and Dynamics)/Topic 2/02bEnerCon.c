@@ -43,10 +43,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
     
     //Function variables
     char menu[maxstrlen];
-    int whilmethod = 0;
+    int control = 0;
     
-    whilmethod = 1;
-    while(whilmethod == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Which definition do you want to use:\n");
         printf("1. Internal Energy (u)\n2. Enthalpy (h)\n\n");
@@ -79,7 +79,7 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
                 *h1 = EnthalpyConversion(inteng1, pres1, rho1);
                 *h2 = EnthalpyConversion(inteng2, pres2, rho2);
                 
-                whilmethod = 0;
+                control = 0;
             break;
             case '2':
             case 'E':
@@ -92,7 +92,7 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
                 *h2 = inputDouble(0, "final specific enthalpy", "kJ/kg");
                 *h2 = (*h2)*1000;
                 
-                whilmethod = 0;
+                control = 0;
             break;
             default:
                 printf("Input not recognised\n\n");
@@ -134,8 +134,6 @@ double EnerConFluidCalculation(double h, double u, double z)
     
     EnerCont = (EnerCont) + (pot);
     
-    //printf("State energy content = %.3f kJ/kg\n", EnerCont*0.001);
-    
     return EnerCont;
 }
 
@@ -147,7 +145,7 @@ double EnerConProcessCalculation(double q, double w)
     return Energy;
 }
 
-void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double state1, double state2, double process, double check)
 {
     printf("_Steady-Flow_Energy_Equation_\n");
     printf("Assuming the fluid is incompressible. \n");
@@ -172,16 +170,25 @@ void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, doubl
     printf("w =\t%.3f\tkJ/kg\n\n", w*0.001);
     
     printf("\tOutput parameters:\n");
+    printf("Energy content at state 1:\n");
+    printf("state1 =\t%.3f\tkJ/kg\n", state1*0.001);
+    printf("Energy content at state 2:\n");
+    printf("state2 =\t%.3f\tkJ/kg\n\n", state1*0.001);
+    
+    printf("Net process energy:\n");
+    printf("q + w =\t%.3f\tkJ/kg\n\n", process*0.001);
+    
     printf("check =\t%.3f\tkJ/kg\n", check*0.001);
-    if(check <= 0.001)
+    if(fabs(check) <= 0.001)
     {
         printf("Your process should work in reality\n");
     }else{
         printf("Your process breaks the first law\n");
     }
+    fflush(stdout);
 }
 
-void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double state1, double state2, double process, double check)
 {
     //Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
@@ -210,18 +217,14 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -260,9 +263,17 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     fprintf(fp, "w =\t%.3f\tkJ/kg\n\n", w*0.001);
     
     fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Energy content at state 1:\n");
+    fprintf(fp, "state1 =\t%.3f\tkJ/kg\n", state1*0.001);
+    fprintf(fp, "Energy content at state 2:\n");
+    fprintf(fp, "state2 =\t%.3f\tkJ/kg\n\n", state1*0.001);
+    
+    fprintf(fp, "Net process energy:\n");
+    fprintf(fp, "q + w =\t%.3f\tkJ/kg\n\n", process*0.001);
+    
     fprintf(fp, "check =\t%.3f\tkJ/kg\n", check*0.001);
     
-    if(check <= 0.001)
+    if(fabs(check) <= 0.001)
     {
         fprintf(fp, "Your process should work in reality\n");
     }else{
@@ -275,7 +286,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     printf("Write Complete\n");
 }
 
-void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double check)
+void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double state1, double state2, double process, double check)
 {
     int control = 0;
     
@@ -293,7 +304,7 @@ void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, d
             case 'Y':
             case 't':
             case 'y':
-                EnerConWrite(h1, h2, u1, u2, z1, z2, q, w, check);
+                EnerConWrite(h1, h2, u1, u2, z1, z2, q, w, state1, state2, process, check);
                 control = 0;
                 break;
             case '0':
@@ -312,69 +323,60 @@ void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, d
 
 void EnergyConservation()
 {
-    //First law states that energy is always conserved, This has mathematical implications when designing processes
-    //Condition can be checked by using the definition from internal energy (C_v) or enthalpy (C_P)
-    //Main Function
+    //  Pseudo-main function.
     int whilmain = 0;
     printf("Energy Conservation Check\n");
     
     whilmain = 1;
     while(whilmain == 1)
     {
-        //Variable declaration
-        double h1 = 0.0;
-        double h2 = 0.0;
-        double u1 = 0.0;
-        double u2 = 0.0;
-        double z1 = 0.0;
-        double z2 = 0.0;
-        double q = 0.0;
-        double w = 0.0;
+        //  Variable declaration
+        double state1 = 0.0;    // Fluid energy content at state 1.
+        double state2 = 0.0;    // Fluid energy content at state 2.
+        double process = 0.0;   // Net energy inputted/ removed to/from process.
+        double check = 0.0;     // Store variable for hold the difference between fluid state energies and process energies.
         
-        double state1 = 0.0;
-        double state2 = 0.0;
-        double process = 0.0;
+        double h1 = 0.0;        // Fluid enthalpy at state 1.
+        double h2 = 0.0;        // Fluid enthalpy at state 2.
+        double u1 = 0.0;        // Fluid velocity at state 1.
+        double u2 = 0.0;        // Fluid velocity at state 2.
+        double z1 = 0.0;        // Fluid elevation at state 1.
+        double z2 = 0.0;        // Fluid elevation at state 2.
+        double q = 0.0;         // Total heat inputted into/removed from process.
+        double w = 0.0;         // Total work done by/on or process.
         
-        double check = 0.0;
+            //  Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
         
         //  Data collection
         EnerConVariable(&h1, &h2, &u1, &u2, &z1, &z2, &q, &w);
-        /*
-        printf("\nFunction assignments:\n");
-        printf("h1 = %f \n", h1);
-        printf("h2 = %f \n", h2);
-        printf("u1 = %f \n", u1);
-        printf("u2 = %f \n", u2);
-        printf("z1 = %f \n", z1);
-        printf("z2 = %f \n", z2);
-        printf("q = %f \n", q);
-        printf("w = %f \n\n", w);*/
         
         //  Running calculations
-        clock_t start, end;
-        double timeTaken = 0.0;
-        
-        start = clock();
+        clock_getres(CLOCK_MONOTONIC, &start);
+        clock_gettime(CLOCK_MONOTONIC, &start);
         
         state1 = EnerConFluidCalculation(h1, u1, z1);
-        printf("Function returns: state1 = %f\n", state1);
         
         state2 = EnerConFluidCalculation(h2, u2, z2);
-        printf("Function returns: state2 = %f\n\n", state2);
         
         process = EnerConProcessCalculation(q, w);
-        printf("Function returns: Process = %f\n\n", process);
         
-        end = clock();
+        check = state2 - state1;
+        check = (check) - process;
         
-        timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-        printf("Process completed in %.3f seconds.\n\n", timeTaken);
+        clock_getres(CLOCK_MONOTONIC, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        elapsed = timer(start, end);
+
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        EnerConDisplay(h1, h2, u1, u2, z1, z2, q, w, check);
+        EnerConDisplay(h1, h2, u1, u2, z1, z2, q, w, state1, state2, process, check);
         
         //  Writing to file
-        EnerConWriteSwitch(h1, h2, u1, u2, z1, z2, q, w, check);
+        EnerConWriteSwitch(h1, h2, u1, u2, z1, z2, q, w, state1, state2, process, check);
         
         //  Continue function
         whilmain = Continue(whilmain);

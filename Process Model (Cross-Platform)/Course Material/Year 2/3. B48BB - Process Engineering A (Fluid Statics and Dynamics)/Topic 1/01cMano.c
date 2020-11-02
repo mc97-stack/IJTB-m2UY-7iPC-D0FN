@@ -25,22 +25,19 @@
 
 void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double *h2)
 {
-    //Misc function variables
-    char menu[maxstrlen];   // Variable used to store character input into a menu.
+    char input[maxstrlen];   // Variable used to store character input into a menu.
+    int control = 0;        // Variable used to control user input.
     
-    double L = 0.0;
-    double incl = 0.0;
+    double L = 0.0;         // Length of manometer arm.
+    double incl = 0.0;      // Inclination angle.
     
-    int PresCheck = 0;
-    int InclCheck = 0;
-    
-    PresCheck = 1;
-    while(PresCheck == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Take reference pressure as absolute atmospheric pressure? ");
         
-        fgets(menu, sizeof(menu), stdin);
-        switch(menu[0])
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
         {
             case '1':
             case 'T':
@@ -48,7 +45,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
             case 't':
             case 'y':
                 *P2 = 101.325;
-                PresCheck = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
@@ -61,7 +58,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
                 {
                     *P2 = *P2 + 101.325;
                 }
-                PresCheck = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -79,12 +76,12 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
     *rho2 = inputDouble(0, "manometer fluid density", "kg/m3");
     
     //Check for an inclined manometer
-    InclCheck = 1;
-    while(InclCheck == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Is the manometer inclined? ");
-        fgets(menu, sizeof(menu), stdin);
-        switch(menu[0])
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
         {
             case '1':
             case 'T':
@@ -100,7 +97,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
                 incl = (incl)*(PI/180); //Conversion to radians
                 *h2 = (L)*sin( (incl) );
                 
-                InclCheck = 0;
+                control = 0;
                 break;
             case '0':
             case 'F':
@@ -110,7 +107,7 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
                 printf("Height of manometer fluid (cm) = ");
                 *h2 = inputDouble(0, "height of manometer fluid", "cm");
                 
-                InclCheck = 0;
+                control = 0;
                 break;
             default:
                 printf("Input not recognised\n");
@@ -120,29 +117,26 @@ void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double
     
     *h2 = *h2 * 0.01; //Conversion (cm to m)
     printf("\n");
-    //printf("Function assignments:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", *P2, *rho1, *h1, *rho2, *h2);
-    
-    fflush(stdout);
 }
 
 void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double *h1)
 {
     //Misc function variables
-    char menu[maxstrlen];  // Variable used to store character input into a menu.
-    
+    char input[maxstrlen];  // Variable used to store character input.
     int PresCheck = 0;
     
     *P1 = inputDouble(0, "P_1", "kPa_{abs}");
     *P1 = (*P1)*1000; //Conversion (kPa to Pa)
     
     PresCheck = 1;
+    
     //P2 variable collection
     while(PresCheck == 1)
     {
         printf("Take reference pressure as 101.325 kPa? ");
-        fgets(menu, sizeof(menu), stdin);
+        fgets(input, sizeof(input), stdin);
         
-        switch(menu[0])
+        switch(input[0])
         {
             case '1':
             case 'T':
@@ -194,23 +188,22 @@ double ManoMeasCalculation(double P2, double rho1, double h1, double rho2, doubl
     
     P1 = P2 + (P1);
     
-    //printf("Pipe pressure = %.3f kPa\n", (P1 * 0.001));
     return P1;
 }
 
 double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double rho2)
 {
-    char inclcheck[maxstrlen];
+    char input[maxstrlen];  // Variable used to store user input.
+    int control = 0;        // Variable used to control user input.
     
-    double dP = 0.0;
+    double h2 = 0.0;        // Estimated height of manometer fluid.
+    
+    double dP = 0.0;        // Pressure difference.
     double top = 0.0;
     double bot = 0.0;
-    double rad = 0.0;
-    double incl = 0.0;
+    double incl = 0.0;      // Inclination angle in degrees.
+    double rad = 0.0;       // Inclination angle in radians.
     
-    double h2 = 0.0;
-    
-    int InclCheck;
     
     dP = P1 - P2;
     top = rho1*g;
@@ -221,12 +214,12 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
     
     h2 = (top)/(bot);
     
-    InclCheck = 1;
-    while(InclCheck == 1)
+    control = 1;
+    while(control == 1)
     {
         printf("Is the manometer inclined? ");
-        fgets(inclcheck, sizeof(inclcheck), stdin);
-        switch(inclcheck[0])
+        fgets(input, sizeof(input), stdin);
+        switch(input[0])
         {
             case '1':
             case 'T':
@@ -238,18 +231,17 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
                 
                 incl = (incl)*(PI/180.0); //Conversion to radians
                 rad = sin(incl);
-                //printf("Degree of inclination in radians = %f rad\n", rad);
+                
                 h2 = (h2)/(rad);
-                //printf("Length of manometer fluid in the inclined arm = %.3f cm\n", ((h2)*100));
-                InclCheck = 0;
+                
+                control = 0;
             break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
-                //printf("Manometer fluid height = %.3f cm\n", ((h2)*100) ); //Conversion (cm to m)
-                InclCheck = 0;
+                control = 0;
             break;
             default:
                 printf("Input not recognised\n");
@@ -277,6 +269,7 @@ void ManoMeasDisplay(double P1, double P2, double rho1, double h1, double rho2, 
     printf("_Output_Values:_\n");
     printf("Manometer fluid height:\n");
     printf("h2 =\t%.3f\tm\t= \\frac{\\rho_1gh_1 - \\Delta{P}}{\\rho_2g}\n", h2);
+    fflush(stdout);
 }
 
 void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
@@ -412,6 +405,7 @@ void ManoEstiDisplay(double P1, double P2, double rho1, double h1, double rho2, 
     
     printf("_Output_Values:_\n");
     printf("P1 =\t%.3f\tkPa_abs\t= P2 + g(\\rho_2h_2 - \\rho_1h_1)\n", P1*0.001);
+    fflush(stdout);
 }
 
 void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
@@ -531,74 +525,85 @@ void ManoEstiWriteSwitch(double P1, double P2, double rho1, double h1, double rh
 
 void Manometer()
 {
-    // This has been shortened to "Mano" followed by "Meas" for subroutines relating to measurement calculations and "Esti" for subroutines relating to estimation calculations.
-    //Main Function
-    char CalcSelec[maxstrlen];
-    int whilmain = 1;
-    
+    //  Pseudo-main function.
+    int whilmain = 0;
     printf("Manometer calculations\n");
+    
+    whilmain = 1;
     while(whilmain == 1)
     {
         //  Declaring variables
-        double P1 = 0.0;
-        double P2 = 0.0;
-        double rho1 = 0.0;
-        double rho2 = 0.0;
-        double h1 = 0.0;
-        double h2 = 0.0;
+        char input[maxstrlen];  // Variable used to store character input.
+        int control = 0;   // Integer variable used to control subroutine inputs and behaviour.
         
-        int whilfunc = 0;
+        double P1 = 0.0;    // Pressure of travelling process fluid.
+        double P2 = 0.0;    // Pressure of surroundings on manometer fluid.
+        double rho1 = 0.0;  // Density of process fluid.
+        double rho2 = 0.0;  // Density of manometer fluid.
+        double h1 = 0.0;    // Height of process fluid in manometer.
+        double h2 = 0.0;    // Height of manometer fluid in manometer.
         
-        whilfunc = 1;
-        while(whilfunc == 1)
+            // Variables for timing function
+        struct timespec start, end;
+        double elapsed = 0.0;
+        
+        control = 1;
+        while(control == 1)
         {
             printf("Please make a selection: \n");
             printf("1. Pressure Measurement\n");
             printf("2. Manometer fluid height estimation\n");
             printf("Selection [1 - 2]: ");
             
-            fgets(CalcSelec, sizeof(CalcSelec), stdin);
-            switch(CalcSelec[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                 case 'M':
                 case 'm':
                     printf("\n");
                     ManoMeasVariable(&P2, &rho1, &h1, &rho2, &h2);
-                    //printf("Function returns:\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\nh2 = %f\n\n", P2, rho1, h1, rho2, h2);
-                    clock_t start, end;
-                    double timeTaken = 0.0;
                     
-                    start = clock();
+                    clock_getres(CLOCK_MONOTONIC, &start);
+                    clock_gettime(CLOCK_MONOTONIC, &start);
                     
                     P1 = ManoMeasCalculation(P2, rho1, h1, rho2, h2);
-                    //printf("Function returns: %f\n", P1);
                     
-                    end = clock();
-                    
-                    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-                    printf("Process completed in %.3f seconds.\n\n", timeTaken);
+                    clock_getres(CLOCK_MONOTONIC, &end);
+                    clock_gettime(CLOCK_MONOTONIC, &end);
+
+                    elapsed = timer(start, end);
+
+                    printf("Calculations completed in %.6f seconds.\n", elapsed);
                     
                     ManoMeasDisplay(P1, P2, rho1, h1, rho2, h2);
                     
                     ManoMeasWriteSwitch(P1, P2, rho1, h1, rho2, h2);
-                    whilfunc = 0;
+                    control = 0;
                 break;
                 case '2':
                 case 'E':
                 case 'e':
                     printf("\n");
                     ManoEstiVariable(&P1, &P2, &rho1, &rho2, &h1);
-                    //printf("Function returns:\nP1 = %f\nP2 = %f\nrho1 = %f\nh1 = %f\nrho2 = %f\n\n", P1, P2, rho1, h1, rho2);
+                    
+                    clock_getres(CLOCK_MONOTONIC, &start);
+                    clock_gettime(CLOCK_MONOTONIC, &start);
                     
                     h2 = ManoEstiCalculation(P1, P2, rho1, h1, rho2);
-                    //printf("Function returns: %f\n", h2);
+                    
+                    clock_getres(CLOCK_MONOTONIC, &end);
+                    clock_gettime(CLOCK_MONOTONIC, &end);
+
+                    elapsed = timer(start, end);
+
+                    printf("Calculations completed in %.6f seconds.\n", elapsed);
                     
                     ManoEstiDisplay(P1, P2, rho1, h1, rho2, h2);
                     
                     ManoEstiWriteSwitch(P1, P2, rho1, h1, rho2, h2);
                     
-                    whilfunc = 0;
+                    control = 0;
                 break;
                 default:
                     printf("Input not recognised. \n");

@@ -114,7 +114,7 @@ TwoKFittings TwoKData(TwoKFittings input)
 
 TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd)
 {
-    char input[maxstrlen];  // Variable used to store keyboard input.
+    char input[maxstrlen];  // Variable used to store character input.
     
     table = TwoKData(table);
     
@@ -554,7 +554,8 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
     printf("%i\t", data.count[i]);
     printf("%.3f\t", data.headloss[i]);
     printf("%.3f\n", data.dP_f[i]);
-    ++i;
+    
+    fflush(stdout);
 }
 
 void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
@@ -586,18 +587,14 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc(sizeof *filepath);
-    
+
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
-    printf("File path: \"%s\"\n", filepath);
-    
+
     strcat(filepath, filename);
-    void free(void *filename); // Removing 'filename' from the heap
-    
-    printf("File name: \"%s\"\n", filename);
+
     printf("Full file path: \"%s\"\n\n", filepath);
-    
+
     //Testing if directory is not present
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
@@ -951,36 +948,28 @@ void TwoKWriteSwitch(TwoKFittings data, double rho, double u, double d, double m
 
 void TwoK()
 {
-    double rho = 0.0;
-    double u = 0.0;
-    double d = 0.0;
-    double mu = 0.0;
-    double impd = 0.0;
-    double Re = 0.0;
+    //  Variable declaration
+    double Re = 0.0;                // Reynolds number.
+    TwoKFittings TwoKTable = {0.0}; // Struct used to store collected data and individual head lossses.
+    double TotalP = 0.0;            // Total pressure loss from specified fittings.
+    double TotalH = 0.0;            // Total head loss from specified fittings.
     
-    double TotalP = 0.0;
-    double TotalH = 0.0;
+    double rho = 0.0;               // Fluid density.
+    double u = 0.0;                 // Fluid velocity.
+    double d = 0.0;                 // Internal pipe diameter.
+    double mu = 0.0;                // Fluid viscosity.
+    double impd = 0.0;              // Internal pipe diameter (inches).
     
-    TwoKFittings TwoKTable = {0.0};
-    
-    // Initialising the struct
-    for(int i = 0; i < 32; ++i)
-    {
-        TwoKTable.k1[i] = 0;
-        TwoKTable.kinf[i] = 0.0;
-        TwoKTable.count[i] = 0;
-        TwoKTable.headloss[i] = 0.0;
-        TwoKTable.dP_f[i] = 0.0;
-    }
+        //  Variables for timing function
+    struct timespec start, end;
+    double elapsed = 0.0;
     
     //  Collecting data
     TwoKTable = TwoKVariable(TwoKTable, &rho, &u, &d, &mu, &impd);
     
     //  Performing calculations
-    clock_t start, end;
-    double timeTaken = 0.0;
-    
-    start = clock();
+    clock_getres(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     
     TwoKTable = TwoKFinalTable(TwoKTable, rho, u, d, mu, impd, &Re);
     
@@ -990,10 +979,12 @@ void TwoK()
         TotalH += TwoKTable.headloss[i];
         TotalP += TwoKTable.dP_f[i];
     }
-    end = clock();
-    
-    timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
-    printf("Process completed in %.3f seconds.\n\n", timeTaken);
+    clock_getres(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    elapsed = timer(start, end);
+
+    printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying Results
     TwoKDisplay(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
