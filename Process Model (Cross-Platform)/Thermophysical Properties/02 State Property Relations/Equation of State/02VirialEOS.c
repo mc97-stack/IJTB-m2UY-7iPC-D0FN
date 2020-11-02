@@ -1,5 +1,5 @@
 //
-//  01 Virial Equation of State.c
+//  02VirialEOS.c
 //  Process Model (Cross-Platform)
 //
 //  Created by Matthew Cheung on 01/11/2020.

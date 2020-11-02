@@ -320,6 +320,7 @@
 		E8FEA5FF24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {
 			isa = PBXGroup;
 			children = (
+				E8FEA60924ECDBE0003F9D5E /* Common subroutines */,
 				E8FEA60824ECDBE0003F9D5E /* Course Material */,
 				E8FEA64324ECDBE1003F9D5E /* Dynamic Process Simulation */,
 				E8FEA64724ECDBE1003F9D5E /* Major Unit Operations */,
@@ -335,7 +336,6 @@
 		E8FEA60824ECDBE0003F9D5E /* Course Material */ = {
 			isa = PBXGroup;
 			children = (
-				E8FEA60924ECDBE0003F9D5E /* Common subroutines */,
 				E8FEA63824ECDBE0003F9D5E /* Year 1 */,
 				E8FEA61D24ECDBE0003F9D5E /* Year 2 */,
 				E8FEA61324ECDBE0003F9D5E /* Year 3 */,
