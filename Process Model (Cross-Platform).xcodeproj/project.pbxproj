@@ -51,6 +51,9 @@
 		E8B15585251BEBA900808CE9 /* B48BB.c in Sources */ = {isa = PBXBuildFile; fileRef = E8FEA65524ED6802003F9D5E /* B48BB.c */; };
 		E8B2ED82253084AB00AA3C54 /* 03aFrictFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */; };
 		E8B50A42254988F600546EA1 /* 03bMultistageCompressor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B50A41254988F600546EA1 /* 03bMultistageCompressor.c */; };
+		E8B56243254F27050068DCFA /* 02VirialEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B56242254F27050068DCFA /* 02VirialEOS.c */; };
+		E8B56249254F73C90068DCFA /* 02PVTRelations.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B56248254F73C90068DCFA /* 02PVTRelations.c */; };
+		E8B56250254F7B6F0068DCFA /* 01IdealGas.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B5624F254F7B6F0068DCFA /* 01IdealGas.c */; };
 		E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */; };
 		E8B6675A2530D29000D1ADB8 /* 03dOneK.c in Sources */ = {isa = PBXBuildFile; fileRef = E8B667592530D29000D1ADB8 /* 03dOneK.c */; };
 		E8C2C4422542396600822ED0 /* 03dTwoK.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C2C4412542396600822ED0 /* 03dTwoK.c */; };
@@ -132,6 +135,14 @@
 		E8B2ED81253084AB00AA3C54 /* 03aFrictFactor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03aFrictFactor.c; sourceTree = "<group>"; };
 		E8B50A40254988F600546EA1 /* 03bMultistageCompressor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03bMultistageCompressor.h; sourceTree = "<group>"; };
 		E8B50A41254988F600546EA1 /* 03bMultistageCompressor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03bMultistageCompressor.c; sourceTree = "<group>"; };
+		E8B56241254F27050068DCFA /* 02VirialEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02VirialEOS.h; sourceTree = "<group>"; };
+		E8B56242254F27050068DCFA /* 02VirialEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02VirialEOS.c; sourceTree = "<group>"; };
+		E8B56245254F27EC0068DCFA /* EquationofState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EquationofState.h; sourceTree = "<group>"; };
+		E8B56247254F73C90068DCFA /* 02PVTRelations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02PVTRelations.h; sourceTree = "<group>"; };
+		E8B56248254F73C90068DCFA /* 02PVTRelations.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02PVTRelations.c; sourceTree = "<group>"; };
+		E8B5624B254F74340068DCFA /* ThermophysicalProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThermophysicalProperties.h; sourceTree = "<group>"; };
+		E8B5624E254F7B6F0068DCFA /* 01IdealGas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01IdealGas.h; sourceTree = "<group>"; };
+		E8B5624F254F7B6F0068DCFA /* 01IdealGas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01IdealGas.c; sourceTree = "<group>"; };
 		E8B667532530C1E200D1ADB8 /* 03bGenPressureLoss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03bGenPressureLoss.h; sourceTree = "<group>"; };
 		E8B667542530C1E200D1ADB8 /* 03bGenPressureLoss.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03bGenPressureLoss.c; sourceTree = "<group>"; };
 		E8B667582530D29000D1ADB8 /* 03dOneK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03dOneK.h; sourceTree = "<group>"; };
@@ -198,6 +209,98 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E8B56235254F25FA0068DCFA /* 01 Pure Component Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "01 Pure Component Constants";
+			sourceTree = "<group>";
+		};
+		E8B56236254F26100068DCFA /* 02 State Property Relations */ = {
+			isa = PBXGroup;
+			children = (
+				E8B56240254F26E90068DCFA /* Equation of State */,
+				E8B56247254F73C90068DCFA /* 02PVTRelations.h */,
+				E8B56248254F73C90068DCFA /* 02PVTRelations.c */,
+			);
+			path = "02 State Property Relations";
+			sourceTree = "<group>";
+		};
+		E8B56237254F262E0068DCFA /* 03 Mixtures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "03 Mixtures";
+			sourceTree = "<group>";
+		};
+		E8B56238254F263C0068DCFA /* 04 Thermodynamic Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "04 Thermodynamic Properties";
+			sourceTree = "<group>";
+		};
+		E8B56239254F264F0068DCFA /* 05 Ideal Gas Thermodynamic Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "05 Ideal Gas Thermodynamic Properties";
+			sourceTree = "<group>";
+		};
+		E8B5623A254F26640068DCFA /* 06 Vapour Pressure and Vapourisation Enthalpy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "06 Vapour Pressure and Vapourisation Enthalpy";
+			sourceTree = "<group>";
+		};
+		E8B5623B254F26780068DCFA /* 07 Multicomponent Phase Equilibria */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "07 Multicomponent Phase Equilibria";
+			sourceTree = "<group>";
+		};
+		E8B5623C254F268E0068DCFA /* 08 Viscosity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "08 Viscosity";
+			sourceTree = "<group>";
+		};
+		E8B5623D254F26A20068DCFA /* 09 Thermal Conductivity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "09 Thermal Conductivity";
+			sourceTree = "<group>";
+		};
+		E8B5623E254F26B10068DCFA /* 10 Diffusion Coefficients */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "10 Diffusion Coefficients";
+			sourceTree = "<group>";
+		};
+		E8B5623F254F26C50068DCFA /* 11 Surface Tension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "11 Surface Tension";
+			sourceTree = "<group>";
+		};
+		E8B56240254F26E90068DCFA /* Equation of State */ = {
+			isa = PBXGroup;
+			children = (
+				E8B5624F254F7B6F0068DCFA /* 01IdealGas.c */,
+				E8B5624E254F7B6F0068DCFA /* 01IdealGas.h */,
+				E8B56242254F27050068DCFA /* 02VirialEOS.c */,
+				E8B56241254F27050068DCFA /* 02VirialEOS.h */,
+				E8B56245254F27EC0068DCFA /* EquationofState.h */,
+			);
+			path = "Equation of State";
+			sourceTree = "<group>";
+		};
 		E8FEA5F424ECDAE9003F9D5E = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +722,18 @@
 		E8FEA64624ECDBE1003F9D5E /* Thermophysical Properties */ = {
 			isa = PBXGroup;
 			children = (
+				E8B56235254F25FA0068DCFA /* 01 Pure Component Constants */,
+				E8B56236254F26100068DCFA /* 02 State Property Relations */,
+				E8B56237254F262E0068DCFA /* 03 Mixtures */,
+				E8B56238254F263C0068DCFA /* 04 Thermodynamic Properties */,
+				E8B56239254F264F0068DCFA /* 05 Ideal Gas Thermodynamic Properties */,
+				E8B5623A254F26640068DCFA /* 06 Vapour Pressure and Vapourisation Enthalpy */,
+				E8B5623B254F26780068DCFA /* 07 Multicomponent Phase Equilibria */,
+				E8B5623C254F268E0068DCFA /* 08 Viscosity */,
+				E8B5623D254F26A20068DCFA /* 09 Thermal Conductivity */,
+				E8B5623E254F26B10068DCFA /* 10 Diffusion Coefficients */,
+				E8B5623F254F26C50068DCFA /* 11 Surface Tension */,
+				E8B5624B254F74340068DCFA /* ThermophysicalProperties.h */,
 			);
 			path = "Thermophysical Properties";
 			sourceTree = "<group>";
@@ -794,9 +909,11 @@
 				E8B15571251BEB4B00808CE9 /* 03dEquivLeng.c in Sources */,
 				E8B1556F251BEB4400808CE9 /* 03dThreeK.c in Sources */,
 				E8B1556D251BEB3E00808CE9 /* 03d1Fittings.c in Sources */,
+				E8B56250254F7B6F0068DCFA /* 01IdealGas.c in Sources */,
 				E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */,
 				E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */,
 				E8B1556B251BEB3800808CE9 /* 03cHydrDiam.c in Sources */,
+				E8B56243254F27050068DCFA /* 02VirialEOS.c in Sources */,
 				E8C2C4422542396600822ED0 /* 03dTwoK.c in Sources */,
 				E8B50A42254988F600546EA1 /* 03bMultistageCompressor.c in Sources */,
 				E8B15569251BEB2E00808CE9 /* 02hHagPois.c in Sources */,
@@ -807,6 +924,7 @@
 				E8C43437252FA10900662F7C /* 01cIsobaric.c in Sources */,
 				E8352319253B54DC00B0969A /* 02bPolyShaftWork.c in Sources */,
 				E8361A7A2544501F00828DF0 /* System.c in Sources */,
+				E8B56249254F73C90068DCFA /* 02PVTRelations.c in Sources */,
 				E8B15561251BEB1700808CE9 /* 02fViscCorr.c in Sources */,
 				E8B1555F251BEB0900808CE9 /* 02dReyNo.c in Sources */,
 				E871B997254D8E9C00B76802 /* 04bCoefficientofPerformance.c in Sources */,
