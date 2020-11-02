@@ -25,12 +25,9 @@ void statePropertyRelations()
         printf("Subroutines available:\n");
         printf("1. Ideal gas law.\n");
         printf("2. Virial equation of state.\n");
-        printf("3. van der Waals equation of state.\n");
-        printf("4. Redlich-Kwong equation of state.\n");
-        printf("5. Soave-Redlich-Kwong equation of state.\n");
-        printf("6. Peng-Robinson equation of state.\n");
-        printf("7. General Benedict-Webb-Rubin equation of state.\n");
-        printf("8. Estimation of normal saturated liquid volume.\n");
+        printf("3. Cubic equations of state.\n");
+        printf("4. General Benedict-Webb-Rubin equation of state.\n");
+        printf("5. Estimation of normal saturated liquid volume.\n");
         printf("Q. Exit menu.\n\n");
         
         printf("Selection [1 - 2]: ");
@@ -44,26 +41,14 @@ void statePropertyRelations()
                 VirialEOS();
                 break;
             case '3':
-                //vanderWaalsEOS();
+                //CubicEOS();
                 printf("Bear with me, this is still being written...\n");
                 break;
             case '4':
-                //redlichKwongEOS();
-                printf("Bear with me, this is still being written...\n");
-                break;
-            case '5':
-                //soaveRedlichKwongEOS();
-                printf("Bear with me, this is still being written...\n");
-                break;
-            case '6':
-                //pengRobinsonEOS();
-                printf("Bear with me, this is still being written...\n");
-                break;
-            case '7':
                 //GenBWREOS();
                 printf("Bear with me, this is still being written...\n");
                 break;
-            case '8':
+            case '5':
                 //saturatedMolarVolume();
                 printf("Bear with me, this is still being written...\n");
                 break;

@@ -17,12 +17,13 @@
 #include "System.h"
 #include "02PVTRelations.h"
 #include "EquationofState.h"
+#include "02Compressibility.h"
 #include "02VirialEOS.h"
 
 #define maxstrlen 128
 #define R 83.145    // (bar.cm3)/(mol.K)
 
-void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *accFactor, double *a, double *b)
+void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *acFactor, double *a, double *b)
 {
     *Pc = inputDouble(0, "critical pressure", "bar");
     
@@ -30,7 +31,7 @@ void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *ac
     
     *Vc = inputDouble(0, "critical molar volume", "cm3/mol");
     
-    *accFactor = inputDouble(0, "accentric factor", "[ ]");
+    *acFactor = inputDouble(0, "accentric factor", "[ ]");
     
     if(polar == 1)
     {
@@ -272,6 +273,30 @@ double VirialEOSCalc(double T, double V, double B, double C)
     return P;
 }
 
+double VirialEOSCompCalc(double P, double T, double B, double C)
+{
+    double frac1 = 0.0;
+    double frac2 = 0.0;
+    double sto1 = 0.0;
+    double sto2 = 0.0;
+    double Z = 0.0;
+    
+    frac1 = B*P;
+    sto1 = R*T;
+    frac1 = (frac1)/(sto1);
+    
+    frac2 = pow(P, 2);
+    frac2 = C*(frac2);
+    sto1 = pow(R, 2);
+    sto2 = pow(T, 2);
+    sto1 = (sto1)*(sto2);
+    frac2 = (frac2)/(sto1);
+    
+    Z = 1 + frac1 + frac2;
+    
+    return Z;
+}
+
 EOSIsotherm VirialEOSIsotherm(double Pc, double Tc, double Vc, double T, double omega, double *B, double *C)
 {
     EOSIsotherm Isotherm = {0.0};
@@ -280,7 +305,6 @@ EOSIsotherm VirialEOSIsotherm(double Pc, double Tc, double Vc, double T, double 
     double Vr = 0.0;
     
     double BHat = 0.0;
-    
     double CHat = 0.0;
     
     Tr = reducedProperty(Tc, T);
@@ -313,7 +337,6 @@ EOSIsotherm VirialEOSIsothermPolar(double Pc, double Tc, double Vc, double T, do
     double Vr = 0.0;
     
     double BHat = 0.0;
-    
     double CHat = 0.0;
     
     Tr = reducedProperty(Tc, T);
@@ -333,6 +356,69 @@ EOSIsotherm VirialEOSIsothermPolar(double Pc, double Tc, double Vc, double T, do
         Isotherm.P[i] = VirialEOSCalc(Isotherm.T[i], Isotherm.V[i], *B, *C);
         
         Vr += 0.001;
+    }
+    
+    return Isotherm;
+}
+
+ZFactor VirialEOSCompIsotherm(double Pc, double Tc, double T, double omega, double *B, double *C)
+{
+    ZFactor Isotherm = {0.0};
+    
+    double Tr = 0.0;
+    double P = 0.0;
+    
+    double BHat = 0.0;
+    double CHat = 0.0;
+    
+    Tr = reducedProperty(Tc, T);
+    
+    //  Calculating coefficients
+    BHat = VirialEOSBHat(VirialEOSB0Calc(Tr), VirialEOSB1Calc(Tr), 0, omega);
+    *B = VirialEOSBCalc(BHat, Pc, Tc);
+    
+    CHat = VirialEOSCHat(VirialEOSC0Calc(Tr), VirialEOSC1Calc(Tr), omega);
+    *C = VirialEOSCCalc(CHat, Pc, Tc);
+    
+    P = 0.5;
+    for(int i = 0; i < 1000; ++i)
+    {
+        Isotherm.P[i] = P;
+        Isotherm.T[i] = T;
+        Isotherm.Z[i] = VirialEOSCompCalc(Isotherm.P[i], Isotherm.T[i], (*B), (*C));
+        
+        P += 0.5;
+    }
+    
+    return Isotherm;
+}
+
+ZFactor VirialEOSCompIsothermPolar(double Pc, double Tc, double T, double omega, double a, double b, double *B, double *C)
+{
+    ZFactor Isotherm = {0.0};
+    
+    double Tr = 0.0;
+    double P = 0.0;
+    
+    double BHat = 0.0;
+    double CHat = 0.0;
+    
+    Tr = reducedProperty(Tc, T);
+    
+    //  Calculating coefficients
+    BHat = VirialEOSBHat(VirialEOSB0Calc(Tr), VirialEOSB1Calc(Tr), VirialEOSB2Calc(a, b, Tr), omega);
+    *B = VirialEOSBCalc(BHat, Pc, Tc);
+    
+    CHat = VirialEOSCHat(VirialEOSC0Calc(Tr), VirialEOSC1Calc(Tr), omega);
+    *C = VirialEOSCCalc(CHat, Pc, Tc);
+    
+    for(int i = 0; i < 1000; ++i)
+    {
+        Isotherm.P[i] = P;
+        Isotherm.T[i] = T;
+        Isotherm.Z[i] = VirialEOSCompCalc(Isotherm.P[i], Isotherm.T[i], (*B), (*C));
+        
+        P += 0.5;
     }
     
     return Isotherm;
@@ -375,13 +461,53 @@ void VirialEOSDisplay(int polar, double Pc, double Tc, double Vc, double T, doub
         printf("%f\t", data.T[i]);
         printf("%f\n", ( (data.P[i])*(data.V[i]) )/( R*(data.T[i]) ));
     }
+    fflush(stdout);
+}
+
+void VirialEOSCompDisplay(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, ZFactor data, double B, double C)
+{
+    printf("_Virial_Equation_of_State_-_Compressibility_Factor_Results_\n");
+    printf("\tInput parameters:\n");
+    printf("Critical pressure:\n");
+    printf("Pc =\t%.3f\tbar\n", Pc);
+    printf("Critical temperature:\n");
+    printf("Tc =\t%.3f\tK\n", Tc);
+    printf("Critical molar volume (Not used):\n");
+    printf("Vc =\t%.3f\tcm3/mol\n", Vc);
+    printf("Acentric factor:\n");
+    printf("omega =\t%.3f\t[ ]\n\n", omega);
+    
+    if(polar == 1)
+    {
+        printf("a =\t%.3f\t[ ]\n", a);
+        printf("b =\t%.3f\t[ ]\n\n", b);
+    }
+    
+    printf("\tIntermediate parameters:\n");
+    printf("Second virial coefficient:\n");
+    printf("B =\t%.3f\tcm3/mol\n", B);
+    printf("Third virial coefficient:\n");
+    printf("C =\t%.3f\tcm6/mol2\n\n", C);
+    
+    printf("\tOutput parameters:\n");
+    printf("Isotherm produced at:");
+    printf("T =\t%.3f\tK\n\n", T);
+    
+    printf("P (bar)\tT (K)\tZ ([ ])\n");
+    for(int i = 0; i < 1000; ++i)
+    {
+        printf("%.3f\t", (data.P[i]));
+        printf("%.3f\t", data.T[i]);
+        printf("%.3f\n", data.Z[i]);
+    }
+    fflush(stdout);
 }
 
 void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm data, double B, double C)
 {
     //Function variables
-    char filename[maxstrlen];   // Variable used to store the file name as it is built.
-    char filetemp[maxstrlen];
+    char filename[maxstrlen] = {""};   // Variable used to store the file name as it is built.
+    char filetemp[maxstrlen] = {""};
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
@@ -475,7 +601,104 @@ void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double
     printf("Write Complete\n");
 }
 
-void VirialEOSWriteSwitch(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm data, double B, double C)
+void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, ZFactor data, double B, double C)
+{
+    //Function variables
+    char filename[maxstrlen] = {""};   // Variable used to store the file name as it is built.
+    char filetemp[maxstrlen] = {""};
+    //char filepath[maxstrlen*(2)];
+    //char driveloc[maxstrlen];
+    
+    FILE *fp;                   // Pointer to the file location.
+    //Set file name as timestamp + Virial EOS (Z) T ... K Results
+        //Get current time
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    
+        //Creating file name with base format "YYYYmmDD HHMMSS "
+    //Allocating memory for the file name
+    *filename = (char)malloc(sizeof *filename);
+    
+    strftime(filename, 15, "%Y%m%d %H%M%S", info);
+    //printf("File name: \"%s\"\n", filename);
+    
+    strcat(filename, " Virial EOS (Z)");
+    //printf("File name: \"%s\"\n", filename);
+    
+    sprintf(filetemp, " T %.0f K", T);
+    strcat(filename, filetemp);
+    
+    strcat(filename," Results.txt");
+    printf("File name: \"%s\"\n", filename);
+    /*
+    //driveloc is not suitable when determining the file path for mac
+    
+    //printf("Save file to: /Users/user/Documents/ ");
+    strcpy(filepath, "/Users/user/Documents/ModelFiles/");
+    
+    strcat(filepath, filename);
+     
+    printf("Full file path: \"%s\"\n\n", filepath);
+    
+    //Testing if directory is not present
+    if(fopen(filepath, "r") == NULL){
+        printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
+        strcpy(filepath, "/Users/user/Documents/");
+        printf("File is now being outputted to: %s\n", filepath);
+    }
+    */
+    printf("Note that write sequence may be disabled by zsh\n");
+    
+    printf("Beginning file write...\n");
+    
+    //Open file
+    fp = fopen(filename, "w+");
+    
+    //Write to file
+    fprintf(fp, "_Virial_Equation_of_State_Results_\n");
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "Critical pressure:\n");
+    fprintf(fp, "Pc =\t%.3f\tbar\n", Pc);
+    fprintf(fp, "Critical temperature:\n");
+    fprintf(fp, "Tc =\t%.3f\tK\n", Tc);
+    fprintf(fp, "Critical molar volume (Not used):\n");
+    fprintf(fp, "Vc =\t%.3f\tcm3/mol\n", Vc);
+    fprintf(fp, "Acentric factor:\n");
+    fprintf(fp, "omega =\t%.3f\t[ ]\n\n", omega);
+    
+    if(polar == 1)
+    {
+        fprintf(fp, "a =\t%.3f\t[ ]\n", a);
+        fprintf(fp, "b =\t%.3f\t[ ]\n\n", b);
+    }
+    
+    fprintf(fp, "\tIntermediate parameters:\n");
+    fprintf(fp, "Second virial coefficient:\n");
+    fprintf(fp, "B =\t%.3f\tcm3/mol\n", B);
+    fprintf(fp, "Third virial coefficient:\n");
+    fprintf(fp, "C =\t%.3f\tcm6/mol2\n\n", C);
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "Isotherm produced at:");
+    fprintf(fp, "T =\t%.3f\tK\n\n", T);
+    
+    fprintf(fp, "P (bar)\tT (K)\tZ ([ ])\n");
+    for(int i = 0; i < 1000; ++i)
+    {
+        fprintf(fp, "%.3f\t", data.P[i]);
+        fprintf(fp, "%.3f\t", data.T[i]);
+        fprintf(fp, "%.3f\n", data.Z[i]);
+    }
+    
+    //Close file
+    fclose(fp);
+     
+    printf("Write Complete\n");
+}
+
+void VirialEOSSwitch(int mode1, int mode2, int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm dataV, ZFactor dataZ, double B, double C)
 {
     int control = 0;
     
@@ -483,8 +706,12 @@ void VirialEOSWriteSwitch(int polar, double Pc, double Tc, double Vc, double T, 
     while(control == 1)
     {
         char input[maxstrlen];
-        
-        printf("Do you want to save results to file? ");
+        if(mode1 == 1){
+            printf("Do you want to display results on screen? ");
+        }
+        if(mode1 == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -493,7 +720,24 @@ void VirialEOSWriteSwitch(int polar, double Pc, double Tc, double Vc, double T, 
             case 'Y':
             case 't':
             case 'y':
-                VirialEOSWrite(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
+                if(mode1 == 1){
+                    // Display
+                    if(mode2 == 1 || mode2 == 3){
+                        VirialEOSDisplay(polar, Pc, Tc, Vc, T, omega, a, b, dataV, B, C);
+                    }
+                    if(mode2 == 2 || mode2 == 3){
+                        VirialEOSCompDisplay(polar, Pc, Tc, Vc, T, omega, a, b, dataZ, B, C);
+                    }
+                }
+                if(mode1 == 2){
+                    if(mode2 == 1 || mode2 == 3){
+                        VirialEOSWrite(polar, Pc, Tc, Vc, T, omega, a, b, dataV, B, C);
+                    }
+                    if(mode2 == 2 || mode2 == 3){
+                        VirialEOSCompWrite(polar, Pc, Tc, Vc, T, omega, a, b, dataZ, B, C);
+                    }
+                }
+                
                 control = 0;
                 break;
             case '0':
@@ -522,17 +766,19 @@ void VirialEOS(void)
         char input[maxstrlen];      // Variable used to store character input.
         int control = 0;            // Variable used to control user input and number of isotherms calculated.
         int polar = 0;              // Variable used to control subroutine behaviour dependent on whether the molecule is polar or not.
+        int mode = 0;               // Variable used to control whether the Virial EOS/Compressibility factor isotherms are generated. Generating both sets of isotherms is also possible.
         int ContCond = 0;           // Variable used to control whether the while loop generating the isotherm should be broken or not.
         
         double B = 0.0;             // Second virial coefficient.
         double C = 0.0;             // Third virial coefficient.
-        EOSIsotherm data = {0.0};   // Struct where the isotherm data is stored.
+        EOSIsotherm dataV = {0.0};   // Struct where the Virial Equation of State isotherm data is stored.
+        ZFactor dataZ = {0.0};      // Struct where the compressibility factor isotherm data is stored.
         
         double Pc = 0.0;            // Critical pressure.
         double Tc = 0.0;            // Critical temperature.
         double Vc = 0.0;            // Critical molar volume.
         double T = 0.0;             // System temperature.
-        double omega = 0.0;         // Accentric factor
+        double omega = 0.0;         // Acentric factor
         double a = 0.0;             // Constant required for calculation of B^(2)
         double b = 0.0;             // Constant required for calculation of B^(2)
         
@@ -575,6 +821,35 @@ void VirialEOS(void)
         control = 1;
         while(control == 1)
         {
+            printf("What would you like to calculate?\n");
+            printf("1. Virial Equation of State isotherm.\n");
+            printf("2. Compressibility factor isotherm.\n");
+            printf("3. Both.\n");
+            printf("Selection [1 - 3]: ");
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
+            {
+                case '1':
+                    mode = 1;
+                    control = 0;
+                    break;
+                case '2':
+                    mode = 2;
+                    control = 0;
+                    break;
+                case '3':
+                    mode = 3;
+                    control = 0;
+                    break;
+                default:
+                    printf("Input not recognised. Please enter an integer between 1 and 3.\n");
+                    break;
+            }
+        }
+        
+        control = 1;
+        while(control == 1)
+        {
             T = inputDouble(0, "temperature of produced isotherm", "deg C");
             T = (T) + 273.15;
             
@@ -585,11 +860,21 @@ void VirialEOS(void)
             // Calculation function(s)
             if(polar == 0)
             {
-                data = VirialEOSIsotherm(Pc, Tc, Vc, T, omega, &B, &C);
+                if(mode == 1 || mode == 3){
+                    dataV = VirialEOSIsotherm(Pc, Tc, Vc, T, omega, &B, &C);
+                }
+                if(mode == 2 || mode == 3){
+                    dataZ = VirialEOSCompIsotherm(Pc, Tc, T, omega, &B, &C);
+                }
             }
             if(polar == 1)
             {
-                data = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
+                if(mode == 1 || mode == 3){
+                    dataV = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
+                }
+                if(mode == 2 || mode == 3){
+                    dataZ = VirialEOSCompIsothermPolar(Pc, Tc, T, omega, a, b, &B, &C);
+                }
             }
             
             clock_getres(CLOCK_MONOTONIC, &end);
@@ -600,10 +885,10 @@ void VirialEOS(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            VirialEOSDisplay(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
+            VirialEOSSwitch(1, mode, polar, Pc, Tc, Vc, T, omega, a, b, dataV, dataZ, B, C);
             
             //  Writing to File
-            VirialEOSWriteSwitch(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
+            VirialEOSSwitch(2, mode, polar, Pc, Tc, Vc, T, omega, a, b, dataV, dataZ, B, C);
             
             ContCond = 1;
             while(ContCond == 1)

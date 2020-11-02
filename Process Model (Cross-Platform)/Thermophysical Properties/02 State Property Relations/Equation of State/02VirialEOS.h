@@ -14,10 +14,10 @@
 /// @param Pc Critical pressure (bar).
 /// @param Tc Critical temperature (K).
 /// @param Vc Critical molar volume (cm3/mol).
-/// @param accFactor Acentric factor.
+/// @param acFactor Acentric factor.
 /// @param a Constant required for calculating B^(2) for a polar molecule.
 /// @param b Constant required for calculating B^(2) for a polar molecule.
-void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *accFactor, double *a, double *b);
+void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *acFactor, double *a, double *b);
 
 #endif /* _1_Virial_Equation_of_StateVariable_h */
 
@@ -206,6 +206,8 @@ void VirialEOSDisplay(int polar, double Pc, double Tc, double Vc, double T, doub
 void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm data, double B, double C);
 
 /// This subroutine is used to ask the user whether they would like to write the generated isotherm to a .txt file.
+/// @param mode1 This variable is used to control whether the function is used to run the display (1) or write (2) function.
+/// @param mode2 This variable is used to control whether the (1) Virial EOS isotherm , (2) Compressibility factor isotherm or (3) both are written to a .txt file.
 /// @param polar This variable is used to control what variables 
 /// @param Pc Critical pressure (bar).
 /// @param Tc Critical temperature (K).
@@ -214,9 +216,10 @@ void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double
 /// @param omega Accentric factor.
 /// @param a Constant used for calculating B^(2).
 /// @param b Constant used for calculating B^(2).
-/// @param data Struct where the isotherm is stored.
+/// @param dataV Struct where the virial equation of state isotherm is stored.
+/// @param dataZ Struct where the compressibility factor isotherm is stored.
 /// @param B Second virial coefficient (cm3/mol).
 /// @param C Third virial coefficient (cm3/mol).
-void VirialEOSWriteSwitch(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm data, double B, double C);
+void VirialEOSSwitch(int mode1, int mode2, int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm dataV, ZFactor dataZ, double B, double C);
 
 #endif /* _2_Virial_Equation_of_StateWrite_h */

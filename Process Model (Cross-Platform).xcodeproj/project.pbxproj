@@ -176,6 +176,7 @@
 		E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B48BC_T4.h; sourceTree = "<group>"; };
 		E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04aThermalEfficiency.h; sourceTree = "<group>"; };
 		E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04aThermalEfficiency.c; sourceTree = "<group>"; };
+		E8F30BB82550AC7F0086027C /* 02Compressibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02Compressibility.h; sourceTree = "<group>"; };
 		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FEA60A24ECDBE0003F9D5E /* IdealGasLaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IdealGasLaw.c; sourceTree = "<group>"; };
 		E8FEA60B24ECDBE0003F9D5E /* IdealGasLaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdealGasLaw.h; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 			children = (
 				E8B5624F254F7B6F0068DCFA /* 01IdealGas.c */,
 				E8B5624E254F7B6F0068DCFA /* 01IdealGas.h */,
+				E8F30BB82550AC7F0086027C /* 02Compressibility.h */,
 				E8B56242254F27050068DCFA /* 02VirialEOS.c */,
 				E8B56241254F27050068DCFA /* 02VirialEOS.h */,
 				E8B56245254F27EC0068DCFA /* EquationofState.h */,
