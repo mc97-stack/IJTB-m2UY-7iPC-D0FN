@@ -75,7 +75,7 @@ void ThermoProps()
     printf("Thermophysical Properties\n\n");
     printf("Please make a selection from the following areas:\n");
     printf("1. Pure component constants.\n");
-    printf("2. P-V-T relations for pure component gas or liquid");
+    printf("2. P-V-T relations for pure component gas or liquid.\n");
     printf("3. Volumetric properties applied to mixtures.\n");
     printf("4. Thermodynamic properties.\n");
     printf("5. Ideal gas thermodynamic properties.\n");

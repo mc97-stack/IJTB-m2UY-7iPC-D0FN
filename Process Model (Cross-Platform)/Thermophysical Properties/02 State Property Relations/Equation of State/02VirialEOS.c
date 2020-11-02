@@ -544,7 +544,7 @@ void VirialEOS(void)
         control = 1;
         while(control == 1)
         {
-            printf("Is the molecule polar?");
+            printf("Is the molecule polar? ");
             fgets(input, sizeof(input), stdin);
             switch(input[0])
             {
@@ -579,7 +579,10 @@ void VirialEOS(void)
             T = (T) + 273.15;
             
             //  Data Manipulation
-            clock_t timer = clock();
+            clock_t start, end;
+            double timeTaken = 0.0;
+            
+            start = clock();
             
             // Calculation function(s)
             if(polar == 0)
@@ -591,11 +594,10 @@ void VirialEOS(void)
                 data = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
             }
             
-            timer = clock() - timer;
+            end = clock();
             
-            int calctime = 0;
-            calctime = ((int)timer*1000)/CLOCKS_PER_SEC;
-            printf("Calculation completed in %d seconds and %d milliseconds.\n\n", calctime/1000, calctime%1000);
+            timeTaken = ((double)(end - start))/CLOCKS_PER_SEC;
+            printf("Process completed in %.3f seconds.\n\n", timeTaken);
             
             //  Displaying results
             VirialEOSDisplay(polar, Pc, Tc, Vc, T, omega, a, b, data, B, C);
