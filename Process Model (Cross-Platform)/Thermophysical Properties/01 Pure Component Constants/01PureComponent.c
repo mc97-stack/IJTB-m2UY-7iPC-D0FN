@@ -1,8 +1,8 @@
 //
-//  02PVTRelations.c
+//  01PureComponent.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 01/11/2020.
+//  Created by Matthew Cheung on 03/11/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
@@ -10,11 +10,11 @@
 #include <stdio.h>
 
 //  Custom header files
-#include "02PVTRelations.h"
+#include "01PureComponent.h"
 
 #define maxstrlen 128
 
-void statePropertyRelations()
+void pureComponentConstants()
 {
     char input[maxstrlen];
     int control = 0;
@@ -23,32 +23,24 @@ void statePropertyRelations()
     while(control == 1)
     {
         printf("Subroutines available:\n");
-        printf("1. Ideal gas law.\n");
-        printf("2. Virial equation of state.\n");
-        printf("3. Cubic equations of state.\n");
-        printf("4. General Benedict-Webb-Rubin equation of state.\n");
-        printf("5. Estimation of normal saturated liquid volume.\n");
+        printf("1. Critical property estimation.\n");
+        printf("2. Acentric factor calculation.\n");
+        printf("3. Boiling and freezing point estimation.\n");
         printf("Q. Exit menu.\n\n");
         
-        printf("Selection [1 - 3]: ");
+        printf("Selection [2]: ");
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
             case '1':
-                IdealEOS();
-                break;
-            case '2':
-                VirialEOS();
-                break;
-            case '3':
-                CubicEOS();
-                break;
-            case '4':
-                //GenBWREOS();
+                //CriticalProperty();
                 printf("Bear with me, this is still being written...\n");
                 break;
-            case '5':
-                //saturatedMolarVolume();
+            case '2':
+                AcentricFactor();
+                break;
+            case '3':
+                //BoilingFreezingPoint();
                 printf("Bear with me, this is still being written...\n");
                 break;
             case '0':

@@ -95,8 +95,7 @@ void ThermoProps()
         selection = atoi(fgets(input, sizeof(input), stdin));
         switch(selection){
             case 1:
-                //pureComponentConstants();
-                printf("Bear with me, this is still being written...\n");
+                pureComponentConstants();
                 break;
             case 2:
                 statePropertyRelations();

@@ -9,6 +9,7 @@
 #ifndef ThermophysicalProperties_h
 #define ThermophysicalProperties_h
 
+#include "01PureComponent.h"
 #include "02PVTRelations.h"
 
 #endif /* ThermophysicalProperties_h */

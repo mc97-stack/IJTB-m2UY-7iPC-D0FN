@@ -13,6 +13,7 @@ typedef struct EOSDiagram{
     double P[1000];
     double V[1000];
     double T[1000];
-}EOSIsotherm;
+    double Z[1000];
+} EOSIsotherm;
 
 #endif /* EquationofState_h */

@@ -25,42 +25,18 @@ void IdealEOS(void);
 #ifndef VirialEOS_h
 #define VirialEOS_h
 
-/// This subroutine is used to generate the P-V-T surface according to the Virial EOS.
+/// This subroutine can be used to generate the P-V-T surface according to the Virial EOS.
 void VirialEOS(void);
 
 #endif /* VirialEOS_h */
 
-#ifndef vanderWaalsEOS_h
-#define vanderWaalsEOS_h
+#ifndef CubicEOS_h
+#define CubicEOS_h
 
-/// This subroutine is used to generate the P-V-T surface according to the van der Waals EOS.
-void vanderWaalsEOS(void);
+/// This subroutine can be used to generate the P-V-T surface according to the van der Waals, Redlich-Kwong, Soave-Redlich-Kwong or Peng-Robinson Equations of State or the corresponding compressibility factor charts.
+void CubicEOS(void);
 
-#endif /* vanderWaalsEOS_h */
-
-#ifndef RedlichKwongEOS_h
-#define RedlichKwongEOS_h
-
-/// This subroutine is used to generate the P-V-T surface according to the Redlich-Kwong EOS.
-void redlichKwongEOS(void);
-
-#endif /* RedlichKwongEOS_h */
-
-#ifndef SoaveRedlichKwongEOS_h
-#define SoaveRedlichKwongEOS_h
-
-/// This subroutine is used to generate the P-V-T surface according to the Soave-Redlich-Kwong EOS.
-void soaveRedlichKwongEOS(void);
-
-#endif /* RedlichKwongEOS_h */
-
-#ifndef PengRobinsonEOS_h
-#define PengRobinsonEOS_h
-
-/// This subroutine is used to generate the P-V-T surface according to the Peng-Robinson EOS.
-void PengRobinsonEOS(void);
-
-#endif /* PengRobinsonEOS_h */
+#endif /* CubicEOS_h */
 
 #ifndef GenBWREOS_h
 #define GenBWREOS_h
