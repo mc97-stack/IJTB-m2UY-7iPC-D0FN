@@ -195,8 +195,6 @@ void CoefficientofCompressibility()
         double n = 0.0; // Moles of component.
         double T = 0.0; // System temperature.
         
-        &c = (double *)malloc(sizeof(double));
-        
             //  Variables for timing function
         struct timespec start, end;
         double elapsed = 0.0;
