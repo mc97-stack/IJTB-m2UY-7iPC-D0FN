@@ -1,97 +1,99 @@
 //
-//  01bFluidVHyd.c
+//  01CriticalProperty.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 30/08/2020.
+//  Created by Matthew Cheung on 02/11/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//  Standard header files
+//Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//  Custom header files
+//Custom Header Files
 #include "System.h"
-#include "B48BB_T1.h"
-#include "01bFluidVHyd.h"
+#include "01PureComponent.h"
+#include "01CriticalProperty.h"
 
-//  Fixed variable definitions
-#define maxstrlen 128   // Max string length
-#define g 9.80665       // Acceleration due to gravity
+#define maxstrlen 128
 
-void FluidVHydVariable(double *rho, double *h)
+void AmbroseVariable()
 {
-    *rho = inputDouble(0, "fluid density", "kg/m3");
     
-    *h = inputDouble(1, "fluid height", "m");
 }
 
-double FluidVHydCalculation(double rho, double h) 
+void LydersenJobackVariable()
 {
-    double P = 0.0; // Fluid hydrostatic pressure.
     
-    P = rho * g;
-    P = (P) * h;
-    
-    return P;
 }
 
-void FluidVHydDisplay(double rho, double h, double P)
+void FedorsVariable()
 {
-    printf("_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
-    printf("g =\t%.5f\tm/s2\n\n", g);
-    printf("rho =\t%.3f\tkg/m3\n", rho);
-    printf("h =\t%.3f\tm\n", h);
-    printf("P =\t%.3f\tPa\n", P);
-    fflush(stdout);
+    
 }
 
-void FluidVHydWrite(double rho, double h, double P)
+void KlincewiczVariable()
+{
+    
+}
+
+double CritPropsCalculation()
+{
+    
+    
+    return 0;
+}
+
+void CritPropsDisplay()
+{
+    
+}
+
+void CritPropsWrite()
 {
     //Function variables
-    char filename[maxstrlen];   // Character array used to store file name as it is built.
+    char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Vertical Hydrostatic Pressure Theorem Results
+    //Set file name as timestamp + Critical Property Estimation
         //Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS"
+        //Creating file name with base format "YYYYmmDD HHMMSS "
     //Allocating memory for the file name
     *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
-    strcat(filename, " Vertical Hydrostatic Pressure Theorem Results");
+    strcat(filename, " Critical Property Estimation");
     //printf("File name: \"%s\"\n", filename);
     
     strcat(filename,".txt");
     printf("File name: \"%s\"\n", filename);
     /*
     //driveloc is not suitable when determining the file path for mac
-    *filepath = (char)malloc((128*2)*sizeof(char));
+    *filepath = (char)malloc(sizeof *filepath);
     
     //printf("Save file to: /Users/user/Documents/ ");
     strcpy(filepath, "/Users/user/Documents/ModelFiles/");
     printf("File path: \"%s\"\n", filepath);
     
     strcat(filepath, filename);
-    void free(void *filename);
+    void free(void *filename); // Removing 'filename' from the heap
     
     printf("File name: \"%s\"\n", filename);
     printf("Full file path: \"%s\"\n\n", filepath);
     
     //Testing if directory is not present
-    
     if(fopen(filepath, "r") == NULL){
         printf("Directory does not exist, writing data to \"Documents\" folder instead.\n");
         strcpy(filepath, "/Users/user/Documents/");
@@ -104,14 +106,17 @@ void FluidVHydWrite(double rho, double h, double P)
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
-    fprintf(fp, "_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
-    fprintf(fp, "g =\t%.5f\tm/s2\n\n", g);
-    fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
-    fprintf(fp, "h =\t%.3f\t m\n", h);
-    fprintf(fp, "P =\t%.3f\tPa\n", P);
+    fprintf(fp, "_Critical_Property_Estimation_Results_\n");
+    fprintf(fp, "\tInput parameters:\n");
+    fprintf(fp, "...");
+    
+    fprintf(fp, "\tIntermediate parameters:\n");
+    fprintf(fp, "...");
+    
+    fprintf(fp, "\tOutput parameters:\n");
+    fprintf(fp, "...");
     
     //Close file
     fclose(fp);
@@ -119,9 +124,9 @@ void FluidVHydWrite(double rho, double h, double P)
     printf("Write Complete\n");
 }
 
-void FluidVHydWriteSwitch(double rho, double h, double P)
+void CritPropsWriteSwitch()
 {
-    int control = 0;    // Variable used to control user input.
+    int control = 0;
     
     control = 1;
     while(control == 1)
@@ -137,64 +142,63 @@ void FluidVHydWriteSwitch(double rho, double h, double P)
             case 'Y':
             case 't':
             case 'y':
-                FluidVHydWrite(rho, h, P);
+                CritPropsWrite();
                 control = 0;
-            break;
+                break;
             case '0':
             case 'F':
             case 'N':
             case 'f':
             case 'n':
                 control = 0;
-            break;
+                break;
             default:
                 printf("Input not recognised\n");
-            break;
+                break;
         }
     }
 }
 
-void FluidVerticalHydrostaticPressure()
+void CriticalProperties(void)
 {
-    //  Pseudo-main function.
     int whilmain = 0;
+    printf("Critical Property Estimation\n");
     
-    printf("Vertical Hydrostatic Pressure Gradient\n");
     whilmain = 1;
-    
     while(whilmain == 1)
     {
-        //  Declaring variables
-        double P = 0.0;     // Hydrostatic pressure.
+        //  Variable declaration
+            //  Subroutine behaviour (Delete me when done)
         
-        double rho = 0.0;   // Fluid density.
-        double h = 0.0;     // Vertical height of fluid.
+            //  Subroutine output (Delete me when done)
+        
+            //  Subroutine input (Delete me when done)
         
             //  Variables for timing function
         struct timespec start, end;
         double elapsed = 0.0;
         
-        //  Collecting data
-        FluidVHydVariable(&rho, &h);
+        //  Data Collection
         
-        //  Running calculation
+        
+        //  Data Manipulation
         clock_getres(CLOCK_MONOTONIC, &start);
         clock_gettime(CLOCK_MONOTONIC, &start);
         
-        P = FluidVHydCalculation(rho, h);
+        // Calculation function(s)
         
         clock_getres(CLOCK_MONOTONIC, &end);
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         elapsed = timer(start, end);
         
-        printf("Calculations completed in %.6f seconds.\n\n", elapsed);
+        printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        FluidVHydDisplay(rho, h, P);
         
-        //  Writing to file
-        FluidVHydWriteSwitch(rho, h, P);
+        
+        //  Writing to File
+        
         
         //  Continue function
         whilmain = Continue(whilmain);

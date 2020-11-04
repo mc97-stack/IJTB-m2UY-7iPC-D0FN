@@ -171,6 +171,7 @@ void ThermEffWrite(int method, double wnet, double qhot, double qcold, double TH
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Thermal_Efficiency_Results_\n");

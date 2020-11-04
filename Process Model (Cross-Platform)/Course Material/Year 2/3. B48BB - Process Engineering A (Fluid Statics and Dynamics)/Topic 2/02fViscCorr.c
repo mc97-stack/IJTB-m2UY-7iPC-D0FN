@@ -189,6 +189,7 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     if(method == 1){

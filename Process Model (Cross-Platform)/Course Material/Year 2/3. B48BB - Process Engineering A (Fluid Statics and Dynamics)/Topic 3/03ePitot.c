@@ -145,6 +145,7 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Pitot_Static_Tube_Results_\n");

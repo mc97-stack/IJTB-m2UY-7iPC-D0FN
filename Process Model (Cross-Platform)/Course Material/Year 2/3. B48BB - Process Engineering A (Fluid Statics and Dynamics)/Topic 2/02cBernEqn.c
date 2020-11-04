@@ -162,6 +162,7 @@ void BernEqnWrite(double P1, double P2, double rho, double u1, double u2, double
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Bernoulli's_Equation_Results_\n");

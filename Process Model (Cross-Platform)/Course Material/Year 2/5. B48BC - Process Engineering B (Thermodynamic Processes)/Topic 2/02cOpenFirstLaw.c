@@ -185,6 +185,7 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     double u1 = 0.0;    // Initial fluid velocity.

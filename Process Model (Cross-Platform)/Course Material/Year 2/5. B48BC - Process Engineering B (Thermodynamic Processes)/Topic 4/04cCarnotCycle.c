@@ -321,6 +321,7 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Carnot_Cycle_Results_\n");

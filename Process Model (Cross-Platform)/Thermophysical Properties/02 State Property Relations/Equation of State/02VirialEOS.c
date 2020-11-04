@@ -655,6 +655,7 @@ void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, do
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Virial_Equation_of_State_Results_\n");

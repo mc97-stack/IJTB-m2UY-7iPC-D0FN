@@ -126,6 +126,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Fluid_Coefficient_of_Compressibility_Results_\n");
@@ -193,6 +194,8 @@ void CoefficientofCompressibility()
         double V = 0.0; // System volume.
         double n = 0.0; // Moles of component.
         double T = 0.0; // System temperature.
+        
+        &c = (double *)malloc(sizeof(double));
         
             //  Variables for timing function
         struct timespec start, end;

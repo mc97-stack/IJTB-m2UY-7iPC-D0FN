@@ -341,6 +341,7 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(Equivalent_Length_Method)_Results_\n");
+    free(filename);
     
     int i = 0;
     

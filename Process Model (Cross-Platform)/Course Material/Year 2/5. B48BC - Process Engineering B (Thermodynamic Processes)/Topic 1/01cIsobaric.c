@@ -227,6 +227,7 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     double total = 0.0;

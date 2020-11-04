@@ -114,6 +114,7 @@ void HydrDiamWrite(double A_F, double P_W, double d_H)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Hydraulic_Diameter_Results_\n");

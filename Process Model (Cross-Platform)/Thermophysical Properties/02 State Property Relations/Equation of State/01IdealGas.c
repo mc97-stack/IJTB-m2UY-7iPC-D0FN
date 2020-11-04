@@ -129,6 +129,7 @@ void IdealEOSWrite(double T, EOSIsotherm data)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Ideal_Gas_Equation_of_State_Results_\n");

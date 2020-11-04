@@ -244,6 +244,7 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     double total = 0.0;

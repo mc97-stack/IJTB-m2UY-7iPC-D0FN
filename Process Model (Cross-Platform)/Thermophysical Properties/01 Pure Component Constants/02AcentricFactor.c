@@ -230,6 +230,7 @@ void AcFactorWrite(int mode, double Pc, double Tc, double TBoil, double ANTA, do
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Acentric_Factor_Results_\n");

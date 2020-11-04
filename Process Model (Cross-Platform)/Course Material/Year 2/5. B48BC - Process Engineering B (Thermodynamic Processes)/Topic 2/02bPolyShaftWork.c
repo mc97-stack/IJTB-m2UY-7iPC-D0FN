@@ -170,6 +170,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Polytropic_Shaft_Work_Results_\n");

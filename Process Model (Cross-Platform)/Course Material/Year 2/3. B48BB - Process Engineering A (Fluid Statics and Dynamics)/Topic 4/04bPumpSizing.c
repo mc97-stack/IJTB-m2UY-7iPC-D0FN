@@ -217,6 +217,7 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Hydraulic_Diameter_Results_\n");

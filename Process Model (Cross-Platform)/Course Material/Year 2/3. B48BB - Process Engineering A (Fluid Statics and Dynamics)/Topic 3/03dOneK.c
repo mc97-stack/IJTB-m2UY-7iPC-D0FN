@@ -276,6 +276,7 @@ void OneKWrite(OneKFittings table, double u, double total)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(1K_Method)_Results_\n");

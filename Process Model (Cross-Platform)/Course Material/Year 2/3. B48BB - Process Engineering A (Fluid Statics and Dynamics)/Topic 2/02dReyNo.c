@@ -122,6 +122,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Reynold's_Number_Calculation_\n");

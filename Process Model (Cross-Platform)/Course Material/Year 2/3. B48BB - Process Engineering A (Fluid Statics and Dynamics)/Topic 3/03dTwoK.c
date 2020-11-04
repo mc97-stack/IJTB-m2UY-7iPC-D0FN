@@ -611,6 +611,7 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(2K_Method)_Results_\n");
+    free(filename);
     
     int i = 0;
     

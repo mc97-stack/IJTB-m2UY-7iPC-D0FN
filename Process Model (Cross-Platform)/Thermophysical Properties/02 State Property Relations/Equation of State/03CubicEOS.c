@@ -215,6 +215,7 @@ void CubicEOSWrite(int eqn, double Pc, double Tc, double omega, double T, double
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     if(eqn == 1){

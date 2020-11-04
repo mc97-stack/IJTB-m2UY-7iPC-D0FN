@@ -258,6 +258,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Reciprocating_Compressor_Results_\n");

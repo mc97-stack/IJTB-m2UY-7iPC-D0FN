@@ -122,6 +122,7 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");

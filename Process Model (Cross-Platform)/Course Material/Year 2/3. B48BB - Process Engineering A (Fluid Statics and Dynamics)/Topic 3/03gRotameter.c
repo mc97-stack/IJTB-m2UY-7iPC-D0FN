@@ -155,6 +155,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Rotameter_Results_\n");

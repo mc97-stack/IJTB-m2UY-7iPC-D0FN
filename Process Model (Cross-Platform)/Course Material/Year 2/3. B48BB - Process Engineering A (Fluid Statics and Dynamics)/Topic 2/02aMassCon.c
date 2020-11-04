@@ -172,6 +172,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Mass_Conservation_Principle_\n");

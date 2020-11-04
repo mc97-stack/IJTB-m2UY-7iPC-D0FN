@@ -15,7 +15,7 @@
 
 //Custom Header Files
 #include "System.h"
-#include "VdWEOS.h"
+#include "03CubicEOS.h"
 #include "B48BC_T3.h"
 #include "03aJTEffect.h"
 
@@ -203,6 +203,7 @@ void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Joule-Thomson_Effect_\n");

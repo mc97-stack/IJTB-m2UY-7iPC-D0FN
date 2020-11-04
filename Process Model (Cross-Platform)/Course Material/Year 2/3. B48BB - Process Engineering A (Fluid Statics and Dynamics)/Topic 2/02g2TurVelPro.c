@@ -150,6 +150,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");

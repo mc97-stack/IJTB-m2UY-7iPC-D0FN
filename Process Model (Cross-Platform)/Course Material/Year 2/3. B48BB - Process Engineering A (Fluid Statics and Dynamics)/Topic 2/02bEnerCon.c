@@ -238,6 +238,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Steady-Flow_Energy_Equation_\n");

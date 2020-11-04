@@ -220,6 +220,7 @@ void PressLossWrite(double rho, double u, double d, double mu, double L, double 
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Equation_Results_\n");

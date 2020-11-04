@@ -143,6 +143,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Capillarity_Calculations_\n");

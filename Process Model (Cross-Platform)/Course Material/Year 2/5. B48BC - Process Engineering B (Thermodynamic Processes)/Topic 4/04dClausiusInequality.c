@@ -124,6 +124,7 @@ void EntropyWrite(int imax, T4EntropyDef data)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Clausius_Inequality_Results_\n");

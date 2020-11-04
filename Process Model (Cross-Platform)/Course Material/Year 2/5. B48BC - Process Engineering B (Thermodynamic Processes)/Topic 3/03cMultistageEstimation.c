@@ -163,6 +163,7 @@ void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma,
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Multistage_Compressor_Shaft_Work_Results_\n");

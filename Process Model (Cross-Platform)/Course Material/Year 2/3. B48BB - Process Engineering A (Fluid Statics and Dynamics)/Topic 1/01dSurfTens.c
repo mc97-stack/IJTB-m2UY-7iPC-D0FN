@@ -254,6 +254,7 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_du_Nouy_Surface_Tension_\n");

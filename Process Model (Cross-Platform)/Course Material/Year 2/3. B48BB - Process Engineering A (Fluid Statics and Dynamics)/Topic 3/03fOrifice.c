@@ -160,6 +160,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Orifice_Plate_Flow_Measurement_Results_\n");

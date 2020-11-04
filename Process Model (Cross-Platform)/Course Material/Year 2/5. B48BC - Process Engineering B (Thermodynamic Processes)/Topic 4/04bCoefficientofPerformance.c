@@ -215,6 +215,7 @@ void CoPWrite(int method, double wnet, double qhot, double qcold, double THot, d
     
     //Open file
     fp = fopen(filename, "w+");
+    free(filename);
     
     //Write to file
     fprintf(fp, "_Thermal_Efficiency_Results_\n");
