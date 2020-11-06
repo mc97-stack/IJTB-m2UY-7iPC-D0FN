@@ -25,8 +25,8 @@ void CriticalProperty(void);
 #ifndef AcentricFactor_h
 #define AcentricFactor_h
 
-/// This subroutine is used to guide the user through estimating the acentric factor of a pure component through either the Antoine equation ~~or Lee-Kesler vapour pressure relations.~~
-void AcentricFactor(void);
+/// This subroutine is used to guide the user through estimating the acentric factor of a pure component through either the Antoine equation, critical parameters or Lee-Kesler vapour pressure relations. It then return the value of the 
+double AcentricFactor(void);
 
 #endif /* AcentricFactor_h */
 

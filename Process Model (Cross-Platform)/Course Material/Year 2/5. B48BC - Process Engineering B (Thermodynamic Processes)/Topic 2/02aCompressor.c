@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 // Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -24,8 +25,10 @@
 #include "01bIsothermal.h"
 #include "01cIsobaric.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *V1, double *T1, double *T2, double *n, double *R, double *alpha)
 {
     int control = 0;    // Variable used to control user input.
@@ -82,6 +85,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     }
 }
 
+/// MARK: ARRAY FUNCTION
 T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, double *V1, double *V2, double T1, double n, double R, double alpha)
 {
     T2CompProfile profile = {0.0};
@@ -157,6 +161,7 @@ T2CompProfile CompressorProfile(int method, double P1, double P2, double Vc, dou
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
 {
     printf("_Reciprocating_Compressor_Results_\n");
@@ -349,6 +354,7 @@ void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Compressor(void)
 {
     //  Pseudo-main function.

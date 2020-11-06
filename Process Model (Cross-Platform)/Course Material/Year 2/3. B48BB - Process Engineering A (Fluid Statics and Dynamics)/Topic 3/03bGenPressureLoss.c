@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -20,8 +21,10 @@
 #include "02dReyNo.h"
 #include "03aFrictFactor.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L, double *vareps)
 {
     *rho = inputDouble(0, "fluid density", "kg/m3");
@@ -45,6 +48,7 @@ void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L,
     fflush(stdout);
 }
 
+/// MARK: PRELIMINARY CALCULATION
 double phiCalculation(double rho, double u, double d, double mu, double vareps)
 {
     char menu[maxstrlen];
@@ -119,6 +123,7 @@ double phiCalculation(double rho, double u, double d, double mu, double vareps)
     return phi;
 }
 
+/// MARK: GENERAL CALCULATION
 double LossCalculation(double phi, double L, double d, double rho, double u)
 {
     double frac1 = 0.0;
@@ -138,6 +143,7 @@ double LossCalculation(double phi, double L, double d, double rho, double u)
     return dP;
 }
 
+/// MARK: DISPLAY AND WRITE
 void PressLossDisplay(double rho, double u, double d, double mu, double L, double vareps, double phi, double dP)
 {
     printf("_Pressure_Loss_Equation_Results_\n");
@@ -292,6 +298,7 @@ void PressLossWriteSwitch(double rho, double u, double d, double mu, double L, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void GeneralPressureLoss()
 {
     //  Pseudo-main function.

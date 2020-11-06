@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,10 +19,12 @@
 #include "B48BB_T1.h"
 #include "01bFluidVHyd.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 //  Fixed variable definitions
 #define maxstrlen 128   // Max string length
 #define g 9.80665       // Acceleration due to gravity
 
+/// MARK: VARIABLE INPUT
 void FluidVHydVariable(double *rho, double *h)
 {
     *rho = inputDouble(0, "fluid density", "kg/m3");
@@ -29,6 +32,7 @@ void FluidVHydVariable(double *rho, double *h)
     *h = inputDouble(1, "fluid height", "m");
 }
 
+/// MARK: GENERAL CALCULATION
 double FluidVHydCalculation(double rho, double h) 
 {
     double P = 0.0; // Fluid hydrostatic pressure.
@@ -39,6 +43,7 @@ double FluidVHydCalculation(double rho, double h)
     return P;
 }
 
+/// MARK: DISPLAY AND WRITE
 void FluidVHydDisplay(double rho, double h, double P)
 {
     printf("_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
@@ -154,6 +159,7 @@ void FluidVHydWriteSwitch(double rho, double h, double P)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void FluidVerticalHydrostaticPressure()
 {
     //  Pseudo-main function.

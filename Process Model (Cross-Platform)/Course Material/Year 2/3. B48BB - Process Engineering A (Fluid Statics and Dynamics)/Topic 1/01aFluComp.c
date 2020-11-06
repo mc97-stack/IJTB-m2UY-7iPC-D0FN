@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,10 +19,12 @@
 #include "B48BB_T1.h"
 #include "01aFluComp.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.31455
 #define BST (+1)
 
+/// MARK: VARIABLE INPUT
 void FluCompVariable(double *P, double *V, double *n, double *T)
 {
     //Pressure
@@ -40,6 +43,7 @@ void FluCompVariable(double *P, double *V, double *n, double *T)
     *n = *n * 1000.0; //Conversion to mol
 }
 
+/// MARK: GENERAL CALCULATION
 double FluCompCalculation(double P, double V, double n, double T)
 {
     double top = 0.0;   // Numerator of the bracketed term.
@@ -64,6 +68,7 @@ double FluCompCalculation(double P, double V, double n, double T)
     return c;
 }
 
+/// MARK: DISPLAY AND WRITE
 void FluCompDisplay(double P, double V, double n, double T, double c)
 {
     printf("_Fluid_Coefficient_of_Compressibility_Results_\n");
@@ -177,6 +182,7 @@ void FluCompWriteSwitch(double P, double V, double n, double T, double c)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void CoefficientofCompressibility()
 {
     //  Pseudo-main function.

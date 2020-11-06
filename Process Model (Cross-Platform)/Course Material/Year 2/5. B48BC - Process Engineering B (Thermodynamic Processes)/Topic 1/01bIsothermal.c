@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "01bIsothermal.h"
 #include "IdealGasLaw.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T, double *n)
 {
     if(method == 1){
@@ -47,6 +50,7 @@ void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, do
     }
 }
 
+/// MARK: GENERAL CALCULATIONS
 double IsotVolume(double n, double T, double V1, double V2)
 {
     double frac = 0.0;
@@ -98,6 +102,7 @@ double IsotFinalVolume(double V1, double P1, double P2)
     return V2;
 }
 
+/// MARK: ARRAY FUNCTION
 T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, double V1, double V2)
 {
     double incr = 0.0;  // Increment between data points
@@ -153,6 +158,7 @@ T1ThermoProf IsotProfile(int method, double n, double T, double P1, double P2, d
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
 {
     double total = 0.0;
@@ -325,6 +331,7 @@ void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Isothermal()
 {
     //Main Function

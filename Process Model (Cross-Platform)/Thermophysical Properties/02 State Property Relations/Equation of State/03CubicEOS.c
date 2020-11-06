@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -19,9 +20,11 @@
 #include "02PVTRelations.h"
 #include "03CubicEOS.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 83.145        // (bar.cm3)/(mol.K)
 
+/// MARK: VARIABLE INPUT
 void CubicEOSVariable(double *Pc, double *Tc, double *omega)
 {
     *Pc = inputDouble(0, "critical pressure", "bar");
@@ -29,6 +32,7 @@ void CubicEOSVariable(double *Pc, double *Tc, double *omega)
     *omega = inputDouble(0, "Acentric factor", "[ ]");
 }
 
+/// MARK: GENERAL CALCULATIONS
 double CubicEOSCalculation(double T, double V, double a, double b, double u, double w)
 {
     double P = 0.0;
@@ -83,6 +87,7 @@ double CubicEOSCompCalculation(double P, double V, double a, double b, double u,
     return Z;
 }
 
+/// MARK: ARRAY FUNCTION
 EOSIsotherm CubicEOSIsotherm(double T, double a, double b, double u, double w)
 {
     EOSIsotherm Isotherm = {0.0};
@@ -103,6 +108,7 @@ EOSIsotherm CubicEOSIsotherm(double T, double a, double b, double u, double w)
     return Isotherm;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CubicEOSDisplay(int eqn, double Pc, double Tc, double omega, double T, double a, double b, EOSIsotherm Isotherm)
 {
     if(eqn == 1){
@@ -335,6 +341,7 @@ void CubicEOSSwitch(int mode, int eqn, double Pc, double Tc, double omega, doubl
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void CubicEOS(void)
 {
     int whilmain = 0;

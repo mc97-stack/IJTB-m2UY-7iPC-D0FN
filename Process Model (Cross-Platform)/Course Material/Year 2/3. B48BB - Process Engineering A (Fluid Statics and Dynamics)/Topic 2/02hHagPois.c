@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BB_T2.h"
 #include "02hHagPois.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void HagPoisVariable(double *u, double *mu, double *L, double *d)
 {
     *L = inputDouble(0, "pipe horizontal length", "m");
@@ -35,6 +38,7 @@ void HagPoisVariable(double *u, double *mu, double *L, double *d)
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATION
 double HagPoisCalculation(double u, double mu, double L, double d)
 {
     double top = 0.0;
@@ -52,6 +56,7 @@ double HagPoisCalculation(double u, double mu, double L, double d)
     return dP;
 }
 
+/// MARK: DISPLAY AND WRITE
 void HagPoisDisplay(double u, double mu, double L, double d, double dP)
 {
     printf("_Hagen-Pouseuille_Equation_Results_\n");
@@ -181,6 +186,7 @@ void HagPoisWriteSwitch(double u, double mu, double L, double d, double dP)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void HagenPoiseuille()
 {
     //  Pseudo-main function.

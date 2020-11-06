@@ -37,7 +37,12 @@ void pureComponentConstants()
                 printf("Bear with me, this is still being written...\n");
                 break;
             case '2':
-                AcentricFactor();
+                if(AcentricFactor() != 0.0)
+                {
+                    printf("AcentricFactor() success\n");
+                }else{
+                    printf("WARNING: AcentricFactor() == 0\n");
+                }
                 break;
             case '3':
                 //BoilingFreezingPoint();

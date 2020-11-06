@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BC_T4.h"
 #include "04aThermalEfficiency.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void ThermEffVariable(int method, double *wnet, double *qhot, double *qcold, double *Thot, double *Tcold)
 {
     printf("Process terms.\n");
@@ -40,6 +43,7 @@ void ThermEffVariable(int method, double *wnet, double *qhot, double *qcold, dou
     }
 }
 
+/// MARK: GENERAL CALCULATION
 double ThermEffCalc1(double wnet, double qhot)
 {
     double eta = 0.0;
@@ -75,6 +79,7 @@ double ThermEffCarnotCalculation(double THot, double TCold)
     return eta;
 }
 
+/// MARK: DISPLAY AND WRITE
 void ThermEffDisplay(int method, double wnet, double qhot, double qcold, double THot, double TCold, double eta, double etac)
 {
     printf("_Thermal_Efficiency_Results_\n");
@@ -257,6 +262,7 @@ void ThermEffWriteSwitch(int method, double wnet, double qhot, double qcold, dou
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void ThermalEfficiency(void)
 {
     //  Pseudo-main function.

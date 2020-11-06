@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "03dEquivLeng.h"
 #include "03bGenPressureLoss.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: DATABANK
 EquivLenFits EquivLengData(EquivLenFits input)
 {
     input.data[0] = 15;
@@ -42,6 +45,7 @@ EquivLenFits EquivLengData(EquivLenFits input)
     return input;
 }
 
+/// MARK: VARIABLE INPUT
 EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double *d, double *mu, double *vareps, double *phi)
 {
     char input[maxstrlen];  // Variable used to store keyboard input.
@@ -115,6 +119,12 @@ EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double
     return data;
 }
 
+/// MARK: GENERAL CALCULATIONS
+double EquivLengCalculateL_e(double input, double d)
+{
+    return input*d;
+}
+
 double EquivLengCalculateLoss(int count, double phi, double L_e, double rho, double u, double d)
 {
     double dP_f = 0.0;
@@ -137,11 +147,7 @@ double EquivLengCalculateLoss(int count, double phi, double L_e, double rho, dou
     return dP_f;
 }
 
-double EquivLengCalculateL_e(double input, double d)
-{
-    return input*d;
-}
-
+/// MARK: ARRAY FUNCTION
 EquivLenFits EquivLengFinalTable(EquivLenFits data, double rho, double u, double d, double phi)
 {
     for(int i = 0; i < 15; ++i){
@@ -151,6 +157,7 @@ EquivLenFits EquivLengFinalTable(EquivLenFits data, double rho, double u, double
     return data;
 }
 
+/// MARK: DISPLAY AND WRITE
 void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
 {
     int i = 0;
@@ -517,6 +524,7 @@ void EquivLengWriteSwitch(EquivLenFits table, double rho, double u, double d, do
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void EquivalentLength()
 {
     //  Variable declaration

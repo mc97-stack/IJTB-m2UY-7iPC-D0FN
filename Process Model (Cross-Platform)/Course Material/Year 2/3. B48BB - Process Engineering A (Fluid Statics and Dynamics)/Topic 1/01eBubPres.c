@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BB_T1.h"
 #include "01eBubPres.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void BubPresVariable(double *sigma, double *r)
 {
     *sigma = inputDouble(0, "surface tension", "N/m");
@@ -28,6 +31,7 @@ void BubPresVariable(double *sigma, double *r)
     *r = (*r)*0.001; //Conversion (mm to m)
 }
 
+/// MARK: GENERAL CALCULATION
 double BubPresCalculation(double sigma, double r) 
 {
     double top = 0.0;
@@ -41,6 +45,7 @@ double BubPresCalculation(double sigma, double r)
     return P;
 }
 
+/// MARK: DISPLAY AND WRITE
 void BubPresDisplay(double sigma, double r, double P)
 {
     printf("_Bubble_Pressure_Calculations_\n");
@@ -128,6 +133,7 @@ void BubPresWrite(double sigma, double r, double P)
      
     printf("Write Complete\n");
 }
+
 void BubPresWriteSwitch(double sigma, double r, double P)
 {
     int control = 0;
@@ -163,6 +169,7 @@ void BubPresWriteSwitch(double sigma, double r, double P)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void BubblePressure()
 {
     //  Pseudo-main function.

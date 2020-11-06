@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BC_T4.h"
 #include "04dClausiusInequality.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 T4EntropyDef EntropyVariable(int i, T4EntropyDef data)
 {
     printf("Please enter the following variables true at state %d.\n", i + 1);
@@ -31,6 +34,7 @@ T4EntropyDef EntropyVariable(int i, T4EntropyDef data)
     return data;
 }
 
+/// MARK: GENERAL CALCULATIONS
 T4EntropyDef EntropyCalculation(int i, T4EntropyDef data)
 {
     data.s[i] = (data.q[i])/(data.T[i]);
@@ -46,6 +50,7 @@ double EntropyCalc(double q, double T)
     return s;
 }
 
+/// MARK: DISPLAY AND WRITE
 void EntropyDisplay(int imax, T4EntropyDef data)
 {
     printf("_Clausius_Inequality_Results_\n");
@@ -192,6 +197,7 @@ void EntropyWriteSwitch(int imax, T4EntropyDef data)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void ClausiusInequality(void)
 {
     //  Pseudo-main function.

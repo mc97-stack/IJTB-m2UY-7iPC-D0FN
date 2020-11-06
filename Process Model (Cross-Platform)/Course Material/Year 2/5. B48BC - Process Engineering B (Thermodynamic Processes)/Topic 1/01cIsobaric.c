@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "01cIsobaric.h"
 #include "IdealGasLaw.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void IsobVariable(int method, double *P, double *V1,double *V2, double *T1, double *T2, double *n)
 {
     if(method == 1){
@@ -44,6 +47,7 @@ void IsobVariable(int method, double *P, double *V1,double *V2, double *T1, doub
     }
 }
 
+/// MARK: GENERAL CALCULATION
 double IsobVolume(double P, double V1, double V2)
 {
     double work = 0.0;
@@ -76,6 +80,7 @@ double IsobFinalTemperature(double V1, double V2, double T1)
     return T2;
 }
 
+/// MARK: ARRAY FUNCTION
 T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, double T2, double n)
 {
     double incr = 0.0;  // Increment between data points
@@ -135,6 +140,7 @@ T1ThermoProf IsobProfile(int method, double P, double V1, double V2, double T1, 
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
 {
     double total = 0.0;
@@ -309,6 +315,7 @@ void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Isobaric()
 {
     //Main Function

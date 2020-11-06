@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -17,8 +18,10 @@
 #include "System.h"
 #include "02g1LamVelPro.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 {
     *d = inputDouble(0, "internal pipe diameter", "mm");
@@ -32,6 +35,7 @@ void LamVelProVariable(double *dP, double *L, double *d, double *mu)
     *mu = (*mu)*0.001;
 }
 
+/// MARK: GENERAL CALCULATION
 double LamVelCalculation(double dP, double L, double d, double mu, double r) 
 {
     double frac1 = 0.0;
@@ -67,6 +71,7 @@ double LamVelGeneralCalculation(double r, double d)
     return func; //Returns v/v_max
 }
 
+/// MARK: ARRAY FUNCTION
 LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *rows) 
 {
     double interval = 0.0; // Interval between radius data entries used to calculate the point velocities.
@@ -97,6 +102,7 @@ LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     printf("_Laminar_Velocity_Profile_Calculation_\n");
@@ -234,6 +240,7 @@ void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, La
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void LaminarVelPro()
 {
     //  Pseudo-main function.

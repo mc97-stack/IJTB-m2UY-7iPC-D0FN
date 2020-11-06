@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -23,8 +24,10 @@
 #include "04cCarnotCycle.h"
 #include "04dClausiusInequality.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot, double *TCold, double *n, double *gamma1, double *gamma2)
 {
     int control = 0;
@@ -85,6 +88,7 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
     *n = (*n)*1000;
 }
 
+/// MARK: ARRAY FUNCTION
 T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, double *worknet, double *qhot, double *qcold)
 {
     static T4CarnotProfile profile;
@@ -186,6 +190,7 @@ T4CarnotProfile CarnotProfileCalc(double P1, double P2, double P3, double P4, do
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold)
 {
     printf("_Carnot_Cycle_Results_\n");
@@ -445,6 +450,7 @@ void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void CarnotCycle(void)
 {
     //  Pseudo-main function.

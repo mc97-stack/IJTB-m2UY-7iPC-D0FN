@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "B48BC_T2.h"
 #include "02cOpenFirstLaw.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: VARIABLE INPUT
 void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
     *q = inputDouble(0, "molar process heat", "kJ/kmol");
@@ -58,6 +61,7 @@ T2StateEnergy OpenFirstLawFluidVariable(int ins)
     return state;
 }
 
+/// MARK: GENERAL CALCULATION
 double OpenFirstLawCalculation(double q, double w_s, T2StateEnergy state1, T2StateEnergy state2)
 {
     double inequality = 0.0;
@@ -92,6 +96,7 @@ void OpenInitialValue(T2StateEnergy state, double *u, double *z)
     *z = (*z)/g;
 }
 
+/// MARK: DISPLAY AND WRITE
 void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
     double u1 = 0.0;    // Initial fluid velocity.
@@ -268,6 +273,7 @@ void OpenFirstLawWriteSwitch(T2StateEnergy state1,T2StateEnergy state2, double q
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void OpenFirstLaw()
 {
     //  Pseudo-main function.

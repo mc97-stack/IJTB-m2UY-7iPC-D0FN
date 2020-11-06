@@ -6,28 +6,32 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//Standard Header Files
+/// MARK: HEADER DECLARATIONS
+//  Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//Custom Header Files
+//  Custom Header Files
 #include "System.h"
 #include "02PVTRelations.h"
 #include "EquationofState.h"
 #include "01IdealGas.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 83.145    // (bar.cm3)/(mol.K)
 
+/// MARK: VARIABLE INPUT
 void IdealEOSVariable(double *T)
 {
     *T = inputDouble(1, "Temperature of isotherm", "deg C");
     *T = (*T) + 273.15;
 }
 
+/// MARK: GENERAL CALCULATION
 double IdealEOSCalculation(double V, double T)
 {
     double P = 0.0;
@@ -38,6 +42,7 @@ double IdealEOSCalculation(double V, double T)
     return P;
 }
 
+/// MARK: ARRAY FUNCTION
 EOSIsotherm IdealEOSIsotherm(double T)
 {
     double incr = 0.0;
@@ -56,6 +61,7 @@ EOSIsotherm IdealEOSIsotherm(double T)
     return Isotherm;
 }
 
+/// MARK: DISPLAY AND WRITE
 void IdealEOSDisplay(double T, EOSIsotherm data)
 {
     printf("_Ideal_Gas_Equation_of_State_Results_\n");
@@ -188,6 +194,7 @@ void IdealEOSWriteSwitch(double T, EOSIsotherm data)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void IdealEOS(void)
 {
     int whilmain = 0;
@@ -204,10 +211,12 @@ void IdealEOS(void)
             //  Variable declaration
             char input[maxstrlen];      // Variable where character input is stored.
             int control2 = 0;           // Variable used to control user input.
+            int elems = 0;              // Number of elements in Isotherm array
+            elems = 1000*4;             // Calculating the total number of elements
             
             double T = 0.0;             // Isotherm temperature.
             
-            EOSIsotherm data = {0.0};   // Struct where isotherm data is stored.
+            EOSIsotherm *data = calloc(elems, sizeof(EOSIsotherm));   // Struct where isotherm data is stored.
             
                 //  Variables for timing function
             struct timespec start, end;
@@ -220,7 +229,7 @@ void IdealEOS(void)
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            data = IdealEOSIsotherm(T);
+            *data = IdealEOSIsotherm(T);
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -230,10 +239,12 @@ void IdealEOS(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IdealEOSDisplay(T, data);
+            IdealEOSDisplay(T, *data);
             
             //  Writing to File
-            IdealEOSWriteSwitch(T, data);
+            IdealEOSWriteSwitch(T, *data);
+            
+            free((void*)data);
             
             control2 = 1;
             while(control2 == 1)
@@ -263,6 +274,7 @@ void IdealEOS(void)
                 }
             }
         }
+    nomem:
         //  Continue function
         whilmain = Continue(whilmain);
     }

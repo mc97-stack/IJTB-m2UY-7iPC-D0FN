@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BC_T4.h"
 #include "04bCoefficientofPerformance.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void CoPVariable(int method, double *wnet, double *qhot, double *qcold, double *THot, double *TCold)
 {
     if(method == 1)
@@ -39,6 +42,7 @@ void CoPVariable(int method, double *wnet, double *qhot, double *qcold, double *
     }
 }
 
+/// MARK: GENERAL CALCULATIONS
 double CoPFridge(double qcold, double wnet)
 {
     double CoP = 0.0;
@@ -102,6 +106,7 @@ double etaHeatPump(double CoP)
     return eta;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CoPDisplay(int method, double wnet, double qhot, double qcold, double THot, double TCold, double CoP, double CoPRev, double eta, double etac)
 {
     printf("_Thermal_Efficiency_Results_\n");
@@ -318,6 +323,7 @@ void CoPWriteSwitch(int method, double wnet, double qhot, double qcold, double T
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void CoefficientofPerformance(void)
 {
     //  Pseudo-main function.

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,11 +19,13 @@
 #include "B48BB_T1.h"
 #include "01cMano.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 //  Fixed variable definitions
 #define maxstrlen 128
 #define g 9.80665
 #define PI 3.14159265
 
+/// MARK: VARIABLE INPUT
 void ManoMeasVariable(double *P2, double *rho1, double *h1, double *rho2, double *h2)
 {
     char input[maxstrlen];   // Variable used to store character input into a menu.
@@ -176,6 +179,7 @@ void ManoEstiVariable(double *P1, double *P2, double *rho1, double *rho2, double
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATIONS
 double ManoMeasCalculation(double P2, double rho1, double h1, double rho2, double h2)
 {
     double brack = 0.0;
@@ -251,6 +255,7 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
     return h2;
 }
 
+/// MARK: DISPLAY AND WRITE
 void ManoMeasDisplay(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
     printf("_Manometer_Estimation_Calculations_\n\n");
@@ -524,6 +529,7 @@ void ManoEstiWriteSwitch(double P1, double P2, double rho1, double h1, double rh
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Manometer()
 {
     //  Pseudo-main function.

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 
@@ -14,6 +15,7 @@
 
 #define R 83.145        // (bar.cm3)/(mol.K)
 
+/// MARK: VAN DER WAALS CONSTANTS
 double VdWcalculateA(double Tc, double Pc)
 {
     double a = 0.0;
@@ -47,6 +49,7 @@ double VdWcalculateB(double Tc, double Pc)
     return b;
 }
 
+/// MARK: REDLICH-KWONG CONSTANTS
 double RKcalculateA(double Tc, double Pc, double T)
 {
     double a = 0.0;
@@ -82,6 +85,7 @@ double RKcalculateB(double Tc, double Pc)
     return b;
 }
 
+/// MARK: SOAVE-REDLICH-KWONG CONSTANTS
 double SRKcalculateAcFunc(double omega)
 {
     double func = 0.0;
@@ -125,6 +129,7 @@ double SRKcalculateA(double Tc, double Pc, double T, double omega)
     return a;
 }
 
+/// MARK: PENG-ROBINSON CONSTANTS
 double PRcalculateAcFunc(double omega)
 {
     double func = 0.0;

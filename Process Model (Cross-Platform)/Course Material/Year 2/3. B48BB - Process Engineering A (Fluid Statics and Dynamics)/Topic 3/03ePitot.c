@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -19,9 +20,11 @@
 #include "03ePitot.h"
 #include "01cMano.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define PI 3.14159265
 
+/// MARK: VARIABLE INPUT
 void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
     *P2 = inputDouble(0, "static pressure on connection", "kPa");
@@ -41,6 +44,7 @@ void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h
     *d = (*d)*0.001; //Conversion (mm to m)
 }
 
+/// MARK: GENERAL CALCULATION
 void PitotCalculation(double P2, double rho1, double rho2, double h1, double h2, double d, double *P1, double *v, double *Q)
 {
     //P1 = Process fluid pressure
@@ -67,6 +71,7 @@ void PitotCalculation(double P2, double rho1, double rho2, double h1, double h2,
     *Q = (*v) * (pare);
 }
 
+/// MARK: DISPLAY AND WRITE
 void PitotDisplay(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
     printf("_Pitot_Static_Tube_Results_\n");
@@ -213,6 +218,7 @@ void PitotWriteSwitch(double P1, double P2, double rho1, double rho2, double h1,
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void PitotStaticTube()
 {
     //Main Function

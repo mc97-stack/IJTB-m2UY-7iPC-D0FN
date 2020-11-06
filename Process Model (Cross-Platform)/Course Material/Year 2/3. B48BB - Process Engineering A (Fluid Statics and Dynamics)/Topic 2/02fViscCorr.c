@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "B48BB_T2.h"
 #include "02fViscCorr.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define exp 2.718281828459045
 
+/// MARK: VARIABLE INPUT
 void ViscCorrVariable(double *a, double *b, double *T, double *rho)
 {
     char input[maxstrlen];
@@ -65,6 +68,7 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     *rho = inputDouble(0, "fluid density", "kg/m3");
 }
 
+/// MARK: GENERAL CALCULATIONS
 double LiquidViscCalculation(double a, double b, double T)
 {
     double frac = 0.0;
@@ -106,6 +110,7 @@ double KineticVisc(double mu, double rho)
     return upsi;
 }
 
+/// MARK: DISPLAY AND WRITE
 void ViscDisplay(int method, double a, double b, double T, double rho, double mu, double upsi)
 {
     if(method == 1){
@@ -256,6 +261,7 @@ void ViscWriteSwitch(int method, double a, double b, double T, double rho, doubl
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void ViscosityCorrelation()
 {
     //  Pseudo-main function.

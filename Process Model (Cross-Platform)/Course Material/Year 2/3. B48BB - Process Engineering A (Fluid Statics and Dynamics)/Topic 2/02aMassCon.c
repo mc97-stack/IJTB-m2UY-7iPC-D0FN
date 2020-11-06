@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "B48BB_T2.h"
 #include "02aMassCon.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define PI 3.141592653
 
+/// MARK: VARIABLE INPUT
 void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 {
     *rho1 = inputDouble(0, "initial fluid density", "kg/m3");
@@ -36,6 +39,7 @@ void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double 
     *u1 = inputDouble(0, "initial fluid velocity", "m/s");
 }
 
+/// MARK: GENERAL CALCULATIONS
 double FinalVelocityCalculation(double u1, double d1, double d2)
 {
     double frac = 0.0;
@@ -78,6 +82,7 @@ double MassFlowCalculation(double rho, double d, double u)
     return m;
 }
 
+/// MARK: DISPLAY AND WRITE
 void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
 {
     printf("_Mass_Conservation_Principle_\n");
@@ -220,6 +225,7 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
      
     printf("Write Complete\n");
 }
+
 void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
 {
     int control = 0;
@@ -254,6 +260,7 @@ void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void MassConservation()
 {
     //  Pseudo-main function.

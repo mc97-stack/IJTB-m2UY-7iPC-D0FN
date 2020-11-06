@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 // Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BC_T2.h"
 #include "02bPolyShaftWork.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, double *alpha)
 {
     int ideal = 0;
@@ -51,6 +54,7 @@ int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, 
     return ideal;
 }
 
+/// MARK: GENERAL CALCULATION
 double IdealShaftCalculation(double n, double R, double T1, double P1, double P2)
 {
     double W_S = 0.0;
@@ -89,6 +93,7 @@ double PolyShaftCalculation(double n, double R, double T1, double P1, double P2,
     return W_S;
 }
 
+/// MARK: DISPLAY AND WRITE
 void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
 {
     printf("_Polytropic_Shaft_Work_Results_\n");
@@ -241,6 +246,7 @@ void PolyShaftWriteSwitch(double n, double R, double T1, double P1, double P2, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void PolyShaftWork()
 {
     //  Pseudo-main function.

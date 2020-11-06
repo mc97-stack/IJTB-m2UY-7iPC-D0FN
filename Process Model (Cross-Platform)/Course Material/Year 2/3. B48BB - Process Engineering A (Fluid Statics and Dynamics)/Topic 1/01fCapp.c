@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -19,10 +20,12 @@
 #include "01dSurfTens.h"
 #include "01fCapp.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define PI 3.141592653
 #define g 9.80665
 
+/// MARK: VARIABLE INPUT
 void CappVariable(double *sigma, double *cang, double *rho, double *d)
 {
     *sigma = inputDouble(0, "Surface Tension", "N/m");
@@ -39,6 +42,7 @@ void CappVariable(double *sigma, double *cang, double *rho, double *d)
     *d = (*d)*0.001;
 }
 
+/// MARK: GENERAL CALCULATIONS
 double CappCalculateHeight(double sigma, double cang, double rho, double d)
 {
     double top = 0.0;
@@ -70,6 +74,7 @@ double CappCalculatePressure(double sigma, double cang, double d)
     return Pc;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CappDisplay(double sigma, double cang, double d, double h, double Pc)
 {
     printf("_Capillarity_Calculations_\n");
@@ -199,7 +204,7 @@ void CappWriteSwitch(double sigma, double cang, double d, double h, double Pc)
         }
     }
 }
-
+/// MARK: PSEUDO-MAIN FUNCTION
 void Cappilarity()
 {
     //  Pseudo-main function.

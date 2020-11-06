@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BB_T3.h"
 #include "03cHydrDiam.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void HydrDiamVariable(double *A_F, double *P_W)
 {
     double convfactor = 0.0;    // Conversion factor
@@ -36,6 +39,7 @@ void HydrDiamVariable(double *A_F, double *P_W)
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATION
 double HydrDiamCalculation(double A_F, double P_W)
 {
     double d_H = 0.0;
@@ -49,6 +53,7 @@ double HydrDiamCalculation(double A_F, double P_W)
     return d_H;
 }
 
+/// MARK: DISPLAY AND WRITE
 void HydrDiamDisplay(double A_F, double P_W, double d_H)
 {
     printf("_Hydraulic_Diameter_Results_\n");
@@ -169,6 +174,7 @@ void HydrDiamWriteSwitch(double A_F, double P_W, double d_H)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void HydraulicDiameter()
 {
     //  Pseudo-main function.

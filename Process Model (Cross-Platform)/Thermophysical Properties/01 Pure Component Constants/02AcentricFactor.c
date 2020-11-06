@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "01PureComponent.h"
 #include "02AcentricFactor.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void AcFactorVariable(int mode, double *Pc, double *Tc, double *TBoil, double *ANTA, double *ANTB, double *ANTC)
 {
     *Pc = inputDouble(0, "critical pressure", "bar");
@@ -37,6 +40,7 @@ void AcFactorVariable(int mode, double *Pc, double *Tc, double *TBoil, double *A
     }
 }
 
+/// MARK: PRELIMINARY CALCULATIONS
 double AntoineEquation(double ANTA, double ANTB, double ANTC, double T)
 {
     double PHat = 0.0;
@@ -50,6 +54,7 @@ double AntoineEquation(double ANTA, double ANTB, double ANTC, double T)
     return PHat;
 }
 
+/// MARK: CALCULATIONS
 double AcFactorPHatCalculation(double ANTA, double ANTB, double ANTC, double Tc, double Pc)
 {
     double omega = 0.0;     // Acentric factor
@@ -139,6 +144,7 @@ double AcFactorLKCalc(double Pc, double Tc, double TBoil)
     return omega;
 }
 
+/// MARK: DISPLAY AND WRITE
 void AcFactorDisplay(int mode, double Pc, double Tc, double TBoil, double ANTA, double ANTB, double ANTC, double omegaANT, double omegaCRI, double omegaLK)
 {
     printf("_Acentric_Factor_Results_\n");
@@ -317,9 +323,11 @@ void AcFactorSwitch(int mode1, int mode2, double Pc, double Tc, double TBoil, do
     }
 }
 
-void AcentricFactor(void)
+/// MARK: PSEUDO-MAIN FUNCTION
+double AcentricFactor(void)
 {
     int whilmain = 0;
+    double omega = 0.0;        // Acentric factor value.
     printf("Acentric Factor Calculation\n");
     
     whilmain = 1;
@@ -333,6 +341,11 @@ void AcentricFactor(void)
         double omegaANT = 0.0;     // Acentric Factor (Antoine Equation).
         double omegaCRI = 0.0;     // Acentric Factor (Critical properties and Normal boiling point).
         double omegaLK = 0.0;      // Acentric Factor (Lee-Kesler vapour pressure relations).
+        double errANT = 0.0;       // Variable to store the percentage error in reference to empirical evidence.
+        double errCRI = 0.0;       // Variable to store the percentage error in reference to empirical evidence.
+        double errLK = 0.0;       // Variable to store the percentage error in reference to empirical evidence.
+        double data = 0.0;         // Variable used to store the empirical data.
+        
         
         double ANTA = 0.0;      // Constant A for Antoine equation.
         double ANTB = 0.0;      // Constant B for Antoine equation.
@@ -393,12 +406,15 @@ void AcentricFactor(void)
         
         if(mode == 1 || mode == 4){
             omegaANT = AcFactorPHatCalculation(ANTA, ANTB, ANTC, Tc, Pc);
+            printf("omegaANT =\t%.3f\t[ ]\n", omegaANT);
         }
         if(mode == 2 || mode == 4){
             omegaCRI = AcFactorCritCalc(Pc, Tc, TBoil);
+            printf("omegaCRI =\t%.3f\t[ ]\n", omegaCRI);
         }
         if(mode == 3 || mode == 4){
             omegaLK = AcFactorLKCalc(Pc, Tc, TBoil);
+            printf("omegaLK =\t%.3f\t[ ]\n", omegaLK);
         }
         
         clock_getres(CLOCK_MONOTONIC, &end);
@@ -416,7 +432,55 @@ void AcentricFactor(void)
         
         //  Continue function
         whilmain = Continue(whilmain);
+        
+        data = inputDouble(1, "Empirical data: ", "[ ]");
+        
+        errANT = pcterror(omegaANT, data);
+        errCRI = pcterror(omegaCRI, data);
+        errLK = pcterror(omegaLK, data);
+        
+        errANT = fabs(errANT);
+        errCRI = fabs(errCRI);
+        errLK = fabs(errLK);
+        
+        printf("errANT = %f\nerrCRI = %f\nerrLK = %f\n\n", errANT, errCRI, errLK);
+        
+        if(errANT < 0.005 || errCRI < 0.005 || errLK < 0.005 )
+        {
+            if(errANT < 0.005){
+                printf("Using omegaANT");
+                omega = omegaANT;
+            }
+            if(errCRI < 0.005){
+                printf("Using omegaCRI");
+                omega = omegaCRI;
+            }
+            if(errLK < 0.005){
+                printf("Using omegaLK");
+                omega = omegaLK;
+            }
+        }else{
+            if(errANT < errCRI && errANT < errLK){
+                // Error from using the antoine equation is the smallest.
+                printf("Using omegaANT");
+                omega = omegaANT;
+            }else{
+                if(errCRI < errLK){
+                    // Error from the critical parameter is the smallest.
+                    printf("Using omegaCRI");
+                    omega = omegaCRI;
+                }else{
+                    // Error from the Lee-Kesler method is the smallest.
+                    printf("Using omegaLK");
+                    omega = omegaLK;
+                }
+            }
+        }
+        
+        
+        printf("\n");
     }
 end:
     fflush(stdout);
+    return omega;
 }

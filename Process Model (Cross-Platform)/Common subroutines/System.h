@@ -20,9 +20,22 @@ double inputDouble(int allowZero, char VariableName[], char Units[]);
 #ifndef Timer_h
 #define Timer_h
 
+/// This subroutine takes and returns the difference between two time states of the internal CPU.
+/// @param start Starting time state of process.
+/// @param end Ending time state of process.
 double timer(struct timespec start, struct timespec end);
 
 #endif /* Timer_h */
+
+#ifndef pcterr_h
+#define pcterr_h
+
+/// This subroutine is used calculate the percentage error in a calculated value 
+/// @param input Calculated value.
+/// @param data Empirical value.
+double pcterror(double input, double data);
+
+#endif /* pcterr_h */
 
 #ifndef Continue_h
 #define Continue_h

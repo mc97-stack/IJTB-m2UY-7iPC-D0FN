@@ -27,7 +27,14 @@ double inputDouble(int allowZero, char VariableName[], char Units[])
     control = 1;
     while(control == 1)
     {
-        printf("Please enter a value for %s (%s): ", VariableName, Units);
+        printf("Please enter a value for %s ", VariableName);
+        if(Units == NULL)
+        {
+            printf(": ");
+        }else{
+            printf("(%s): ", Units);
+        }
+        
         input = atof(fgets(value, sizeof(value), stdin));
         if(allowZero == 0 && input == 0.0){
             printf("This variable must have a non-zero value. Please enter a different value.\n");
@@ -54,6 +61,16 @@ double timer(struct timespec start, struct timespec end)
     elapsed = (elapsed)*pow(10, -9);
     
     return elapsed;
+}
+
+double pcterror(double input, double data)
+{
+    double pcterr = 0.0;
+    
+    pcterr = input - data;
+    pcterr = (pcterr)/data;
+    
+    return pcterr;
 }
 
 int Continue(int ControlVariable)

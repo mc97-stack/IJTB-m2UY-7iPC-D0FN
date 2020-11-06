@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "B48BC_T3.h"
 #include "03cMultistageEstimation.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void MSShaftWorkVariable(double *P1, double *P2, double *T1, double *mol, int *N, double *gamma)
 {
     *P1 = inputDouble(0, "system pressure before compression", "kPa");
@@ -40,6 +43,7 @@ void MSShaftWorkVariable(double *P1, double *P2, double *T1, double *mol, int *N
     *N = (int)inputDouble(0, "number of stages", "[ ]");
 }
 
+/// MARK: GENERAL CALCULATION
 double MSShaftWorkEquation(double P1, double P2, double T1, double mol, double gamma, double N)
 {
     double brack = 0.0;
@@ -87,6 +91,7 @@ double MSShaftWorkCalculation(double P1, double P2, double T1, double mol, doubl
     return shaftWork;
 }
 
+/// MARK: DISPLAY AND WRITE
 void MSShaftWorkDisplay(double P1, double P2, double T1, double mol, double gamma, double N, double shaftwork)
 {
     printf("_Multistage_Compressor_Shaft_Work_Results_\n");
@@ -229,6 +234,7 @@ void MSShaftWorkWriteSwitch(double P1, double P2, double T1, double mol, double 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void MultistageShaftWork(void)
 {
     //  Pseudo-main function.

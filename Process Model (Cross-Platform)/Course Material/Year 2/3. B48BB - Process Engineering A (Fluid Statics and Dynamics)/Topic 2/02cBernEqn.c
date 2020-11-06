@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -19,10 +20,12 @@
 #include "02aMassCon.h"
 #include "02cBernEqn.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define PI 3.141592653
 #define g 9.80665
 
+/// MARK: VARIABLE INPUT
 void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1, double *Z2, double *hf)
 {
     //Declaring and initialising local variables
@@ -52,6 +55,7 @@ void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1
     *hf = (*hf)/((*rho)*g);
 }
 
+/// MARK: GENERAL CALCULATION
 double StaticHeadCalculation(double P, double rho)
 {
     double stathead = 0.0;
@@ -85,6 +89,7 @@ double BernEqnCalculation(double stathead, double dynhead, double Z)
     return calc;
 }
 
+/// MARK: DISPLAY AND WRITE
 void BernEqnDisplay(double P1, double P2, double rho, double u1, double u2, double z1, double z2, double hf)
 {
     printf("_Bernoulli's_Equation_Results_\n");
@@ -229,6 +234,7 @@ void BernEqnWriteSwitch(double P1, double P2, double rho, double u1, double u2, 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void BernoulliEquation()
 {
     //  Pseudo-main function.

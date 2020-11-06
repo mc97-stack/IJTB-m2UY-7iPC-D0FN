@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -21,9 +22,11 @@
 #include "02bPolyShaftWork.h"
 #include "03bMultistageCompressor.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void MSCompVariable(double *P1, double *P2, double *Vc, double *T1, double *n, int *N, double *gamma)
 {
     *P1 = inputDouble(0, "system pressure before compression", "kPa");
@@ -55,6 +58,7 @@ void MSCompVariable(double *P1, double *P2, double *Vc, double *T1, double *n, i
     }
 }
 
+/// MARK: GENERAL CALCULATIONS
 double calculatePressureRatio(double P1, double P2)
 {
     return P2/P1;
@@ -104,6 +108,7 @@ int stageDischarge(int elements, int stage, int stages)
     return hold;
 }
 
+/// MARK: ARRAY FUNCTION
 T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n, int N, double gamma)
 {
     T3CompProfile profile = {0.0};
@@ -203,6 +208,7 @@ T3CompProfile MSCompProfile(double P1, double P2, double Vc, double T1, double n
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
     printf("_Multistage_Compressor_Results_\n");
@@ -377,6 +383,7 @@ void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, do
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void MultistageCompressor(void)
 {
     int whilmain = 0;

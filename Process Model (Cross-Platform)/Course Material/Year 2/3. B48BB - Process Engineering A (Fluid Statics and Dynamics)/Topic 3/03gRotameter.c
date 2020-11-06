@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,10 +19,12 @@
 #include "B48BB_T3.h"
 #include "03gRotameter.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 #define PI 3.14159265
 
+/// MARK: VARIABLE INPUT
 void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
 {
     *C_d = inputDouble(0, "discharge coefficient", "[ ]");
@@ -39,6 +42,7 @@ void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, dou
     *are2 = inputDouble(0, "annular area between float and tube at the point", "m2");
 }
 
+/// MARK: GENERAL CALCULATION
 void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, double A_f, double are1, double are2, double *dP, double *m, double *Q, double *u)
 {
     //Calculating pressure drop
@@ -69,6 +73,7 @@ void RotameterCalculation(double C_d, double V_f, double rho_f, double rho, doub
     *u = (*Q)/(are1);
 }
 
+/// MARK: DISPLAY AND WRITE
 void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
     printf("_Rotameter_Results_\n");
@@ -231,6 +236,7 @@ void RotameterWriteSwitch(double rho, double V_f, double rho_f, double A_f, doub
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Rotameter()
 {
     //Main Function

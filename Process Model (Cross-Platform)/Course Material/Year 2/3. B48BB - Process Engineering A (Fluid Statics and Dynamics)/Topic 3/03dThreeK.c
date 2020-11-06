@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "03dThreeK.h"
 #include "02dReyNo.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: DATA BANK
 ThreeKFittings ThreeKData(ThreeKFittings input)
 {
     //  Setting k_1 values
@@ -170,6 +173,7 @@ ThreeKFittings ThreeKData(ThreeKFittings input)
     return input;
 }
 
+/// MARK: GENERAL CALCULATION
 ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, double *u, double *d, double *mu)
 {
     char input[maxstrlen];  // Variable used to store keyboard input.
@@ -312,6 +316,7 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
     return table;
 }
 
+/// MARK: GENERAL CALCULATIONS
 double ThreeKCalculateK(double Re, double DN, int k1, double kinf, double kd)
 {
     double K = 0.0;
@@ -353,6 +358,7 @@ double ThreeKCalculatePLoss(double h, double rho)
     return P;
 }
 
+/// MARK: ARRAY FUNCTION
 ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, double d, double mu, double DN, double *Re)
 {
     double ReyNo = 0.0;
@@ -369,6 +375,7 @@ ThreeKFittings ThreeKFinalTable(ThreeKFittings data, double rho, double u, doubl
     return data;
 }
 
+/// MARK: DISPLAY AND WRITE
 void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
 {
     int i = 0;
@@ -1208,6 +1215,7 @@ void ThreeKWriteSwitch(ThreeKFittings data, double rho, double u, double d, doub
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void ThreeK()
 {
     //  Variable declaration

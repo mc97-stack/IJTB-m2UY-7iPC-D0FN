@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -17,8 +18,10 @@
 #include "System.h"
 #include "02g2TurVelPro.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void TurVelProVariable(double *umax, double *d)
 {
     double u = 0.0;
@@ -31,6 +34,7 @@ void TurVelProVariable(double *umax, double *d)
     *d = (*d) * 0.001;
 }
 
+/// MARK: GENERAL CALCULATION
 double TurVelCalculation(double vmax, double r, double d, double *gen) 
 {
     //Calculated using Prandtl's one-seventh law
@@ -53,6 +57,7 @@ double TurVelCalculation(double vmax, double r, double d, double *gen)
     return v_x;
 }
 
+/// MARK: ARRAY FUNCTION
 TurVelProf TurVelProCalculation(double vmax, double d, int *rows) 
 {
     double interval = 0.0;
@@ -79,6 +84,7 @@ TurVelProf TurVelProCalculation(double vmax, double d, int *rows)
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void TurVelProDisplay(double umax, double d, int rows, TurVelProf profile)
 {
     printf("_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
@@ -210,6 +216,7 @@ void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void TurbulentVelPro()
 {
     //  Pseudo-main function.

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BB_T2.h"
 #include "02dReyNo.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void ReyNoVariable(double *rho, double *u, double *d, double *mu)
 {
     *rho = inputDouble(0, "fluid density", "kg/m3");
@@ -33,6 +36,7 @@ void ReyNoVariable(double *rho, double *u, double *d, double *mu)
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
 }
 
+/// MARK: GENERAL CALCULATION
 double ReyNoCalculation(double rho, double u, double d, double mu)
 {
     double ReyNum = 0.0;
@@ -44,6 +48,7 @@ double ReyNoCalculation(double rho, double u, double d, double mu)
     return ReyNum;
 }
 
+/// MARK: DISPLAY AND WRITE
 void ReyNoDisplay(double rho, double u, double d, double mu, double ReyNum)
 {
     printf("_Reynold's_Number_Calculation_\n");
@@ -190,6 +195,7 @@ void ReyNoWriteSwitch(double rho, double u, double d, double mu, double ReyNum)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void ReynoldsNumber()
 {
     //  Pseudo-main function.

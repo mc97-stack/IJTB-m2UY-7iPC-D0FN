@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "B48BC_T1.h"
 #include "01aPolytropic.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,double *T2, double *n, double *R, double *alpha)
 {
     if(method == 2){
@@ -53,6 +56,7 @@ void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,dou
     }
 }
 
+/// MARK: GENERAL CALCULATIONS
 double PolyVolume(double P1, double P2, double V1, double alpha)
 {
     double power = 0.0;
@@ -155,6 +159,7 @@ double PolyFinalTemperature(double T1, double P1, double P2, double alpha)
     return T2;
 }
 
+/// MARK: ARRAY FUNCTION
 T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1, double T2, double n, double R, double alpha)
 {
     double incr = 0.0;  // Increment between data points
@@ -229,6 +234,7 @@ T1ThermoProf PolyProfile(int method, double P1, double P2, double V1, double T1,
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
     double total = 0.0;
@@ -424,6 +430,7 @@ void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Polytropic()
 {
     int whilmain = 0;

@@ -6,23 +6,26 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
-//Standard Header Files
+/// MARK: HEADER DECLARATIONS
+//  Standard Header Files
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-//Custom Header Files
+//  Custom Header Files
 #include "System.h"
 #include "02PVTRelations.h"
 #include "EquationofState.h"
 #include "02Compressibility.h"
 #include "02VirialEOS.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 83.145    // (bar.cm3)/(mol.K)
 
+/// MARK: VARIABLE INPUT
 void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *acFactor, double *a, double *b)
 {
     *Pc = inputDouble(0, "critical pressure", "bar");
@@ -41,6 +44,7 @@ void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *ac
     }
 }
 
+/// MARK: PRELIMINARY CALCULATIONS
 double reducedProperty(double critical, double process)
 {
     return process/critical;
@@ -120,6 +124,8 @@ void group6(double mu_r, double *a, double *b)
     *b = 0.0;
 }
 */
+
+/// MARK: (SUB) SECOND VIRIAL COEFFICIENT CALCULATION
 double VirialEOSB0Calc(double Tr)
 {
     double B0 = 0.0;
@@ -183,6 +189,7 @@ double VirialEOSBCalc(double BHat, double Pc, double Tc)
     return B;
 }
 
+/// MARK: (SUB) THIRD VIRIAL COEFFICIENT CALCULATION
 double VirialEOSC0Calc(double Tr)
 {
     double C0 = 0.0;
@@ -246,6 +253,7 @@ double VirialEOSCCalc(double CHat, double Pc, double Tc)
     return C;
 }
 
+/// MARK: (SUB) VIRIAL EQUATION OF STATE
 double VirialEOSCalc(double T, double V, double B, double C)
 {
     double P = 0.0;
@@ -297,6 +305,7 @@ double VirialEOSCompCalc(double P, double T, double B, double C)
     return Z;
 }
 
+/// MARK: ARRAY FUNCTIONS
 EOSIsotherm VirialEOSIsotherm(double Pc, double Tc, double Vc, double T, double omega, double *B, double *C)
 {
     EOSIsotherm Isotherm = {0.0};
@@ -424,6 +433,7 @@ ZFactor VirialEOSCompIsothermPolar(double Pc, double Tc, double T, double omega,
     return Isotherm;
 }
 
+/// MARK: DISPLAY AND WRITE
 void VirialEOSDisplay(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, EOSIsotherm data, double B, double C)
 {
     printf("_Virial_Equation_of_State_Results_\n");
@@ -755,6 +765,7 @@ void VirialEOSSwitch(int mode1, int mode2, int polar, double Pc, double Tc, doub
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void VirialEOS(void)
 {
     int whilmain = 0;

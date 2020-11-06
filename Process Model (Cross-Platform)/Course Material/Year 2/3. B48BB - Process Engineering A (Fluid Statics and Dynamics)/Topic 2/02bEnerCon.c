@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,20 +19,11 @@
 #include "B48BB_T2.h"
 #include "02bEnerCon.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
-double EnthalpyConversion(double u, double P, double rho)
-{
-    double h = 0.0; //Declaring and initialising
-    
-    h = P/rho;
-    h = u + (h);
-    
-    return h;
-}
-
-
+/// MARK: VARIABLE INPUT
 void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1, double *z2, double *q, double *w)
 {
     double inteng1 = 0.0;   // Initial internal energy
@@ -116,6 +108,17 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
     *w = (*w)*1000;
 }
 
+/// MARK: GENERAL CALCULATIONS
+double EnthalpyConversion(double u, double P, double rho)
+{
+    double h = 0.0; //Declaring and initialising
+    
+    h = P/rho;
+    h = u + (h);
+    
+    return h;
+}
+
 double EnerConFluidCalculation(double h, double u, double z)
 {
     double kin = 0.0;   // Kinetic energy
@@ -145,6 +148,7 @@ double EnerConProcessCalculation(double q, double w)
     return Energy;
 }
 
+/// MARK: DISPLAY AND WRITE
 void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double state1, double state2, double process, double check)
 {
     printf("_Steady-Flow_Energy_Equation_\n");
@@ -322,6 +326,7 @@ void EnerConWriteSwitch(double h1, double h2, double u1, double u2, double z1, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void EnergyConservation()
 {
     //  Pseudo-main function.

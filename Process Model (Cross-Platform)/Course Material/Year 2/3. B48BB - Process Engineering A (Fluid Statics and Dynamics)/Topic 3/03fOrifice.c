@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,10 +19,12 @@
 #include "B48BB_T3.h"
 #include "03fOrifice.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 #define PI 3.14159265
 
+/// MARK: VARIABLE INPUT
 void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
     *C_d = inputDouble(0, "discharge coefficient", "[ ]");
@@ -43,6 +46,7 @@ void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P
     *h_f = inputDouble(0, "frictional head loss", "m");
 }
 
+/// MARK: GENERAL CALCULATION
 void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1, double P2, double h_f, double *u, double *Q, double *m)
 {
     //Preparing variables for calculation
@@ -80,6 +84,7 @@ void OrificeCalculation(double C_d, double d1, double d2, double rho, double P1,
     *m = rho * (*Q);
 }
 
+/// MARK: DISPLAY AND WRITE
 void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
     printf("_Orifice_Plate_Flow_Measurement_Results_\n");
@@ -230,6 +235,7 @@ void OrificeWriteSwitch(double P1, double P2, double rho, double d1, double d2, 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void OrificePlateMeter()
 {
     //Main Function

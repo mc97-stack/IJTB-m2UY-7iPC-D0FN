@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -17,9 +18,11 @@
 #include "System.h"
 #include "03dOneK.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: DATA BANK
 OneKFittings OneKData(OneKFittings input)
 {
     input.data[0] = 0.35;
@@ -41,6 +44,7 @@ OneKFittings OneKData(OneKFittings input)
     return input;
 }
 
+/// MARK: VARIABLE INPUT
 OneKFittings OneKVariable(OneKFittings table, double *u)
 {
     char input[maxstrlen];  // Variable used to store keyboard input.
@@ -100,6 +104,7 @@ OneKFittings OneKVariable(OneKFittings table, double *u)
     return table;
 }
 
+/// MARK: GENERAL CALCULATION
 double OneKCalculation(int count, double data, double u)
 {
     double hf = 0.0;
@@ -112,6 +117,7 @@ double OneKCalculation(int count, double data, double u)
     return hf;
 }
 
+/// MARK: ARRAY FUNCTION
 OneKFittings OneKFinalTable(OneKFittings data, double u)
 {
     // Counts and database should already be specified prior to this function being run
@@ -122,6 +128,7 @@ OneKFittings OneKFinalTable(OneKFittings data, double u)
     return data;
 }
 
+/// MARK: DISPLAY AND WRITE
 void OneKDisplay(OneKFittings table, double u, double total)
 {
     int i = 0;
@@ -422,6 +429,7 @@ void OneKWriteSwitch(OneKFittings table, double u, double total)
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void OneK()
 {
     //  Variable declaration

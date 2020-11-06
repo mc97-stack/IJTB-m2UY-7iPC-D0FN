@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "01dIsochoric.h"
 #include "IdealGasLaw.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void IsocVariable(int method, double *P1, double *P2, double *V, double *T1, double *T2, double *n, double *cv)
 {
     if(method == 1){
@@ -48,6 +51,7 @@ void IsocVariable(int method, double *P1, double *P2, double *V, double *T1, dou
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATIONS
 double IsocPressure(double P1, double P2, double V, double n, double cv)
 {
     double brack = 0.0;
@@ -84,6 +88,7 @@ double IsocFinalTemperature(double T1, double P1, double P2)
     return T2;
 }
 
+/// MARK: ARRAY FUNCTION
 T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, double T2, double n, double cv)
 {
     double incr = 0.0;  // Increment between data points
@@ -145,6 +150,7 @@ T1ThermoProf IsocProfile(int method, double P1, double P2, double V, double T1, 
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
     double total = 0.0;
@@ -320,6 +326,7 @@ void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, d
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Isochoric()
 {
     //Main Function

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -19,9 +20,11 @@
 #include "B48BC_T3.h"
 #include "03aJTEffect.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145
 
+/// MARK: VARIABLE INPUT
 void JTEffectVariable(double *Tc, double *Pc, double *T, double *P, double *v, double *c_p)
 {
     printf("Critical properties:\n");
@@ -47,6 +50,7 @@ void JTEffectVariable(double *Tc, double *Pc, double *T, double *P, double *v, d
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATIONS
 double JTCoefficientCalculation(double v, double c_p, double T, double P, double a, double b)
 {
     double term1 = 0.0;
@@ -107,6 +111,7 @@ double JTInvTemperatureCalculation(double P, double v, double a, double b)
     return Tinv;
 }
 
+/// MARK: DISPLAY AND WRITE
 void JTEffectDisplay(double Tc, double Pc, double T, double P, double v, double c_p, double a, double b, double mu_JT, double Tinv)
 {
     printf("_Joule-Thomson_Effect_\n");
@@ -289,6 +294,7 @@ void JTEffectWriteSwitch(double Tc, double Pc, double T, double P, double v, dou
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void JouleThomsonEffect(void)
 {
     //  Pseudo-main function.

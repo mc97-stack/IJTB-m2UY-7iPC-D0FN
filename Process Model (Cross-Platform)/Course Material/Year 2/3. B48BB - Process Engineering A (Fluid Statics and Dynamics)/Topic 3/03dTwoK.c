@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "02dReyNo.h"
 #include "03dTwoK.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: DATA BANK
 TwoKFittings TwoKData(TwoKFittings input)
 {
     //  Loading k_1 values
@@ -112,6 +115,7 @@ TwoKFittings TwoKData(TwoKFittings input)
     return input;
 }
 
+/// MARK: VARIABLE INPUT
 TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d, double *mu, double *Impd)
 {
     char input[maxstrlen];  // Variable used to store character input.
@@ -209,6 +213,7 @@ TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d,
     return table;
 }
 
+/// MARK: GENERAL CALCULATIONS
 double TwoKCalculateK(double Re, double d, double k1, double kinf)
 {
     double term1 = 0.0;
@@ -246,6 +251,7 @@ double TwoKCalculatePLoss(double h, double rho)
     return P;
 }
 
+/// MARK: ARRAY FUNCTION
 TwoKFittings TwoKFinalTable(TwoKFittings data, double rho, double u, double d, double mu, double Impd, double *Re)
 {
     double ReyNum = 0.0;
@@ -261,6 +267,7 @@ TwoKFittings TwoKFinalTable(TwoKFittings data, double rho, double u, double d, d
     return data;
 }
 
+/// MARK: DISPLAY AND WRITE
 void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
 {
     int i = 0;
@@ -947,6 +954,7 @@ void TwoKWriteSwitch(TwoKFittings data, double rho, double u, double d, double m
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void TwoK()
 {
     //  Variable declaration

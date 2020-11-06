@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard header files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "B48BB_T4.h"
 #include "04bPumpSizing.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define g 9.80665
 
+/// MARK: VARIABLE INPUT
 void PumpVariable(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
 {
     *Q = inputDouble(0, "volumetric flowrate", "m3/s");
@@ -67,6 +70,7 @@ head PumpHeadVariable(int type, head var)
     return var;
 }
 
+/// MARK: GENERAL CALCULATIONS
 double HeadCalculation(head var, double rho)
 {
     double output = 0.0;
@@ -120,6 +124,7 @@ double PumpPower(double dP_p, double Q, double eta)
     return power;
 }
 
+/// MARK: DISPLAY AND WRITE
 void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
 {
     printf("Suction-side parameters.\n");
@@ -307,6 +312,7 @@ void PumpWriteSwitch(head suction, head discharge, double Q, double rho, double 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void PumpSizing()
 {
     int whilmain = 0;

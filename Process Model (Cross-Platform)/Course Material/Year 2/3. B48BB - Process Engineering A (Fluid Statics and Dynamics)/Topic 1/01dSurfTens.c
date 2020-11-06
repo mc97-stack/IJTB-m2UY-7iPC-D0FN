@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //  Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,6 +19,7 @@
 #include "B48BB_T1.h"
 #include "01dSurfTens.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define PI 3.141592653
 
@@ -81,6 +83,7 @@ void wettabilityfacts(double cang)
     }
 }
 
+/// MARK: VARIABLE INPUT
 void duNouyVariable(double *F, double *L, double *C_F, double *cang)
 {
     //Input variable declaration
@@ -165,6 +168,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
     *cang = (*cang)*(PI/ 180);
 }
 
+/// MARK: GENERAL CALCULATION
 double duNouyCalculation(double F, double L, double C_F, double cang)
 {
     double top = 0.0;
@@ -181,6 +185,7 @@ double duNouyCalculation(double F, double L, double C_F, double cang)
     return sigma;
 }
 
+/// MARK: DISPLAY AND WRITE
 void duNouyDisplay(double F, double L, double C_F, double cang, double sigma)
 {
     printf("_du_Nouy_Surface_Tension_\n");
@@ -311,6 +316,7 @@ void duNouyWriteSwitch(double F, double L, double C_F, double cang, double sigma
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void SurfaceTension()
 {
     //  Pseudo-main function.

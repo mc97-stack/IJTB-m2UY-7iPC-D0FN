@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,9 +19,11 @@
 #include "01eAdiabatic.h"
 #include "IdealGasLaw.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.3145 // J/mol.K
 
+/// MARK: VARIABLE INPUT
 void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *n, double *gamma)
 {
     char input[maxstrlen];
@@ -54,6 +57,7 @@ void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, do
     fflush(stdout);
 }
 
+/// MARK: GENERAL CALCULATIONS
 double AdiaVolume(double P1, double V1, double V2, double gamma)
 {
     double frac1num = 0.0;
@@ -153,6 +157,7 @@ double AdiaFinalVol(double V1, double P1, double P2, double gamma)
     return V2;
 }
 
+/// MARK: ARRAY FUNCTION
 T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2, double T1, double n, double gamma)
 {
     double incr = 0.0;  // Difference between datapoints.
@@ -226,6 +231,7 @@ T1ThermoProf AdiaProfile(int method, double P1, double P2, double V1, double V2,
     return profile;
 }
 
+/// MARK: DISPLAY AND WRITE
 void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
     double total = 0.0;
@@ -408,6 +414,7 @@ void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void Adiabatic()
 {
     //Main Function

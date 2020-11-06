@@ -145,6 +145,13 @@ double VirialEOSCCalc(double CHat, double Pc, double Tc);
 /// @param C Third virial coefficient (cm6/mol2).
 double VirialEOSCalc(double T, double V, double B, double C);
 
+/// This subroutine is used to calculate the compressibility factor using the state definition from 'EOSIsotherm' data and virial coefficients.
+/// @param P System pressure (bar).
+/// @param T System temperature (K).
+/// @param B Second virial coefficient (cm3/mol).
+/// @param C Third virial coefficient (cm6/mol2).
+double VirialEOSCompCalc(double P, double T, double B, double C);
+
 /// This subroutine is used to generate the isotherm related to the virial equation for a non-polar molecule.
 /// @param Pc Critical pressure (bar).
 /// @param Tc Critical temperature (K).
