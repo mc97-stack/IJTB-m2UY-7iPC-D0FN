@@ -538,27 +538,27 @@ void EquivalentLength()
     double vareps = 0.0;    // Pipe absolute roughness.
     double phi = 0.0;       // Friction factor.
     
-    EquivLenFits EquivLengTable = {0.0};
+    EquivLenFits *EquivLengTable = calloc(1, sizeof(EquivLenFits));
     
         //  Variables for timing function
     struct timespec start, end;
     double elapsed = 0.0;
     
     //  Collecting data
-    EquivLengTable = EquivLengVariable(EquivLengTable, &rho, &u, &d, &mu, &vareps, &phi);
+    *EquivLengTable = EquivLengVariable(*EquivLengTable, &rho, &u, &d, &mu, &vareps, &phi);
     printf("\n");
     
     //  Performing calculations
     clock_getres(CLOCK_MONOTONIC, &start);
     clock_gettime(CLOCK_MONOTONIC, &start);
     
-    EquivLengTable = EquivLengFinalTable(EquivLengTable, rho, u, d, phi);
+    *EquivLengTable = EquivLengFinalTable(*EquivLengTable, rho, u, d, phi);
     
     //  Calculating total pressure and head loss
     for(int i = 0; i < 15; ++i)
     {
-        totalP += EquivLengTable.dP_f[i];
-        totalH += EquivLengTable.h_f[i];
+        totalP += EquivLengTable->dP_f[i];
+        totalH += EquivLengTable->h_f[i];
     }
     clock_getres(CLOCK_MONOTONIC, &end);
     clock_gettime(CLOCK_MONOTONIC, &end);
@@ -568,9 +568,10 @@ void EquivalentLength()
     printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying data
-    EquivLengDisplay(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
+    EquivLengDisplay(*EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
     
     //  Writing data to file
-    EquivLengWriteSwitch(EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
+    EquivLengWriteSwitch(*EquivLengTable, rho, u, d, mu, vareps, phi, totalP, totalH);
+    free(EquivLengTable);
 }
 
