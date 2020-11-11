@@ -248,10 +248,7 @@ void OneKWrite(OneKFittings table, double u, double total)
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -283,7 +280,6 @@ void OneKWrite(OneKFittings table, double u, double total)
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(1K_Method)_Results_\n");
@@ -433,7 +429,7 @@ void OneKWriteSwitch(OneKFittings table, double u, double total)
 void OneK()
 {
     //  Variable declaration
-    OneKFittings OneKTable = {0.0}; // Struct used to store collected
+    OneKFittings *OneKTable = calloc(1, sizeof(OneKFittings)); // Struct used to store collected
     double totalHead = 0.0;         // Total head loss through stated fittings.
     
     double u = 0.0;                 // Fluid velocity.
@@ -443,18 +439,18 @@ void OneK()
     double elapsed = 0.0;
     
     //  Collecting data
-    OneKTable = OneKVariable(OneKTable, &u);
+    *OneKTable = OneKVariable(*OneKTable, &u);
     
     //  Performing calculations
     clock_getres(CLOCK_MONOTONIC, &start);
     clock_gettime(CLOCK_MONOTONIC, &start);
     
-    OneKTable = OneKFinalTable(OneKTable, u);
+    *OneKTable = OneKFinalTable(*OneKTable, u);
     
     //  Calculating total head loss
     for(int i = 0; i < 15; ++i)
     {
-        totalHead += OneKTable.headloss[i];
+        totalHead += OneKTable->headloss[i];
     }
     clock_getres(CLOCK_MONOTONIC, &end);
     clock_gettime(CLOCK_MONOTONIC, &end);
@@ -464,8 +460,9 @@ void OneK()
     printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     // Displaying data
-    OneKDisplay(OneKTable, u, totalHead);
+    OneKDisplay(*OneKTable, u, totalHead);
     
     // Writing data
-    OneKWriteSwitch(OneKTable, u, totalHead);
+    OneKWriteSwitch(*OneKTable, u, totalHead);
+    free(OneKTable);
 }

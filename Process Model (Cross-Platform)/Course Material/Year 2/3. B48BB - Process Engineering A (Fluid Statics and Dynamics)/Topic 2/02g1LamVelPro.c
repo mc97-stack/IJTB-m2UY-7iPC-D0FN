@@ -142,10 +142,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -177,7 +174,6 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
     fprintf(fp, "_Laminar_Velocity_Profile_Calculation_\n");
@@ -251,7 +247,11 @@ void LaminarVelPro()
     while(whilmain == 1)
     {
         //  Variable declaration
-        LamVelProf profile; // Struct used to store the generated velocity profile.
+        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
+        
+        elems = 3*5000;
+        
+        LamVelProf *profile = calloc(elems, sizeof(double)); // Struct used to store the generated velocity profile.
         
         double dP = 0.0;    // Fluid pressure loss.
         double L = 0.0;     // Pipe length.
@@ -262,13 +262,6 @@ void LaminarVelPro()
         struct timespec start, end;
         double elapsed = 0.0;
         
-        // Initialising all elements in the struct
-        for(int i = 0; i < 5000; ++i){
-            profile.r[i] = 0.0;
-            profile.v_x[i] = 0.0;
-            profile.ratio[i] = 0.0;
-        }
-        
         int rows = 0;
         
         //  Data collection
@@ -278,7 +271,7 @@ void LaminarVelPro()
         clock_getres(CLOCK_MONOTONIC, &start);
         clock_gettime(CLOCK_MONOTONIC, &start);
         
-        profile = LamVelProfCalculation(dP, L, d, mu, &rows);
+        *profile = LamVelProfCalculation(dP, L, d, mu, &rows);
         
         clock_getres(CLOCK_MONOTONIC, &end);
         clock_gettime(CLOCK_MONOTONIC, &end);
@@ -288,10 +281,11 @@ void LaminarVelPro()
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        LamVelProDisplay(dP, L, d, mu, rows, profile);
+        LamVelProDisplay(dP, L, d, mu, rows, *profile);
         
         //  Writing to File
-        LamVelProWriteSwitch(dP, L, d, mu, rows, profile);
+        LamVelProWriteSwitch(dP, L, d, mu, rows, *profile);
+        free(profile);
     }
     fflush(stdout);
 }

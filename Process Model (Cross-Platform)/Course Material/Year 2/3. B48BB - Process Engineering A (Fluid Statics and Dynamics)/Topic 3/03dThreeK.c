@@ -764,10 +764,7 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -799,7 +796,6 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(3K_Method)_Results_\n");
@@ -1220,7 +1216,7 @@ void ThreeK()
 {
     //  Variable declaration
     double Re = 0.0;                    // Reynolds number
-    ThreeKFittings ThreeKTable = {0.0}; // Struct used to store collected data and individual head losses.
+    ThreeKFittings *ThreeKTable = calloc(1, sizeof(ThreeKFittings)); // Struct used to store collected data and individual head losses.
     double TotalH = 0.0;                // Total head loss.
     double TotalP = 0.0;                // Total pressure loss.
     
@@ -1237,19 +1233,19 @@ void ThreeK()
     printf("Source: https://neutrium.net/fluid-flow/pressure-loss-from-fittings-3k-method/\n");
     
     //  Collecting data
-    ThreeKTable = ThreeKVariable(ThreeKTable, &DN, &rho, &u, &d, &mu);
+    *ThreeKTable = ThreeKVariable(*ThreeKTable, &DN, &rho, &u, &d, &mu);
     printf("\n");
     
     //  Performing calculations
     clock_getres(CLOCK_MONOTONIC, &start);
     clock_gettime(CLOCK_MONOTONIC, &start);
     
-    ThreeKTable = ThreeKFinalTable(ThreeKTable, rho, u, d, mu, DN, &Re);
+    *ThreeKTable = ThreeKFinalTable(*ThreeKTable, rho, u, d, mu, DN, &Re);
     
     for(int i = 0; i < 34; ++i)
     {
-        TotalH += ThreeKTable.headloss[i];
-        TotalP += ThreeKTable.dP_f[i];
+        TotalH += ThreeKTable->headloss[i];
+        TotalP += ThreeKTable->dP_f[i];
     }
     clock_getres(CLOCK_MONOTONIC, &end);
     clock_gettime(CLOCK_MONOTONIC, &end);
@@ -1259,8 +1255,9 @@ void ThreeK()
     printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying results
-    ThreeKDisplay(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
+    ThreeKDisplay(*ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
     
     //  Writing results
-    ThreeKWriteSwitch(ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
+    ThreeKWriteSwitch(*ThreeKTable, rho, u, d, mu, Re, DN, TotalH, TotalP);
+    free(ThreeKTable);
 }

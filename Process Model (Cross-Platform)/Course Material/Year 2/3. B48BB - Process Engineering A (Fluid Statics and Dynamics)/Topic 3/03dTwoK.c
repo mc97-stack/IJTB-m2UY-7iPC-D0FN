@@ -580,10 +580,7 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -618,7 +615,6 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     
     //Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(2K_Method)_Results_\n");
-    free(filename);
     
     int i = 0;
     
@@ -959,7 +955,7 @@ void TwoK()
 {
     //  Variable declaration
     double Re = 0.0;                // Reynolds number.
-    TwoKFittings TwoKTable = {0.0}; // Struct used to store collected data and individual head lossses.
+    TwoKFittings *TwoKTable = calloc(1, sizeof(TwoKTable)); // Struct used to store collected data and individual head lossses.
     double TotalP = 0.0;            // Total pressure loss from specified fittings.
     double TotalH = 0.0;            // Total head loss from specified fittings.
     
@@ -974,19 +970,19 @@ void TwoK()
     double elapsed = 0.0;
     
     //  Collecting data
-    TwoKTable = TwoKVariable(TwoKTable, &rho, &u, &d, &mu, &impd);
+    *TwoKTable = TwoKVariable(*TwoKTable, &rho, &u, &d, &mu, &impd);
     
     //  Performing calculations
     clock_getres(CLOCK_MONOTONIC, &start);
     clock_gettime(CLOCK_MONOTONIC, &start);
     
-    TwoKTable = TwoKFinalTable(TwoKTable, rho, u, d, mu, impd, &Re);
+    *TwoKTable = TwoKFinalTable(*TwoKTable, rho, u, d, mu, impd, &Re);
     
     //  Calculating total head and pressure losses
     for(int i = 0; i < 32; ++i)
     {
-        TotalH += TwoKTable.headloss[i];
-        TotalP += TwoKTable.dP_f[i];
+        TotalH += TwoKTable->headloss[i];
+        TotalP += TwoKTable->dP_f[i];
     }
     clock_getres(CLOCK_MONOTONIC, &end);
     clock_gettime(CLOCK_MONOTONIC, &end);
@@ -996,8 +992,9 @@ void TwoK()
     printf("Calculations completed in %.6f seconds.\n", elapsed);
     
     //  Displaying Results
-    TwoKDisplay(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
+    TwoKDisplay(*TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
     
     //  Writing Results
-    TwoKWriteSwitch(TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
+    TwoKWriteSwitch(*TwoKTable, rho, u, d, mu, Re, TotalP, TotalH);
+    free(TwoKTable);
 }

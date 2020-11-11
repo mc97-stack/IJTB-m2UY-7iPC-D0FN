@@ -121,10 +121,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -156,7 +153,6 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
     fprintf(fp, "_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
@@ -227,7 +223,11 @@ void TurbulentVelPro()
     while(whilmain == 1)
     {
         //  Variable declaration
-        TurVelProf profile = {0.0}; // Struct used to store the velocity profile.
+        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
+        
+        elems = 3*5000;
+        
+        TurVelProf *profile = calloc(elems, sizeof(double)); // Struct used to store the velocity profile.
         
         double vmax = 0;            // Maximum fluid velocity.
         double d = 0;               // Internal pipe diameter.
@@ -245,7 +245,7 @@ void TurbulentVelPro()
         clock_getres(CLOCK_MONOTONIC, &start);
         clock_gettime(CLOCK_MONOTONIC, &start);
         
-        profile = TurVelProCalculation(vmax, d, &rows);
+        *profile = TurVelProCalculation(vmax, d, &rows);
         
         clock_getres(CLOCK_MONOTONIC, &end);
         clock_gettime(CLOCK_MONOTONIC, &end);
@@ -255,10 +255,11 @@ void TurbulentVelPro()
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        TurVelProDisplay(vmax, d, rows, profile);
+        TurVelProDisplay(vmax, d, rows, *profile);
         
         //  Writing to File
-        TurVelProWriteSwitch(vmax, d, rows, profile);
+        TurVelProWriteSwitch(vmax, d, rows, *profile);
+        free(profile);
     }
     fflush(stdout);
 }
