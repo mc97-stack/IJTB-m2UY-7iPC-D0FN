@@ -290,23 +290,20 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
 
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;
-    //Set file name as timestamp + Polytropic Process Results
-        //Get current time
+    //  Set file name as timestamp + Polytropic Process Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -336,11 +333,10 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     double total = 0.0;
     
     fprintf(fp, "_Polytropic_Process_Results_\n");
@@ -376,7 +372,7 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     fprintf(fp, "\tOutput parameters:\n");
     
-    // Profile (Two Temperature columns (K and deg C))
+    //  Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_V (kW)\n");
     for(int i = 0; i < 250; ++i)
     {
@@ -389,7 +385,7 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
         fprintf(fp, "%f\n", total);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

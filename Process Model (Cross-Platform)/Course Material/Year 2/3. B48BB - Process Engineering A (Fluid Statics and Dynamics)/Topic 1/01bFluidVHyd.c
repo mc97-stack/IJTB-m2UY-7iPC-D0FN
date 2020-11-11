@@ -56,23 +56,20 @@ void FluidVHydDisplay(double rho, double h, double P)
 
 void FluidVHydWrite(double rho, double h, double P)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Vertical Hydrostatic Pressure Theorem Results
-        //Get current time
+    //  Set file name as timestamp + Vertical Hydrostatic Pressure Theorem Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS"
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -107,18 +104,17 @@ void FluidVHydWrite(double rho, double h, double P)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Fluid_Vertical_Hydrostatic_Pressure_Results_\n");
     fprintf(fp, "g =\t%.5f\tm/s2\n\n", g);
     fprintf(fp, "rho =\t%.3f\tkg/m3\n", rho);
     fprintf(fp, "h =\t%.3f\t m\n", h);
     fprintf(fp, "P =\t%.3f\tPa\n", P);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

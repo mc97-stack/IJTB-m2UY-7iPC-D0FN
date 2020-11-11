@@ -194,23 +194,20 @@ void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, doubl
 
 void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double z2, double q, double w, double state1, double state2, double process, double check)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Steady Flow Energy Equation Results
-        //Get current time
+    //  Set file name as timestamp + Steady Flow Energy Equation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -240,11 +237,10 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Steady-Flow_Energy_Equation_\n");
     fprintf(fp, "Assuming the fluid is incompressible. \n");
     fprintf(fp, "g =\t%.3f\tm/s2\n\n", g);
@@ -285,7 +281,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
         fprintf(fp, "Your process breaks the first law\n");
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

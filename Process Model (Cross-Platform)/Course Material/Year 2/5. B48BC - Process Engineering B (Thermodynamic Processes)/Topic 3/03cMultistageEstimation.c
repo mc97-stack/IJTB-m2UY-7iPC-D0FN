@@ -120,23 +120,20 @@ void MSShaftWorkDisplay(double P1, double P2, double T1, double mol, double gamm
 
 void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma, double N, double shaftwork)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Multistage Shaft Work Estimation
-        //Get current time
+    //  Set file name as timestamp + Multistage Shaft Work Estimation
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -166,11 +163,10 @@ void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma,
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Multistage_Compressor_Shaft_Work_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
@@ -193,7 +189,7 @@ void MSShaftWorkWrite(double P1, double P2, double T1, double mol, double gamma,
     fprintf(fp, "Total shaft work:\n");
     fprintf(fp, "shaftWork =\t%.3f\tkW\n", shaftwork*0.001);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

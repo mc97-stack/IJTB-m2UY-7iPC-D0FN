@@ -79,23 +79,20 @@ void HagPoisDisplay(double u, double mu, double L, double d, double dP)
 
 void HagPoisWrite(double u, double mu, double L, double d, double dP)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Hagen-Poiseuille Equation Results
-        //Get current time
+    //  Set file name as timestamp + Hagen-Poiseuille Equation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -125,11 +122,10 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Hagen-Pouseuille_Equation_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid velocity:\n");
@@ -146,7 +142,7 @@ void HagPoisWrite(double u, double mu, double L, double d, double dP)
     fprintf(fp, "Fluid pressure loss:\n");
     fprintf(fp, "dP =\t%.3f\tPa\t= \\frac{32u\\mu L}{d^2}", dP);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

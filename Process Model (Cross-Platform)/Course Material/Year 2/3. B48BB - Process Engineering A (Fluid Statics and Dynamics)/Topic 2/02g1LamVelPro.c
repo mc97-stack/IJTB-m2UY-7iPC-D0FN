@@ -129,20 +129,20 @@ void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVel
 
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Laminar Velocity Profile Results
-        //Get current time
+    //  Set file name as timestamp + Laminar Velocity Profile Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -172,10 +172,10 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Laminar_Velocity_Profile_Calculation_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid pressure loss:\n");
@@ -196,7 +196,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
         fprintf(fp, "%.3f\n", profile.ratio[i]);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

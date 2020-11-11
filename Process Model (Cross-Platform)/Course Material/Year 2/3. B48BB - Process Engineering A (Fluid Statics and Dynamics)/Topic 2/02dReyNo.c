@@ -79,23 +79,20 @@ void ReyNoDisplay(double rho, double u, double d, double mu, double ReyNum)
 
 void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Reynolds Number Results
-        //Get current time
+    //  Set file name as timestamp + Reynolds Number Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -125,11 +122,10 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Reynold's_Number_Calculation_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid density:\n");
@@ -154,7 +150,7 @@ void ReyNoWrite(double rho, double u, double d, double mu, double ReyNum)
         }
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

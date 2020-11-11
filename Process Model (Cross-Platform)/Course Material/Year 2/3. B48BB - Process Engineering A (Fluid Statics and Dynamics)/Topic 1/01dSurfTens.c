@@ -212,17 +212,14 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + du Nouy
-        //Get current time
+    //  Set file name as timestamp + du Nouy
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -257,11 +254,10 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_du_Nouy_Surface_Tension_\n");
     fprintf(fp, "\tInput Parameters:\n");
     fprintf(fp, "Force required to break fluid surface:\n");
@@ -275,7 +271,7 @@ void duNouyWrite(double F, double L, double C_F, double cang, double sigma)
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "sigma =\t%.3f\tN/m\t= \\frac{(C_F)F}{2L\\cos\\phi}\n", sigma);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

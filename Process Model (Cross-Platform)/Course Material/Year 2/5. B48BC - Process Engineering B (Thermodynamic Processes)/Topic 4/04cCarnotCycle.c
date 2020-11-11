@@ -278,23 +278,20 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
 
 void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Carnot Cycle Results
-        //Get current time
+    //  Set file name as timestamp + Carnot Cycle Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -324,11 +321,10 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Carnot_Cycle_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Pressure before entry into pump:\n");
@@ -409,7 +405,7 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
         fprintf(fp, "%f\n", totalchaos*0.001);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

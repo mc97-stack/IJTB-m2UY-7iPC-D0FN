@@ -65,8 +65,7 @@ double MassFlowCalculation(double rho, double d, double u);
 /// @param q2 Final volumetric flowrate (m3/s).
 /// @param m1 Initial volumetric flowrate (kg/s).
 /// @param m2 Final volumetric flowrate (kg/s).
-/// @param error Absolute difference between LHS and RHS (kg/s)
-void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
+void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2);
 
 #endif /* MassFloDisp_h */
 
@@ -84,8 +83,7 @@ void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, d
 /// @param q2 Final volumetric flowrate (m3/s).
 /// @param m1 Initial volumetric flowrate (kg/s).
 /// @param m2 Final volumetric flowrate (kg/s).
-/// @param error Absolute difference between LHS and RHS (kg/s).
-void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
+void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2);
 
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
 /// @param rho1 Initial fluid density (kg/ m3).
@@ -98,7 +96,6 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
 /// @param q2 Final volumetric flowrate (m3/s).
 /// @param m1 Initial volumetric flowrate (kg/s).
 /// @param m2 Final volumetric flowrate (kg/s).
-/// @param error Absolute difference between LHS and RHS (kg/s).
-void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error);
+void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2);
 
 #endif /* MassFloWrite_h */

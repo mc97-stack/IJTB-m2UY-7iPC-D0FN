@@ -102,23 +102,20 @@ void PitotDisplay(double P1, double P2, double rho1, double rho2, double h1, dou
 
 void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Pitot Static Tube Results
-        //Get current time
+    //  Set file name as timestamp + Pitot Static Tube Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -148,11 +145,10 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Pitot_Static_Tube_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Static pressure on connection:\n");
@@ -177,7 +173,7 @@ void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, doubl
     fprintf(fp, "Process fluid volumetric flowrate:\n");
     fprintf(fp, "Q =\t%.3f\tm3/s\n", Q);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

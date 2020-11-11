@@ -235,14 +235,14 @@ void OneKDisplay(OneKFittings table, double u, double total)
 
 void OneKWrite(OneKFittings table, double u, double total)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + 1K Results Results
-        //Get current time
+    //  Set file name as timestamp + 1K Results Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
@@ -278,10 +278,10 @@ void OneKWrite(OneKFittings table, double u, double total)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(1K_Method)_Results_\n");
     
     int i = 0;
@@ -384,7 +384,7 @@ void OneKWrite(OneKFittings table, double u, double total)
     fprintf(fp, "%i\t", table.count[i]);
     fprintf(fp, "%.3f\n", table.headloss[i]);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

@@ -751,14 +751,14 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
 
 void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + 3K Results
-        //Get current time
+    //  Set file name as timestamp + 3K Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
@@ -794,13 +794,11 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(3K_Method)_Results_\n");
-    
-    //Write to file
     int i = 0;
     
     fprintf(fp, "Inputted parameters.\n");
@@ -1170,7 +1168,7 @@ void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu,
     fprintf(fp, "%.3f\t", data.dP_f[i]);
     fprintf(fp, "N.B. V_{min} = 40\\left(\\frac{(lb_m)}{ft^3} \\right)^{-\\frac{1}{2}}\n");
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

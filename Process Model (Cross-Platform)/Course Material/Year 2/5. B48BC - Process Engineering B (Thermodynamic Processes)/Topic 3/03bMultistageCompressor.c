@@ -253,23 +253,20 @@ void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double
 
 void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Multistage Compressor Results
-        //Get current time
+    //  Set file name as timestamp + Multistage Compressor Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -299,11 +296,10 @@ void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Multistage_Compressor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
@@ -342,7 +338,7 @@ void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T
         fprintf(fp, "%f\n", profile.W_S[i]*0.001);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

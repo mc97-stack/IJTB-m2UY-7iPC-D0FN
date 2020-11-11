@@ -160,23 +160,20 @@ void JTEffectDisplay(double Tc, double Pc, double T, double P, double v, double 
 
 void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_p, double a, double b, double mu_JT, double Tinv)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Joule-Thomson Effect
-        //Get current time
+    //  Set file name as timestamp + Joule-Thomson Effect
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -206,11 +203,10 @@ void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Joule-Thomson_Effect_\n");
     fprintf(fp, "\tInput parameters\n");
     fprintf(fp, "Critical Temperature:\n");
@@ -253,7 +249,7 @@ void JTEffectWrite(double Tc, double Pc, double T, double P, double v, double c_
     fprintf(fp, "Inversion Temperature:\n");
     fprintf(fp, "T_i =\t%.2f\tK\n", Tinv);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

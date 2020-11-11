@@ -62,23 +62,20 @@ void BubPresDisplay(double sigma, double r, double P)
 
 void BubPresWrite(double sigma, double r, double P)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Bubble Pressure Results
-        //Get current time
+    //  Set file name as timestamp + Bubble Pressure Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -113,11 +110,10 @@ void BubPresWrite(double sigma, double r, double P)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Bubble_Pressure_Calculations_\n");
     fprintf(fp, "\tInput Parameters:\n");
     fprintf(fp, "Surface tension:\n");
@@ -128,7 +124,7 @@ void BubPresWrite(double sigma, double r, double P)
     fprintf(fp, "\tOutput Parameters:\n");
     fprintf(fp, "P =\t%.3f\tPa\t=\\frac{2\\sigma}{r}\n", P);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

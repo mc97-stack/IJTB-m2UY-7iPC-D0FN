@@ -215,23 +215,20 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
 
 void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;
-    //Set file name as timestamp + Polytropic Process Results
-        //Get current time
+    //  Set file name as timestamp + Polytropic Process Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -261,11 +258,10 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Reciprocating_Compressor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial system pressure: ");
@@ -302,7 +298,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     
     fprintf(fp, "\tOutput parameters:\n");
     
-    // Profile (Two Temperature columns (K and deg C))
+    //  Profile (Two Temperature columns (K and deg C))
     fprintf(fp, "P (kPa)\tV (m3)\tT (K)\tT(deg C)\t\tW_V (kW)\tW_S (kW)\n");
     for(int i = 0; i < 512; ++i)
     {
@@ -314,7 +310,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
         fprintf(fp, "%f\n", profile.W_S[i]*0.001);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

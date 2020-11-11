@@ -128,23 +128,20 @@ void ThermEffDisplay(int method, double wnet, double qhot, double qcold, double 
 
 void ThermEffWrite(int method, double wnet, double qhot, double qcold, double THot, double TCold, double eta, double etac)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Thermal Efficiency Results
-        //Get current time
+    //  Set file name as timestamp + Thermal Efficiency Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -174,11 +171,10 @@ void ThermEffWrite(int method, double wnet, double qhot, double qcold, double TH
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Thermal_Efficiency_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     if(method == 1)
@@ -221,7 +217,7 @@ void ThermEffWrite(int method, double wnet, double qhot, double qcold, double TH
         }
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

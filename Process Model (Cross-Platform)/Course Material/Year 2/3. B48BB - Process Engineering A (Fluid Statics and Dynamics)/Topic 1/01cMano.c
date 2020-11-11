@@ -279,24 +279,21 @@ void ManoMeasDisplay(double P1, double P2, double rho1, double h1, double rho2, 
 
 void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;   // Pointer to the file location.
     
-    //Set file name as timestamp + Manometer Measurement Results
-        //Get current time
+    //  Set file name as timestamp + Manometer Measurement Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -330,10 +327,10 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Manometer_Measurement_Calculations_\n\n");
     fprintf(fp, "_Input_Parameters:_\n");
     fprintf(fp, "\tProcess Fluid:\n");
@@ -351,7 +348,7 @@ void ManoMeasWrite(double P1, double P2, double rho1, double h1, double rho2, do
     fprintf(fp, "Manometer fluid height:\n");
     fprintf(fp, "h2 =\t%.3f\tm\t= \\frac{\\rho_1gh_1 - \\Delta{P}}{\\rho_2g}\n", h2);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");
@@ -415,23 +412,20 @@ void ManoEstiDisplay(double P1, double P2, double rho1, double h1, double rho2, 
 
 void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, double h2)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Character array used to store file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;   // Pointer to the file location.
-    //Set file name as timestamp + Manometer Height Estimation Results
-        //Get current time
+    //  Set file name as timestamp + Manometer Height Estimation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -466,11 +460,10 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Manometer_Measurement_Calculations_\n\n");
     fprintf(fp, "_Input_Parameters:_\n");
     fprintf(fp, "\tProcess Fluid:\n");
@@ -488,7 +481,7 @@ void ManoEstiWrite(double P1, double P2, double rho1, double h1, double rho2, do
     fprintf(fp, "_Output_Values:_\n");
     fprintf(fp, "P1 =\t%.3f\tkPa_abs\t= P2 + g(\\rho_2h_2 - \\rho_1h_1)\n", P1*0.001);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

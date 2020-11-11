@@ -127,23 +127,20 @@ void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, doubl
 
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;
-    //Set file name as timestamp + Polytropic Shaft Work Results
-        //Get current time
+    //  Set file name as timestamp + Polytropic Shaft Work Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -173,11 +170,10 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Polytropic_Shaft_Work_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial System Pressure:\n");
@@ -205,7 +201,7 @@ void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double 
     fprintf(fp, "Shaft Work:\n");
     fprintf(fp, "W_S =\t%.3f\tkW\n", W_S*0.001);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

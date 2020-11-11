@@ -108,14 +108,14 @@ void TurVelProDisplay(double umax, double d, int rows, TurVelProf profile)
 
 void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Turbulent Velocity Profile Results
-        //Get current time
+    //  Set file name as timestamp + Turbulent Velocity Profile Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
@@ -151,10 +151,10 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Turbulent_Velocity_Profile_(Prandtl's_One-Seventh_Law)_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Maximum fluid velocity:");
@@ -171,7 +171,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
         fprintf(fp, "%.3f\n", profile.ratio[i]);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

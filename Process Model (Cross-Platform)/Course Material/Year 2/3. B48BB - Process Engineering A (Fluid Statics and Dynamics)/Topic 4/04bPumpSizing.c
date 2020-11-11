@@ -174,23 +174,20 @@ void PumpDisplay(head suction, head discharge, double Q, double rho, double Psat
 
 void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, double NPSHr, double NPSHa, double eta, double phead, double ppressure, double ppower)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Pump Sizing
-        //Get current time
+    //  Set file name as timestamp + Pump Sizing
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -220,14 +217,12 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
-    fprintf(fp, "_Hydraulic_Diameter_Results_\n");
+    //  Write to file
+    fprintf(fp, "_Pump_Sizing_Results_\n");
     
-    //Write to file
     fprintf(fp, "Suction-side parameters.\n");
     fprintf(fp, "Suction vessel pressure:\n");
     fprintf(fp, "P =\t%.3f\tkPa\n", (suction.P)*0.001);
@@ -271,7 +266,7 @@ void PumpWrite(head suction, head discharge, double Q, double rho, double Psat, 
     fprintf(fp, "Pump power:\n");
     fprintf(fp, "W_h =\t%.3f\tkW\n", ppower*0.001);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

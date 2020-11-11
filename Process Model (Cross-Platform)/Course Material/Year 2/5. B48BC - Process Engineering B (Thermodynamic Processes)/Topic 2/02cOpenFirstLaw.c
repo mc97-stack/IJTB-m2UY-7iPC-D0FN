@@ -142,23 +142,20 @@ void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, do
 
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;
-    //Set file name as timestamp + First Law Equation applied to Open Systems
-        //Get current time
+    //  Set file name as timestamp + First Law Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -188,11 +185,10 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     double u1 = 0.0;    // Initial fluid velocity.
     double u2 = 0.0;    // Final fluid velocity.
     double z1 = 0.0;    // Initial fluid elevation.
@@ -232,7 +228,7 @@ void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, doub
         fprintf(fp, "This unit operation is operating at unsteady-state conditions.\n");
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

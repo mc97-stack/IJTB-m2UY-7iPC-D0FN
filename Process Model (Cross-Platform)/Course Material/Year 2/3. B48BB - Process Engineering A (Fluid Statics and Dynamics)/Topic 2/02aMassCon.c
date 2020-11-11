@@ -83,7 +83,7 @@ double MassFlowCalculation(double rho, double d, double u)
 }
 
 /// MARK: DISPLAY AND WRITE
-void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
+void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2)
 {
     printf("_Mass_Conservation_Principle_\n");
     printf("Assuming the fluid is incompressible. \n");
@@ -110,42 +110,25 @@ void MassConDisplay(double rho1, double rho2, double d1, double d2, double u1, d
     printf("m1 =\t%.3f\tkg/s\n", m1);
     printf("Final pipe diameter:\n");
     printf("m2 =\t%.3f\tkg/s\n\n", m2);
-    
-    printf("Mass difference:\n");
-    printf("error =\t%.3f\tkg/s\n\n", error);
-    
-    if(error < 0.001)
-    {
-        printf("Mass balances.\n\n");
-    }else{
-        printf("Mass does not balance.\n\n");
-        if(rho1 != rho2)
-        {
-            printf("This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
-        }
-    }
     fflush(stdout);
 }
 
-void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
+void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Mass Conservation Results
-        //Get current time
+    //  Set file name as timestamp + Mass Conservation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -175,11 +158,10 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Mass_Conservation_Principle_\n");
     fprintf(fp, "Assuming the fluid is incompressible. \n");
     fprintf(fp, "\tInput parameters:\n");
@@ -206,27 +188,13 @@ void MassConWrite(double rho1, double rho2, double d1, double d2, double u1, dou
     fprintf(fp, "Final mass flowrate:\n");
     fprintf(fp, "m2 =\t%.3f\tkg/s\n\n", m2);
     
-    fprintf(fp, "Mass difference:\n");
-    fprintf(fp, "error =\t%.3f\tkg/s\n\n", error);
-    
-    if(error < 0.001)
-    {
-        fprintf(fp, "Mass balances.\n\n");
-    }else{
-        fprintf(fp, "Mass does not balance.\n\n");
-        if(rho1 != rho2)
-        {
-            fprintf(fp, "This program is under the assumption that the fluid is incompressible so density cannot fluctuate\n");
-        }
-    }
-    
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");
 }
 
-void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2, double error)
+void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u1, double u2, double q1, double q2, double m1, double m2)
 {
     int control = 0;
     
@@ -243,7 +211,7 @@ void MassConWriteSwitch(double rho1, double rho2, double d1, double d2, double u
             case 'Y':
             case 't':
             case 'y':
-                MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
+                MassConWrite(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
                 control = 0;
                 break;
             case '0':
@@ -283,8 +251,6 @@ void MassConservation()
         double d2 = 0.0;    // Final internal pipe diameter.
         double u1 = 0.0;    // Initial fluid velocity.
         
-        double error = 0.0;
-        
             //  Variables for timing function
         struct timespec start, end;
         double elapsed = 0.0;
@@ -318,10 +284,10 @@ void MassConservation()
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying data
-        MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
+        MassConDisplay(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
         
         //  Writing to file
-        MassConWriteSwitch(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2, error);
+        MassConWriteSwitch(rho1, rho2, d1, d2, u1, u2, q1, q2, m1, m2);
         
         //  Continue function
         whilmain = Continue(whilmain);

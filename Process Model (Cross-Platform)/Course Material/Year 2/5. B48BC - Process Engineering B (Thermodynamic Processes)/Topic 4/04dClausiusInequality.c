@@ -81,23 +81,20 @@ void EntropyDisplay(int imax, T4EntropyDef data)
 
 void EntropyWrite(int imax, T4EntropyDef data)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Clausius Inequality Results
-        //Get current time
+    //  Set file name as timestamp + Clausius Inequality Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -127,11 +124,10 @@ void EntropyWrite(int imax, T4EntropyDef data)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Clausius_Inequality_Results_\n");
     fprintf(fp, "q (kJ/kg)\tT (K)\ts (kJ/kg.K)\t\\sum_i\\frac{q_i}{T_i}\n");
     for(int i = 0; i < imax; ++i)
@@ -156,7 +152,7 @@ void EntropyWrite(int imax, T4EntropyDef data)
         }
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

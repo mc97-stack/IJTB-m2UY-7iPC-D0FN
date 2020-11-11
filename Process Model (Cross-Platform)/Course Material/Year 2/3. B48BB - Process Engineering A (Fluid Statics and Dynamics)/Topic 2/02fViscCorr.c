@@ -140,23 +140,20 @@ void ViscDisplay(int method, double a, double b, double T, double rho, double mu
 
 void ViscWrite(int method, double a, double b, double T, double rho, double mu, double upsi)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + ... Viscosity Correlation Results
-        //Get current time
+    //  Set file name as timestamp + ... Viscosity Correlation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -192,11 +189,10 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     if(method == 1){
         fprintf(fp, "_Liquid_Viscosity_Correlation_\n");
     }
@@ -220,7 +216,7 @@ void ViscWrite(int method, double a, double b, double T, double rho, double mu, 
     }
     fprintf(fp, "upsilon =\t%.3f\t...\t=\\frac{\\mu}{\\rho}\n", upsi);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

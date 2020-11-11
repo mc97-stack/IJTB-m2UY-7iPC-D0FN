@@ -82,24 +82,20 @@ void FluCompDisplay(double P, double V, double n, double T, double c)
 
 void FluCompWrite(double P, double V, double n, double T, double c)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;   // Pointer to the file location.
-    //Set file name as timestamp + Fluid Coefficient of Compressibility
-    
-        //Get current time
+    //  Set file name as timestamp + Fluid Coefficient of Compressibility
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -129,11 +125,10 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Fluid_Coefficient_of_Compressibility_Results_\n");
     fprintf(fp, "P =\t%.3f\tkPa\n", P*0.001);
     fprintf(fp, "V =\t%.3f\tm3\n", V);
@@ -141,7 +136,7 @@ void FluCompWrite(double P, double V, double n, double T, double c)
     fprintf(fp, "T =\t%.3f\tdeg C\n\n", (T - 273.15));
     fprintf(fp, "c =\t%.6f\tm3/Pa\n", c);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

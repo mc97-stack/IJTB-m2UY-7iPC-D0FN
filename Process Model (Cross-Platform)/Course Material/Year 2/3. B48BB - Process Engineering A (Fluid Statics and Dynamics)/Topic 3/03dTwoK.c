@@ -567,14 +567,14 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
 
 void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + 2K Results
-        //Get current time
+    //  Set file name as timestamp + 2K Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
@@ -610,10 +610,10 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(2K_Method)_Results_\n");
     
     int i = 0;
@@ -909,7 +909,7 @@ void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, dou
     fprintf(fp, "%.3f\n", data.dP_f[i]);
     ++i;
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

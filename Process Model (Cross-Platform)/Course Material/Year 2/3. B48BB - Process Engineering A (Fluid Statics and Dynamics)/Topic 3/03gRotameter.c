@@ -112,23 +112,20 @@ void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double a
 
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Rotameter Results
-        //Get current time
+    //  Set file name as timestamp + Rotameter Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -158,11 +155,10 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Rotameter_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Fluid parameters:\n");
@@ -195,7 +191,7 @@ void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are
     fprintf(fp, "Process fluid velocity:\n");
     fprintf(fp, "u =\t%.3f\tm/s\n", u);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

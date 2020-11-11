@@ -94,24 +94,21 @@ void CappDisplay(double sigma, double cang, double d, double h, double Pc)
 
 void CappWrite(double sigma, double cang, double d, double h, double Pc)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
     
-    //Set file name as timestamp + Capillarity Calculation Results
-        //Get current time
+    //  Set file name as timestamp + Capillarity Calculation Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -146,11 +143,10 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Capillarity_Calculations_\n");
     fprintf(fp, "\tInput Parameters:\n");
     fprintf(fp, "Fluid surface tension:\n");
@@ -164,7 +160,7 @@ void CappWrite(double sigma, double cang, double d, double h, double Pc)
     fprintf(fp, "Capillary pressure:\n");
     fprintf(fp, "Pc =\t%.3f\tPa\t=\\frac{2\\sigma\\cos\\theta}{r}\n",Pc);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

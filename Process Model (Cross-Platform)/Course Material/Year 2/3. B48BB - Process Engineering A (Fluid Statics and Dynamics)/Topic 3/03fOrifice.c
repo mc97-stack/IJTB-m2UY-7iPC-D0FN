@@ -117,23 +117,20 @@ void OrificeDisplay(double P1, double P2, double rho, double d1, double d2, doub
 
 void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double C_d, double h_f, double u, double Q, double m)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Orifice Plate Results
-        //Get current time
+    //  Set file name as timestamp + Orifice Plate Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -163,11 +160,10 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Orifice_Plate_Flow_Measurement_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Initial fluid pressure:\n");
@@ -194,7 +190,7 @@ void OrificeWrite(double P1, double P2, double rho, double d1, double d2, double
     fprintf(fp, "Process fluid mass flowrate:\n");
     fprintf(fp, "m =\t%.3f\tkg/s\n", m);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

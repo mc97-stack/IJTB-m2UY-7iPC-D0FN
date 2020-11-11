@@ -297,23 +297,20 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
 
 void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Equivalent Length Results
-        //Get current time
+    //  Set file name as timestamp + Equivalent Length Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -343,10 +340,10 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Pressure_Loss_Through_Pipe_Fittings_(Equivalent_Length_Method)_Results_\n");
     free(filename);
     
@@ -483,7 +480,7 @@ void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double m
     fprintf(fp, "%.3f\t", table.dP_f[i]);
     fprintf(fp, "%.3f\n", table.h_f[i]);
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");
