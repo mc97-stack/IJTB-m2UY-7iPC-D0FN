@@ -10,10 +10,10 @@
 #define _4dClausiusInequalityStruct_h
 
 typedef struct ClausiusInequality{
-    double q[2500];
-    double T[2500];
-    double s[2500];
-    double sum[2500];
+    double q[500];
+    double T[500];
+    double s[500];
+    double sum[500];
 } T4EntropyDef;
 
 #endif /* _4dClausiusInequalityStruct_h */

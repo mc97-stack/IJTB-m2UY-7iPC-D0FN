@@ -339,8 +339,11 @@ void Isochoric()
         char methodinput[maxstrlen];    // Variable used to store character input.
         int method = 0;                 // Variable used to control subroutine behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the profile struct.
         
-        T1ThermoProf profile = {0.0};   // Struct used to store the generated isochoric profile.
+        elems = 5*250;
+        
+        T1ThermoProf *profile = calloc(elems, sizeof(double));   // Struct used to store the generated isochoric profile.
         
         double P1 = 0.0;                // Initial system pressure.
         double P2 = 0.0;                // Final system pressure.
@@ -396,7 +399,7 @@ void Isochoric()
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
+            *profile = IsocProfile(method, P1, P2, V, T1, T2, n, cv);
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -406,10 +409,11 @@ void Isochoric()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsocProcDisplay(P1, P2, V, T1, T2, n, cv, profile);
+            IsocProcDisplay(P1, P2, V, T1, T2, n, cv, *profile);
             
             //  Writing to File
-            IsocProcWriteSwitch(P1, P2, V, T1, T2, n, cv, profile);
+            IsocProcWriteSwitch(P1, P2, V, T1, T2, n, cv, *profile);
+            free(profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

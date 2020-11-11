@@ -209,9 +209,12 @@ void ClausiusInequality(void)
     {
         //  Variable declaration
         int i = 0;                  // Variable used to control the maximum number of data entries (Max. 2500)
-        int control = 0;            // Variable used to control data collection and calculation steps. 
+        int control = 0;            // Variable used to control data collection and calculation steps.
+        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
         
-        T4EntropyDef data = {0.0};  // Struct used to store both the inputted parameters and calculated entropy.
+        elems = 4*500;
+        
+        T4EntropyDef *data = calloc(elems, sizeof(double));  // Struct used to store both the inputted parameters and calculated entropy.
         
             //  Variables for timing function
         struct timespec start, end;
@@ -224,15 +227,15 @@ void ClausiusInequality(void)
         while(control == 1)
         {
             //  Data Collection
-            data = EntropyVariable(i, data);
+            *data = EntropyVariable(i, *data);
             //  Data Manipulation
-            data = EntropyCalculation(i, data);
+            *data = EntropyCalculation(i, *data);
             
             for(int j = 0; j <= i; ++j)
             {
-                data.sum[i] += data.s[j];
+                data->sum[i] += data->s[j];
             }
-            if(i == 2499)
+            if(i == 499)
             {
                 // Last element has been reached. While loop is now broken.
                 control = 0;
@@ -249,10 +252,11 @@ void ClausiusInequality(void)
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        EntropyDisplay(i, data);
+        EntropyDisplay(i, *data);
         
         //  Writing to File
-        EntropyWriteSwitch(i, data);
+        EntropyWriteSwitch(i, *data);
+        free(data);
         
         //  Continue function
         whilmain = Continue(whilmain);

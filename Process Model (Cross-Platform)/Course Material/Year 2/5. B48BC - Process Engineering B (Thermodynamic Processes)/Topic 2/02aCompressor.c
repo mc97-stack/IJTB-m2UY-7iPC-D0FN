@@ -360,6 +360,7 @@ void Compressor(void)
     //  Pseudo-main function.
     int whilmain = 0;
     printf("Reciprocating Compressor\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
@@ -367,8 +368,11 @@ void Compressor(void)
         char methodinput[maxstrlen];    // Variable used to store character input.
         int method = 0;                 // Variable used to control subroutine behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
         
-        T2CompProfile profile = {0.0};  // Struct used to store the process profile for a reciprocating compressor.
+        elems = 5*512;
+        
+        T2CompProfile *profile = calloc(elems, sizeof(double));  // Struct used to store the process profile for a reciprocating compressor.
         double T2 = 0.0;                // Final compressor temperature.
         
         double P1 = 0.0;                // Initial system pressure.
@@ -430,9 +434,9 @@ void Compressor(void)
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = CompressorProfile(method, P1, P2, Vc, &V1, &V2, T1, n, R, alpha);
+            *profile = CompressorProfile(method, P1, P2, Vc, &V1, &V2, T1, n, R, alpha);
             
-            T2 = profile.T[505];
+            T2 = profile->T[505];
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -442,10 +446,11 @@ void Compressor(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+            CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
             
             //  Writing to File
-            CompresWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+            CompresWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
+            free(profile);
         }
         //  Continue function
         whilmain = Continue(whilmain);

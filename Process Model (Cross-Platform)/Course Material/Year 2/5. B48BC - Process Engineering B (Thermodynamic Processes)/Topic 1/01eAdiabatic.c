@@ -428,8 +428,11 @@ void Adiabatic()
         char input[maxstrlen];          // Variable used to store character input.
         int method = 0;                 // Variable used to control subroutine behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the profile struct.
         
-        T1ThermoProf profile = {0.0};   // Struct used to store the generated adiabatic process profile.
+        elems = 5*250;
+        
+        T1ThermoProf *profile = calloc(elems, sizeof(double));   // Struct used to store the generated adiabatic process profile.
         double T2 = 0.0;                // Final system temperature.
         
         double P1 = 0.0;                // Initial system pressure.
@@ -485,9 +488,9 @@ void Adiabatic()
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = AdiaProfile(method, P1, P2, V1, V2, T1, n, gamma);
+            *profile = AdiaProfile(method, P1, P2, V1, V2, T1, n, gamma);
             
-            T2 = profile.T[249];
+            T2 = profile->T[249];
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -497,10 +500,11 @@ void Adiabatic()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+            AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, *profile);
             
             //  Writing to File
-            AdiaProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+            AdiaProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, gamma, *profile);
+            free(profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

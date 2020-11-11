@@ -329,8 +329,11 @@ void Isobaric()
         char methodinput[maxstrlen];    // Variable used to store character input.
         int method = 0;                 // Variable used to control subroutine behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the profile struct.
         
-        T1ThermoProf profile = {0.0};   // Struct used to store the generated isobaric process profile.
+        elems = 5*250;
+        
+        T1ThermoProf *profile = calloc(elems, sizeof(double));   // Struct used to store the generated isobaric process profile.
         
         double P = 0.0;                 // System pressure.
         double V1 = 0.0;                // Initial system volume.
@@ -385,7 +388,7 @@ void Isobaric()
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = IsobProfile(method, P, V1, V2, T1, T2, n);
+            *profile = IsobProfile(method, P, V1, V2, T1, T2, n);
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -395,10 +398,11 @@ void Isobaric()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsobProcDisplay(P, V1, V2, T1, T2, n, profile);
+            IsobProcDisplay(P, V1, V2, T1, T2, n, *profile);
             
             //  Writing to File
-            IsobProcWriteSwitch(P, V1, V2, T1, T2, n, profile);
+            IsobProcWriteSwitch(P, V1, V2, T1, T2, n, *profile);
+            free(profile);
         }
         //Continue function
         whilmain = Continue(whilmain);

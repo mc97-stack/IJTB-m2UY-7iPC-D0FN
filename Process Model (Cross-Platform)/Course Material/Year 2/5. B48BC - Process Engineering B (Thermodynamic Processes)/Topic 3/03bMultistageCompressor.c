@@ -388,11 +388,16 @@ void MultistageCompressor(void)
 {
     int whilmain = 0;
     printf("Multistage Gas Compression (Adiabatic)\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         //  Variable declaration
-        T3CompProfile profile = {0.0};  // Struct where the generated multistage adiabat is stored.
+        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
+        
+        elems = 5*1500;
+        
+        T3CompProfile *profile = calloc(elems, sizeof(double));  // Struct where the generated multistage adiabat is stored.
         double V1 = 0.0;                // Initial system volume before compression.
         double V2 = 0.0;                // Final system volume after multistage compression.
         double T2 = 0.0;                // Final system temperature after multistage compression.
@@ -416,11 +421,11 @@ void MultistageCompressor(void)
         clock_getres(CLOCK_MONOTONIC, &start);
         clock_gettime(CLOCK_MONOTONIC, &start);
         
-        profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
+        *profile = MSCompProfile(P1, P2, Vc, T1, n, N, gamma);
         
-        V1 = profile.V[9];
-        V2 = profile.V[1489];
-        T2 = profile.T[1499];
+        V1 = profile->V[9];
+        V2 = profile->V[1489];
+        T2 = profile->T[1499];
         
         clock_getres(CLOCK_MONOTONIC, &end);
         clock_gettime(CLOCK_MONOTONIC, &end);
@@ -430,10 +435,11 @@ void MultistageCompressor(void)
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        MSCompDisplay(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
+        MSCompDisplay(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
         
         //  Writing to File
-        MSCompWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
+        MSCompWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
+        free(profile);
         
         //  Continue function
         whilmain = Continue(whilmain);

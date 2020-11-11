@@ -435,15 +435,19 @@ void Polytropic()
 {
     int whilmain = 0;
     printf("Polytropic Volume Work\n");
+    
     whilmain = 1;
     while(whilmain == 1)
     {
         // Variable declaration
-        char methodinput[maxstrlen];    // Variable used for character input.
+        char input[maxstrlen];          // Variable used for character input.
         int method = 0;                 // Variable used to control subroutine behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the profile struct.
         
-        T1ThermoProf profile = {0.0};   // Struct used to store the polytropic process profile.
+        elems = 5*250;
+        
+        T1ThermoProf *profile = calloc(elems, sizeof(double));   // Struct used to store the polytropic process profile.
         double V2 = 0.0;                // Final process volume.
         
         double P1 = 0.0;                // Initial system pressure.
@@ -465,8 +469,8 @@ void Polytropic()
         {
             printf("Please select from the following calculation methods:\n1. Pressure-Volume\n2. Temperature\n");
             printf("Selection [1 - 2]: ");
-            fgets(methodinput, sizeof(methodinput), stdin);
-            switch(methodinput[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                 case 'V':
@@ -500,19 +504,19 @@ void Polytropic()
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
+            *profile = PolyProfile(method, P1, P2, V1, T1, T2, n, R, alpha);
             
                 //  Gathering unknown variables
-            V2 = profile.V[249];
+            V2 = profile->V[249];
             if(method == 1){
-                T1 = profile.T[0];
-                T2 = profile.T[249];
+                T1 = profile->T[0];
+                T2 = profile->T[249];
             }
             if(method == 2){
-                P1 = profile.P[0];
-                P2 = profile.P[249];
-                V1 = profile.V[0];
-                V2 = profile.V[249];
+                P1 = profile->P[0];
+                P2 = profile->P[249];
+                V1 = profile->V[0];
+                V2 = profile->V[249];
             }
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -522,10 +526,11 @@ void Polytropic()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying Results
-            PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+            PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
             
             // Writing to File
-            PolyProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+            PolyProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
+            free(profile);
         }
         //  Continue function
         whilmain = Continue(whilmain);

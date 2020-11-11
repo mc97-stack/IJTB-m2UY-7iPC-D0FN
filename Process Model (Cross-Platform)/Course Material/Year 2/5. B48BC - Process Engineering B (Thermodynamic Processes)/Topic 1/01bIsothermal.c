@@ -335,8 +335,6 @@ void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, d
 void Isothermal()
 {
     //Main Function
-    char methodinput[maxstrlen];
-    
     int whilmain = 0;
     printf("Isothermal Process\n");
     
@@ -344,10 +342,14 @@ void Isothermal()
     while(whilmain == 1)
     {
         //Variable declaration
+        char input[maxstrlen];          // Varaible used to store character input.
         int method = 0;                 // Variable used to control system behaviour.
         int whilmethod = 0;             // Variable used to control user input.
+        int elems = 0;                  // Variable used to store the total number of elements used in the profile struct.
         
-        T1ThermoProf profile = {0.0};   // Struct used to store the generated isothermal process profile.
+        elems = 5*250;
+        
+        T1ThermoProf *profile = calloc(elems, sizeof(double));   // Struct used to store the generated isothermal process profile.
         
         double P1 = 0.0;                // Initial system pressure.
         double P2 = 0.0;                // Final system pressure.
@@ -366,8 +368,8 @@ void Isothermal()
         {
             printf("Please select from the following calculation methods:\n1. Pressure\n2. Volume\n");
             printf("Selection [1 - 2]: ");
-            fgets(methodinput, sizeof(methodinput), stdin);
-            switch(methodinput[0])
+            fgets(input, sizeof(input), stdin);
+            switch(input[0])
             {
                 case '1':
                 case 'P':
@@ -401,7 +403,7 @@ void Isothermal()
             clock_getres(CLOCK_MONOTONIC, &start);
             clock_gettime(CLOCK_MONOTONIC, &start);
             
-            profile = IsotProfile(method, n, T, P1, P2, V1, V2);
+            *profile = IsotProfile(method, n, T, P1, P2, V1, V2);
             
             clock_getres(CLOCK_MONOTONIC, &end);
             clock_gettime(CLOCK_MONOTONIC, &end);
@@ -411,10 +413,11 @@ void Isothermal()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsotProcDisplay(P1, P2, V1, V2, T, n, profile);
+            IsotProcDisplay(P1, P2, V1, V2, T, n, *profile);
             
             //  Writing to File
-            IsotProcWriteSwitch(P1, P2, V1, V2, T, n, profile);
+            IsotProcWriteSwitch(P1, P2, V1, V2, T, n, *profile);
+            free(profile);
         }
         //Continue function
         whilmain = Continue(whilmain);
