@@ -356,19 +356,44 @@ void CubicEOS(void)
         int control = 0;            // Variable used to control the number of individual isotherms generated.
         int eqn = 0;                // Variable used to control which equation of state is calculated. All equations is also an option.
         int ContCond = 0;           // Variable used to control whether the while loop generating the isotherm should be broken or not.
+        int VdWElems = 0;           // Variable used to store the total number of elements used to store the calculated data from the van der Waals equation of state.
+        int RKElems = 0;            // Variable used to store the total number of elements used to store the calculated data from the Redlich-Kwong equation of state.
+        int SRKElems = 0;           // Variable used to store the total number of elements used to store the calculated data from the Soave-Redlich-Kwong equation of state.
+        int PRElems = 0;            // Variable used to store the total number of elements used to store the calculated data from the Peng-Robinson equation of state.
+        
+        VdWElems = 4*1000;
+        RKElems = 4*1000;
+        SRKElems = 4*1000;
+        PRElems = 4*1000;
         
         double VdWa = 0.0;             // Repulsive term in the van der Waals equation of state.
         double VdWb = 0.0;             // Actual molecular volume term in the van der Waals equation of state.
-        double RKa = 0.0;             // Repulsive term in the van der Waals equation of state.
-        double RKb = 0.0;             // Actual molecular volume term in the van der Waals equation of state.
+        double RKa = 0.0;              // Repulsive term in the van der Waals equation of state.
+        double RKb = 0.0;              // Actual molecular volume term in the van der Waals equation of state.
         double SRKa = 0.0;             // Repulsive term in the van der Waals equation of state.
         double SRKb = 0.0;             // Actual molecular volume term in the van der Waals equation of state.
-        double PRa = 0.0;             // Repulsive term in the van der Waals equation of state.
-        double PRb = 0.0;             // Actual molecular volume term in the van der Waals equation of state.
-        EOSIsotherm VdWEOSIsotherm = {0.0};
-        EOSIsotherm RKEOSIsotherm = {0.0};
-        EOSIsotherm SRKEOSIsotherm = {0.0};
-        EOSIsotherm PREOSIsotherm = {0.0};
+        double PRa = 0.0;              // Repulsive term in the van der Waals equation of state.
+        double PRb = 0.0;              // Actual molecular volume term in the van der Waals equation of state.
+        EOSIsotherm *VdWEOSIsotherm = calloc(VdWElems, sizeof(double));
+        if(VdWEOSIsotherm == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
+        EOSIsotherm *RKEOSIsotherm = calloc(RKElems, sizeof(double));
+        if(RKEOSIsotherm == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
+        EOSIsotherm *SRKEOSIsotherm = calloc(SRKElems, sizeof(double));
+        if(SRKEOSIsotherm == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
+        EOSIsotherm *PREOSIsotherm = calloc(PRElems, sizeof(double));
+        if(PREOSIsotherm == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
         
         double Pc = 0.0;            // Critical pressure.
         double Tc = 0.0;            // Critical temperature.
@@ -434,22 +459,22 @@ void CubicEOS(void)
             if(eqn == 1 || eqn == 5){
                 VdWa = VdWcalculateA(Tc, Pc);
                 VdWb = VdWcalculateB(Tc, Pc);
-                VdWEOSIsotherm = CubicEOSIsotherm(T, VdWa, VdWb, 0, 0);
+                *VdWEOSIsotherm = CubicEOSIsotherm(T, VdWa, VdWb, 0, 0);
             }
             if(eqn == 2 || eqn == 5){
                 RKa = RKcalculateA(Tc, Pc, T);
                 RKb = RKcalculateB(Tc, Pc);
-                RKEOSIsotherm = CubicEOSIsotherm(T, RKa, RKb, 1, 0);
+                *RKEOSIsotherm = CubicEOSIsotherm(T, RKa, RKb, 1, 0);
             }
             if(eqn == 3 || eqn == 5){
                 SRKa = SRKcalculateA(Tc, Pc, T, omega);
                 SRKb = RKcalculateB(Tc, Pc);
-                SRKEOSIsotherm = CubicEOSIsotherm(T, SRKa, SRKb, 1, 0);
+                *SRKEOSIsotherm = CubicEOSIsotherm(T, SRKa, SRKb, 1, 0);
             }
             if(eqn == 4 || eqn == 5){
                 PRa = PRcalculateA(Tc, Pc, T, omega);
                 PRb = PRcalculateB(Tc, Pc);
-                PREOSIsotherm = CubicEOSIsotherm(T, PRa, PRb, 2, -1);
+                *PREOSIsotherm = CubicEOSIsotherm(T, PRa, PRb, 2, -1);
             }
             
             clock_getres(CLOCK_MONOTONIC, &end);
@@ -460,10 +485,15 @@ void CubicEOS(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying Results
-            CubicEOSSwitch(1, eqn, Pc, Tc, omega, T, VdWa, VdWb, RKa, RKb, SRKa, SRKb, PRa, PRb, VdWEOSIsotherm, RKEOSIsotherm, SRKEOSIsotherm, PREOSIsotherm);
+            CubicEOSSwitch(1, eqn, Pc, Tc, omega, T, VdWa, VdWb, RKa, RKb, SRKa, SRKb, PRa, PRb, *VdWEOSIsotherm, *RKEOSIsotherm, *SRKEOSIsotherm, *PREOSIsotherm);
             
             //  writing results
-            CubicEOSSwitch(2, eqn, Pc, Tc, omega, T, VdWa, VdWb, RKa, RKb, SRKa, SRKb, PRa, PRb, VdWEOSIsotherm, RKEOSIsotherm, SRKEOSIsotherm, PREOSIsotherm);
+            CubicEOSSwitch(2, eqn, Pc, Tc, omega, T, VdWa, VdWb, RKa, RKb, SRKa, SRKb, PRa, PRb, *VdWEOSIsotherm, *RKEOSIsotherm, *SRKEOSIsotherm, *PREOSIsotherm);
+            
+            free(VdWEOSIsotherm);
+            free(RKEOSIsotherm);
+            free(SRKEOSIsotherm);
+            free(PREOSIsotherm);
             
             ContCond = 1;
             while(ContCond == 1)

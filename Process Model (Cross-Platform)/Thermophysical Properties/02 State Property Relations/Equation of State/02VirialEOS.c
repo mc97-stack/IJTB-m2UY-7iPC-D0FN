@@ -628,8 +628,6 @@ void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, do
     info = localtime(&rawtime);
     
         //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
     
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
@@ -665,7 +663,6 @@ void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, do
     
     //Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
     //Write to file
     fprintf(fp, "_Virial_Equation_of_State_Results_\n");
@@ -780,11 +777,25 @@ void VirialEOS(void)
         int polar = 0;              // Variable used to control subroutine behaviour dependent on whether the molecule is polar or not.
         int mode = 0;               // Variable used to control whether the Virial EOS/Compressibility factor isotherms are generated. Generating both sets of isotherms is also possible.
         int ContCond = 0;           // Variable used to control whether the while loop generating the isotherm should be broken or not.
+        int elemsVir = 0;           // Variable used to store the total number of elements used in the struct for holding the data concerning the Virial equation of state.
+        int elemsComp = 0;          // Variable used to store the total number of elements used in the struct holding the data containing the compressibility factor extracted using the virial equation of state.
+        
+        elemsVir = 1000*4;
+        elemsComp = 1000*3;
         
         double B = 0.0;             // Second virial coefficient.
         double C = 0.0;             // Third virial coefficient.
-        EOSIsotherm dataV = {0.0};   // Struct where the Virial Equation of State isotherm data is stored.
-        ZFactor dataZ = {0.0};      // Struct where the compressibility factor isotherm data is stored.
+        EOSIsotherm *dataV = calloc(elemsVir, sizeof(double));   // Struct where the Virial Equation of State isotherm data is stored.
+        if(dataV == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
+        
+        ZFactor *dataZ = calloc(elemsComp, sizeof(double));      // Struct where the compressibility factor isotherm data is stored.
+        if(dataZ == NULL){
+            printf("Calloc failed. Ending calculations\n");
+            whilmain = 0;
+        }
         
         double Pc = 0.0;            // Critical pressure.
         double Tc = 0.0;            // Critical temperature.
@@ -873,19 +884,19 @@ void VirialEOS(void)
             if(polar == 0)
             {
                 if(mode == 1 || mode == 3){
-                    dataV = VirialEOSIsotherm(Pc, Tc, Vc, T, omega, &B, &C);
+                    *dataV = VirialEOSIsotherm(Pc, Tc, Vc, T, omega, &B, &C);
                 }
                 if(mode == 2 || mode == 3){
-                    dataZ = VirialEOSCompIsotherm(Pc, Tc, T, omega, &B, &C);
+                    *dataZ = VirialEOSCompIsotherm(Pc, Tc, T, omega, &B, &C);
                 }
             }
             if(polar == 1)
             {
                 if(mode == 1 || mode == 3){
-                    dataV = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
+                    *dataV = VirialEOSIsothermPolar(Pc, Tc, Vc, T, omega, a, b, &B, &C);
                 }
                 if(mode == 2 || mode == 3){
-                    dataZ = VirialEOSCompIsothermPolar(Pc, Tc, T, omega, a, b, &B, &C);
+                    *dataZ = VirialEOSCompIsothermPolar(Pc, Tc, T, omega, a, b, &B, &C);
                 }
             }
             
@@ -897,10 +908,13 @@ void VirialEOS(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            VirialEOSSwitch(1, mode, polar, Pc, Tc, Vc, T, omega, a, b, dataV, dataZ, B, C);
+            VirialEOSSwitch(1, mode, polar, Pc, Tc, Vc, T, omega, a, b, *dataV, *dataZ, B, C);
             
             //  Writing to File
-            VirialEOSSwitch(2, mode, polar, Pc, Tc, Vc, T, omega, a, b, dataV, dataZ, B, C);
+            VirialEOSSwitch(2, mode, polar, Pc, Tc, Vc, T, omega, a, b, *dataV, *dataZ, B, C);
+            
+            free(dataV);
+            free(dataZ);
             
             ContCond = 1;
             while(ContCond == 1)
