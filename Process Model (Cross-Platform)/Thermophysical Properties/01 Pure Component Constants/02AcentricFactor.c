@@ -89,13 +89,15 @@ double AcFactorCritCalc(double Pc, double Tc, double TBoil)
     theta = TBoil/Tc;
     
     omega = (3.0)/(7.0);
+    
     sto1 = 1 - (theta);
     sto1 = (theta)/(sto1);
-    theta = (theta)*(sto1);
+    omega = (omega)*sto1;
     
     sto1 = log10(Pc);
-    theta = (theta)*(sto1);
-    theta = (theta) - 1;
+    omega = (omega)*(sto1);
+    
+    omega = (omega) - 1;
     
     return omega;
 }
