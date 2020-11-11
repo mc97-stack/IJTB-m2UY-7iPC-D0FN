@@ -83,24 +83,21 @@ void IdealEOSDisplay(double T, EOSIsotherm data)
 
 void IdealEOSWrite(double T, EOSIsotherm data)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     char filetemp[maxstrlen];
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Ideal Gas EOS T ... K Results
-        //Get current time
+    //  Set file name as timestamp + Ideal Gas EOS T ... K Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -133,11 +130,10 @@ void IdealEOSWrite(double T, EOSIsotherm data)
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Ideal_Gas_Equation_of_State_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Isotherm produced at:");
@@ -153,7 +149,7 @@ void IdealEOSWrite(double T, EOSIsotherm data)
         fprintf(fp, "%.3f\n", ( (data.P[i])*(data.V[i]) )/( R*(data.T[i]) ));
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

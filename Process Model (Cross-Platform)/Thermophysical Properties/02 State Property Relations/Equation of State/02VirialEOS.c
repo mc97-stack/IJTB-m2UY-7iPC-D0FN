@@ -613,22 +613,21 @@ void VirialEOSWrite(int polar, double Pc, double Tc, double Vc, double T, double
 
 void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, double omega, double a, double b, ZFactor data, double B, double C)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen] = {""};   // Variable used to store the file name as it is built.
     char filetemp[maxstrlen] = {""};
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Virial EOS (Z) T ... K Results
-        //Get current time
+    //  Set file name as timestamp + Virial EOS (Z) T ... K Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -661,10 +660,10 @@ void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, do
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Virial_Equation_of_State_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     fprintf(fp, "Critical pressure:\n");
@@ -700,7 +699,7 @@ void VirialEOSCompWrite(int polar, double Pc, double Tc, double Vc, double T, do
         fprintf(fp, "%.3f\n", data.Z[i]);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");

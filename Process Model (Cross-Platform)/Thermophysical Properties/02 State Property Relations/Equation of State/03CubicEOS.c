@@ -154,24 +154,21 @@ void CubicEOSDisplay(int eqn, double Pc, double Tc, double omega, double T, doub
 
 void CubicEOSWrite(int eqn, double Pc, double Tc, double omega, double T, double a, double b, EOSIsotherm Isotherm)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen] = {""};   // Variable used to store the file name as it is built.
     char filetemp[maxstrlen] = {""};
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + "..." EOS (Z) T ... K Results
-        //Get current time
+    //  Set file name as timestamp + "..." EOS (Z) T ... K Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -219,11 +216,11 @@ void CubicEOSWrite(int eqn, double Pc, double Tc, double omega, double T, double
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
     free(filename);
     
-    //Write to file
+    //  Write to file
     if(eqn == 1){
         fprintf(fp, "_van_der_Waals_EOS_Results_\n");
     }
@@ -264,7 +261,7 @@ void CubicEOSWrite(int eqn, double Pc, double Tc, double omega, double T, double
         fprintf(fp, "%f\n", Isotherm.Z[i]);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");
@@ -398,7 +395,7 @@ void CubicEOS(void)
         double Pc = 0.0;            // Critical pressure.
         double Tc = 0.0;            // Critical temperature.
         double omega = 0.0;         // Acentric factor.
-        double T = 0.0;            // Isotherm temperature.
+        double T = 0.0;             // Isotherm temperature.
             //  Variables for timing function
         struct timespec start, end;
         double elapsed = 0.0;

@@ -186,23 +186,20 @@ void AcFactorDisplay(int mode, double Pc, double Tc, double TBoil, double ANTA, 
 
 void AcFactorWrite(int mode, double Pc, double Tc, double TBoil, double ANTA, double ANTB, double ANTC, double omegaANT, double omegaCRI, double omegaLK)
 {
-    //Function variables
+    //  Function variables
     char filename[maxstrlen];   // Variable used to store the file name as it is built.
     //char filepath[maxstrlen*(2)];
     //char driveloc[maxstrlen];
     
     FILE *fp;                   // Pointer to the file location.
-    //Set file name as timestamp + Acentric Factor Results
-        //Get current time
+    //  Set file name as timestamp + Acentric Factor Results
+        //  Get current time
     time_t rawtime;
     struct tm *info;
     time(&rawtime);
     info = localtime(&rawtime);
     
-        //Creating file name with base format "YYYYmmDD HHMMSS "
-    //Allocating memory for the file name
-    *filename = (char)malloc(sizeof *filename);
-    
+        //  Creating file name
     strftime(filename, 15, "%Y%m%d %H%M%S", info);
     //printf("File name: \"%s\"\n", filename);
     
@@ -236,11 +233,10 @@ void AcFactorWrite(int mode, double Pc, double Tc, double TBoil, double ANTA, do
     
     printf("Beginning file write...\n");
     
-    //Open file
+    //  Open file
     fp = fopen(filename, "w+");
-    free(filename);
     
-    //Write to file
+    //  Write to file
     fprintf(fp, "_Acentric_Factor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
     if(mode == 1 || mode == 4)
@@ -274,7 +270,7 @@ void AcFactorWrite(int mode, double Pc, double Tc, double TBoil, double ANTA, do
         fprintf(fp, "omegaLK =\t%.4f\t[ ]\n", omegaLK);
     }
     
-    //Close file
+    //  Close file
     fclose(fp);
      
     printf("Write Complete\n");
