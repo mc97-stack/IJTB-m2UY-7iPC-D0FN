@@ -27,18 +27,18 @@ void CoPVariable(int method, double *wnet, double *qhot, double *qcold, double *
 {
     if(method == 1)
     {
-        *qcold = inputDouble(0, "specific heat received from cold reservoir", "kJ/kg");
+        *qcold = inputDouble(0, 1, "specific heat received from cold reservoir", "kJ/kg");
     }
     if(method == 2)
     {
-        *qhot = inputDouble(0, "specific heat supplied to hot reservoir", "kJ/kg");
+        *qhot = inputDouble(0, 0, "specific heat supplied to hot reservoir", "kJ/kg");
     }
     if(method == 1 || method == 2)
     {
-        *wnet = inputDouble(1, "specific net work to/from thermodynamic cycle", "kJ/kg");
+        *wnet = inputDouble(1, 1, "specific net work to/from thermodynamic cycle", "kJ/kg");
         
-        *THot = inputDouble(0, "temperature of hot reservoir", "K");
-        *TCold = inputDouble(0, "temperature of cold reservoir", "K");
+        *THot = inputDouble(0, 0, "temperature of hot reservoir", "K");
+        *TCold = inputDouble(0, 0, "temperature of cold reservoir", "K");
     }
 }
 

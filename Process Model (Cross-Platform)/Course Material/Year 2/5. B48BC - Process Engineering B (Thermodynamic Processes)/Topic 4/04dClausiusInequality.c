@@ -27,8 +27,8 @@ T4EntropyDef EntropyVariable(int i, T4EntropyDef data)
 {
     printf("Please enter the following variables true at state %d.\n", i + 1);
     
-    data.q[i] = inputDouble(0, "heat change", "kJ/kg");
-    data.T[i] = inputDouble(0, "Average temperature", "deg C");
+    data.q[i] = inputDouble(1, 1, "heat change", "kJ/kg");
+    data.T[i] = inputDouble(1, 1, "Average temperature", "deg C");
     data.T[i] = data.T[i] + 273.15;
     
     return data;
