@@ -226,7 +226,7 @@ double ManoEstiCalculation(double P1, double P2, double rho1, double h1, double 
             case 't':
             case 'y':
                 //Degree of inclination
-                incl = inputDouble(0, "degree of inclination", "deg");
+                incl = inputDouble(0, 0, "degree of inclination", "deg");
                 
                 incl = (incl)*(PI/180.0); //Conversion to radians
                 rad = sin(incl);
