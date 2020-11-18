@@ -103,7 +103,9 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
 /// @param alpha Polytropic index.
 /// @param profile Compressor Profile.
 void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure. (Pa).
 /// @param P2 Final system pressure. (Pa).
 /// @param Vc Clearance volume (m3).
@@ -115,6 +117,6 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
 /// @param R Specific gas constant. (J/ mol. K).
 /// @param alpha Polytropic index.
 /// @param profile Compressor Profile.
-void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
+void CompresSwitch(int mode, double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile);
 
 #endif /* CompresWrite_h */

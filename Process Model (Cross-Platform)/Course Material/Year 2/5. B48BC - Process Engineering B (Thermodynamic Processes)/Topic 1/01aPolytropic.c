@@ -404,7 +404,7 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("Write Complete\n");
 }
 
-void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
+void PolyProcSwitch(int mode, double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile)
 {
     int control = 0;
     
@@ -413,7 +413,12 @@ void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -422,7 +427,12 @@ void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
             case 'Y':
             case 't':
             case 'y':
-                PolyProcWrite(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+                if(mode == 1){
+                    PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+                }
+                if(mode == 2){
+                    PolyProcWrite(P1, P2, V1, V2, T1, T2, n, R, alpha, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -535,10 +545,10 @@ void Polytropic()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying Results
-            PolyProcDisp(P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
+            PolyProcSwitch(1, P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
             
             // Writing to File
-            PolyProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
+            PolyProcSwitch(2, P1, P2, V1, V2, T1, T2, n, R, alpha, *profile);
             free(profile);
         }
         //  Continue function

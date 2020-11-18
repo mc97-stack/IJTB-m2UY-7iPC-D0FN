@@ -383,7 +383,7 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
     printf("Write Complete\n");
 }
 
-void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
+void AdiaProcSwitch(int mode, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile)
 {
     int control = 0;
     
@@ -392,7 +392,12 @@ void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -401,7 +406,12 @@ void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, 
             case 'Y':
             case 't':
             case 'y':
-                AdiaProcWrite(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+                if(mode == 1){
+                    AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+                }
+                if(mode == 2){
+                    AdiaProcWrite(P1, P2, V1, V2, T1, T2, n, gamma, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -504,10 +514,10 @@ void Adiabatic()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            AdiaProcDisplay(P1, P2, V1, V2, T1, T2, n, gamma, *profile);
+            AdiaProcSwitch(1, P1, P2, V1, V2, T1, T2, n, gamma, *profile);
             
             //  Writing to File
-            AdiaProcWriteSwitch(P1, P2, V1, V2, T1, T2, n, gamma, *profile);
+            AdiaProcSwitch(2, P1, P2, V1, V2, T1, T2, n, gamma, *profile);
             free(profile);
         }
         //Continue function

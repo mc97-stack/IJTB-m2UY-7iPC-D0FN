@@ -110,7 +110,8 @@ void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, doubl
 /// @param profile Isochoric process profile.
 void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param V System volume (m3).
@@ -119,6 +120,6 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
 /// @param n Moles of component in system (mol/ s).
 /// @param c_v Heat capacity at constant volume (J/mol.K).
 /// @param profile Isochoric process profile.
-void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
+void IsocProcSwitch(int mode, double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */
