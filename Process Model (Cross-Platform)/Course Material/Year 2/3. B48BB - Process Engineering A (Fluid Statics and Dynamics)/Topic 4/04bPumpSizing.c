@@ -26,16 +26,16 @@
 /// MARK: VARIABLE INPUT
 void PumpVariable(double *Q, double *rho, double *Psat, double *NPSHr, double *eta)
 {
-    *Q = inputDouble(0, "volumetric flowrate", "m3/s");
+    *Q = inputDouble(0, 0, "volumetric flowrate", "m3/s");
     
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *Psat = inputDouble(0, "fluid vapour pressure", "kPa");
+    *Psat = inputDouble(0, 0, "fluid vapour pressure", "kPa");
     *Psat = (*Psat)*1000;
     
-    *NPSHr = inputDouble(0, "required NPSH", "m");
+    *NPSHr = inputDouble(0, 0, "required NPSH", "m");
     
-    *eta = inputDouble(0, "pump efficiency", "0 %% - 100 %%");
+    *eta = inputDouble(0, 0, "pump efficiency", "0 %% - 100 %%");
     *eta = (*eta)*0.01; // Conversion to decimal
 }
 
