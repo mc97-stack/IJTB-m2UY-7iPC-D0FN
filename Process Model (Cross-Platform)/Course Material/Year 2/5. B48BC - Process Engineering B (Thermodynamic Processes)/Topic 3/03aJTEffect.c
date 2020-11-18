@@ -87,10 +87,11 @@ double JTCoefficientCalculation(double v, double c_p, double T, double P, double
     term2top = 0.0;
     term2bot = (term2bot) + term2sto;   // Denominator calculated.
     
-    term2top = R*T;
+    term2top = R;
     
-    term2 = term2top/term2bot;          // Term 2 calculated
-    term2 = term2 - 1;                  // Bracketed term calculated.
+    term2 = term2top/term2bot;          // Isobaric thermal expansion coefficient calculated
+    term2 = (term2)*T;
+    term2 = (term2) - 1;                // Bracketed term calculated.
     
     mu_JT = term1*term2;
     
