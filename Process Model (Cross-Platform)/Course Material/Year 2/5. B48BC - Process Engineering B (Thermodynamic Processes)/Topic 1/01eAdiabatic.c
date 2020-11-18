@@ -26,35 +26,30 @@
 /// MARK: VARIABLE INPUT
 void AdiaVariable(int method, double *P1, double *P2, double *V1, double *V2, double *T1, double *n, double *gamma)
 {
-    char input[maxstrlen];
-    
     if(method == 1||method == 2){
-        *P1 = inputDouble(0, "initial system pressure", "kPa");
+        *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
     }
     if(method == 2){
-        *P2 = inputDouble(0, "final system pressure", "kPa");
+        *P2 = inputDouble(0, 0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
     }
     if(method == 1){
-        *V1 = inputDouble(0, "initial system volume", "m3");
-        *V2 = inputDouble(0, "final system volume", "m3");
+        *V1 = inputDouble(0, 0, "initial system volume", "m3");
+        *V2 = inputDouble(0, 0, "final system volume", "m3");
     }
     if(method == 2){
-        *T1 = inputDouble(1, "initial system temperature", "deg C");
+        *T1 = inputDouble(1, 1, "initial system temperature", "deg C");
         *T1 = (*T1)+273.15;
     }
     if(method == 1 || method == 2){
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
     if(method == 1 || method == 2)
     {
-        printf("Heat capacity ratio ([]): ");
-        *gamma = atof(fgets(input, sizeof(input), stdin));
+        *gamma = inputDouble(0, 0, "Heat capacity ratio", "[ ]");
     }
-    
-    fflush(stdout);
 }
 
 /// MARK: GENERAL CALCULATIONS

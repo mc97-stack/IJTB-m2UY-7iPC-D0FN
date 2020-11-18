@@ -27,22 +27,22 @@
 void IsobVariable(int method, double *P, double *V1,double *V2, double *T1, double *T2, double *n)
 {
     if(method == 1){
-        *P = inputDouble(0, "system pressure", "kPa");
+        *P = inputDouble(0, 0, "system pressure", "kPa");
         *P = (*P)*1000;
         
-        *V1 = inputDouble(0, "initial system volume", "m3");
+        *V1 = inputDouble(0, 0, "initial system volume", "m3");
         
-        *V2 = inputDouble(0, "final system volume", "m3");
+        *V2 = inputDouble(0, 0, "final system volume", "m3");
     }
     if(method == 2){
-        *T1 = inputDouble(0, "initial system temperature", "deg C");
+        *T1 = inputDouble(0, 1, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
         
-        *T2 = inputDouble(0, "final system temperature", "deg C");
+        *T2 = inputDouble(0, 1, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
     if(method == 1 || method == 2){
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
 }

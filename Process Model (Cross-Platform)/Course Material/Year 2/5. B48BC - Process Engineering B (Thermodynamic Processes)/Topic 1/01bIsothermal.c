@@ -28,24 +28,24 @@ void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, do
 {
     if(method == 1){
         // Volume definition
-        *V1 = inputDouble(0, "initial system volume", "m3");
+        *V1 = inputDouble(0, 0, "initial system volume", "m3");
         
-        *V2 = inputDouble(0, "final system volume", "m3");
+        *V2 = inputDouble(0, 0, "final system volume", "m3");
     }
     if(method == 2){
         // Pressure definition
-        *P1 = inputDouble(0, "initial system pressure", "kPa");
+        *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        *P2 = inputDouble(0, "final system pressure", "kPa");
+        *P2 = inputDouble(0, 0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
     }
     if(method == 1 || method == 2){
         // Common variables
-        *T = inputDouble(0, "system temperature", "deg C");
+        *T = inputDouble(0, 1, "system temperature", "deg C");
         *T = (*T) + 273.15;
         
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
     }
 }
