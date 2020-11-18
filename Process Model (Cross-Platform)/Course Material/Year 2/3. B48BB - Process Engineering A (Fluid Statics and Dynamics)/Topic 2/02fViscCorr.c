@@ -29,11 +29,11 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     char input[maxstrlen];
     int control = 0;
     
-    *a = inputDouble(0, "a", "");
+    *a = inputDouble(0, 0, "a", "");
     
-    *b = inputDouble(0, "b", "");
+    *b = inputDouble(0, 0, "b", "");
     
-    *T = inputDouble(0, "system temperature", "deg C");
+    *T = inputDouble(0, 0, "system temperature", "deg C");
     
     control = 1;
     while(control == 1)
@@ -65,7 +65,7 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     }
     
     printf("Fluid density (kg/m3) = ");
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
 }
 
 /// MARK: GENERAL CALCULATIONS
