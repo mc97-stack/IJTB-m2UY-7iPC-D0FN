@@ -42,7 +42,7 @@ void IsotVariable(int method, double *P1, double *P2, double *V1, double *V2, do
     }
     if(method == 1 || method == 2){
         // Common variables
-        *T = inputDouble(0, 1, "system temperature", "deg C");
+        *T = inputDouble(1, 1, "system temperature", "deg C");
         *T = (*T) + 273.15;
         
         *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
