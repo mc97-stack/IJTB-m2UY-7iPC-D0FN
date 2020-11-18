@@ -9,7 +9,7 @@
 #ifndef Input_h
 #define Input_h
 
-/// This subroutine is used to force the entry of a non-zero value that will be assigned to a variable. 
+/// This subroutine is used to collect character input and convert the inputted array to a double value. 
 /// @param allowZero Integer value used to control whether a zero value is permitted in the data entry. A value of 0 will force a non-zero value to be entered.
 /// @param allowNeg Integer value used to control whether a negative value is permitted in the data entry. A value of 0 will force a positive value to be entered.
 /// @param VariableName Variable descriptor.
