@@ -41,16 +41,16 @@ void VelocityProfileMenu()
                 case 'l':
                     LaminarVelPro();
                     whilselec = 0;
-                break;
+                    break;
                 case '2':
                 case 'T':
                 case 't':
                     TurbulentVelPro();
                     whilselec = 0;
-                break;
+                    break;
                 default:
                     printf("Input not recognised\n");
-                break;
+                    break;
             }
         }
         //Continue function
