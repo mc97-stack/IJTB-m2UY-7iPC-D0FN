@@ -25,18 +25,18 @@
 /// MARK: VARIABLE INPUT
 void AcFactorVariable(int mode, double *Pc, double *Tc, double *TBoil, double *ANTA, double *ANTB, double *ANTC)
 {
-    *Pc = inputDouble(0, "critical pressure", "bar");
-    *Tc = inputDouble(0, "critical temperature", "K");
+    *Pc = inputDouble(0, 0, "critical pressure", "bar");
+    *Tc = inputDouble(0, 0, "critical temperature", "K");
     
     if(mode == 2 || mode == 3 || mode == 4){
-        *TBoil = inputDouble(0, "normal boiling point", "deg C");
+        *TBoil = inputDouble(1, 1, "normal boiling point", "deg C");
         *TBoil = (*TBoil) + 273.15;
     }
     
     if(mode == 1 || mode == 4){
-        *ANTA = inputDouble(0, "antoine constant (A)", "mmHg");
-        *ANTB = inputDouble(0, "antoine constant (B)", "K.mmHg");
-        *ANTC = inputDouble(0, "antoine constant (C)", "deg C");
+        *ANTA = inputDouble(0, 0, "antoine constant (A)", "mmHg");
+        *ANTB = inputDouble(0, 0, "antoine constant (B)", "K.mmHg");
+        *ANTC = inputDouble(0, 0, "antoine constant (C)", "deg C");
     }
 }
 
@@ -431,7 +431,7 @@ double AcentricFactor(void)
         //  Continue function
         whilmain = Continue(whilmain);
         
-        data = inputDouble(1, "Empirical data: ", "[ ]");
+        data = inputDouble(0, 0, "Empirical data: ", "[ ]");
         
         errANT = pcterror(omegaANT, data);
         errCRI = pcterror(omegaCRI, data);

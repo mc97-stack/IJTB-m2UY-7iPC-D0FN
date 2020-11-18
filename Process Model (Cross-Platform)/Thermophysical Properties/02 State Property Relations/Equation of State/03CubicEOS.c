@@ -27,9 +27,9 @@
 /// MARK: VARIABLE INPUT
 void CubicEOSVariable(double *Pc, double *Tc, double *omega)
 {
-    *Pc = inputDouble(0, "critical pressure", "bar");
-    *Tc = inputDouble(0, "critical temperature", "K");
-    *omega = inputDouble(0, "Acentric factor", "[ ]");
+    *Pc = inputDouble(0, 0, "critical pressure", "bar");
+    *Tc = inputDouble(0, 0, "critical temperature", "K");
+    *omega = inputDouble(0, 0, "Acentric factor", "[ ]");
 }
 
 /// MARK: GENERAL CALCULATIONS
@@ -445,7 +445,7 @@ void CubicEOS(void)
         control = 1;
         while(control == 1)
         {
-            T = inputDouble(0, "temperature of produced isotherm", "deg C");
+            T = inputDouble(1, 1, "temperature of produced isotherm", "deg C");
             T = (T) + 273.15;
             
             //  Data Manipulation
