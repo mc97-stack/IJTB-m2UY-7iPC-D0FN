@@ -28,13 +28,13 @@
 /// MARK: VARIABLE INPUT
 void CappVariable(double *sigma, double *cang, double *rho, double *d)
 {
-    *sigma = inputDouble(0, "Surface Tension", "N/m");
+    *sigma = inputDouble(0, 0, "Surface Tension", "N/m");
     
-    *cang = inputDouble(0, "contact angle", "deg");
+    *cang = inputDouble(0, 0, "contact angle", "deg");
     
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *d = inputDouble(0, "Capillary tube diameter", "mm");
+    *d = inputDouble(0, 0, "Capillary tube diameter", "mm");
     
     wettabilityfacts(*cang);    //Function located in 01dSurfTens
     *cang = (*cang)*(PI/ 180);  //Conversion to radians

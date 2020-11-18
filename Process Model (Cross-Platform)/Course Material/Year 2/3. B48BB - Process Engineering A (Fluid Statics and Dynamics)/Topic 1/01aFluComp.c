@@ -28,18 +28,18 @@
 void FluCompVariable(double *P, double *V, double *n, double *T)
 {
     //Pressure
-    *P = inputDouble(0, "absolute system pressure", "kPa_abs");
+    *P = inputDouble(0, 0, "absolute system pressure", "kPa_abs");
     *P = *P * 1000.0;
     
     //Temperature
-    *T = inputDouble(1, "system temperature", "deg C");
+    *T = inputDouble(1, 1, "system temperature", "deg C");
     *T = *T + 273.15; //Conversion to K
     
     //Volume
-    *V = inputDouble(0, "system volume", "m3");
+    *V = inputDouble(0, 0, "system volume", "m3");
     
     //moles
-    *n = inputDouble(0, "moles of substance", "kmol");
+    *n = inputDouble(0, 0, "moles of substance", "kmol");
     *n = *n * 1000.0; //Conversion to mol
 }
 
