@@ -46,7 +46,7 @@ void CarnotCycle(void);
 #ifndef ClausiusInequality_h
 #define ClausiusInequality_h
 
-/// This subroutine is used to guide the user through evaluating the thermodynamic feasibility of a process by analysis through conserved heat-temperature property (entropic contributions) throughout a process. After all heat contributions have been inputted into the subroutine, it then notifies the user of whether the given process is in violation of the second law of thermodynamics.
+/// This subroutine is used to guide the user through evaluating the thermodynamic feasibility of a process through analysis of the conserved heat-temperature property (entropic contributions) throughout a process. After all heat contributions have been inputted into the subroutine, it then notifies the user of whether the given process is in violation of the second law of thermodynamics.
 void ClausiusInequality(void);
 
 #endif /* ClausiusInequality_h */

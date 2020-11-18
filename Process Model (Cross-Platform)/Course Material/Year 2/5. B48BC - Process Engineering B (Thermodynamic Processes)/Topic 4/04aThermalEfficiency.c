@@ -56,7 +56,7 @@ void ThermEffVariable(int method, double *wnet, double *qhot, double *qcold, dou
     }
 }
 
-/// MARK: GENERAL CALCULATION
+/// MARK: GENERAL CALCULATIONS
 double ThermEffCalc1(double wnet, double qhot)
 {
     double eta = 0.0;
