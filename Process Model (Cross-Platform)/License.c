@@ -1,8 +1,8 @@
 //
-//  B48BB_T4.h
+//  License.c
 //  Process Model (Cross-Platform)
 //
-//  Created by Matthew Cheung on 19/08/2020.
+//  Created by Matthew Cheung on 18/11/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //  
 //  This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,15 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef PumpSizing_h
-#define PumpSizing_h
+#include <stdio.h>
+#include <stdlib.h>
 
-/// This subroutine guides the user through gathering the data and sizing of a centrifugal pump.
-void PumpSizing(void);
+#include "main.h"
 
-#endif /* B48BB_T4_h */
+void License()
+{
+    printf("GNU GENERAL PUBLIC LICENSE\nVersion 3, 29 June 2007\nCopyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>\nEveryone is permitted to copy and distribute verbatim copies\nof this license document, but changing it is not allowed.\n");
+    
+    printf("\nFull license details can be found at https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN/blob/master/LICENSE\n");
+    fflush(stdout);
+}

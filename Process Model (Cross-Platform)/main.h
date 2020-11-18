@@ -1,15 +1,22 @@
 //
 //  main.h
-//  Process Model (Cross)
-//  
-//  This header file contains the function declarations for all menu functions 
-//      that are being used to navigate through the program. Encompasses the fu-
-//      nctions being used in the following files
-//      - main.c
-//      - All year files used under course selection
+//  Process Model (Cross-Platform)
 //  
 //  Created by Matthew Cheung on 17/08/2020.
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
+//  
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or 
+//  any later version.
+//  
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//  
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
 #ifndef main_h
@@ -109,6 +116,14 @@ void NiceThings(void);
 /* This will operate similar to an appendix in a report, whatever doesn't fit in the main body of the program will live here*/
 
 #endif /* NiceThings_h */
+
+#ifndef License_h
+#define License_h
+
+/// This subroutine is used to display the GNU General Public License on the user console.
+void License(void);
+
+#endif /* License_h */
 
 #ifndef Year1_h
 #define Year1_h
