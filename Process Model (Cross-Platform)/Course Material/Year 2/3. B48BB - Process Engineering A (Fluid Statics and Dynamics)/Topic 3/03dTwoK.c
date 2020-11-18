@@ -122,14 +122,14 @@ TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d,
     
     table = TwoKData(table);
     
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u = inputDouble(0, "fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "fluid velocity", "m/s");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
     
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     *d = (*d)*0.1; // Conversion to cm
     
     *Impd = (*d)/(2.54); // Conversion to inches

@@ -54,17 +54,17 @@ EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double
     data = EquivLengData(data);
     
     //  Gathering data needed to calculate phi
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u = inputDouble(0, "fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "fluid velocity", "m/s");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
     
-    *d = inputDouble(0, "pipe internal diameter", "mm");
+    *d = inputDouble(0, 0, "pipe internal diameter", "mm");
     *d = (*d)*0.001;
     
-    *vareps = inputDouble(0, "pipe absolute roughness", "mm");
+    *vareps = inputDouble(0, 0, "pipe absolute roughness", "mm");
     *vareps = (*vareps)*0.001;
     
     *phi = phiCalculation((*rho), (*u), (*d), (*mu), (*vareps));

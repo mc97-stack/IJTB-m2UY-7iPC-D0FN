@@ -27,23 +27,23 @@
 /// MARK: VARIABLE INPUT
 void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P1, double *P2, double *h_f)
 {
-    *C_d = inputDouble(0, "discharge coefficient", "[ ]");
+    *C_d = inputDouble(0, 0, "discharge coefficient", "[ ]");
     
-    *d1 = inputDouble(0, "pipe diameter", "mm");
+    *d1 = inputDouble(0, 0, "pipe diameter", "mm");
     *d1 = (*d1)*0.001; //Conversion (mm to m)
     
-    *d2 = inputDouble(0, "Vena Contracta diameter", "mm");
+    *d2 = inputDouble(0, 0, "Vena Contracta diameter", "mm");
     *d2 = (*d2)*0.001; //Conversion (mm to m)
     
-    *rho = inputDouble(0, "process fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "process fluid density", "kg/m3");
     
-    *P1 = inputDouble(0, "initial system pressure", "kPa");
+    *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
     *P1 = (*P1)*1000;
     
-    *P2 = inputDouble(0, "final system pressure", "kPa");
+    *P2 = inputDouble(0, 0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    *h_f = inputDouble(0, "frictional head loss", "m");
+    *h_f = inputDouble(0, 0, "frictional head loss", "m");
 }
 
 /// MARK: GENERAL CALCULATION
