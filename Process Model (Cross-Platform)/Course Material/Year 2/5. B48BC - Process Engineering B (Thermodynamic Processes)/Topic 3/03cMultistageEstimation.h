@@ -36,7 +36,7 @@ void MSShaftWorkVariable(double *P1, double *P2, double *T1, double *mol, int *N
 #ifndef _3cMultistageEstimationCalculation_h
 #define _3cMultistageEstimationCalculation_h
 
-/// This subroutine is used to calculate the shaft work contribution attributed to a pressure ratio assuming complete intercooling between stages..
+/// This subroutine is used to calculate the shaft work contribution attributed to a pressure ratio assuming complete intercooling between stages.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param T1 System temperature before compression (K).

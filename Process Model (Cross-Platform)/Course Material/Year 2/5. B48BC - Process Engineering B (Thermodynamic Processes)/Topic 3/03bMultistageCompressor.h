@@ -62,7 +62,7 @@ int stageIntake(int elements, int stage, int stages);
 /// @param stages Total number of stages.
 int stageProcess(int elements, int stage, int stages);
 
-/// This subroutine is used to calculate the number of rows required for the adiabatic portion of the compression process. 
+/// This subroutine is used to calculate the number of rows required for the adiabatic portion of the compression process.
 /// @param elements Total number of rows within each matrix within the struct.
 /// @param stages Total number of stages.
 int ProcessStages(int elements, int stages);
