@@ -39,23 +39,18 @@ void B48BCtopic1(){
         switch(input[0]){
             case '1':
                 Polytropic();
-                control = 0;
                 break;
             case '2':
                 Isothermal();
-                control = 0;
                 break;
             case '3':
                 Isobaric();
-                control = 0;
                 break;
             case '4':
                 Isochoric();
-                control = 0;
                 break;
             case '5':
                 Adiabatic();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -83,15 +78,12 @@ void B48BCtopic2(){
         switch(input[0]){
             case '1':
                 Compressor();
-                control = 0;
                 break;
             case '2':
                 PolyShaftWork();
-                control = 0;
                 break;
             case '3':
                 OpenFirstLaw();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -119,15 +111,12 @@ void B48BCtopic3(){
         switch(input[0]){
             case '1':
                 JouleThomsonEffect();
-                control = 0;
                 break;
             case '2':
                 MultistageCompressor();
-                control = 0;
                 break;
             case '3':
                 MultistageShaftWork();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -155,19 +144,15 @@ void B48BCtopic4(){
         switch(input[0]){
             case '1':
                 ThermalEfficiency();
-                control = 0;
                 break;
             case '2':
                 CoefficientofPerformance();
-                control = 0;
                 break;
             case '3':
                 CarnotCycle();
-                control = 0;
                 break;
             case '4':
                 ClausiusInequality();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -203,27 +188,21 @@ void B48BC(){
         switch(input[0]){
             case '1':
                 B48BCtopic1();
-                control = 0;
                 break;
             case '2':
                 B48BCtopic2();
-                control = 0;
                 break;
             case '3':
                 B48BCtopic3();
-                control = 0;
                 break;
             case '4':
                 B48BCtopic4();
-                control = 0;
                 break;
             case '5':
                 B48BCtopic5();
-                control = 0;
                 break;
             case '6':
                 B48BCtopic6();
-                control = 0;
                 break;
             case '0':
             case 'Q':

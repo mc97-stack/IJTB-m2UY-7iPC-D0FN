@@ -25,9 +25,9 @@
 /// MARK: VARIABLE INPUT
 void BubPresVariable(double *sigma, double *r)
 {
-    *sigma = inputDouble(0, "surface tension", "N/m");
+    *sigma = inputDouble(0, 0, "surface tension", "N/m");
     
-    *r = inputDouble(0, "radius of fluid droplet", "mm");
+    *r = inputDouble(0, 0, "radius of fluid droplet", "mm");
     *r = (*r)*0.001; //Conversion (mm to m)
 }
 

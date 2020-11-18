@@ -29,31 +29,31 @@
 /// MARK: VARIABLE INPUT
 void MSCompVariable(double *P1, double *P2, double *Vc, double *T1, double *n, int *N, double *gamma)
 {
-    *P1 = inputDouble(0, "system pressure before compression", "kPa");
+    *P1 = inputDouble(0, 0, "system pressure before compression", "kPa");
     *P1 = (*P1)*1000;
     
-    *P2 = inputDouble(0, "final system pressure", "kPa");
+    *P2 = inputDouble(0, 0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    *Vc = inputDouble(0, "clearance volume", "m3");
+    *Vc = inputDouble(0, 0, "clearance volume", "m3");
     
-    *T1 = inputDouble(1, "system temperature before compression", "deg C");
+    *T1 = inputDouble(1, 1, "system temperature before compression", "deg C");
     *T1 = (*T1) + 273.15;
     
-    *n = inputDouble(0, "molar flowrate", "kmol/s");
+    *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
     *n = (*n)*1000;
     
-    *gamma = inputDouble(0, "heat capacity ratio", "[ ]");
+    *gamma = inputDouble(0, 0, "heat capacity ratio", "[ ]");
     
     int control = 0;
     control = 1;
     while(control == 1){
-        *N = (int)inputDouble(0, "number of stages", "[ ]");
+        *N = (int)inputDouble(0, 0, "number of stages", "[ ]");
         if(*N <= 6){
             // struct will divide nicely
             control = 0;
         }else{
-            printf("Too many stages have been given, please enter a lower value.\n");
+            printf("Too many stages have been given, please enter an integer between 1 and 6.\n");
         }
     }
 }

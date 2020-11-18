@@ -53,7 +53,7 @@ OneKFittings OneKVariable(OneKFittings table, double *u)
     table = OneKData(table);
     
     //  Collecting fluid velocity
-    *u = inputDouble(0, "fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "fluid velocity", "m/s");
     
     //  Collecting table.count
     printf("Standard 45 deg elbow = ");

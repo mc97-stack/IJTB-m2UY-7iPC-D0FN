@@ -184,13 +184,13 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
     table = ThreeKData(table);
     
     //  Getting variables to calculate Reynolds number
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u = inputDouble(0, "average fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "average fluid velocity", "m/s");
     
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
     
     control = 1;

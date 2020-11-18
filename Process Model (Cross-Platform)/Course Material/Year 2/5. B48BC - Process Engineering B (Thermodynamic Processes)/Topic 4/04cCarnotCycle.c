@@ -32,12 +32,12 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
 {
     int control = 0;
     
-    *P1 = inputDouble(0, "pressure before entry into pump (P1)", "kPa");
+    *P1 = inputDouble(0, 0, "pressure before entry into pump (P1)", "kPa");
     *P1 = (*P1)*1000;
     
     control = 1;
     while(control == 1){
-        *P2 = inputDouble(0, "pressure before entry into boiler (P2)", "kPa");
+        *P2 = inputDouble(0, 0, "pressure before entry into boiler (P2)", "kPa");
         *P2 = (*P2)*1000;
         if((*P2) > (*P1))
         {
@@ -50,7 +50,7 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
     
     control = 1;
     while(control == 1){
-        *P3 = inputDouble(0, "pressure before entry into turbine (P3)", "kPa");
+        *P3 = inputDouble(0, 0, "pressure before entry into turbine (P3)", "kPa");
         *P3 = (*P3)*1000;
         if((*P3) < (*P2))
         {
@@ -64,7 +64,7 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
     control = 1;
     while(control == 1)
     {
-        *P4 = inputDouble(0, "pressure before entry into condenser (P4)", "kPa");
+        *P4 = inputDouble(0, 0, "pressure before entry into condenser (P4)", "kPa");
         *P4 = (*P4)*1000;
         if((*P4) < (*P3) && (*P4) < (*P1))
         {
@@ -75,16 +75,16 @@ void CarnotVariable(double *P1, double *P2, double *P3, double *P4, double *THot
         }
     }
     
-    *THot = inputDouble(0, "boiler temperature", "deg C");
+    *THot = inputDouble(0, 1, "boiler temperature", "deg C");
     *THot = (*THot) + 273.15;
     
-    *TCold = inputDouble(0, "condenser temperature", "deg C");
+    *TCold = inputDouble(0, 1, "condenser temperature", "deg C");
     *TCold = (*TCold) + 273.15;
     
-    *gamma1 = inputDouble(0, "heat capacity ratio in pump", "[ ]");
-    *gamma2 = inputDouble(0, "heat capacity ratio in turbine", "[ ]");
+    *gamma1 = inputDouble(0, 0, "heat capacity ratio in pump", "[ ]");
+    *gamma2 = inputDouble(0, 0, "heat capacity ratio in turbine", "[ ]");
     
-    *n = inputDouble(0, "molar flowrate", "kmol/s");
+    *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
     *n = (*n)*1000;
 }
 

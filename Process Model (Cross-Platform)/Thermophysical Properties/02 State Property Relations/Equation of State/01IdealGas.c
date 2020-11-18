@@ -27,7 +27,7 @@
 /// MARK: VARIABLE INPUT
 void IdealEOSVariable(double *T)
 {
-    *T = inputDouble(1, "Temperature of isotherm", "deg C");
+    *T = inputDouble(1, 1, "Temperature of isotherm", "deg C");
     *T = (*T) + 273.15;
 }
 

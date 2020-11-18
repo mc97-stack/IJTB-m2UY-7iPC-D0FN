@@ -25,14 +25,14 @@
 /// MARK: VARIABLE INPUT
 void ReyNoVariable(double *rho, double *u, double *d, double *mu)
 {
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u = inputDouble(0, "average fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "average fluid velocity", "m/s");
     
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001; //Conversion (cP to Pa.s)
 }
 

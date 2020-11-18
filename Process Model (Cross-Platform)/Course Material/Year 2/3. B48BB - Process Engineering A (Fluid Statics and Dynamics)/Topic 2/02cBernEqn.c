@@ -32,26 +32,26 @@ void BernEqnVariable(double *P1, double *rho, double *u1, double *u2, double *Z1
     double d1 = 0.0;
     double d2 = 0.0;
     
-    *P1 = inputDouble(0, "initial pressure", "kPa");
+    *P1 = inputDouble(0, 0, "initial pressure", "kPa");
     *P1 = *P1*1000; //Conversion (kPa to Pa)
     
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u1 = inputDouble(0, "initial fluid velocity", "m/s");
+    *u1 = inputDouble(0, 0, "initial fluid velocity", "m/s");
     
-    d1 = inputDouble(0, "Pipe diameter at state 1", "mm");
+    d1 = inputDouble(0, 0, "Pipe diameter at state 1", "mm");
     d1 = d1*0.001; //Conversion (mm to m)
     
-    d2 = inputDouble(0, "Pipe diameter at state 2", "mm");
+    d2 = inputDouble(0, 0, "Pipe diameter at state 2", "mm");
     d2 = d2*0.001; //Conversion (mm to m)
     
     *u2 = FinalVelocityCalculation(*u1, d1, d2);
     
-    *Z1 = inputDouble(0, "initial fluid height", "m");
+    *Z1 = inputDouble(0, 0, "initial fluid height", "m");
     
-    *Z2 = inputDouble(0, "final fluid height", "m");
+    *Z2 = inputDouble(0, 0, "final fluid height", "m");
     
-    *hf = inputDouble(0, "frictional pressure loss", "Pa");
+    *hf = inputDouble(0, 0, "frictional pressure loss", "Pa");
     *hf = (*hf)/((*rho)*g);
 }
 

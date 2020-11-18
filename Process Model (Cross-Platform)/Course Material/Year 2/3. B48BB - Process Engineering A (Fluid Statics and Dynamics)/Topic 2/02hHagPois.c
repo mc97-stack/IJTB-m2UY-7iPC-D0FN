@@ -25,14 +25,14 @@
 /// MARK: VARIABLE INPUT
 void HagPoisVariable(double *u, double *mu, double *L, double *d)
 {
-    *L = inputDouble(0, "pipe horizontal length", "m");
+    *L = inputDouble(0, 0, "pipe horizontal length", "m");
     
-    *d = inputDouble(0, "pipe diameter", "mm");
+    *d = inputDouble(0, 0, "pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
     
-    *u = inputDouble(0, "average fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "average fluid velocity", "m/s");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = *mu * 0.001; //Conversion (cP to Pa.s)
     
     fflush(stdout);

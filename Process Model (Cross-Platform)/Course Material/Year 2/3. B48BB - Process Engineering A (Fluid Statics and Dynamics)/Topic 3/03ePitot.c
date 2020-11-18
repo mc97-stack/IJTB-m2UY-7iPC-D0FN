@@ -27,20 +27,20 @@
 /// MARK: VARIABLE INPUT
 void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h2, double *d)
 {
-    *P2 = inputDouble(0, "static pressure on connection", "kPa");
+    *P2 = inputDouble(0, 0, "static pressure on connection", "kPa");
     *P2 = (*P2)*1000; //Conversion (kPa to Pa)
     
-    *rho1 = inputDouble(0, "process fluid density", "kg/m3");
+    *rho1 = inputDouble(0, 0, "process fluid density", "kg/m3");
     
-    *rho2 = inputDouble(0, "manometer fluid density", "kg/m3");
+    *rho2 = inputDouble(0, 0, "manometer fluid density", "kg/m3");
     
-    *h1 = inputDouble(0, "process fluid height in manometer", "cm");
+    *h1 = inputDouble(0, 0, "process fluid height in manometer", "cm");
     *h1 = (*h1)*0.01; //Conversion (cm to m)
     
-    *h2 = inputDouble(0, "manometer fluid height in manometer", "cm");
+    *h2 = inputDouble(0, 0, "manometer fluid height in manometer", "cm");
     *h2 = (*h2)*0.01; //Conversion (cm to m)
     
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     *d = (*d)*0.001; //Conversion (mm to m)
 }
 

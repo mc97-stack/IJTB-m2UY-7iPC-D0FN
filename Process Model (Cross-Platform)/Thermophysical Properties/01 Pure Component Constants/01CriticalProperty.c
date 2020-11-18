@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,8 +19,10 @@
 #include "01PureComponent.h"
 #include "01CriticalProperty.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void AmbroseVariable()
 {
     
@@ -40,6 +43,7 @@ void KlincewiczVariable()
     
 }
 
+/// MARK: CALCULATIONS
 double CritPropsCalculation()
 {
     
@@ -47,6 +51,7 @@ double CritPropsCalculation()
     return 0;
 }
 
+/// MARK: DISPLAY AND WRITE
 void CritPropsDisplay()
 {
     
@@ -159,6 +164,7 @@ void CritPropsWriteSwitch()
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void CriticalProperties(void)
 {
     int whilmain = 0;

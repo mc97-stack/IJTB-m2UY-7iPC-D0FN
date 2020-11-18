@@ -93,11 +93,11 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
     double r = 0.0;         // Ring radius.
     
     //Collect F
-    *F = inputDouble(0, "force required to break fluid surface", "N");
+    *F = inputDouble(0, 0, "force required to break fluid surface", "N");
     
     //Collect r
     printf("Radius of ring (cm) = ");
-    r = inputDouble(0, "ring radius", "cm");
+    r = inputDouble(0, 0, "ring radius", "cm");
     
     r = r*0.01; //Conversion (cm to m)
     
@@ -118,7 +118,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
             case 'Y':
             case 't':
             case 'y':
-                *C_F = inputDouble(0, "Correction factor", "[]");
+                *C_F = inputDouble(0, 0, "Correction factor", "[]");
                 control = 0;
             break;
             case '0':
@@ -155,7 +155,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang)
             case 'N':
             case 'f':
             case 'n':
-                *cang = inputDouble(0, "Contact angle", "deg");
+                *cang = inputDouble(0, 0, "Contact angle", "deg");
                 control = 0;
             break;
             default:

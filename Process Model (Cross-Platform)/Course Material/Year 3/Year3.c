@@ -40,41 +40,43 @@ void Year3()
             case '1':
                 //B18OA();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '2':
                 //B48CA();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '3':
                 //B49CB();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '4':
                 //B18OB();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '5':
                 //B18OB();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '6':
                 //B48CB();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '7':
                 //B49CD();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
             case '8':
                 //B49CF();
                 printf("Bear with me, this is still being written...\n");
-            break;
+                break;
+            case '0':
+            case 'Q':
             case 'q':
                 whilc = 0;
-            break;
+                break;
             default:
                 printf("Input not recognised\n");
-            break;
+                break;
         }
     }
 }

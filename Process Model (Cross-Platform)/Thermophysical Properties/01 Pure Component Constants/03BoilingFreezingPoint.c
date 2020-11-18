@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Cheung. All rights reserved.
 //
 
+/// MARK: HEADER DECLARATIONS
 //Standard Header Files
 #include <math.h>
 #include <stdio.h>
@@ -18,13 +19,16 @@
 #include "01PureComponent.h"
 #include "03BoilingFreezingPoint.h"
 
+/// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 
+/// MARK: VARIABLE INPUT
 void BFPointVariable()
 {
     
 }
 
+/// MARK: CALCULATIONS
 double BFPointCalculation()
 {
     
@@ -32,6 +36,7 @@ double BFPointCalculation()
     return 0;
 }
 
+/// MARK: DISPLAY AND WRITE
 void BFPointDisplay()
 {
     
@@ -144,6 +149,7 @@ void BFPointWriteSwitch()
     }
 }
 
+/// MARK: PSEUDO-MAIN FUNCTION
 void BoilingFreezingPoint(void)
 {
     int whilmain = 0;

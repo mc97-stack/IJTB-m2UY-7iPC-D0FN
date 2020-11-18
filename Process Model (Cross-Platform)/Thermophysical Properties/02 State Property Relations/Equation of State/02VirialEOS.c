@@ -28,19 +28,19 @@
 /// MARK: VARIABLE INPUT
 void VirialEOSVariable(int polar, double *Pc, double *Tc, double *Vc, double *acFactor, double *a, double *b)
 {
-    *Pc = inputDouble(0, "critical pressure", "bar");
+    *Pc = inputDouble(0, 0, "critical pressure", "bar");
     
-    *Tc = inputDouble(0, "critical temperature", "K");
+    *Tc = inputDouble(0, 0, "critical temperature", "K");
     
-    *Vc = inputDouble(0, "critical molar volume", "cm3/mol");
+    *Vc = inputDouble(0, 0, "critical molar volume", "cm3/mol");
     
-    *acFactor = inputDouble(0, "accentric factor", "[ ]");
+    *acFactor = inputDouble(0, 0, "accentric factor", "[ ]");
     
     if(polar == 1)
     {
         // User has told the computer that the molecule is polar
-        *a = inputDouble(0, "a", "[ ]");
-        *b = inputDouble(0, "b", "[ ]");
+        *a = inputDouble(1, 1, "a", "[ ]");
+        *b = inputDouble(1, 1, "b", "[ ]");
     }
 }
 
@@ -872,7 +872,7 @@ void VirialEOS(void)
         control = 1;
         while(control == 1)
         {
-            T = inputDouble(0, "temperature of produced isotherm", "deg C");
+            T = inputDouble(1, 1, "temperature of produced isotherm", "deg C");
             T = (T) + 273.15;
             
             //  Data Manipulation

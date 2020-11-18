@@ -25,12 +25,12 @@
 void TurVelProVariable(double *umax, double *d)
 {
     double u = 0.0;
-    u = inputDouble(0, "average fluid velocity", "m/s");
+    u = inputDouble(0, 0, "average fluid velocity", "m/s");
     
     *umax = (49.0)/(60.0);
     *umax = (*umax) * u;
     
-    *d = inputDouble(0, "pipe diameter", "mm");
+    *d = inputDouble(0, 0, "pipe diameter", "mm");
     *d = (*d) * 0.001;
 }
 

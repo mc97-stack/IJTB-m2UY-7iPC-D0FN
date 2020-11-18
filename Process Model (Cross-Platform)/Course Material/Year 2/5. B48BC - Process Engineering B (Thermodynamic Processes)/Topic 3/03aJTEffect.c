@@ -28,26 +28,24 @@
 void JTEffectVariable(double *Tc, double *Pc, double *T, double *P, double *v, double *c_p)
 {
     printf("Critical properties:\n");
-    *Tc = inputDouble(0, "Critical Temperature", "deg C");
+    *Tc = inputDouble(0, 1, "Critical Temperature", "deg C");
     *Tc = (*Tc)+273.15;
     
-    *Pc = inputDouble(0, "Critical Pressure", "bar");
+    *Pc = inputDouble(0, 0, "Critical Pressure", "bar");
     *Pc = (*Pc)*100000;
     
     printf("System properties:\n");
-    *T = inputDouble(1, "System Temperature", "deg C");
+    *T = inputDouble(1, 1, "System Temperature", "deg C");
     *T = (*T)+273.15;
     
-    *P = inputDouble(0, "System Pressure", "kPa");
+    *P = inputDouble(0, 0, "System Pressure", "kPa");
     *P = (*P)*1000;
     
     printf("Fluid specific properties:\n");
-    *v = inputDouble(0, "Molar volume", "m3/kmol");
+    *v = inputDouble(0, 0, "Molar volume", "m3/kmol");
     *v = (*v)*0.001;
     
-    *c_p = inputDouble(0, "Heat capacity at constant pressure", "J/mol.K");
-    
-    fflush(stdout);
+    *c_p = inputDouble(0, 0, "Heat capacity at constant pressure", "J/mol.K");
 }
 
 /// MARK: GENERAL CALCULATIONS

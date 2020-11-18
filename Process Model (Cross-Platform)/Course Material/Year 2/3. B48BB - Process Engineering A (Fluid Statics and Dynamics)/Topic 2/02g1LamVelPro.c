@@ -24,14 +24,14 @@
 /// MARK: VARIABLE INPUT
 void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 {
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     *d = (*d)*0.001;
     
-    *L = inputDouble(0, "pipe length", "m");
+    *L = inputDouble(0, 0, "pipe length", "m");
     
-    *dP = inputDouble(0, "fluid pressure loss", "Pa");
+    *dP = inputDouble(0, 0, "fluid pressure loss", "Pa");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu)*0.001;
 }
 

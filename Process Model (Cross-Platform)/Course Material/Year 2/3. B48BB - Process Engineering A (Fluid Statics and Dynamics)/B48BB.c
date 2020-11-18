@@ -52,27 +52,21 @@ void B48BBtopic1()
         {
             case '1':
                 CoefficientofCompressibility();
-                control = 0;
                 break;
             case '2':
                 FluidVerticalHydrostaticPressure();
-                control = 0;
                 break;
             case '3':
                 Manometer();
-                control = 0;
                 break;
             case '4':
                 SurfaceTension();
-                control = 0;
             break;
             case '5':
                 BubblePressure();
-                control = 0;
                 break;
             case '6':
                 Cappilarity();
-                control = 0;
                 break;
             case '7':
                 printf("This program isn't quite there yet, try something else meanwhile.\n");
@@ -120,31 +114,24 @@ void B48BBtopic2()
         {
             case '1':
                 MassConservation();
-                control = 0;
                 break;
             case '2':
                 EnergyConservation();
-                control = 0;
                 break;
             case '3':
                 BernoulliEquation();
-                control = 0;
                 break;
             case '4':
                 ReynoldsNumber();
-                control = 0;
                 break;
             case '5':
                 ViscosityCorrelation();
-                control = 0;
                 break;
             case '6':
                 VelocityProfileMenu();
-                control = 0;
                 break;
             case '7':
                 HagenPoiseuille();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -183,31 +170,24 @@ void B48BBtopic3()
         switch(input[0]){
             case '1':
                 HagenPoiseuille();
-                control = 0;
                 break;
             case '2':
                 GeneralPressureLoss();
-                control = 0;
                 break;
             case '3':
                 HydraulicDiameter();
-                control = 0;
                 break;
             case '4':
                 Fittings();
-                control = 0;
                 break;
             case '5':
                 PitotStaticTube();
-                control = 0;
                 break;
             case '6':
                 OrificePlateMeter();
-                control = 0;
                 break;
             case '7':
                 Rotameter();
-                control = 0;
                 break;
             case '0':
             case 'Q':
@@ -248,23 +228,18 @@ void B48BB(){
         switch(input[0]){
             case '1':
                 B48BBtopic1();
-                control = 0;
                 break;
             case '2':
                 B48BBtopic2();
-                control = 0;
                 break;
             case '3':
                 B48BBtopic3();
-                control = 0;
                 break;
             case '4':
                 B48BBtopic4();
-                control = 0;
                 break;
             case '5':
                 //B48BBtopic5();
-                control = 0;
                 break;
             case '0':
             case 'Q':

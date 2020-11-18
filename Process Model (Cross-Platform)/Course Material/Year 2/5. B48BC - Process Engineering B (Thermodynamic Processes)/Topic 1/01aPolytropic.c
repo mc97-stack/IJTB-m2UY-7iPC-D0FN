@@ -26,33 +26,33 @@
 void PolyVariable(int method, double *P1, double *P2, double *V1, double *T1,double *T2, double *n, double *R, double *alpha)
 {
     if(method == 2){
-        *T1 = inputDouble(0, "initial system semperature", "deg C");
+        *T1 = inputDouble(1, 1, "initial system semperature", "deg C");
         *T1 = (*T1) + 273.15;
     }
     if(method == 2){
-        *T2 = inputDouble(0, "final system temperature", "deg C");
+        *T2 = inputDouble(1, 1, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
-    if(method == 2 && fabs(*T2 - *T1) < 0.5){
+    if(method == 2 && fabs(*T2 - *T1) < 0.005){
         printf("You have stated an isothermal process. Changing to the Pressure-Volume equation.\n\n");
         method = 1;
     }
     if(method == 1){
-        *P1 = inputDouble(0, "initial system pressure", "kPa");
+        *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        *P2 = inputDouble(0, "final system pressure", "kPa");
+        *P2 = inputDouble(0, 0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
         
-        *V1 = inputDouble(0, "initial system volume", "m3");
+        *V1 = inputDouble(0, 0, "initial system volume", "m3");
     }
     if(method == 1 || method == 2){
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
         
-        *R = inputDouble(0, "gas constant (R)", "(kJ/(kmol.K))");
+        *R = inputDouble(0, 0, "gas constant (R)", "(kJ/(kmol.K))");
         
-        *alpha = inputDouble(0, "polytropic index", "[ ]");
+        *alpha = inputDouble(0, 0, "polytropic index", "[ ]");
     }
 }
 

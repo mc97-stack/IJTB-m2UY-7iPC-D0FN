@@ -34,13 +34,13 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     int control = 0;    // Variable used to control user input.
     
     if(method == 1 || method == 2){
-        *P1 = inputDouble(0, "initial system pressure", "kPa");
+        *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
         control = 1;
         while(control == 1)
         {
-            *P2 = inputDouble(0, "final system pressure", "kPa");
+            *P2 = inputDouble(0, 0, "final system pressure", "kPa");
             *P2 = (*P2)*1000;
             if((*P1) > (*P2))
             {
@@ -54,19 +54,19 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     }
     
     if(method == 1 || method == 2){
-        *T1 = inputDouble(0, "initial system temperature", "deg C");
+        *T1 = inputDouble(1, 1, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
     }
     
     if(method == 1 || method == 2){
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n) * 1000;
     }
     
     if(method == 1 || method == 2){
-        *Vc = inputDouble(0, "clearance volume", "m3");
+        *Vc = inputDouble(0, 0, "clearance volume", "m3");
         
-        *V1 = inputDouble(0, "maximum system volume before compression", "m3");
+        *V1 = inputDouble(0, 0, "maximum system volume before compression", "m3");
     }
     
     if(method == 1){
@@ -74,14 +74,14 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     }
     
     if(method == 2){
-        *R = inputDouble(0, "specific gas constant", "J/mol.K");
+        *R = inputDouble(0, 0, "specific gas constant", "J/mol.K");
     }
     
     if(method == 1){
         *alpha = 1;
     }
     if(method == 2){
-        *alpha = inputDouble(0, "polytropic index", "[ ]");
+        *alpha = inputDouble(0, 0, "polytropic index", "[ ]");
     }
 }
 

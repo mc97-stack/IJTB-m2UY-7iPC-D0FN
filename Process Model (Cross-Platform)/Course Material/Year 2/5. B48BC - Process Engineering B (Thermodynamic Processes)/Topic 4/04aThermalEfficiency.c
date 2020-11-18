@@ -28,18 +28,18 @@ void ThermEffVariable(int method, double *wnet, double *qhot, double *qcold, dou
     printf("Process terms.\n");
     if(method == 1)
     {
-        *wnet = inputDouble(1, "net work", "kJ/kg");
+        *wnet = inputDouble(1, 1, "net work", "kJ/kg");
     }
     if(method == 2)
     {
-        *qcold = inputDouble(1, "total heat sent to cold reservoir", "kJ/kg");
+        *qcold = inputDouble(1, 1, "total heat sent to cold reservoir", "kJ/kg");
     }
     if(method == 1 || method == 2)
     {
-        *qhot = inputDouble(1, "total heat received from hot reservoir", "kJ/kg");
+        *qhot = inputDouble(1, 0, "total heat received from hot reservoir", "kJ/kg");
         printf("\nEquivalent Carnot cycle parameters.\n");
-        *Thot = inputDouble(0, "hot reservoir temperature", "K");
-        *Tcold = inputDouble(0, "cold reservoir temperature", "K");
+        *Thot = inputDouble(0, 0, "hot reservoir temperature", "K");
+        *Tcold = inputDouble(0, 0, "cold reservoir temperature", "K");
     }
 }
 

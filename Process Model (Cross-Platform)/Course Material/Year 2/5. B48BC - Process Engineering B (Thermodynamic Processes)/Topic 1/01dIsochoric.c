@@ -27,26 +27,26 @@
 void IsocVariable(int method, double *P1, double *P2, double *V, double *T1, double *T2, double *n, double *cv)
 {
     if(method == 1){
-        *P1 = inputDouble(0, "initial system pressure", "kPa");
+        *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
         *P1 = (*P1)*1000;
         
-        *P2 = inputDouble(0, "final system pressure", "kPa");
+        *P2 = inputDouble(0, 0, "final system pressure", "kPa");
         *P2 = (*P2)*1000;
         
-        *V = inputDouble(0, "system volume", "m3");
+        *V = inputDouble(0, 0, "system volume", "m3");
     }
     if(method == 2){
-        *T1 = inputDouble(0, "initial system temperature", "deg C");
+        *T1 = inputDouble(1, 1, "initial system temperature", "deg C");
         *T1 = (*T1) + 273.15;
         
-        *T2 = inputDouble(0, "final system temperature", "deg C");
+        *T2 = inputDouble(1, 1, "final system temperature", "deg C");
         *T2 = (*T2) + 273.15;
     }
     if(method == 1 || method == 2){
-        *n = inputDouble(0, "molar flowrate", "kmol/s");
+        *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
         *n = (*n)*1000;
         
-        *cv = inputDouble(0, "heat capacity at constant volume", "J/mol.K");
+        *cv = inputDouble(0, 0, "heat capacity at constant volume", "J/mol.K");
     }
     fflush(stdout);
 }

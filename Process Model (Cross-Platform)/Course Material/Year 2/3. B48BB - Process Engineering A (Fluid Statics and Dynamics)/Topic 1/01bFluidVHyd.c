@@ -27,9 +27,9 @@
 /// MARK: VARIABLE INPUT
 void FluidVHydVariable(double *rho, double *h)
 {
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *h = inputDouble(1, "fluid height", "m");
+    *h = inputDouble(1, 0, "fluid height", "m");
 }
 
 /// MARK: GENERAL CALCULATION

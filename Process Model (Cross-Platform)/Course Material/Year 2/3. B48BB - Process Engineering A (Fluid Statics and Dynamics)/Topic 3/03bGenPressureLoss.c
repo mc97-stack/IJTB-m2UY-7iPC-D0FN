@@ -27,20 +27,20 @@
 /// MARK: VARIABLE INPUT
 void PressLossVariable(double *rho, double *u, double *d, double *mu, double *L, double *vareps)
 {
-    *rho = inputDouble(0, "fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "fluid density", "kg/m3");
     
-    *u = inputDouble(0, "fluid velocity", "m/s");
+    *u = inputDouble(0, 0, "fluid velocity", "m/s");
     
-    *mu = inputDouble(0, "fluid viscosity", "cP");
+    *mu = inputDouble(0, 0, "fluid viscosity", "cP");
     *mu = (*mu) * 0.001;
     
-    *d = inputDouble(0, "internal pipe diameter", "mm");
+    *d = inputDouble(0, 0, "internal pipe diameter", "mm");
     *d = (*d) * 0.001;
     
-    *L = inputDouble(0, "pipe length", "m");
+    *L = inputDouble(0, 0, "pipe length", "m");
     
     if(ReyNoCalculation(*rho, *u, *d, *mu) > 2500){
-        *vareps = inputDouble(0, "pipe absolute roughness", "mm");
+        *vareps = inputDouble(0, 0, "pipe absolute roughness", "mm");
         *vareps = (*vareps) * 0.001;
     }else{ 
         *vareps = 0.0;

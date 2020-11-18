@@ -51,21 +51,21 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'U':
             case 'i':
             case 'u':
-                inteng1 = inputDouble(0, "initial specific internal energy", "kJ/kg");
+                inteng1 = inputDouble(0, 0, "initial specific internal energy", "kJ/kg");
                 inteng1 = inteng1*1000;
                 
-                inteng2 = inputDouble(0, "final specific internal energy", "kJ/kg");
+                inteng2 = inputDouble(0, 0, "final specific internal energy", "kJ/kg");
                 inteng2 = inteng2*1000;
                 
-                pres1 = inputDouble(0, "initial pressure", "kPa");
+                pres1 = inputDouble(0, 0, "initial pressure", "kPa");
                 pres1 = pres1*1000;
                 
-                pres2 = inputDouble(0, "final pressure", "kPa");
+                pres2 = inputDouble(0, 0, "final pressure", "kPa");
                 pres2 = pres2*1000;
                 
-                rho1 = inputDouble(0, "initial density", "kg/m3");
+                rho1 = inputDouble(0, 0, "initial density", "kg/m3");
                 
-                rho2 = inputDouble(0, "final density", "kg/m3");
+                rho2 = inputDouble(0, 0, "final density", "kg/m3");
                 
                 //Converting through to enthalpy using definition
                 *h1 = EnthalpyConversion(inteng1, pres1, rho1);
@@ -78,10 +78,10 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
             case 'H':
             case 'e':
             case 'h':
-                *h1 = inputDouble(0, "initial specific enthalpy", "kJ/kg");
+                *h1 = inputDouble(0, 0, "initial specific enthalpy", "kJ/kg");
                 *h1 = (*h1)*1000;
                 
-                *h2 = inputDouble(0, "final specific enthalpy", "kJ/kg");
+                *h2 = inputDouble(0, 0, "final specific enthalpy", "kJ/kg");
                 *h2 = (*h2)*1000;
                 
                 control = 0;
@@ -93,18 +93,18 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
         fflush(stdout);
     }
     
-    *u1 = inputDouble(0, "initial velocity", "m/s");
+    *u1 = inputDouble(0, 0, "initial velocity", "m/s");
     
-    *u2 = inputDouble(0, "final velocity", "m/s");
+    *u2 = inputDouble(0, 0, "final velocity", "m/s");
     
-    *z1 = inputDouble(0, "initial fluid height", "m");
+    *z1 = inputDouble(0, 0, "initial fluid height", "m");
     
-    *z2 = inputDouble(0, "final fluid height", "m");
+    *z2 = inputDouble(0, 0, "final fluid height", "m");
     
-    *q = inputDouble(0, "specific process heat", "kJ/kg");
+    *q = inputDouble(0, 0, "specific process heat", "kJ/kg");
     *q = (*q)*1000;
     
-    *w = inputDouble(0, "specific process work", "kJ/kg");
+    *w = inputDouble(0, 0, "specific process work", "kJ/kg");
     *w = (*w)*1000;
 }
 

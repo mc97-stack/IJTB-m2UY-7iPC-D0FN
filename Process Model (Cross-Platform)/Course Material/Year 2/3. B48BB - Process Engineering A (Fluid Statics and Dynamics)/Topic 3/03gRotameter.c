@@ -27,19 +27,19 @@
 /// MARK: VARIABLE INPUT
 void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, double *A_f, double *are1, double *are2)
 {
-    *C_d = inputDouble(0, "discharge coefficient", "[ ]");
+    *C_d = inputDouble(0, 0, "discharge coefficient", "[ ]");
     
-    *V_f = inputDouble(0, "float volume", "m3");
+    *V_f = inputDouble(0, 0, "float volume", "m3");
     
-    *rho_f = inputDouble(0, "float density", "kg/m3");
+    *rho_f = inputDouble(0, 0, "float density", "kg/m3");
     
-    *rho = inputDouble(0, "process fluid density", "kg/m3");
+    *rho = inputDouble(0, 0, "process fluid density", "kg/m3");
     
-    *A_f = inputDouble(0, "maximum Cross-sectional area of float", "m2");
+    *A_f = inputDouble(0, 0, "maximum Cross-sectional area of float", "m2");
     
-    *are1 = inputDouble(0, "cross-sectional area of tube at point of float", "m2");
+    *are1 = inputDouble(0, 0, "cross-sectional area of tube at point of float", "m2");
     
-    *are2 = inputDouble(0, "annular area between float and tube at the point", "m2");
+    *are2 = inputDouble(0, 0, "annular area between float and tube at the point", "m2");
 }
 
 /// MARK: GENERAL CALCULATION

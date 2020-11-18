@@ -26,17 +26,17 @@
 /// MARK: VARIABLE INPUT
 void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double *u1)
 {
-    *rho1 = inputDouble(0, "initial fluid density", "kg/m3");
+    *rho1 = inputDouble(0, 0, "initial fluid density", "kg/m3");
     
-    *rho2 = inputDouble(0, "final fluid density", "kg/m3");
+    *rho2 = inputDouble(0, 0, "final fluid density", "kg/m3");
     
-    *d1 = inputDouble(0, "initial internal pipe diameter", "mm");
+    *d1 = inputDouble(0, 0, "initial internal pipe diameter", "mm");
     *d1 = (*d1)*0.001; //Conversion (mm to m)
     
-    *d2 = inputDouble(0, "final internal pipe diameter", "mm");
+    *d2 = inputDouble(0, 0, "final internal pipe diameter", "mm");
     *d2 = (*d2)*0.001; //Conversion (mm to m)
     
-    *u1 = inputDouble(0, "initial fluid velocity", "m/s");
+    *u1 = inputDouble(0, 0, "initial fluid velocity", "m/s");
 }
 
 /// MARK: GENERAL CALCULATIONS
