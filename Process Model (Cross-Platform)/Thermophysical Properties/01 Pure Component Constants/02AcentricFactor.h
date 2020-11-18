@@ -9,7 +9,7 @@
 #ifndef _2AcentricFactorVariable_h
 #define _2AcentricFactorVariable_h
 
-/// This subroutine is used to collect the data required to calculate the acentric factor through either the Antoine equation ~~or the Lee-Kesler vapour pressure relations~~.
+/// This subroutine is used to collect the data required to calculate the acentric factor through either the Antoine equation or the Lee-Kesler vapour pressure relations.
 /// @param mode This variable is used to control which variables are collected given the method. (1) = Collects parameters for the Antoine equation definition. (2) = Collects critical properties and normal boiling point. (3) = Collects critical properties and normal boiling point. (4) = Collects all variables.
 /// @param Pc Critical pressure (bar).
 /// @param Tc Critical temperature (K).
