@@ -61,6 +61,7 @@
 		E8C43437252FA10900662F7C /* 01cIsobaric.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C43436252FA10900662F7C /* 01cIsobaric.c */; };
 		E8C4343C252FAE1500662F7C /* 01dIsochoric.c in Sources */ = {isa = PBXBuildFile; fileRef = E8C4343B252FAE1500662F7C /* 01dIsochoric.c */; };
 		E8CE0ED4254CB5F200F1F03C /* 04aThermalEfficiency.c in Sources */ = {isa = PBXBuildFile; fileRef = E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */; };
+		E8EAD9FA25650B9D00AD1BF5 /* License.c in Sources */ = {isa = PBXBuildFile; fileRef = E8EAD9F925650B9D00AD1BF5 /* License.c */; };
 		E8F2399625517FF2000EE365 /* 03CubicEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399525517FF2000EE365 /* 03CubicEOS.c */; };
 		E8F2399A25518BDD000EE365 /* 03CubicEOSConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399925518BDD000EE365 /* 03CubicEOSConstants.c */; };
 		E8F30BBF2550CD230086027C /* 01CriticalProperty.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BBE2550CD230086027C /* 01CriticalProperty.c */; };
@@ -178,6 +179,7 @@
 		E8CE0ED0254CB54300F1F03C /* B48BC_T4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B48BC_T4.h; sourceTree = "<group>"; };
 		E8CE0ED2254CB5F200F1F03C /* 04aThermalEfficiency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 04aThermalEfficiency.h; sourceTree = "<group>"; };
 		E8CE0ED3254CB5F200F1F03C /* 04aThermalEfficiency.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 04aThermalEfficiency.c; sourceTree = "<group>"; };
+		E8EAD9F925650B9D00AD1BF5 /* License.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = License.c; sourceTree = "<group>"; };
 		E8F2399425517FF2000EE365 /* 03CubicEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03CubicEOS.h; sourceTree = "<group>"; };
 		E8F2399525517FF2000EE365 /* 03CubicEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03CubicEOS.c; sourceTree = "<group>"; };
 		E8F2399925518BDD000EE365 /* 03CubicEOSConstants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03CubicEOSConstants.c; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				E8FEA64224ECDBE1003F9D5E /* main.c */,
 				E8FEA64824ECDBE2003F9D5E /* main.h */,
 				E8FEA64524ECDBE1003F9D5E /* README.md */,
+				E8EAD9F925650B9D00AD1BF5 /* License.c */,
 			);
 			path = "Process Model (Cross-Platform)";
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				E8B15545251BEABE00808CE9 /* Year2.c in Sources */,
 				E8A23798254A03520001B678 /* 03cMultistageEstimation.c in Sources */,
 				E8B15543251BEAB500808CE9 /* Year1.c in Sources */,
+				E8EAD9FA25650B9D00AD1BF5 /* License.c in Sources */,
 				E8B15541251BEA9500808CE9 /* main.c in Sources */,
 				E8F30BC32550CD8D0086027C /* 02AcentricFactor.c in Sources */,
 				E871B99C254DBCF300B76802 /* 04cCarnotCycle.c in Sources */,
