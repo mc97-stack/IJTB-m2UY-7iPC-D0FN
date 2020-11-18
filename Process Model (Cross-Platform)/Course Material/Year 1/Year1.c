@@ -41,48 +41,50 @@ void Year1()
                 //B17CA();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '2':
                 //B47AA();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '3':
                 //B47AC();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '4':
                 //F17XA();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '5':
                 //B17BC();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '6':
                 //B47AB();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '7':
                 //B47AD();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
-            break;
+                break;
             case '8':
                 //F17XB();
                 printf("Bear with me, this is still being written...\n");
                 //whilc = 0;
             break;
+            case '0':
+            case 'Q':
             case 'q':
                 whilc = 0;
-            break;
+                break;
             default:
                 printf("Input not recognised\n");
-            break;
+                break;
         }
         fflush(stdout);
     }

@@ -186,29 +186,30 @@ int main()
         {
             case '1':
                 MinorUnitOps();
-            break;
+                break;
             case '2':
                 MajorUnitOps();
-            break;
+                break;
             case '3':
                 CourseSelection();
-            break;
+                break;
             case '4':
                 ThermoProps();
-            break;
+                break;
             case '5':
                 DynProcessSim();
-            break;
+                break;
             case '6':
                 NiceThings();
-            break;
+                break;
             case '0':
+            case 'Q':
             case 'q':
                 whilmain = 0;
-            break;
+                break;
             default:
                 printf("Input not recognised. Please enter either '3' or '4'.\n");
-            break;
+                break;
         }
     }
     return 0;
