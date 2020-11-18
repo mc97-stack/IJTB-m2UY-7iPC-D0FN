@@ -35,7 +35,7 @@ typedef struct CompProfile{
 #ifndef CompressorVar_h
 #define CompressorVar_h
 
-/// This subroutine is used to collect the data required to perform the calculations for a reciprocating compressor undergoing an isothermal or polytropic process. This subroutine also requires "IdealGasLaw.h" to function as it calls "IdealVolume(...)" and "SpecVolume(...)".
+/// This subroutine is used to collect the data required to perform the calculations for a reciprocating compressor undergoing an isothermal or polytropic process.
 /// @param method Integer variable used to determine which equation should be used and hence the variables required. (1) = Isothermal equation. (2) = Polytropic equation (Pressure-Volume statement). 
 /// @param P1 Initial system pressure. (kPa).
 /// @param P2 Final system pressure. (kPa).
