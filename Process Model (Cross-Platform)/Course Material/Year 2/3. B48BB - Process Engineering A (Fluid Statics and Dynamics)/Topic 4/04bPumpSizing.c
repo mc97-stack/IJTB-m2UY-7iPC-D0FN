@@ -45,27 +45,27 @@ head PumpHeadVariable(int type, head var)
     {
         case '1':
             printf("Suction head parameters\n");
-            var.P = inputDouble(0, "suction vessel pressure", "kPa");
+            var.P = inputDouble(0, 0, "suction vessel pressure", "kPa");
             var.P = (var.P)*1000;
             
-            var.h1 = inputDouble(0, "liquid level in Suction-side vessel", "m");
+            var.h1 = inputDouble(0, 0, "liquid level in Suction-side vessel", "m");
             
-            var.h2 = inputDouble(0, "liquid elevation above pump inlet", "m");
+            var.h2 = inputDouble(0, 0, "liquid elevation above pump inlet", "m");
             break;
         case '2':
             printf("Discharge head parameters\n");
-            var.P = inputDouble(0, "discharge vessel pressure", "kPa");
+            var.P = inputDouble(0, 0, "discharge vessel pressure", "kPa");
             var.P = (var.P)*1000;
             
-            var.h1 = inputDouble(0, "Liquid level in Discharge-side vessel", "m");
+            var.h1 = inputDouble(0, 0, "Liquid level in Discharge-side vessel", "m");
             
-            var.h2 = inputDouble(0, "liquid elevation above pump outlet", "m");
+            var.h2 = inputDouble(0, 0, "liquid elevation above pump outlet", "m");
             break;
         default:
             printf("Type integer invalid\n");
             break;
     }
-    var.hf = inputDouble(0, "fluid frictional head loss", "m");
+    var.hf = inputDouble(0, 0, "fluid frictional head loss", "m");
     
     return var;
 }
