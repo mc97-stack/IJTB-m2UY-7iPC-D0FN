@@ -26,21 +26,21 @@
 /// MARK: VARIABLE INPUT
 void MSShaftWorkVariable(double *P1, double *P2, double *T1, double *mol, int *N, double *gamma)
 {
-    *P1 = inputDouble(0, "system pressure before compression", "kPa");
+    *P1 = inputDouble(0, 0, "system pressure before compression", "kPa");
     *P1 = (*P1)*1000;
     
-    *P2 = inputDouble(0, "final system pressure", "kPa");
+    *P2 = inputDouble(0, 0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    *T1 = inputDouble(1, "system temperature before compression", "kPa");
+    *T1 = inputDouble(1, 1, "system temperature before compression", "kPa");
     *T1 = (*T1) + 273.15;
     
-    *mol = inputDouble(0, "molar flowrate", "kmol/s");
+    *mol = inputDouble(0, 0, "molar flowrate", "kmol/s");
     *mol = (*mol)*1000;
     
-    *gamma = inputDouble(0, "heat capacity ratio", "[ ]");
+    *gamma = inputDouble(0, 0, "heat capacity ratio", "[ ]");
     
-    *N = (int)inputDouble(0, "number of stages", "[ ]");
+    *N = (int)inputDouble(0, 0, "number of stages", "[ ]");
 }
 
 /// MARK: GENERAL CALCULATION
