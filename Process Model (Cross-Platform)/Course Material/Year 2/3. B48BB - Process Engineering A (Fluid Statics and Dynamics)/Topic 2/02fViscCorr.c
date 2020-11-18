@@ -33,7 +33,7 @@ void ViscCorrVariable(double *a, double *b, double *T, double *rho)
     
     *b = inputDouble(0, 0, "b", "");
     
-    *T = inputDouble(0, 0, "system temperature", "deg C");
+    *T = inputDouble(1, 1, "system temperature", "deg C");
     
     control = 1;
     while(control == 1)
