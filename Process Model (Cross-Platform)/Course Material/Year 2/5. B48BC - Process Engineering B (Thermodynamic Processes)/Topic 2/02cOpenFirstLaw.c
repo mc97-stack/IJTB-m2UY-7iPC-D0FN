@@ -26,10 +26,10 @@
 /// MARK: VARIABLE INPUT
 void OpenFirstLawProcessVariable(double *q, double *w_s)
 {
-    *q = inputDouble(0, "molar process heat", "kJ/kmol");
+    *q = inputDouble(0, 0, "molar process heat", "kJ/kmol");
     *q = (*q)*1000;
     
-    *w_s = inputDouble(0, "molar shaft work", "kJ/kmol");
+    *w_s = inputDouble(0, 0, "molar shaft work", "kJ/kmol");
     *w_s = (*w_s)*1000;
 }
 

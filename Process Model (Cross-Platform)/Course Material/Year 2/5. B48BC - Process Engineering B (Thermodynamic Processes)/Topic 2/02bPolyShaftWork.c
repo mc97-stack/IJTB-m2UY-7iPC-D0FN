@@ -27,21 +27,21 @@ int PolyShaftVariable(double *P1, double *P2, double *T1, double *n, double *R, 
 {
     int ideal = 0;
     
-    *P1 = inputDouble(0, "initial system pressure", "kPa");
+    *P1 = inputDouble(0, 0, "initial system pressure", "kPa");
     *P1 = (*P1)*1000;
     
-    *P2 = inputDouble(0, "final system pressure", "kPa");
+    *P2 = inputDouble(0, 0, "final system pressure", "kPa");
     *P2 = (*P2)*1000;
     
-    *T1 = inputDouble(0, "initial system temperature", "deg C");
+    *T1 = inputDouble(1, 1, "initial system temperature", "deg C");
     *T1 = (*T1) + 273.15;
     
-    *n = inputDouble(0, "molar flowrate", "kmol/s");
+    *n = inputDouble(0, 0, "molar flowrate", "kmol/s");
     *n = (*n) * 1000;
     
-    *R = inputDouble(0, "gas constant", "J/mol.K");
+    *R = inputDouble(0, 0, "gas constant", "J/mol.K");
     
-    *alpha = inputDouble(0, "polytropic index", "[ ]");
+    *alpha = inputDouble(0, 0, "polytropic index", "[ ]");
     
     if(fabs(*alpha - 1.0) < 0.05){
         // Polytropic index is pretty much 1
