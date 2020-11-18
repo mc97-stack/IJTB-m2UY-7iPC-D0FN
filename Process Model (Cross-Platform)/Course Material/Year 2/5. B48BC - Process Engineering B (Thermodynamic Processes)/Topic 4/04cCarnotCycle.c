@@ -424,7 +424,7 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
     printf("Write Complete\n");
 }
 
-void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold)
+void CarnotSwitch(int mode, double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold)
 {
     int control = 0;
     
@@ -433,7 +433,12 @@ void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, 
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -442,7 +447,12 @@ void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, 
             case 'Y':
             case 't':
             case 'y':
-                CarnotWrite(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
+                if(mode == 1){
+                    CarnotDisplay(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
+                }
+                if(mode == 2){
+                    CarnotWrite(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
+                }
                 control = 0;
                 break;
             case '0':
@@ -507,10 +517,10 @@ void CarnotCycle(void)
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        CarnotDisplay(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
+        CarnotSwitch(1, P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
         
         //  Writing to File
-        CarnotWriteSwitch(P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
+        CarnotSwitch(2, P1, P2, P3, P4, THot, TCold, n, gamma1, gamma2, profile, worknet, qhot, qcold);
         
         //  Continue function
         whilmain = Continue(whilmain);

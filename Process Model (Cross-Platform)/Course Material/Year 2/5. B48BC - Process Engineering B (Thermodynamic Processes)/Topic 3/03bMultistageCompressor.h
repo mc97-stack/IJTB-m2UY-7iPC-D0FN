@@ -121,7 +121,8 @@ void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double
 /// @param profile Table generated from "MSCompProfile(...)".
 void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
 
-/// This subroutine is used to ask the user whether they would like to write the results of this entire subroutine to a .txt file.
+/// This subroutine is used to ask the user whether they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param Vc Clearance volume (m3).
@@ -133,6 +134,6 @@ void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T
 /// @param N Number of compression stages (up to and including 6 stages).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Table generated from "MSCompProfile(...)".
-void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
+void MSCompSwitch(int mode, double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile);
 
 #endif /* _3bMultistageCompressorWrite_h */

@@ -357,7 +357,7 @@ void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T
     printf("Write Complete\n");
 }
 
-void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
+void MSCompSwitch(int mode, double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double N, double gamma, T3CompProfile profile)
 {
     int control = 0;
     
@@ -366,7 +366,12 @@ void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, do
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -375,7 +380,12 @@ void MSCompWriteSwitch(double P1, double P2, double Vc, double V1, double V2, do
             case 'Y':
             case 't':
             case 'y':
-                MSCompWrite(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
+                if(mode == 1){
+                    MSCompDisplay(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
+                }
+                if(mode == 2){
+                    MSCompWrite(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -444,10 +454,10 @@ void MultistageCompressor(void)
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        MSCompDisplay(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
+        MSCompSwitch(1, P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
         
         //  Writing to File
-        MSCompWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
+        MSCompSwitch(2, P1, P2, Vc, V1, V2, T1, T2, n, N, gamma, *profile);
         free(profile);
         
         //  Continue function

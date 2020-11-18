@@ -128,7 +128,9 @@ void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, doubl
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
 void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param V1 Initial system volume (m3).
@@ -136,6 +138,6 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
 /// @param T System temperature (K).
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
-void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+void IsotProcSwitch(int mode, double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */
