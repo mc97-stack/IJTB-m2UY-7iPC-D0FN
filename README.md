@@ -1,7 +1,9 @@
 # Process Model (Cross-Platform)
 
 ##  Program Description
-This is cross-platform console-based program written in the C programming language made to perform the computations required for the design, simulation and fabrication of up to industrial size process equipment. The program is able to either show the data either in console or outputting results into a tab delineated text file suitable for import into Microsoft Excel.
+This is cross-platform console-based program written in the C programming language made to perform the computations required for the design, simulation and fabrication of up to industrial size process equipment. The program is able to either show the generated data either in console or outputting results into a tab delineated text file suitable for import into Microsoft Excel.
+
+Documentation can be found in ~/Process Model (Cross-Platform)/DOCUMENTATION.pdf.
 
 ##  Product Properties
 GitHub username: "mc97-stack".
