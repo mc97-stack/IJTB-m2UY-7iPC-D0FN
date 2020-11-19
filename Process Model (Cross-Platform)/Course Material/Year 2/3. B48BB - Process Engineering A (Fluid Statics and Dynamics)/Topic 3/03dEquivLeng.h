@@ -53,6 +53,11 @@ EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double
 #ifndef EquivLengCalc_h
 #define EquivLengCalc_h
 
+/// This subroutine is used to calculate the equivalent length from the database constant and internal pipe diameter.
+/// @param input L_e/d value. This can be found in "[struct].data" section of the above declared struct.
+/// @param d Internal pipe diameter (m)
+double EquivLengCalculateL_e(double input, double d);
+
 /// This subroutine is used to calculate the pressure loss through a specific pipe fitting. This value is then multiplied by the multiple of the specific fitting.
 /// @param count Number of fittings
 /// @param phi Friction factor
@@ -61,11 +66,6 @@ EquivLenFits EquivLengVariable(EquivLenFits data, double *rho, double *u, double
 /// @param u Fluid velocity (m/s)
 /// @param d Internal pipe diameter (m)
 double EquivLengCalculateLoss(int count, double phi, double L_e, double rho, double u, double d);
-
-/// This subroutine is used to calculate the equivalent length from the database constant and internal pipe diameter.
-/// @param input L_e/d value. This can be found in "[struct].data" section of the above declared struct.
-/// @param d Internal pipe diameter (m)
-double EquivLengCalculateL_e(double input, double d);
 
 /// This subroutine is used to generate the calculation table for estimating the pressure and head losses through the Equivalent length method.
 /// @param data Struct where data requires manipulation.
@@ -108,7 +108,8 @@ void EquivLengDisplay(EquivLenFits table, double rho, double u, double d, double
 /// @param totalP Total pressure loss through pipe fittings.
 /// @param totalh Total head loss through pipe fittings.
 void EquivLengWrite(EquivLenFits table, double rho, double u, double d, double mu, double vareps, double phi, double totalP, double totalh);
-/// This subroutine is used to ask the user if they would like to write the results to a .txt file.
+
+/// This subroutine is used to ask the user if they would like to write the results to a file.
 /// @param table Equivalent length data table.
 /// @param rho Fluid density (kg/m3).
 /// @param u Fluid velocity (m/s).
@@ -125,7 +126,7 @@ void EquivLengWriteSwitch(EquivLenFits table, double rho, double u, double d, do
 #ifndef EquivLeng_h
 #define EquivLeng_h
 
-/// This subroutine is used to guide the computer through collecting the data and performing the calculation of pressure and head losses through the Equivalent Length method.
+/// This subroutine is used to guide the user through collecting the data and performing the calculation of pressure and head losses through the Equivalent Length method.
 void EquivalentLength(void);
 
 #endif /* _3dcEquivLeng_h */

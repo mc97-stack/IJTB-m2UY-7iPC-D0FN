@@ -63,7 +63,7 @@ typedef struct LamVelProfile{
     double ratio[5000]; //  Velocity ratio
 } LamVelProf;
 
-/// This subroutine is used to calculate and display the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine returns the generated array to the calling function.
+/// This subroutine is used to calculate the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine returns the generated array to the calling function.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (mm).

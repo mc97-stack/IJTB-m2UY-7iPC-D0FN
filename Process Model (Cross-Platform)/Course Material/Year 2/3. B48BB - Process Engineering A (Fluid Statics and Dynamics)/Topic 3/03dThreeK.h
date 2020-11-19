@@ -37,7 +37,7 @@ typedef struct ThreeKFittings{
 #ifndef ThreeKData_h
 #define ThreeKData_h
 
-/// This subroutine is used to load the 3K database into the struct stated above
+/// This subroutine is used to load the 3K database into the struct stated above.
 /// @param input Struct where constants should be entered.
 ThreeKFittings ThreeKData(ThreeKFittings input);
 
@@ -55,7 +55,7 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
 #ifndef ThreeKCalc_h
 #define ThreeKCalc_h
 
-/// This subroutine is used to calculate the Resistant Coefficient later used to calculate the head loss associated with said fitting.
+/// This subroutine is used to calculate the Resistant Coefficient.
 /// @param Re Reynolds number
 /// @param DN Diameter nominal (mm)
 /// @param k1 k_1 value from database
@@ -63,7 +63,7 @@ ThreeKFittings ThreeKVariable(ThreeKFittings table, double *DN, double *rho, dou
 /// @param kd k_d value from database (mm^0.3)
 double ThreeKCalculateK(double Re, double DN, int k1, double kinf, double kd);
 
-/// This subroutine is used to calculate the head loss associated with a singular fitting.
+/// This subroutine is used to calculate the head loss associated with a singular fitting. This calculated value is then multiplied by the count.
 /// @param count Number of fittings
 /// @param K Resistant Coefficient from "ThreeKCalcK(...)"
 /// @param u Fluid velocity (m/ s)
@@ -117,7 +117,8 @@ void ThreeKDisplay(ThreeKFittings data, double rho, double u, double d, double m
 /// @param TotalH Total head loss (m)
 /// @param TotalP Total pressure loss (Pa)
 void ThreeKWrite(ThreeKFittings data, double rho, double u, double d, double mu, double Re, double DN, double TotalH, double TotalP);
-/// This subroutine is used to check if the user would like to write the generated dataset and collected parameters to a .txt file.
+
+/// This subroutine is used to check if the user would like to write the generated dataset and collected parameters to a file.
 /// @param data Generated data table.
 /// @param rho Fluid density (kg/m3)
 /// @param u Fluid velocity (m/s)
@@ -134,7 +135,7 @@ void ThreeKWriteSwitch(ThreeKFittings data, double rho, double u, double d, doub
 #ifndef ThreeK_h
 #define ThreeK_h
 
-/// This subroutine is the pseudo-main subroutine guiding the computer through collecting the necessary data and calculating and displaying head losses
+/// This subroutine is used to guide the user through collecting the necessary data and calculating and displaying head losses associated with the 3K method.
 void ThreeK(void);
 
 #endif /* ThreeK_h */

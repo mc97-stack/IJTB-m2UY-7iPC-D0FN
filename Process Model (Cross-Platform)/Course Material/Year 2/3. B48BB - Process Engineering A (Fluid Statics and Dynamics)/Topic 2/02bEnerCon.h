@@ -49,7 +49,7 @@ double EnthalpyConversion(double u, double P, double rho);
 #ifndef EnerConFluCalc_h
 #define EnerConFluCalc_h
 
-/// This subroutine used to calculate the fluid intensive portion at a process endstate. The subroutine returns the energy content of the fluid after some manipulation of the required arguments.
+/// This subroutine used to calculate the fluid intensive portion at a process time state. The subroutine returns the energy content of the fluid after some manipulation of the required arguments.
 /// @param h Enthalpy (J/kg).
 /// @param u Fluid velocity (m/s).
 /// @param z Relative height (m).
