@@ -190,7 +190,7 @@ void TurVelProWrite(double umax, double d, int rows, TurVelProf profile)
     printf("Write Complete\n");
 }
 
-void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
+void TurVelProSwitch(int mode, double umax, double d, int rows, TurVelProf profile)
 {
     int control = 0;
     
@@ -199,7 +199,12 @@ void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -208,7 +213,12 @@ void TurVelProWriteSwitch(double umax, double d, int rows, TurVelProf profile)
             case 'Y':
             case 't':
             case 'y':
-                TurVelProWrite(umax, d, rows, profile);
+                if(mode == 1){
+                    TurVelProDisplay(umax, d, rows, profile);
+                }
+                if(mode == 2){
+                    TurVelProWrite(umax, d, rows, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -268,10 +278,10 @@ void TurbulentVelPro()
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        TurVelProDisplay(vmax, d, rows, *profile);
+        TurVelProSwitch(1, vmax, d, rows, *profile);
         
         //  Writing to File
-        TurVelProWriteSwitch(vmax, d, rows, *profile);
+        TurVelProSwitch(2, vmax, d, rows, *profile);
         free(profile);
     }
     fflush(stdout);

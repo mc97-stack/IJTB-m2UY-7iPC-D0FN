@@ -215,7 +215,7 @@ void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelPr
     printf("Write Complete\n");
 }
 
-void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, LamVelProf profile)
+void LamVelProSwitch(int mode, double dP, double L, double d, double mu, int rows, LamVelProf profile)
 {
     int control = 0;
     control = 1;
@@ -223,7 +223,12 @@ void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, La
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -232,7 +237,12 @@ void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, La
             case 'Y':
             case 't':
             case 'y':
-                LamVelProWrite(dP, L, d, mu, rows, profile);
+                if(mode == 1){
+                    LamVelProDisplay(dP, L, d, mu, rows, profile);
+                }
+                if(mode == 2){
+                    LamVelProWrite(dP, L, d, mu, rows, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -294,10 +304,10 @@ void LaminarVelPro()
         printf("Calculations completed in %.6f seconds.\n", elapsed);
         
         //  Displaying results
-        LamVelProDisplay(dP, L, d, mu, rows, *profile);
+        LamVelProSwitch(1, dP, L, d, mu, rows, *profile);
         
         //  Writing to File
-        LamVelProWriteSwitch(dP, L, d, mu, rows, *profile);
+        LamVelProSwitch(2, dP, L, d, mu, rows, *profile);
         free(profile);
     }
     fflush(stdout);
