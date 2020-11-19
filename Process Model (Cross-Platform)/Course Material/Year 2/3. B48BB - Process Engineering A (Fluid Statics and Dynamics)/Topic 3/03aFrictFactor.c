@@ -91,6 +91,9 @@ double Turbulent2(double rho, double u, double d, double mu)
     }
     FrictFactor = 0.001 + (i-1)*(incr);
     
+    FrictFactor = 1/(FrictFactor);
+    FrictFactor = pow(FrictFactor, 2);
+    
     return FrictFactor;
 }
 
@@ -143,6 +146,9 @@ double Turbulent3(double rho, double u, double d, double mu, double vareps)
         }
     }
     FrictFactor = 0.001 + (i-1)*(incr);
+    
+    FrictFactor = 1/(FrictFactor);
+    FrictFactor = pow(FrictFactor, 2);
     
     return FrictFactor;
 }
