@@ -36,7 +36,7 @@ void PitotVariable(double *P2, double *rho1, double *rho2, double *h1, double *h
 #ifndef PitotCalc_h
 #define PitotCalc_h
 
-/// This subroutine is used to predict the volumetric flow rate of a fluid travelling with a pitot static tube. This function also returns the values of the initial fluid pressure and point velocity to the calling function.
+/// This subroutine is used to predict the volumetric flow rate of a fluid travelling with a pitot static tube. This function also returns the values of the initial fluid pressure, point velocity and volumetric flow rate to the calling function.
 /// @param P2 Static pressure on connection (kPa).
 /// @param rho1 Process fluid density (kg/ m3).
 /// @param rho2 Manometer fluid density (kg/ m3).
@@ -83,6 +83,7 @@ void PitotDisplay(double P1, double P2, double rho1, double rho2, double h1, dou
 /// @param v Fluid velocity (m/s).
 /// @param Q Fluid volumetric flowrate (m3/ s).
 void PitotWrite(double P1, double P2, double rho1, double rho2, double h1, double h2, double d, double v, double Q);
+
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
 /// @param P1 Fluid pressure (Pa).
 /// @param P2 Static pressure on connection (Pa).

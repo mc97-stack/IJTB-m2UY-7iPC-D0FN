@@ -22,7 +22,7 @@
 #ifndef RotameterVar_h
 #define RotameterVar_h
 
-/// This subroutine is used to collect data such that the mass flowrate can be predicted from a theoretical rotameter.
+/// This subroutine is used to collect data such that the mass flow rate can be predicted from a theoretical rotameter.
 /// @param C_d Discharge coefficient.
 /// @param V_f Float volume (m3).
 /// @param rho_f Float density (kg/m3).
@@ -37,7 +37,7 @@ void RotameterVariable(double *C_d, double *V_f, double *rho_f, double *rho, dou
 #ifndef RotameterCalc_h
 #define RotameterCalc_h
 
-/// This subroutine is used to calculate the pressure drop, mass flowrate, volumetric flowrate and fluid velocity through a rotameter.
+/// This subroutine is used to calculate the pressure drop, mass flow rate, volumetric flow rate and fluid velocity through a rotameter.
 /// @param C_d Discharge coefficient.
 /// @param V_f Float volume (m3).
 /// @param rho_f Float density (kg/m3).
@@ -89,7 +89,7 @@ void RotameterDisplay(double rho, double V_f, double rho_f, double A_f, double a
 /// @param u Fluid velocity (m/ s).
 void RotameterWrite(double rho, double V_f, double rho_f, double A_f, double are1, double are2, double C_d, double dP, double m, double Q, double u);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// This subroutine is used to ask the user if they would like to save the results of this program to a file.
 /// @param rho Fluid density (kg/m3).
 /// @param V_f Float volume (m3).
 /// @param rho_f Float density (kg/m3).
