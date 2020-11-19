@@ -49,7 +49,7 @@ void LamVelProVariable(double *dP, double *L, double *d, double *mu)
 }
 
 /// MARK: GENERAL CALCULATION
-double LamVelCalculation(double dP, double L, double d, double mu, double r) 
+double LamVelCalculation(double dP, double L, double d, double mu, double r)
 {
     double frac1 = 0.0;
     double frac2 = 0.0;
@@ -85,7 +85,7 @@ double LamVelGeneralCalculation(double r, double d)
 }
 
 /// MARK: ARRAY FUNCTION
-LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *rows) 
+LamVelProf LamVelProfCalculation(double dP, double L, double d, double mu, int *rows)
 {
     double interval = 0.0; // Interval between radius data entries used to calculate the point velocities.
     double frad = 0.0; // Absolute pipe radius. (N.B. This is different to the variable 'r'.)
@@ -270,7 +270,7 @@ void LaminarVelPro()
     while(whilmain == 1)
     {
         //  Variable declaration
-        int elems = 0;                  // Variable used to store the total number of elements used in the data struct.
+        int elems = 0;      // Variable used to store the total number of elements used in the data struct.
         
         elems = 3*5000;
         

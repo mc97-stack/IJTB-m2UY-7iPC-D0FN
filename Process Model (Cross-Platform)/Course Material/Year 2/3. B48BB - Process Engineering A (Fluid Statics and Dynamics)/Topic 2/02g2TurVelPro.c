@@ -48,7 +48,7 @@ void TurVelProVariable(double *umax, double *d)
 }
 
 /// MARK: GENERAL CALCULATION
-double TurVelCalculation(double vmax, double r, double d, double *gen) 
+double TurVelCalculation(double vmax, double r, double d, double *gen)
 {
     //Calculated using Prandtl's one-seventh law
     double bot = 0.0;
@@ -71,7 +71,7 @@ double TurVelCalculation(double vmax, double r, double d, double *gen)
 }
 
 /// MARK: ARRAY FUNCTION
-TurVelProf TurVelProCalculation(double vmax, double d, int *rows) 
+TurVelProf TurVelProCalculation(double vmax, double d, int *rows)
 {
     double interval = 0.0;
     double prad = 0.0;

@@ -22,7 +22,7 @@
 #ifndef BernEqnVar_h
 #define BernEqnVar_h
 
-/// This subroutine is used for data collection to calculate the end pressure through Bernoulli's equation. The water hammer effect is observed is u2 is set to 0.
+/// This subroutine is used for data collection to calculate the end pressure through Bernoulli's equation. The water hammer effect is observed is u2 is set to 0 m/s.
 /// @param P1 Initial fluid pressure (kPa).
 /// @param rho Fluid density (kg/ m3).
 /// @param u1 Initial fluid velocity (m/ s).
@@ -56,7 +56,7 @@ double DynamicHeadCalculation(double u);
 #ifndef BernEqnCalc_h
 #define BernEqnCalc_h
 
-/// Subroutine that calculates the total head contribution of a fluid at a process endstate (m).
+/// This subroutine is used to calculate the total head contribution of a fluid at a process time state (m).
 /// @param stathead Static head (m).
 /// @param dynhead Dynamic head (m).
 /// @param Z Potential head (m).
