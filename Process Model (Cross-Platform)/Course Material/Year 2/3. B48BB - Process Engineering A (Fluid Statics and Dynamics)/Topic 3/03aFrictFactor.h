@@ -58,7 +58,7 @@ double Turbulent2(double rho, double u, double d, double mu);
 #ifndef Turbulent3_h
 #define Turbulent3_h
 
-/// This subroutine is used to calculate the friction factor associated with the pressure loss of a fluid with a turbulent flow profile through a brute force iteration scheme. This equation is valid when 3000 < Re and the friction factor is dependent on relative roughness. This subroutine requires "ReyNoCalc(...)" from "02dReyNo.h" to function properly.
+/// This subroutine is used to calculate the friction factor associated with the pressure loss of a fluid with a turbulent flow profile through a brute force iteration scheme. This equation is valid when Re > 3000 and the friction factor is dependent on relative roughness. This subroutine requires "ReyNoCalc(...)" from "02dReyNo.h" to function properly.
 /// @param rho Fluid density (kg/ m3)
 /// @param u Fluid velocity (m/ s)
 /// @param d Pipe diameter (m)

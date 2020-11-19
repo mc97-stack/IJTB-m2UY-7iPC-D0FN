@@ -22,7 +22,7 @@
 #ifndef wettfacts_h
 #define wettfacts_h
 
-/// Subroutine used to provide dialogue on fluid characteristics based on the contact angle of the fluid with a solid, horizontrol surface.
+/// This subroutine is used to provide dialogue on fluid characteristics based on the contact angle of the fluid with a solid, horizontal surface.
 /// @param cang Contact angle (degrees).
 void wettabilityfacts(double cang);
 
@@ -31,7 +31,7 @@ void wettabilityfacts(double cang);
 #ifndef duNouyVar_h
 #define duNouyVar_h
 
-/// Subroutine used for collecting the data required for calculating the surface tension using the du Nouy ring method. This functions calls "wettfacts(void)" to provide facts about the fluid during data entry.
+/// This subroutine is used for collecting the data required for calculating the surface tension using the du Nouy ring method. This functions calls "wettfabilityacts(...)" to provide facts about the fluid wettability during data entry.
 /// @param F Force to break the fluid surface (N).
 /// @param L Circumference of ring. This value is inferred from the ring radius (m).
 /// @param C_F Correction factor ([ ]).
@@ -43,7 +43,7 @@ void duNouyVariable(double *F, double *L, double *C_F, double *cang);
 #ifndef duNouyCalc_h
 #define duNouyCalc_h
 
-/// Subroutine used to calculate the surface tension given the following variables. The function, after calculation steps, returns the value of sigma or surface tension in N/m.
+/// This subroutine is used to calculate the surface tension given the following variables. The function, after calculation steps, returns the value of sigma or surface tension in N/m.
 /// @param F Force required to break the fluid surface (N).
 /// @param L Ring circumference (m).
 /// @param C_F Correction factor (C_F) ([ ]).
@@ -55,7 +55,7 @@ double duNouyCalculation(double F, double L, double C_F, double cang);
 #ifndef duNouyDisp_h
 #define duNouyDisp_h
 
-/// Subroutine used to output the results of calculating the surface tension through the du Nouy Ring method to the user console.
+/// This subroutine is used to output the results of calculating the surface tension through the du Nouy Ring method to the user console.
 /// @param F Force required to break the fluid surface (N).
 /// @param L Ring circumference (m).
 /// @param C_F Correction factor (C_F) ([ ]).
@@ -68,7 +68,7 @@ void duNouyDisplay(double F, double L, double C_F, double cang, double sigma);
 #ifndef duNouyWrite_h
 #define duNouyWrite_h
 
-/// Subroutine used to write the results of calculating the surface tension through the du Nouy Ring method to a .txt file.
+/// This subroutine is used to write the results of calculating the surface tension through the du Nouy Ring method to a .txt file.
 /// @param F Force required to break the fluid surface (N).
 /// @param L Ring circumference (m).
 /// @param C_F Correction factor (C_F) ([ ]).
@@ -76,7 +76,7 @@ void duNouyDisplay(double F, double L, double C_F, double cang, double sigma);
 /// @param sigma Surface tension (N/m).
 void duNouyWrite(double F, double L, double C_F, double cang, double sigma);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// This subroutine is used to ask the user if they would like to save the results of this program to a file.
 /// @param F Force required to break the fluid surface (N).
 /// @param L Ring circumference (m).
 /// @param C_F Correction factor (C_F) ([ ]).

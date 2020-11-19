@@ -22,7 +22,7 @@
 #ifndef PressLossVariable_h
 #define PressLossVariable_h
 
-/// This subroutine is used to collect the data required for estimating the pressure loss of any incompressible fluid generally flowing within the range of 0 < Re < 10,000,000
+/// This subroutine is used to collect the data required for estimating the pressure loss of any incompressible fluid generally flowing within the range of 0 < Re < 10,000,000.
 /// @param rho Fluid density (kg/ m3).
 /// @param u Fluid velocity (m/ s).
 /// @param d Pipe diameter (mm).
@@ -49,7 +49,7 @@ double phiCalculation(double rho, double u, double d, double mu, double vareps);
 #ifndef LossCalculation_h
 #define LossCalculation_h
 
-/// This subroutine is used to estimate the frictional pressure loss given the stated arguments. This subroutine then returns the pressure loss to the calling function.
+/// This subroutine is used to estimate the frictional pressure loss. This subroutine then returns the pressure loss to the calling function.
 /// @param phi Friction factor ([ ]).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
@@ -78,7 +78,7 @@ void PressLossDisplay(double rho, double u, double d, double mu, double L, doubl
 #ifndef PressLossWrite_h
 #define PressLossWrite_h
 
-/// Subroutine used to write the collected data and calculated values for pressure loss and friction factor to a .txt file
+/// Subroutine used to write the collected data and calculated values for pressure loss and friction factor to a .txt file.
 /// @param rho Fluid density (kg/m3).
 /// @param u Fluid velocity (m/s).
 /// @param d Pipe diameter (m).

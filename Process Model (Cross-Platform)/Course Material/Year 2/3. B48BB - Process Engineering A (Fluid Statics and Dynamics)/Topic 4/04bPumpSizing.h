@@ -34,7 +34,7 @@ typedef struct head{
 #ifndef PumpVar_h
 #define PumpVar_h
 
-/// This subroutine is used to collect the variables that do not belong to a struct.
+/// This subroutine is used to collect the variables that do not belong to the struct.
 /// @param Q Fluid volumetric flowrate (m3/s)
 /// @param rho Fluid density (kg/m3)
 /// @param Psat Saturated vapour pressure (kPa)
@@ -52,7 +52,7 @@ head PumpHeadVariable(int type, head var);
 #ifndef PumpCalc_h
 #define PumpCalc_h
 
-/// This subroutine is used to calculate the head on either side of the pump
+/// This subroutine is used to calculate the head on either side of the pump.
 /// @param var Struct containing variables specific to each side of the pump.
 /// @param rho Fluid density (kg/m3).
 double HeadCalculate(head var, double rho);

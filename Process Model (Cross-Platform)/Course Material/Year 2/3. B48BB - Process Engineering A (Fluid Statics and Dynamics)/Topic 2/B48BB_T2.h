@@ -22,7 +22,7 @@
 #ifndef MassCon_h
 #define MassCon_h
 
-/// This subroutine guides the user through gathering the data and calculation of volumetric and mass flowrates at a process endstate.
+/// This subroutine guides the user through gathering the data and calculation of volumetric and mass flow rates at a process endstate.
 void MassConservation(void);
 
 #endif /* MassCon_h */
@@ -30,7 +30,7 @@ void MassConservation(void);
 #ifndef EnerCon_h
 #define EnerCon_h
 
-/// This subroutine guides the user through gathering the data and determining whether the first law for an open system at steady-state is being violated or not.
+/// This subroutine guides the user through gathering the data and determining whether the system is at steady-state or not.
 void EnergyConservation(void);
 
 #endif /* EnerCon_h */
@@ -51,19 +51,10 @@ void ReynoldsNumber(void);
 
 #endif /* ReyNo_h */
 
-#ifndef NewVisc_h
-#define NewVisc_h
-
-void NewVisc(void);
-/*  Subroutine that details Newton's Law of Viscosity
- */
-
-#endif /* NewVisc_h */
-
 #ifndef ViscCorr_h
 #define ViscCorr_h
 
-/// This subroutine guides the user through gathering the data and calculation of dynamic and kinematic viscosity from standard correlations.
+/// This subroutine guides the user through gathering the data and calculation of dynamic and kinematic viscosity.
 void ViscosityCorrelation(void);
 
 #endif /* ViscCorr_h */

@@ -19,21 +19,10 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef EnthalpyConv_h
-#define EnthalpyConv_h
-
-/// This subroutine is used to convert between internal energy and enthalpy, After calculation, the subroutine returns the value of enthalpy to the calling function.
-/// @param u Internal energy (kJ/ kg).
-/// @param P Fluid pressure (Pa).
-/// @param rho Fluid density (kg/m3).
-double EnthalpyConversion(double u, double P, double rho);
-
-#endif /* EnthalpyConv_h */
-
 #ifndef EnerConVar_h
 #define EnerConVar_h
 
-/// Subroutine used for collecting the data required to validate the steady-flow energy equation.
+/// This subroutine is used for collecting the data required to validate the steady-flow energy equation.
 /// @param h1 Initial stream enthalpy (kJ/ kg).
 /// @param h2 Final stream enthalpy (kJ/ kg).
 /// @param u1 Initial fluid velocity (m/ s).
@@ -46,10 +35,21 @@ void EnerConVariable(double *h1, double *h2, double *u1, double *u2, double *z1,
 
 #endif /* EnerConVar_h */
 
+#ifndef EnthalpyConv_h
+#define EnthalpyConv_h
+
+/// This subroutine is used to convert between internal energy and enthalpy. After calculation, the subroutine returns the value of enthalpy to the calling function.
+/// @param u Internal energy (kJ/ kg).
+/// @param P Fluid pressure (Pa).
+/// @param rho Fluid density (kg/m3).
+double EnthalpyConversion(double u, double P, double rho);
+
+#endif /* EnthalpyConv_h */
+
 #ifndef EnerConFluCalc_h
 #define EnerConFluCalc_h
 
-/// This subroutine used to calculate the fluid intensive portion at a process endstate. The subroutine returns the energy content of the fluid after some manipulation of the required arguments.
+/// This subroutine used to calculate the fluid intensive portion at a process time state. The subroutine returns the energy content of the fluid after some manipulation of the required arguments.
 /// @param h Enthalpy (J/kg).
 /// @param u Fluid velocity (m/s).
 /// @param z Relative height (m).

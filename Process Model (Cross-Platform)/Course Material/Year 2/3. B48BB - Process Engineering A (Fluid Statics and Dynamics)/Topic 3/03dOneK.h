@@ -42,7 +42,7 @@ OneKFittings OneKData(OneKFittings input);
 #ifndef OneKVar_h
 #define OneKVar_h
 
-/// This subroutine is used to collect the fluid veloicty and counts for each fitting available.
+/// This subroutine is used to collect the fluid velocity and counts for each fitting available.
 /// @param table Table where fitting counts should be inputted.
 /// @param u Fluid velocity (m/s)
 OneKFittings OneKVariable(OneKFittings table, double *u);
@@ -52,23 +52,18 @@ OneKFittings OneKVariable(OneKFittings table, double *u);
 #ifndef OneKCalc_h
 #define OneKCalc_h
 
-/// This subroutine is used to calculate the head loss associated with one fitting. The following variables are required by this subroutine. The subroutine returns the total head loss for the singular fitting, multiplied by the count.
+/// This subroutine is used to calculate the head loss associated with one fitting. The subroutine returns the total head loss for the singular fitting, multiplied by the count.
 /// @param count Number of occurences of the fitting being calculated.
 /// @param data Fitting k-value. This is numbered from 0 - 14 in the order that the counts were asked for in "OneK(void)".
 /// @param u Fluid Velocity (m/ s).
-double OneKCalculate(int count, double data, double u);
-
-/// This subroutine is used to perform the calculations required for the excess head/ 1K method of pressure losses through pipe fittings
-/// @param data Table containing counts and k-values
-/// @param u Fluid velocity (m/s)
-OneKFittings OneKFinalTable(OneKFittings data, double u);
+double OneKCalculation(int count, double data, double u);
 
 #endif /* OneKCalc_h */
 
 #ifndef OneKFinalTable_h
 #define OneKFinalTable_h
 
-/// This subroutine is used to perform the calculations required for the excess head/ 1K method of pressure losses through pipe fittings
+/// This subroutine is used to perform the calculations required for the excess head/ 1K method of pressure losses through pipe fittings.
 /// @param data Table containing counts and k-values
 /// @param u Fluid velocity (m/s)
 OneKFittings OneKFinalTable(OneKFittings data, double u);
@@ -95,7 +90,7 @@ void OneKDisplay(OneKFittings table, double u, double total);
 /// @param total Total head losses presented in the table (m).
 void OneKWrite(OneKFittings table, double u, double total);
 
-/// This subroutine is used to check whether the user would like to write the generated results to a .txt file..
+/// This subroutine is used to check whether the user would like to write the generated results to a file.
 /// @param table Table containing counts, k-values and calculated head losses
 /// @param u Fluid velocity (m/s).
 /// @param total Total head losses presented in the table (m).
@@ -106,7 +101,7 @@ void OneKWriteSwitch(OneKFittings table, double u, double total);
 #ifndef OneK_h
 #define OneK_h
 
-/// This subroutine is the pseudomain subroutine used to calculate the head loss associated with standard pipe fittings with the 1K method (Also known as the Excess head method).
+/// This subroutine is used to guide the user through calculating the head loss associated with standard pipe fittings with the 1K method (Also known as the Excess head method).
 void OneK(void);
 
 #endif /* _OneK_h */

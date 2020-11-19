@@ -206,12 +206,12 @@ void HagenPoiseuille()
     while(whilmain == 1)
     {
         //  Variable declaration
-        double dP = 0.0; //Frictional pressure loss.
+        double dP = 0.0;    //Frictional pressure loss.
         
-        double u = 0.0; //Average fluid velocity.
-        double mu = 0.0; //Fluid viscosity.
-        double L = 0.0; //Horizontal pipe length.
-        double d = 0.0; //Pipe diameter.
+        double u = 0.0;     //Average fluid velocity.
+        double mu = 0.0;    //Fluid viscosity.
+        double L = 0.0;     //Horizontal pipe length.
+        double d = 0.0;     //Pipe diameter.
         
             //  Variables for timing function
         struct timespec start, end;

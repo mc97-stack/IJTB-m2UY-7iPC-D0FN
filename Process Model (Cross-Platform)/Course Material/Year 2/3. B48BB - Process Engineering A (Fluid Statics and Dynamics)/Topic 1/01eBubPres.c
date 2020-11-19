@@ -45,7 +45,7 @@ void BubPresVariable(double *sigma, double *r)
 }
 
 /// MARK: GENERAL CALCULATION
-double BubPresCalculation(double sigma, double r) 
+double BubPresCalculation(double sigma, double r)
 {
     double top = 0.0;
     double P = 0.0; // Bubble pressure.

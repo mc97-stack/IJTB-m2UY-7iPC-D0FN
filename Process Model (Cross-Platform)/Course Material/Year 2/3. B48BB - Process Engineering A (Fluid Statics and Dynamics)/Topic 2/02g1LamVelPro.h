@@ -63,7 +63,7 @@ typedef struct LamVelProfile{
     double ratio[5000]; //  Velocity ratio
 } LamVelProf;
 
-/// This subroutine is used to calculate and display the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine does not return the generated array to the calling function.
+/// This subroutine is used to calculate the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine returns the generated array to the calling function.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (mm).
@@ -89,7 +89,7 @@ void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVel
 #ifndef LamVelProWrite_h
 #define LamVelProWrite_h
 
-/// This subroutine is used to write the collected data and generated velocity profile to a .txt file
+/// This subroutine is used to write the collected data and generated velocity profile to a .txt file.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
@@ -113,7 +113,7 @@ void LamVelProSwitch(int mode, double dP, double L, double d, double mu, int row
 #ifndef LamVelPro_h
 #define LamVelPro_h
 
-/// This is the main subroutine controlling the behaviour of the subroutines listed in the file.
+/// This is the main subroutine controlling the behaviour of the subroutines listed in this file.
 void LaminarVelPro(void);
 
 #endif /* LamVelPro_h */
