@@ -46,7 +46,7 @@ void FluidVHydVariable(double *rho, double *h)
 }
 
 /// MARK: GENERAL CALCULATION
-double FluidVHydCalculation(double rho, double h) 
+double FluidVHydCalculation(double rho, double h)
 {
     double P = 0.0; // Fluid hydrostatic pressure.
     

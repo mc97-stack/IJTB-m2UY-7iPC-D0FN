@@ -542,14 +542,14 @@ void Manometer()
     {
         //  Declaring variables
         char input[maxstrlen];  // Variable used to store character input.
-        int control = 0;   // Integer variable used to control subroutine inputs and behaviour.
+        int control = 0;        // Integer variable used to control subroutine inputs and behaviour.
         
-        double P1 = 0.0;    // Pressure of travelling process fluid.
-        double P2 = 0.0;    // Pressure of surroundings on manometer fluid.
-        double rho1 = 0.0;  // Density of process fluid.
-        double rho2 = 0.0;  // Density of manometer fluid.
-        double h1 = 0.0;    // Height of process fluid in manometer.
-        double h2 = 0.0;    // Height of manometer fluid in manometer.
+        double P1 = 0.0;        // Pressure of travelling process fluid.
+        double P2 = 0.0;        // Pressure of surroundings on manometer fluid.
+        double rho1 = 0.0;      // Density of process fluid.
+        double rho2 = 0.0;      // Density of manometer fluid.
+        double h1 = 0.0;        // Height of process fluid in manometer.
+        double h2 = 0.0;        // Height of manometer fluid in manometer.
         
             // Variables for timing function
         struct timespec start, end;
