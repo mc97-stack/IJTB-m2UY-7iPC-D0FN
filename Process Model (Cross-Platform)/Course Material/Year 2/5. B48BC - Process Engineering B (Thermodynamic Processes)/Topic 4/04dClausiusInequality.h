@@ -34,7 +34,7 @@ typedef struct ClausiusInequality{
 #ifndef _4dClausiusInequalityVariable_h
 #define _4dClausiusInequalityVariable_h
 
-/// This subroutine is used to get the variables for the entropy at a given time state.
+/// This subroutine is used to get the variables required to calculate the entropy at a given time state.
 /// @param i Time state.
 /// @param data Struct where data is being collected into.
 T4EntropyDef EntropyVariable(int i, T4EntropyDef data);

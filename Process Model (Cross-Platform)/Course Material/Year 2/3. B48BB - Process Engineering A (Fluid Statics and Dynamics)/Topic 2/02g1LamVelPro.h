@@ -63,7 +63,7 @@ typedef struct LamVelProfile{
     double ratio[5000]; //  Velocity ratio
 } LamVelProf;
 
-/// This subroutine is used to calculate and display the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine does not return the generated array to the calling function.
+/// This subroutine is used to calculate the fully developed velocity profile for a fluid flowing with laminar properties. This subroutine returns the generated array to the calling function.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (mm).
@@ -89,7 +89,7 @@ void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVel
 #ifndef LamVelProWrite_h
 #define LamVelProWrite_h
 
-/// This subroutine is used to write the collected data and generated velocity profile to a .txt file
+/// This subroutine is used to write the collected data and generated velocity profile to a .txt file.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
@@ -98,21 +98,22 @@ void LamVelProDisplay(double dP, double L, double d, double mu, int rows, LamVel
 /// @param profile Velocity profile struct.
 void LamVelProWrite(double dP, double L, double d, double mu, int rows, LamVelProf profile);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param dP Fluid pressure loss (Pa).
 /// @param L Pipe length (m).
 /// @param d Pipe diameter (m).
 /// @param mu Fluid dynamic viscosity (Pa.s).
 /// @param rows Number of rows generated in "LamVelProfCalc".
 /// @param profile Velocity profile struct.
-void LamVelProWriteSwitch(double dP, double L, double d, double mu, int rows, LamVelProf profile);
+void LamVelProSwitch(int mode, double dP, double L, double d, double mu, int rows, LamVelProf profile);
 
 #endif /* LamVelProWrite_h */
 
 #ifndef LamVelPro_h
 #define LamVelPro_h
 
-/// This is the main subroutine controlling the behaviour of the subroutines listed in the file.
+/// This is the main subroutine controlling the behaviour of the subroutines listed in this file.
 void LaminarVelPro(void);
 
 #endif /* LamVelPro_h */

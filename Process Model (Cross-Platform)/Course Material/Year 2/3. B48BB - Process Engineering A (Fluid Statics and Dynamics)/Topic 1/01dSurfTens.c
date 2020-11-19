@@ -38,7 +38,7 @@
 
 void wettabilityfacts(double cang)
 {
-    char input[maxstrlen];  // Variable used to store character input.
+    char input[maxstrlen];    // Variable used to store character input.
     int control = 0;          // Variable used to control user input.
     
     control = 1;
@@ -329,7 +329,7 @@ void duNouyWriteSwitch(double F, double L, double C_F, double cang, double sigma
 void SurfaceTension()
 {
     //  Pseudo-main function.
-    int whilmain = 0;   // Variable used to control the while loop below
+    int whilmain = 0;       // Variable used to control the while loop below
     printf("du Nouy Ring Calculations\n");
     
     whilmain = 1;

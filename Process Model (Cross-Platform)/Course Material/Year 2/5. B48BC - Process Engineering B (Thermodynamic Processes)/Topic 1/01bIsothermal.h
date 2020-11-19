@@ -55,16 +55,13 @@ double IsotVolume(double n, double T, double V1, double V2);
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 double IsotPressure(double n, double T, double P1, double P2);
-/*  This subroutine used to calculate the volume work associated with an isothermal process from a pressure change. This subroutine then returns the volume work associated with the pressure change.
- */
 
 #endif /* IsotPressure_h */
 
 #ifndef IsotFinalPressure_h
 #define IsotFinalPressure_h
 
-
-/// This subroutine is used to calculate the final pressure of a process undergoing an isothermal process
+/// This subroutine is used to calculate the final pressure of a process undergoing an isothermal process.
 /// @param P1 Initial system pressure (Pa).
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
@@ -75,7 +72,7 @@ double IsotFinalPressure(double P1, double V1, double V2);
 #ifndef IsotFinalVolume_h
 #define IsotFinalVolume_h
 
-/// This subroutine is used to calculate the final volume of a process undergoing an isothermal process
+/// This subroutine is used to calculate the final volume of a process undergoing an isothermal process.
 /// @param V1 initial system volume (m3).
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
@@ -128,7 +125,9 @@ void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, doubl
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
 void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+
+/// This subroutine is used to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param V1 Initial system volume (m3).
@@ -136,6 +135,6 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
 /// @param T System temperature (K).
 /// @param n Moles of component in system (mol/ s).
 /// @param profile Isothermal process profile.
-void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
+void IsotProcSwitch(int mode, double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile);
 
 #endif /* IsocProcWrite_h */

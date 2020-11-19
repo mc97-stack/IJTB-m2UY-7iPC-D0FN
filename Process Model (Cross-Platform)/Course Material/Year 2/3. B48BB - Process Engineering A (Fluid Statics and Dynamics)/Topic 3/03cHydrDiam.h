@@ -53,7 +53,7 @@ void HydrDiamDisplay(double A_F, double P_W, double d_H);
 #ifndef HydrDiamWrite_h
 #define HydrDiamWrite_h
 
-/// This subroutine is used to write the collected data and the calculated hydraulic diameter to a .txt file
+/// This subroutine is used to write the collected data and the calculated hydraulic diameter to a .txt file.
 /// @param A_F Cross-sectional flow area (m2).
 /// @param P_W Wetted perimeter (m).
 /// @param d_H Hydraulic diameter (m).

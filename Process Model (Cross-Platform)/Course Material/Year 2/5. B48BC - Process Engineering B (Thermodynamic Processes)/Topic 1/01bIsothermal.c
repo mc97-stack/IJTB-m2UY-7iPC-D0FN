@@ -305,7 +305,7 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     printf("Write Complete\n");
 }
 
-void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
+void IsotProcSwitch(int mode, double P1, double P2, double V1, double V2, double T, double n, T1ThermoProf profile)
 {
     int control = 0;
     
@@ -314,7 +314,12 @@ void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, d
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -323,7 +328,12 @@ void IsotProcWriteSwitch(double P1, double P2, double V1, double V2, double T, d
             case 'Y':
             case 't':
             case 'y':
-                IsotProcWrite(P1, P2, V1, V2, T, n, profile);
+                if(mode == 1){
+                    IsotProcDisplay(P1, P2, V1, V2, T, n, profile);
+                }
+                if(mode == 2){
+                    IsotProcWrite(P1, P2, V1, V2, T, n, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -422,10 +432,10 @@ void Isothermal()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsotProcDisplay(P1, P2, V1, V2, T, n, *profile);
+            IsotProcSwitch(1, P1, P2, V1, V2, T, n, *profile);
             
             //  Writing to File
-            IsotProcWriteSwitch(P1, P2, V1, V2, T, n, *profile);
+            IsotProcSwitch(2, P1, P2, V1, V2, T, n, *profile);
             free(profile);
         }
         //Continue function

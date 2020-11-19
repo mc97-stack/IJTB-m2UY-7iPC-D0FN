@@ -37,7 +37,7 @@ void OrificeVariable(double *C_d, double *d1, double *d2, double *rho, double *P
 #ifndef OrificeCalc_h
 #define OrificeCalc_h
 
-/// This subroutine is used to calculate the mass flowrate, volumetric flowrate and average fluid velocity as it flows through an orifice plate meter through Bernoulli's principle.
+/// This subroutine is used to calculate the mass flow rate, volumetric flow rate and average fluid velocity as it flows through an orifice plate meter through Bernoulli's principle.
 /// @param C_d Discharge coefficient.
 /// @param d1 Pipe diameter (m).
 /// @param d2 Vena contracta diameter (m).

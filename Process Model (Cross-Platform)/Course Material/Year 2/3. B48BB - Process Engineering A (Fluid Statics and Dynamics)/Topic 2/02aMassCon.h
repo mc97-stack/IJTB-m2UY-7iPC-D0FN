@@ -35,7 +35,7 @@ void MassConVariable(double *rho1, double *rho2, double *d1, double *d2, double 
 #ifndef VeloCalc_h
 #define VeloCalc_h
 
-/// This subroutine is used to calculate the final fluid velocity at some point past the initial measurement. After calculation, this function returns the value of u2 to the calling funtion.
+/// This subroutine is used to calculate the final fluid velocity at some point past the initial measurement. After calculation, this function returns the value of u2 to the calling function.
 /// @param u1 Initial fluid velocity (m/s).
 /// @param d1 Pipe diameter at starting point (m).
 /// @param d2 Pipe diameter at endpoint (m).
@@ -46,7 +46,7 @@ double FinalVelocityCalculation(double u1, double d1, double d2);
 #ifndef VoluFloCalc_h
 #define VoluFloCalc_h
 
-/// This subroutine is used to calculate the volumetric flowrate from the fluid velocity and pipe diameter. This calculated value is then returned to the calling function.
+/// This subroutine is used to calculate the volumetric flow rate from the fluid velocity and pipe diameter. This calculated value is then returned to the calling function.
 /// @param u Average fluid velocity (m/ s).
 /// @param d Pipe diameter (m).
 double VolumetricFlowCalculation(double u, double d);
@@ -56,7 +56,7 @@ double VolumetricFlowCalculation(double u, double d);
 #ifndef MassFloCalc_h
 #define MassFloCalc_h
 
-/// This subroutine is used to calculate the mass flowrate from the given arguments. This calculated value is then returned to the calling function.
+/// This subroutine is used to calculate the mass flow rate from the given arguments. This calculated value is then returned to the calling function.
 /// @param rho fluid density (kg/m3).
 /// @param d Pipe diameter (m).
 /// @param u Fluid velocity (m/s).

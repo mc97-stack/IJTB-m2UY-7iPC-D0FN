@@ -37,7 +37,7 @@ void IsobVariable(int method, double *P, double *V1,double *V2, double *T1, doub
 #ifndef IsobVolume_h
 #define IsobVolume_h
 
-/// This subroutine is used to calculate the volume work done associated with a change in volume for an isobaric process. 
+/// This subroutine is used to calculate the volume work done associated with a change in volume for an isobaric process.
 /// @param P  System pressure (Pa).
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
@@ -48,7 +48,7 @@ double IsobVolume(double P, double V1, double V2);
 #ifndef IsobTemperature_h
 #define IsobTemperature_h
 
-/// This subroutine is used to calculate the volume work done assocaited with a change in temperature for an isobaric process.
+/// This subroutine is used to calculate the volume work done associated with a change in temperature for an isobaric process.
 /// @param n Moles of component in system (mol/s).
 /// @param T1 Initial system temperature (K).
 /// @param T2 Final system temperature (K).
@@ -59,7 +59,7 @@ double IsobTemperature(double n, double T1, double T2);
 #ifndef IsobFinalTemperature_h
 #define IsobFinalTemperature_h
 
-/// This subroutine calculates the final system temperature from the combined gas law modified for an isobaric process
+/// This subroutine calculates the final system temperature from the combined gas law modified for an isobaric process.
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
 /// @param T1 Initial system temperature (K).
@@ -113,7 +113,9 @@ void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, doubl
 /// @param n Moles of component in system (mol/s).
 /// @param profile Isobaric process profile.
 void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile);
-/// Subroutine to ask the user if they would like to save the results of this program to a .txt file.
+
+/// This subroutine is used to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P System pressure (Pa).
 /// @param V1 Initial system volume (m3).
 /// @param V2 Final system volume (m3).
@@ -121,6 +123,6 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
 /// @param T2 Final system temperature (K).
 /// @param n Moles of component in system (mol/s).
 /// @param profile Isobaric process profile.
-void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile);
+void IsobProcSwitch(int mode, double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile);
 
 #endif /* IsobProcWrite_h */

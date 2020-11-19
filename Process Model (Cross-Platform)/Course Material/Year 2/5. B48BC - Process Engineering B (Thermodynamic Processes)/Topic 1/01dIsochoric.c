@@ -300,7 +300,7 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     printf("Write Complete\n");
 }
 
-void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
+void IsocProcSwitch(int mode, double P1, double P2, double V, double T1, double T2, double n, double c_v, T1ThermoProf profile)
 {
     int control = 0;
     
@@ -309,7 +309,12 @@ void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, d
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -318,7 +323,12 @@ void IsocProcWriteSwitch(double P1, double P2, double V, double T1, double T2, d
             case 'Y':
             case 't':
             case 'y':
-                IsocProcWrite(P1, P2, V, T1, T2, n, c_v, profile);
+                if(mode == 1){
+                    IsocProcDisplay(P1, P2, V, T1, T2, n, c_v, profile);
+                }
+                if(mode == 2){
+                    IsocProcWrite(P1, P2, V, T1, T2, n, c_v, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -418,10 +428,10 @@ void Isochoric()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsocProcDisplay(P1, P2, V, T1, T2, n, cv, *profile);
+            IsocProcSwitch(1, P1, P2, V, T1, T2, n, cv, *profile);
             
             //  Writing to File
-            IsocProcWriteSwitch(P1, P2, V, T1, T2, n, cv, *profile);
+            IsocProcSwitch(2, P1, P2, V, T1, T2, n, cv, *profile);
             free(profile);
         }
         //Continue function

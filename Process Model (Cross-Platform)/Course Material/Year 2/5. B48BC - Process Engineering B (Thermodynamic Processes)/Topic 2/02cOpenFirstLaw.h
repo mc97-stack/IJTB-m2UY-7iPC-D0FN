@@ -64,7 +64,7 @@ double OpenFirstLawCalculation(double q, double w_s, T2StateEnergy state1, T2Sta
 #ifndef OpenInitialValue_h
 #define OpenInitialValue_h
 
-/// Subroutine used to calculate the values of velocity and height from the first law applied to an open system.
+/// This subroutine is used to calculate the values of velocity and height from the first law applied to an open system.
 /// @param state State energy contribution.
 /// @param u Fluid velocity.
 /// @param z Fluid height.
@@ -75,7 +75,7 @@ void OpenInitialValue(T2StateEnergy state, double *u, double *z);
 #ifndef OpenFirstLawDisp_h
 #define OpenFirstLawDisp_h
 
-/// Subroutine used to output the input variables and evaluated system state to the user console.
+/// This subroutine is used to output the input variables and evaluated system state to the user console.
 /// @param state1 State 1 energy contribution (J/kmol).
 /// @param state2 State 2 energy contribution (J/kmol).
 /// @param q Process Heat (J/kmol).
@@ -88,7 +88,7 @@ void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, do
 #ifndef OpenFirstLawWrite_h
 #define OpenFirstLawWrite_h
 
-/// Subroutine used to write the input variables and evaluated system state to a .txt file
+/// This subroutine is used to write the input variables and evaluated system state to a .txt file
 /// @param state1 State 1 energy contribution (J/kmol).
 /// @param state2 State 2 energy contribution (J/kmol).
 /// @param q Process Heat (J/kmol).
@@ -96,7 +96,7 @@ void OpenFirstLawDisplay(T2StateEnergy state1,T2StateEnergy state2, double q, do
 /// @param sysstate Inequality between process energy and fluid energy contributions (J/kmol).
 void OpenFirstLawWrite(T2StateEnergy state1,T2StateEnergy state2, double q, double w_s, double sysstate);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// This subroutine is used to ask the user if they would like to save the results of this program to a file.
 /// @param state1 State 1 energy contribution (J/kmol).
 /// @param state2 State 2 energy contribution (J/kmol).
 /// @param q Process Heat (J/kmol).

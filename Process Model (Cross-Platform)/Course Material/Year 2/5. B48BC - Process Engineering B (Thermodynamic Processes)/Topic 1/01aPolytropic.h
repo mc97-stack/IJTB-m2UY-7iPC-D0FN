@@ -151,7 +151,9 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
 void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param V1 Initial system volume (m3).
@@ -162,6 +164,6 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
 /// @param R Specific gas constant (J/ mol.K).
 /// @param alpha Polytropic index ([ ]).
 /// @param profile Process Profile.
-void PolyProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
+void PolyProcSwitch(int mode, double P1, double P2, double V1, double V2, double T1, double T2, double n, double R, double alpha, T1ThermoProf profile);
 
 #endif /* PolyProcWrite_h */

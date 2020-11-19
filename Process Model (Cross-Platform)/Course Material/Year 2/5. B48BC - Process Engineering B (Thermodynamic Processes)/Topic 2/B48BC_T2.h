@@ -31,7 +31,7 @@ typedef struct T2ThermodynamicProfile{
 #ifndef Compressor_h
 #define Compressor_h
 
-/// This subroutine is used to guide the user through the calculations to design a reciprocating processor using a polytropic process.
+/// This subroutine is used to guide the user through the calculations to design a reciprocating processor using a polytropic or isothermal process.
 void Compressor(void);
 
 #endif /* Compressor_h */
@@ -51,11 +51,3 @@ void PolyShaftWork(void);
 void OpenFirstLaw(void);
 
 #endif /* OpenFirstLaw_h */
-
-#ifndef AppFirstLaw_h
-#define AppFirstLaw_h
-
-/// This subroutine guides the user through checking unit operations for whether they are in violation of the first law of thermodynamics. For this course, only the following are discussed: Heat exchanger, Non-adiabatic compression, Pump/compressor in adiabatic operation, Isothermal compression of an ideal gas and Polytropic compression.
-void AppFirstLaw(void);
-
-#endif /* AppFirstLaw_h */

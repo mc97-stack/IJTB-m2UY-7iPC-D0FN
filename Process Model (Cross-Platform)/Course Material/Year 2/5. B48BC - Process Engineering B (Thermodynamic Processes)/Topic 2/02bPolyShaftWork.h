@@ -87,6 +87,7 @@ void PolyShaftDisplay(double n, double R, double T1, double P1, double P2, doubl
 /// @param alpha Polytropic index.
 /// @param W_S Shaft Work (kW).
 void PolyShaftWrite(double n, double R, double T1, double P1, double P2, double alpha, double W_S);
+
 /// Subroutine to ask the user if they would like to save the results of this program to a file.
 /// @param n Moles of component in system (mol/s).
 /// @param R Specific gas constant (J/mol.K).

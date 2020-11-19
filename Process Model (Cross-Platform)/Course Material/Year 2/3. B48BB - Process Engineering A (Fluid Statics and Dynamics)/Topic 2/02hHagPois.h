@@ -34,7 +34,7 @@ void HagPoisVariable(double *u, double *mu, double *L, double *d);
 #ifndef HagPoisCalc_h
 #define HagPoisCalc_h
 
-/// This subroutine is used to collect the data required to calculate the pressure loss of a fluid flowing with laminar properties through the Hagen-Poiseuille equation.
+/// This subroutine is used to calculate the pressure loss of a fluid flowing with laminar properties through the Hagen-Poiseuille equation.
 /// @param u Fluid velocity (m/ s).
 /// @param mu Fluid viscosity (Pa. s).
 /// @param L Horizontal pipe length (m).
@@ -59,7 +59,7 @@ void HagPoisDisplay(double u, double mu, double L, double d, double dP);
 #ifndef HagPoisWrite_h
 #define HagPoisWrite_h
 
-/// This subroutine is used to write the data collected and calculated pressure loss to a .txt file
+/// This subroutine is used to write the data collected and calculated pressure loss to a .txt file.
 /// @param u Fluid velocity (m/s).
 /// @param mu Fluid viscosity (Pa.s).
 /// @param L Pipe length (m).
@@ -67,7 +67,7 @@ void HagPoisDisplay(double u, double mu, double L, double d, double dP);
 /// @param dP Fluid pressure loss (Pa).
 void HagPoisWrite(double u, double mu, double L, double d, double dP);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// This subroutine is used to ask the user if they would like to save the results of this program to a file.
 /// @param u Fluid velocity (m/s).
 /// @param mu Fluid viscosity (Pa.s).
 /// @param L Pipe length (m).

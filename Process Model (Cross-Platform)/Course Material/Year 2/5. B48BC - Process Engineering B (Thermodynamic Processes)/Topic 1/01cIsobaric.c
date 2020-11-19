@@ -289,7 +289,7 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     printf("Write Complete\n");
 }
 
-void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
+void IsobProcSwitch(int mode, double P, double V1, double V2, double T1, double T2, double n, T1ThermoProf profile)
 {
     int control = 0;
     
@@ -298,7 +298,12 @@ void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, d
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -307,7 +312,12 @@ void IsobProcWriteSwitch(double P, double V1, double V2, double T1, double T2, d
             case 'Y':
             case 't':
             case 'y':
-                IsobProcWrite(P, V1, V2, T1, T2, n, profile);
+                if(mode == 1){
+                    IsobProcDisplay(P, V1, V2, T1, T2, n, profile);
+                }
+                if(mode == 2){
+                    IsobProcWrite(P, V1, V2, T1, T2, n, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -407,10 +417,10 @@ void Isobaric()
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IsobProcDisplay(P, V1, V2, T1, T2, n, *profile);
+            IsobProcSwitch(1, P, V1, V2, T1, T2, n, *profile);
             
             //  Writing to File
-            IsobProcWriteSwitch(P, V1, V2, T1, T2, n, *profile);
+            IsobProcSwitch(2, P, V1, V2, T1, T2, n, *profile);
             free(profile);
         }
         //Continue function

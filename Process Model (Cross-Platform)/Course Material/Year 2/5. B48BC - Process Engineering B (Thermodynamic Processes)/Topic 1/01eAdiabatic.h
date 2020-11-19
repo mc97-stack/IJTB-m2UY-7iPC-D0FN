@@ -72,18 +72,6 @@ double AdiaFinalPress(double P1, double V1, double V2, double gamma);
 
 #endif /* AdiaFinalPress_h */
 
-#ifndef AdiaFinalVol_h
-#define AdiaFinalVol_h
-
-/// This subroutine is used to calculate the final volume using the Pressure-Temperature relationship for an adiabat.
-/// @param V1 Initial system volume (m3).
-/// @param P1 Initial system pressure (Pa).
-/// @param P2 Final system pressure (Pa).
-/// @param gamma Heat capacity ratio ([ ]).
-double AdiaFinalVol(double V1, double P1, double P2, double gamma);
-
-#endif /* AdiaFinalVol_h */
-
 #ifndef AdiaFinalTemp_h
 #define AdiaFinalTemp_h
 
@@ -95,6 +83,18 @@ double AdiaFinalVol(double V1, double P1, double P2, double gamma);
 double AdiaFinalTemp(double T1, double P1, double P2, double gamma);
 
 #endif /* AdiaFinalTemp_h */
+
+#ifndef AdiaFinalVol_h
+#define AdiaFinalVol_h
+
+/// This subroutine is used to calculate the final volume using the Pressure-Temperature relationship for an adiabat.
+/// @param V1 Initial system volume (m3).
+/// @param P1 Initial system pressure (Pa).
+/// @param P2 Final system pressure (Pa).
+/// @param gamma Heat capacity ratio ([ ]).
+double AdiaFinalVol(double V1, double P1, double P2, double gamma);
+
+#endif /* AdiaFinalVol_h */
 
 #ifndef AdiaProfile_h
 #define AdiaProfile_h
@@ -149,7 +149,8 @@ void AdiaProcDisplay(double P1, double P2, double V1, double V2, double T1, doub
 /// @param profile Process profile.
 void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
 
-/// Subroutine to ask the user if they would like to save the results of this program to a file.
+/// Subroutine to ask the user if they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Initial system pressure (Pa).
 /// @param P2 Final system pressure (Pa).
 /// @param V1 Initial system volume (m3).
@@ -159,6 +160,6 @@ void AdiaProcWrite(double P1, double P2, double V1, double V2, double T1, double
 /// @param n Moles of component in system (mol/s).
 /// @param gamma Heat capacity ratio ([ ]).
 /// @param profile Process profile.
-void AdiaProcWriteSwitch(double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
+void AdiaProcSwitch(int mode, double P1, double P2, double V1, double V2, double T1, double T2, double n, double gamma, T1ThermoProf profile);
 
 #endif /* AdiaProcWrite_h */

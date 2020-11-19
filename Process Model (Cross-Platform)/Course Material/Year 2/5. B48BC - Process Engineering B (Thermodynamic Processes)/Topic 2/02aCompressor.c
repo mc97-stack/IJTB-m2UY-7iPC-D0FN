@@ -329,7 +329,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     printf("Write Complete\n");
 }
 
-void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
+void CompresSwitch(int mode, double P1, double P2, double Vc, double V1, double V2, double T1, double T2, double n, double R, double alpha, T2CompProfile profile)
 {
     int control = 0;
     control = 1;
@@ -337,7 +337,12 @@ void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, d
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display the results? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -346,7 +351,12 @@ void CompresWriteSwitch(double P1, double P2, double Vc, double V1, double V2, d
             case 'Y':
             case 't':
             case 'y':
-                CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+                if(mode == 1){
+                    CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+                }
+                if(mode == 2){
+                    CompresWrite(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, profile);
+                }
                 control = 0;
                 break;
             case '0':
@@ -455,10 +465,10 @@ void Compressor(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            CompresDisplay(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
+            CompresSwitch(1, P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
             
             //  Writing to File
-            CompresWriteSwitch(P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
+            CompresSwitch(2, P1, P2, Vc, V1, V2, T1, T2, n, R, alpha, *profile);
             free(profile);
         }
         //  Continue function

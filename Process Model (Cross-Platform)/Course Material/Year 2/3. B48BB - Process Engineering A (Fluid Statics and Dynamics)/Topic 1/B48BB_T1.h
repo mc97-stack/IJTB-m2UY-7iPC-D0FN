@@ -22,7 +22,7 @@
 #ifndef FluComp_h
 #define FluComp_h
 
-/// This subroutine guides the user through gathering the data and calculation of the fluid coefficient of compressibility derived from the ideal gas law..
+/// This subroutine guides the user through gathering the data and calculation of the fluid coefficient of compressibility derived from the ideal gas law.
 void CoefficientofCompressibility(void);
 
 #endif /* FluComp_h */
@@ -46,7 +46,7 @@ void Manometer(void);
 #ifndef SurfTens_h
 #define SurfTens_h
 
-/// This subroutine guides the user through gathering the data and calculation of  the force required to break a fluid's surface through the Du Nouy ring method. This function calls "BubPresCalc" from "01eBubPres.c" to calculate the internal pressure of some bubble containing the fluid under analysis and "CappCalch" and "CappCalcP" located in "01fCapp.c" to calculate the cappillary rise and pressure respectively.
+/// This subroutine guides the user through gathering the data and calculation of  the force required to break a fluid's surface through the du Nouy ring method.
 void SurfaceTension(void);
 
 #endif /* SurfTens_h */
@@ -54,7 +54,7 @@ void SurfaceTension(void);
 #ifndef BubPres_h
 #define BubPres_h
 
-/// This subroutine guides the user through gathering the data and calculation of  the pressure of a bubble using the fluid surface tension.
+/// This subroutine guides the user through gathering the data and calculation of bubble pressure using the fluid surface tension.
 void BubblePressure(void);
 
 #endif /* BubPres_h */
@@ -62,7 +62,7 @@ void BubblePressure(void);
 #ifndef Capp_h
 #define Capp_h
 
-/// This subroutine guides the user through gathering the data and calculation of  capillarity effects from surface tension data.
+/// This subroutine guides the user through gathering the data and calculation of capillarity effects from surface tension data.
 void Cappilarity(void);
 
 #endif /* Capp_h */

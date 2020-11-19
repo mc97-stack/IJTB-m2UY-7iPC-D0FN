@@ -110,7 +110,8 @@ void CarnotDisplay(double P1, double P2, double P3, double P4, double THot, doub
 /// @param qcold Heat removed from the process (kW).
 void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold);
 
-/// This subroutine is used to ask the user whether they would like to write the inputted parameters, calculated variables and generated profile to a .txt file.
+/// This subroutine is used to ask the user whether they would like to either display the results on the console or save the results of this program to a file.
+/// @param mode Integer used to control whether this function will access the display (1) or write (2) function.
 /// @param P1 Fluid pressure prior to entry to pump (Pa).
 /// @param P2 Fluid pressure prior to entry to boiler (Pa).
 /// @param P3 Fluid pressure prior to entry to turbine (Pa).
@@ -124,6 +125,6 @@ void CarnotWrite(double P1, double P2, double P3, double P4, double THot, double
 /// @param worknet Net work (kW).
 /// @param qhot Heat supplied to the process (kW).
 /// @param qcold Heat removed from the process (kW).
-void CarnotWriteSwitch(double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold);
+void CarnotSwitch(int mode, double P1, double P2, double P3, double P4, double THot, double TCold, double n, double gamma1, double gamma2, T4CarnotProfile profile, double worknet, double qhot, double qcold);
 
 #endif /* _4cCarnotCycleWrite_h */

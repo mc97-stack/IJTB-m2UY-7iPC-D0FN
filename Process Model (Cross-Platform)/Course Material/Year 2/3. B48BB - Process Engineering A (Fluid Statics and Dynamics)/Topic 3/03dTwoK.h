@@ -53,7 +53,7 @@ TwoKFittings TwoKVariable(TwoKFittings table, double *rho, double *u, double *d,
 #ifndef TwoKCalc_h
 #define TwoKCalc_h
 
-/// This subroutine is used to calculate the resistance coefficient as stipulated by the 2K method.
+/// This subroutine is used to calculate the resistance coefficient with the 2K method.
 /// @param Re Reynolds number ([ ])
 /// @param d Internal pipe diameter (inches)
 /// @param k1 Resistance Coefficient at Re = 1.
@@ -86,7 +86,7 @@ TwoKFittings TwoKFinalTable(TwoKFittings data, double rho, double u, double d, d
 #ifndef TwoKDisp_h
 #define TwoKDisp_h
 
-/// This subroutine is used to display the collected data and generated datatable on the user console.
+/// This subroutine is used to display the collected data and generated data table on the user console.
 /// @param data Table containing collected data and calculated parameters.
 /// @param rho Fluid density (kg/m3)
 /// @param u Fluid velocity (m/s)
@@ -113,7 +113,7 @@ void TwoKDisplay(TwoKFittings data, double rho, double u, double d, double mu, d
 /// @param TotalH Total head loss (m)
 void TwoKWrite(TwoKFittings data, double rho, double u, double d, double mu, double Re, double TotalP, double TotalH);
 
-/// This subroutine is used to ask the user if they would like to write the generated dataset and calculated parameters to a .txt file.
+/// This subroutine is used to ask the user if they would like to write the generated dataset and calculated parameters to a file.
 /// @param data Table containing collected data and calculated parameters.
 /// @param rho Fluid density (kg/m3)
 /// @param u Fluid velocity (m/s)

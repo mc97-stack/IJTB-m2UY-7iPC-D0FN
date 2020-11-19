@@ -91,8 +91,6 @@ double LiquidViscCalculation(double a, double b, double T)
     mu = pow(exp, (frac));
     
     mu = a*(mu);
-    
-    printf("Liquid viscosity = %.3f [Units]\n", mu);
     return mu;
 }
 
@@ -109,18 +107,12 @@ double VapourViscCalculation(double a, double b, double T)
     bot = b + T;
     
     mu = (top)/(bot);
-    
-    printf("Vapour viscosity = %.3f [Units]\n", mu);
     return mu;
 }
 
 double KineticVisc(double mu, double rho)
 {
-    double upsi = 0.0;
-    
-    upsi = (mu)/(rho);
-    printf("Kinematic viscosity = %.3f [Units]\n", upsi);
-    return upsi;
+    return mu/rho;
 }
 
 /// MARK: DISPLAY AND WRITE

@@ -200,7 +200,7 @@ void EnerConDisplay(double h1, double h2, double u1, double u2, double z1, doubl
     {
         printf("Your process should work in reality\n");
     }else{
-        printf("Your process breaks the first law\n");
+        printf("Your process is not at steady-state\n");
     }
     fflush(stdout);
 }
@@ -291,7 +291,7 @@ void EnerConWrite(double h1, double h2, double u1, double u2, double z1, double 
     {
         fprintf(fp, "Your process should work in reality\n");
     }else{
-        fprintf(fp, "Your process breaks the first law\n");
+        fprintf(fp, "Your process is not at steady-state\n");
     }
     
     //  Close file

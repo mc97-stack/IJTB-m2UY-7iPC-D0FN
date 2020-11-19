@@ -35,7 +35,6 @@
 /// MARK: SUBROUTINE DEFINITIONS
 #define maxstrlen 128
 #define R 8.31455
-#define BST (+1)
 
 /// MARK: VARIABLE INPUT
 void FluCompVariable(double *P, double *V, double *n, double *T)
