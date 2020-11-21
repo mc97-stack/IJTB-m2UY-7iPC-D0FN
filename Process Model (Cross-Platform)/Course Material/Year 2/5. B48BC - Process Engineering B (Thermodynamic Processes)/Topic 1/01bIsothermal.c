@@ -178,17 +178,17 @@ void IsotProcDisplay(double P1, double P2, double V1, double V2, double T, doubl
     
     printf("_Isothermal_Process_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
+    printf("Initial system pressure:\n");
     printf("P1 =\t%.3f\tkPa\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    printf("Initial system volume: ");
+    printf("Initial system volume:\n");
     printf("V1 =\t%.3f\tm3\n", V1);
-    printf("Final system volume: ");
+    printf("Final system volume:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("System temperature: ");
+    printf("System temperature:\n");
     printf("T =\t%.3f\tdeg C\n\n", T - 273.15);
     
     printf("_System-Specific_parameters:_\n");
@@ -266,17 +266,17 @@ void IsotProcWrite(double P1, double P2, double V1, double V2, double T, double 
     
     fprintf(fp, "_Isothermal_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "Initial system volume:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "System temperature: ");
+    fprintf(fp, "System temperature:\n");
     fprintf(fp, "T =\t%.3f\tdeg C\n\n", T - 273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");

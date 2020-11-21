@@ -226,21 +226,21 @@ void MSCompDisplay(double P1, double P2, double Vc, double V1, double V2, double
 {
     printf("_Multistage_Compressor_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
+    printf("Initial system pressure:\n");
     printf("P1 =\t%.3f\tkPa\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     printf("Clearance volume:\n");
     printf("Vc =\t%.3f\tm3\n", Vc);
-    printf("Initial system volume before compression: ");
+    printf("Initial system volume before compression:\n");
     printf("V1 =\t%.3f\tm3\n", V1);
-    printf("Final system volume after compression: ");
+    printf("Final system volume after compression:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("Initial system temperature: ");
+    printf("Initial system temperature:\n");
     printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
-    printf("Final system temperature: ");
+    printf("Final system temperature:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("Molar flowrate of component i:\n");
@@ -315,21 +315,21 @@ void MSCompWrite(double P1, double P2, double Vc, double V1, double V2, double T
     //  Write to file
     fprintf(fp, "_Multistage_Compressor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     fprintf(fp, "Clearance volume:\n");
     fprintf(fp, "Vc =\t%.3f\tm3\n", Vc);
-    fprintf(fp, "Initial system volume before compression: ");
+    fprintf(fp, "Initial system volume before compression:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
-    fprintf(fp, "Final system volume after compression: ");
+    fprintf(fp, "Final system volume after compression:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
-    fprintf(fp, "Final system temperature: ");
+    fprintf(fp, "Final system temperature:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "Molar flowrate of component i:\n");

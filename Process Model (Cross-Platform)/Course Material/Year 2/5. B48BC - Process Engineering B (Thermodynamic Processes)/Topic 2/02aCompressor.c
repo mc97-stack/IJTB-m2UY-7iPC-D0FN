@@ -179,21 +179,21 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
 {
     printf("_Reciprocating_Compressor_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
+    printf("Initial system pressure:\n");
     printf("P1 =\t%.3f\tkPa\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     printf("Clearance volume:\n");
     printf("Vc =\t%.3f\tm3\n", Vc);
-    printf("System volume before compression: ");
+    printf("System volume before compression:\n");
     printf("V1 =\t%.3f\tm3\n", V1);
-    printf("System volume after compression: ");
+    printf("System volume after compression:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("Initial system temperature: ");
+    printf("Initial system temperature:\n");
     printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
-    printf("Final system volume: ");
+    printf("Final system volume:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("_System-Specific_parameters:_\n");
@@ -277,21 +277,21 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     //  Write to file
     fprintf(fp, "_Reciprocating_Compressor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     fprintf(fp, "Clearance volume:\n");
     fprintf(fp, "Vc =\t%.3f\tm3\n", Vc);
-    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "Initial system volume:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");

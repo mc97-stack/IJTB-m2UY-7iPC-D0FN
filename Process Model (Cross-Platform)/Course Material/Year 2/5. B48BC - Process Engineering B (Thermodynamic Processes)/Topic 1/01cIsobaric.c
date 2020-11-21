@@ -160,17 +160,17 @@ void IsobProcDisplay(double P, double V1, double V2, double T1, double T2, doubl
     
     printf("_Isobaric_Process_Results_\n");
     printf("\tInput parameters:\n");
-    printf("System pressure: ");
+    printf("System pressure:\n");
     printf("P =\t%.3f\tkPa\n\n", P*0.001);
     
-    printf("Initial system volume: ");
+    printf("Initial system volume:\n");
     printf("V1 =\t%.3f\tm3\n", V1);
-    printf("Final system volume: ");
+    printf("Final system volume:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("Initial system temperature: ");
+    printf("Initial system temperature:\n");
     printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
-    printf("Final system volume: ");
+    printf("Final system volume:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("_System-Specific_parameters:_\n");
@@ -249,17 +249,17 @@ void IsobProcWrite(double P, double V1, double V2, double T1, double T2, double 
     
     fprintf(fp, "_Isobaric_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "System pressure: ");
+    fprintf(fp, "System pressure:\n");
     fprintf(fp, "P =\t%.3f\tkPa\n\n", P*0.001);
     
-    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "Initial system volume:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system temperature:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");
