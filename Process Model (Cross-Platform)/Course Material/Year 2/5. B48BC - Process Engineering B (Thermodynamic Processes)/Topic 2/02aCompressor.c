@@ -79,7 +79,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     if(method == 1 || method == 2){
         *Vc = inputDouble(0, 0, "clearance volume", "m3");
         
-        *V1 = inputDouble(0, 0, "maximum system volume before compression", "m3");
+        *V1 = IdealVolume(*n, *P1, *T1);
     }
     
     if(method == 1){
@@ -179,27 +179,27 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
 {
     printf("_Reciprocating_Compressor_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
+    printf("Initial system pressure:\n");
     printf("P1 =\t%.3f\tkPa\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     printf("Clearance volume:\n");
     printf("Vc =\t%.3f\tm3\n", Vc);
-    printf("System volume before compression: ");
+    printf("System volume before compression:\n");
     printf("V1 =\t%.3f\tm3\n", V1);
-    printf("System volume after compression: ");
+    printf("System volume after compression:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("Initial system temperature: ");
+    printf("Initial system temperature:\n");
     printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
-    printf("Final system volume: ");
+    printf("Final system volume:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("_System-Specific_parameters:_\n");
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
-    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+    if( fabs( R - (8.3145) ) <= 0.0005 ){
         printf("Universal Gas Constant:\n");
         printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
@@ -277,28 +277,28 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     //  Write to file
     fprintf(fp, "_Reciprocating_Compressor_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
     fprintf(fp, "Clearance volume:\n");
     fprintf(fp, "Vc =\t%.3f\tm3\n", Vc);
-    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "Initial system volume:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n", V1);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n", T1-273.15);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");
     
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
-    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+    if( fabs( R - (8.3145) ) < 0.0005 ){
         fprintf(fp, "Universal Gas Constant:\n");
         fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{

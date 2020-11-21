@@ -254,19 +254,19 @@ void PolyProcDisp(double P1, double P2, double V1, double V2, double T1, double 
     
     printf("_Polytropic_Process_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
-    printf("P1 =\t%.3f\tkPa\n\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Initial system pressure:\n");
+    printf("P1 =\t%.3f\tkPa\n", P1*0.001);
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    printf("Initial system volume: ");
-    printf("V1 =\t%.3f\tm3\n\n", V1);
-    printf("Final system volume: ");
+    printf("Initial system volume:\n");
+    printf("V1 =\t%.3f\tm3\n", V1);
+    printf("Final system volume:\n");
     printf("V2 =\t%.3f\tm3\n\n", V2);
     
-    printf("Initial system temperature: ");
-    printf("T1 =\t%.3f\tdeg C\n\n", T1-273.15);
-    printf("Final system volume: ");
+    printf("Initial system temperature:\n");
+    printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
+    printf("Final system temperature:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("_System-Specific_parameters:_\n");
@@ -354,19 +354,19 @@ void PolyProcWrite(double P1, double P2, double V1, double V2, double T1, double
     
     fprintf(fp, "_Polytropic_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    fprintf(fp, "Initial system volume: ");
+    fprintf(fp, "Initial system volume:\n");
     fprintf(fp, "V1 =\t%.3f\tm3\n\n", V1);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system volume:\n");
     fprintf(fp, "V2 =\t%.3f\tm3\n\n", V2);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system temperature:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");

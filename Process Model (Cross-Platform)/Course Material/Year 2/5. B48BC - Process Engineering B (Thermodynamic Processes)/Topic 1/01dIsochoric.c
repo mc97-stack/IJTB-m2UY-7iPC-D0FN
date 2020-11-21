@@ -74,7 +74,6 @@ double IsocPressure(double P1, double P2, double V, double n, double cv)
     
     heat = V/R;
     heat = (heat)*brack;
-    heat = (heat)*n;
     heat = (heat)*cv;
     
     return heat;
@@ -170,17 +169,17 @@ void IsocProcDisplay(double P1, double P2, double V, double T1, double T2, doubl
     
     printf("_Isochoric_Process_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Initial system pressure: ");
+    printf("Initial system pressure:\n");
     printf("P1 =\t%.3f\tkPa\n", P1*0.001);
-    printf("Final system pressure: ");
+    printf("Final system pressure:\n");
     printf("P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    printf("System volume: ");
+    printf("System volume:\n");
     printf("V =\t%.3f\tm3\n\n", V);
     
-    printf("Initial system temperature: ");
+    printf("Initial system temperature:\n");
     printf("T1 =\t%.3f\tdeg C\n", T1-273.15);
-    printf("Final system volume: ");
+    printf("Final system temperature:\n");
     printf("T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     printf("_System-Specific_parameters:_\n");
@@ -259,17 +258,17 @@ void IsocProcWrite(double P1, double P2, double V, double T1, double T2, double 
     
     fprintf(fp, "_Isochoric_Process_Results_\n");
     fprintf(fp, "\tInput parameters:\n");
-    fprintf(fp, "Initial system pressure: ");
+    fprintf(fp, "Initial system pressure:\n");
     fprintf(fp, "P1 =\t%.3f\tkPa\n\n", P1*0.001);
-    fprintf(fp, "Final system pressure: ");
+    fprintf(fp, "Final system pressure:\n");
     fprintf(fp, "P2 =\t%.3f\tkPa\n\n", P2*0.001);
     
-    fprintf(fp, "System volume: ");
+    fprintf(fp, "System volume:\n");
     fprintf(fp, "V =\t%.3f\tm3\n\n", V);
     
-    fprintf(fp, "Initial system temperature: ");
+    fprintf(fp, "Initial system temperature:\n");
     fprintf(fp, "T1 =\t%.3f\tdeg C\n\n", T1-273.15);
-    fprintf(fp, "Final system volume: ");
+    fprintf(fp, "Final system temperature:\n");
     fprintf(fp, "T2 =\t%.3f\tdeg C\n\n", T2-273.15);
     
     fprintf(fp, "_System-Specific_parameters:_\n");

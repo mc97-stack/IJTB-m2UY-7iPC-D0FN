@@ -79,7 +79,7 @@ void IdealEOSDisplay(double T, EOSIsotherm data)
 {
     printf("_Ideal_Gas_Equation_of_State_Results_\n");
     printf("\tInput parameters:\n");
-    printf("Isotherm produced at:");
+    printf("Isotherm produced at:\n");
     printf("T =\t%.3f\tK\n\n", T);
     
     printf("\tOutput parameters:\n");
