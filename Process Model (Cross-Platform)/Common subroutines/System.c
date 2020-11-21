@@ -51,14 +51,19 @@ double inputDouble(int allowZero, int allowNeg, char VariableName[], char Units[
         input = atof(fgets(value, sizeof(value), stdin));
         if(allowZero == 0 && input == 0.0){
             printf("This variable must have a non-zero value. Please enter a different value.\n");
+            goto skip;
         }else{
-            // Do nothing
+            if(allowNeg == 1){
+                control = 0;
+                goto skip;
+            }
         }
         if(allowNeg == 0 && input < 0.0){
             printf("This variable must have a positive value. Please enter a different value.\n");
         }else{
             control = 0;    // Break the while loop.
         }
+    skip:   printf("");
     }
     fflush(stdout);
     return input;
