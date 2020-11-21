@@ -40,12 +40,12 @@ double inputDouble(int allowZero, int allowNeg, char VariableName[], char Units[
     control = 1;
     while(control == 1)
     {
-        printf("Please enter a value for %s ", VariableName);
-        if(Units == NULL)
+        printf("Please enter a value for %s", VariableName);
+        if(Units == "")
         {
             printf(": ");
         }else{
-            printf("(%s): ", Units);
+            printf(" (%s): ", Units);
         }
         
         input = atof(fgets(value, sizeof(value), stdin));
