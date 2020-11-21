@@ -199,7 +199,7 @@ void CompresDisplay(double P1, double P2, double Vc, double V1, double V2, doubl
     printf("_System-Specific_parameters:_\n");
     printf("Molar flowrate of component i:\n");
     printf("n =\t%.3f\tkmol/s\n", n*0.001);
-    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+    if( fabs( R - (8.3145) ) <= 0.0005 ){
         printf("Universal Gas Constant:\n");
         printf("R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
@@ -298,7 +298,7 @@ void CompresWrite(double P1, double P2, double Vc, double V1, double V2, double 
     
     fprintf(fp, "Molar flowrate of component i:\n");
     fprintf(fp, "n =\t%.3f\tkmol/s\n", n*0.001);
-    if( (fabs( R - (8.3145) ) < 0.001 && ((R >= 8.3140) || (R < 8.31449 && R < 8.31451))) ){
+    if( fabs( R - (8.3145) ) < 0.0005 ){
         fprintf(fp, "Universal Gas Constant:\n");
         fprintf(fp, "R =\t%.4f\tJ/(mol. K)\n\n", R);
     }else{
