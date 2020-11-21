@@ -64,7 +64,6 @@
 		E8EAD9FA25650B9D00AD1BF5 /* License.c in Sources */ = {isa = PBXBuildFile; fileRef = E8EAD9F925650B9D00AD1BF5 /* License.c */; };
 		E8F2399625517FF2000EE365 /* 03CubicEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399525517FF2000EE365 /* 03CubicEOS.c */; };
 		E8F2399A25518BDD000EE365 /* 03CubicEOSConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399925518BDD000EE365 /* 03CubicEOSConstants.c */; };
-		E8F30BBF2550CD230086027C /* 01CriticalProperty.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BBE2550CD230086027C /* 01CriticalProperty.c */; };
 		E8F30BC32550CD8D0086027C /* 02AcentricFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */; };
 		E8F30BC72550CDAF0086027C /* 03BoilingFreezingPoint.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BC62550CDAF0086027C /* 03BoilingFreezingPoint.c */; };
 		E8F30BCC2550D61F0086027C /* 01PureComponent.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BCB2550D61F0086027C /* 01PureComponent.c */; };
@@ -184,8 +183,6 @@
 		E8F2399525517FF2000EE365 /* 03CubicEOS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03CubicEOS.c; sourceTree = "<group>"; };
 		E8F2399925518BDD000EE365 /* 03CubicEOSConstants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03CubicEOSConstants.c; sourceTree = "<group>"; };
 		E8F30BB82550AC7F0086027C /* 02Compressibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02Compressibility.h; sourceTree = "<group>"; };
-		E8F30BBD2550CD230086027C /* 01CriticalProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01CriticalProperty.h; sourceTree = "<group>"; };
-		E8F30BBE2550CD230086027C /* 01CriticalProperty.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01CriticalProperty.c; sourceTree = "<group>"; };
 		E8F30BC12550CD8D0086027C /* 02AcentricFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02AcentricFactor.h; sourceTree = "<group>"; };
 		E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02AcentricFactor.c; sourceTree = "<group>"; };
 		E8F30BC52550CDAF0086027C /* 03BoilingFreezingPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03BoilingFreezingPoint.h; sourceTree = "<group>"; };
@@ -229,8 +226,6 @@
 		E8B56235254F25FA0068DCFA /* 01 Pure Component Constants */ = {
 			isa = PBXGroup;
 			children = (
-				E8F30BBE2550CD230086027C /* 01CriticalProperty.c */,
-				E8F30BBD2550CD230086027C /* 01CriticalProperty.h */,
 				E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */,
 				E8F30BC12550CD8D0086027C /* 02AcentricFactor.h */,
 				E8F30BC62550CDAF0086027C /* 03BoilingFreezingPoint.c */,
@@ -938,7 +933,6 @@
 				E8B15571251BEB4B00808CE9 /* 03dEquivLeng.c in Sources */,
 				E8B1556F251BEB4400808CE9 /* 03dThreeK.c in Sources */,
 				E8B1556D251BEB3E00808CE9 /* 03d1Fittings.c in Sources */,
-				E8F30BBF2550CD230086027C /* 01CriticalProperty.c in Sources */,
 				E8B56250254F7B6F0068DCFA /* 01IdealGas.c in Sources */,
 				E8B667552530C1E200D1ADB8 /* 03bGenPressureLoss.c in Sources */,
 				E83F1D192548C5EC00683190 /* 03aJTEffect.c in Sources */,
