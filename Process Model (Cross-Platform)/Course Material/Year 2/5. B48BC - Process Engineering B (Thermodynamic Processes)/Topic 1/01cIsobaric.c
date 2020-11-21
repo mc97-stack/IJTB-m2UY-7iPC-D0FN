@@ -79,6 +79,7 @@ double IsobTemperature(double n, double T1, double T2)
     work = T2 - T1;
     work = R*(work);
     work = n*(work);
+    work = -1 *(work);
     
     return work;
 }
