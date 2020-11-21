@@ -23,6 +23,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 //  Custom header files.
@@ -41,7 +42,7 @@ double inputDouble(int allowZero, int allowNeg, char VariableName[], char Units[
     while(control == 1)
     {
         printf("Please enter a value for %s", VariableName);
-        if(Units == "")
+        if(strcmp(Units, "") == 0)
         {
             printf(": ");
         }else{
