@@ -65,7 +65,6 @@
 		E8F2399625517FF2000EE365 /* 03CubicEOS.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399525517FF2000EE365 /* 03CubicEOS.c */; };
 		E8F2399A25518BDD000EE365 /* 03CubicEOSConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F2399925518BDD000EE365 /* 03CubicEOSConstants.c */; };
 		E8F30BC32550CD8D0086027C /* 02AcentricFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */; };
-		E8F30BC72550CDAF0086027C /* 03BoilingFreezingPoint.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BC62550CDAF0086027C /* 03BoilingFreezingPoint.c */; };
 		E8F30BCC2550D61F0086027C /* 01PureComponent.c in Sources */ = {isa = PBXBuildFile; fileRef = E8F30BCB2550D61F0086027C /* 01PureComponent.c */; };
 /* End PBXBuildFile section */
 
@@ -185,8 +184,6 @@
 		E8F30BB82550AC7F0086027C /* 02Compressibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02Compressibility.h; sourceTree = "<group>"; };
 		E8F30BC12550CD8D0086027C /* 02AcentricFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 02AcentricFactor.h; sourceTree = "<group>"; };
 		E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 02AcentricFactor.c; sourceTree = "<group>"; };
-		E8F30BC52550CDAF0086027C /* 03BoilingFreezingPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 03BoilingFreezingPoint.h; sourceTree = "<group>"; };
-		E8F30BC62550CDAF0086027C /* 03BoilingFreezingPoint.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 03BoilingFreezingPoint.c; sourceTree = "<group>"; };
 		E8F30BCA2550D61F0086027C /* 01PureComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 01PureComponent.h; sourceTree = "<group>"; };
 		E8F30BCB2550D61F0086027C /* 01PureComponent.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = 01PureComponent.c; sourceTree = "<group>"; };
 		E8FEA5FD24ECDAE9003F9D5E /* Process Model (Cross-Platform) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Process Model (Cross-Platform)"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,8 +225,6 @@
 			children = (
 				E8F30BC22550CD8D0086027C /* 02AcentricFactor.c */,
 				E8F30BC12550CD8D0086027C /* 02AcentricFactor.h */,
-				E8F30BC62550CDAF0086027C /* 03BoilingFreezingPoint.c */,
-				E8F30BC52550CDAF0086027C /* 03BoilingFreezingPoint.h */,
 				E8F30BCA2550D61F0086027C /* 01PureComponent.h */,
 				E8F30BCB2550D61F0086027C /* 01PureComponent.c */,
 			);
@@ -918,7 +913,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8F30BC72550CDAF0086027C /* 03BoilingFreezingPoint.c in Sources */,
 				E8B15585251BEBA900808CE9 /* B48BB.c in Sources */,
 				E8B15583251BEBA000808CE9 /* B48BC.c in Sources */,
 				E871B9A6254DDE5400B76802 /* 04dClausiusInequality.c in Sources */,
