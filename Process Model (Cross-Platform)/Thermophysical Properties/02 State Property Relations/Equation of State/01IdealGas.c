@@ -168,7 +168,7 @@ void IdealEOSWrite(double T, EOSIsotherm data)
     printf("Write Complete\n");
 }
 
-void IdealEOSWriteSwitch(double T, EOSIsotherm data)
+void IdealEOSSwitch(int mode, double T, EOSIsotherm data)
 {
     int control = 0;
     
@@ -177,7 +177,12 @@ void IdealEOSWriteSwitch(double T, EOSIsotherm data)
     {
         char input[maxstrlen];
         
-        printf("Do you want to save results to file? ");
+        if(mode == 1){
+            printf("Do you want to display results on screen? ");
+        }
+        if(mode == 2){
+            printf("Do you want to save results to file? ");
+        }
         fgets(input, sizeof(input), stdin);
         switch(input[0])
         {
@@ -186,7 +191,12 @@ void IdealEOSWriteSwitch(double T, EOSIsotherm data)
             case 'Y':
             case 't':
             case 'y':
-                IdealEOSWrite(T, data);
+                if(mode == 1){
+                    IdealEOSDisplay(T, data);
+                }
+                if(mode == 2){
+                    IdealEOSWrite(T, data);
+                }
                 control = 0;
                 break;
             case '0':
@@ -248,10 +258,10 @@ void IdealEOS(void)
             printf("Calculations completed in %.6f seconds.\n", elapsed);
             
             //  Displaying results
-            IdealEOSDisplay(T, *data);
+            IdealEOSSwitch(1, T, *data);
             
             //  Writing to File
-            IdealEOSWriteSwitch(T, *data);
+            IdealEOSSwitch(2, T, *data);
             
             free((void*)data);
             
