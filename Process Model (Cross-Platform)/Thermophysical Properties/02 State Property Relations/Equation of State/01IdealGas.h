@@ -60,9 +60,10 @@ void IdealEOSDisplay(double T, EOSIsotherm data);
 /// @param data Isotherm.
 void IdealEOSWrite(double T, EOSIsotherm data);
 
-/// This subroutine is used to ask the user whether they would like to save the inputted parameter and generated isotherm to a .txt file.
+/// This subroutine is used to ask whether the user would like to display or write the calculated subroutine results either to the user console or a .txt file.
+/// @param mode This variable is used to control whether the display or write functions are performed. (1) = Display. (2) = Write.
 /// @param T Isotherm temperature (K).
 /// @param data Isotherm.
-void IdealEOSWriteSwitch(double T, EOSIsotherm data);
+void IdealEOSSwitch(int mode, double T, EOSIsotherm data);
 
 #endif /* _1IdealGasWrite_h */
