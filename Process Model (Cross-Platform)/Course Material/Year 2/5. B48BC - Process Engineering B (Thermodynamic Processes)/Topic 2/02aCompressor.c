@@ -79,7 +79,7 @@ void CompressorVariable(int method, double *P1, double *P2, double *Vc, double *
     if(method == 1 || method == 2){
         *Vc = inputDouble(0, 0, "clearance volume", "m3");
         
-        *V1 = inputDouble(0, 0, "maximum system volume before compression", "m3");
+        *V1 = IdealVolume(*n, *P1, *T1);
     }
     
     if(method == 1){
