@@ -23,9 +23,9 @@
 #define _2CompressibilityCalculation_h
 
 typedef struct ZFactor{
-    double Z[1000];
-    double P[1000];
-    double T[1000];
+    double Z[2501];
+    double P[2501];
+    double T[2501];
 } ZFactor;
 
 /// This subroutine is used to calculate the isotherm for a Compressibility-factor graph for a non-polar molecule.
