@@ -67,7 +67,6 @@ double IsobVolume(double P, double V1, double V2)
     
     work = V2 - V1;
     work = P*(work);
-    work = -1*(work);
     
     return work;
 }
