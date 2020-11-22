@@ -9,11 +9,7 @@ Documentation can be found in ~/Process Model (Cross-Platform)/DOCUMENTATION.pdf
 Development status: N/A.
 Repository visibility status: Public.
 
-**This repository has been moved to "https://github.com/mc97-stack/MDlr3Fczwma44FuS".**
-
-Features currently available:
-- Topics 1 - 4 of B48BB (Process Engineering A (Fluid Statics and Dynamics))
-- Topics 1 - 4 of B48BC (Process Engineering B (Thermodynamic Processes))
+**This repository has been moved to: "https://github.com/mc97-stack/QL83-49EH-0NcW-eHV6" due to project file corruption.**
 
 ##  Known bugs
 Please refer to https://github.com/mc97-stack/IJTB-m2UY-7iPC-D0FN/issues for updates on known bugs and to report a bug.
